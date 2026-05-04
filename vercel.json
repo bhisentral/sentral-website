@@ -1,0 +1,10 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/stay", "destination": "/stay-with-us" },
+    { "source": "/live", "destination": "/live-with-us" },
+    { "source": "/partner", "destination": "/partner-with-us" },
+    { "source": "/experience", "destination": "/the-experience" }
+  ]
+}
