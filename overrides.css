@@ -222,6 +222,68 @@ body[class*="sentralplus"] .hero-eyebrow,
   color: var(--black) !important;
 }
 
+/* --- Reserved gold: SentralPlus floating CTAs (Join + Login) ---
+   These are member actions, so per §1.3 governance they keep
+   metallic gold rather than forest. */
+
+/* Floating "Join SentralPlus" button (bottom-right) */
+.sp-sticky-join,
+a.sp-sticky-join {
+  background: var(--metallic) !important;
+  color: #2a1f10 !important;   /* deep bronze text on gold — passes AAA */
+  border: none !important;
+}
+.sp-sticky-join:hover {
+  background: #d9cbb0 !important;
+}
+
+/* Floating "Login" button (bottom-right) */
+.sp-sticky-login,
+a.sp-sticky-login {
+  background: rgba(10, 8, 6, 0.88) !important;
+  color: rgba(200, 184, 154, 0.95) !important;
+  border: 1px solid rgba(200, 184, 154, 0.35) !important;
+}
+.sp-sticky-login:hover {
+  border-color: var(--metallic) !important;
+  color: var(--white) !important;
+}
+
+/* SentralPlus combo-section CTA ("Join SentralPlus") */
+.combo-btn-p,
+a.combo-btn-p {
+  background: var(--metallic) !important;
+  color: var(--black) !important;
+}
+.combo-btn-p:hover {
+  background: #d9cbb0 !important;
+}
+
+/* Inline footer / utility SentralPlus bar buttons */
+.splus-bar-join,
+a.splus-bar-join {
+  background: var(--metallic) !important;
+  color: #2a1f10 !important;
+  border: none !important;
+}
+.splus-bar-join:hover {
+  background: #d9cbb0 !important;
+}
+.splus-bar-login,
+a.splus-bar-login {
+  color: rgba(200, 184, 154, 0.95) !important;
+  border-color: rgba(200, 184, 154, 0.35) !important;
+}
+.splus-bar-login:hover {
+  border-color: var(--metallic) !important;
+  color: var(--white) !important;
+}
+
+/* SentralPlus eyebrow on the homepage's combined section */
+.combo-eyebrow {
+  color: var(--metallic) !important;
+}
+
 /* Award eyebrow — deep gold on cream (passes AA at 14px+) */
 .award-card .eyebrow,
 .award-eyebrow,
