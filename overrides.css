@@ -279,9 +279,25 @@ a.splus-bar-login {
   color: var(--white) !important;
 }
 
-/* SentralPlus eyebrow on the homepage's combined section */
-.combo-eyebrow {
+/* SentralPlus side of the homepage combo-section — full gold treatment.
+   Scoped to .combo-right specifically so the .combo-left side
+   ("Resident travel benefit") stays in forest. Selectors are written
+   with enough specificity (3+ classes + 1 element) to win against
+   the generic section eyebrow rule earlier in this file. */
+
+section.combo-section .combo-right .combo-eyebrow {
   color: var(--metallic) !important;
+}
+section.combo-section .combo-right .sbi-dot {
+  background: var(--metallic) !important;
+}
+section.combo-section .combo-right .combo-btn-g {
+  border-color: rgba(200, 184, 154, 0.40) !important;
+  color: rgba(200, 184, 154, 0.92) !important;
+}
+section.combo-section .combo-right .combo-btn-g:hover {
+  border-color: var(--metallic) !important;
+  color: var(--white) !important;
 }
 
 /* Award eyebrow — deep gold on cream (passes AA at 14px+) */
