@@ -5,6 +5,17 @@
     { "source": "/stay", "destination": "/stay-with-us" },
     { "source": "/live", "destination": "/live-with-us" },
     { "source": "/partner", "destination": "/partner-with-us" },
-    { "source": "/experience", "destination": "/the-experience" }
+    { "source": "/experience", "destination": "/the-experience" },
+    { "source": "/sentral-fullpage", "destination": "/index" },
+    { "source": "/sentral-stay", "destination": "/stay-with-us" },
+    { "source": "/sentral-live2", "destination": "/live-with-us" },
+    { "source": "/sentral-partner", "destination": "/partner-with-us" },
+    { "source": "/sentral-experience", "destination": "/the-experience" },
+    { "source": "/sentral-careers", "destination": "/careers" },
+    { "source": "/sentral-group", "destination": "/group-business" },
+    { "source": "/sentral-sentralplus", "destination": "/sentralplus" },
+    { "source": "/sentral-press", "destination": "/press" },
+    { "source": "/sentral-privacy", "destination": "/privacy-policy" },
+    { "source": "/sentral-terms", "destination": "/terms-of-use" }
   ]
 }
