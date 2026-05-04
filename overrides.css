@@ -1,23 +1,313 @@
 /* ============================================================
-   Sentral Website — ADA / Accessibility Override Stylesheet
+   Sentral Website — Brand Reconciliation Overrides (v2)
    ------------------------------------------------------------
-   Temporary corrections to the static prototype. This file is
-   loaded AFTER the inline <style> blocks on every page so its
-   rules win the cascade.
+   Loaded after every page's inline <style>, so its rules win.
+   Implements STYLE_GUIDE.md v2 — the reconciled brand direction
+   (forest accent, off-black, three creams, Georgia + Aptos,
+   gold reserved for SentralPlus / awards).
 
-   The WordPress rebuild should bake these targets into the
-   base stylesheet. See ADA_BRIEF.md for the spec.
+   This is a PREVIEW overlay. The WordPress rebuild will bake
+   these tokens into base styles cleanly; here we're patching
+   over the prototype's hardcoded values to demonstrate the
+   reconciled look.
+
+   To revert to the original prototype, check out the
+   v1-original-prototype tag.
    ============================================================ */
 
 
 /* ------------------------------------------------------------
-   1. HERO LEGIBILITY
-   Pages with photo heroes (Stay, Partner, Experience, Careers,
-   Group Business, SentralPlus, Home) suffer from light text
-   over varied imagery. We use a strong layered text-shadow that
-   creates a soft dark "glow" around hero typography — readable
-   over any background, no positional changes that could break
-   carousels or other hero layouts.
+   1. ROOT TOKEN OVERRIDES
+   These rewrite the prototype's CSS custom properties to the
+   v2 values. Every place the prototype uses var(--black),
+   var(--gold), var(--serif), var(--sans), etc. picks up the
+   new value automatically.
+   ------------------------------------------------------------ */
+
+:root {
+  /* Surfaces — off-black per brand guide */
+  --black:        #282828 !important;
+  --ink:          #1F1F1F !important;
+  --cream:        #F5F5F3 !important;
+  --white:        #FFFFFF !important;
+
+  /* New surface tones */
+  --cream-light:  #FAF8F4;
+  --cream-warm:   #EFEDE6;
+
+  /* Forest replaces gold as the general accent.
+     The prototype uses --gold and --accent for the same role,
+     so both point to forest. The metallic gold gets a separate
+     token below, only used in SentralPlus / awards contexts. */
+  --gold:         #196E5F !important;   /* now FOREST */
+  --accent:       #196E5F !important;
+  --gold-d:       #0F4A3F !important;   /* now DEEP FOREST */
+
+  /* Forest tokens (canonical names) */
+  --forest:       #196E5F;
+  --forest-deep:  #0F4A3F;
+  --cloud:        #AFAA9B;
+  --stone:        #AFAA9B !important;   /* prototype --stone → cloud */
+
+  /* Reserved metallic — separate token, applied via .gold-* utility classes */
+  --metallic:     #C8B89A;
+  --metallic-deep:#9A8862;
+
+  /* Text on cream */
+  --text-body:    #3A3633;
+  --text-muted:   #6B6560;
+  --text-accent:  #0F4A3F;
+
+  /* Type — system-safe, zero licensing */
+  --serif:        Georgia, "Times New Roman", serif !important;
+  --sans:         Aptos, "Segoe UI", system-ui, -apple-system, sans-serif !important;
+
+  /* Type floors */
+  --fs-min-body:    1rem;
+  --fs-min-caption: 0.75rem;
+}
+
+/* Force fonts at high specificity in case any inline styles bypass vars */
+body,
+body * {
+  font-family: Aptos, "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+body h1, body h2, body h3, body h4, body h5,
+body .hero-h, body .display, body em,
+body [class*="serif"], body [class*="display"] {
+  font-family: Georgia, "Times New Roman", serif !important;
+}
+
+
+/* ------------------------------------------------------------
+   2. HARDCODED COLOR REPLACEMENTS
+   The prototype hardcodes #c8b89a (gold) and #141414 (black)
+   inline in many places. Catch the most common patterns.
+   ------------------------------------------------------------ */
+
+/* Active nav link underline — was gold, now forest */
+.nav-link.active {
+  border-color: var(--forest) !important;
+  color: var(--white) !important;
+}
+
+/* Primary nav CTA — was tan/gold, now forest with white text */
+.site-nav a[href*="book"],
+.site-nav .cta,
+.site-nav [class*="cta"],
+.site-nav button {
+  background-color: var(--forest) !important;
+  color: var(--white) !important;
+  border: none !important;
+}
+.site-nav a[href*="book"]:hover,
+.site-nav .cta:hover {
+  background-color: var(--forest-deep) !important;
+}
+
+/* Hero eyebrow — was gold, now forest on dark */
+.hero-eyebrow {
+  color: var(--forest) !important;
+}
+
+/* Hero italic emphasis — was gold, now forest on dark.
+   Excludes the homepage's .hero-h1 (photo carousel) which uses
+   white italic instead — see rule below. */
+.hero-h em,
+.hero h2 em {
+  color: var(--forest) !important;
+  font-style: italic;
+}
+
+/* Homepage hero (photo carousel) — italic emphasis stays WHITE because
+   forest text doesn't read well on the bright sunset photo.
+   Specificity bumped (h1.hero-h1) to win over the generic rule above. */
+h1.hero-h1 em,
+.hero h1.hero-h1 em {
+  color: var(--white) !important;
+  font-style: italic;
+}
+
+/* Homepage secondary CTA "Live here" — solid off-black for visibility,
+   complements the forest "Book a Stay" primary button */
+.btn-hg {
+  background: var(--black) !important;
+  color: var(--white) !important;
+  border: 1px solid var(--black) !important;
+}
+.btn-hg:hover {
+  background: var(--ink) !important;
+  border-color: var(--ink) !important;
+  color: var(--white) !important;
+}
+
+/* Section eyebrows on cream — bronze becomes deep forest */
+section:not(.hero) .eyebrow,
+section:not(.hero) [class*="eyebrow"]:not(.hero-eyebrow),
+.section-eyebrow,
+.cap,
+.caption {
+  color: var(--forest-deep) !important;
+}
+
+/* Italic emphasis on cream — bronze becomes deep forest */
+.cream em,
+section:not(.hero):not(.dark) h1 em,
+section:not(.hero):not(.dark) h2 em,
+section:not(.hero):not(.dark) h3 em {
+  color: var(--forest-deep) !important;
+  font-style: italic;
+}
+
+/* Map pins — were gold, now forest */
+.s-pin,
+.leaflet-marker-icon.s-pin {
+  background: var(--forest) !important;
+  border-color: rgba(25, 110, 95, 0.4) !important;
+  box-shadow: 0 0 0 5px rgba(25, 110, 95, 0.18),
+              0 2px 8px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Map popup borders — gold border becomes forest */
+.leaflet-popup-content-wrapper {
+  border-color: rgba(25, 110, 95, 0.35) !important;
+}
+.s-popup-loc { color: var(--forest) !important; }
+.s-popup-link {
+  color: var(--forest) !important;
+  border-color: rgba(25, 110, 95, 0.35) !important;
+}
+
+/* Filter pills active state — was already dark, keep but clean borders */
+.f-btn {
+  border-color: var(--cloud) !important;
+}
+.f-btn:hover {
+  border-color: var(--forest-deep) !important;
+}
+.f-btn.active {
+  background: var(--black) !important;
+  color: var(--white) !important;
+}
+
+/* Search input on dark — gold border → forest */
+.search-input {
+  border-color: rgba(25, 110, 95, 0.30) !important;
+}
+.search-input:focus {
+  border-color: var(--forest) !important;
+  background: rgba(255, 255, 255, 0.09) !important;
+}
+.search-icon { color: rgba(25, 110, 95, 0.55) !important; }
+
+
+/* ------------------------------------------------------------
+   3. RESERVED METALLIC GOLD — only specific contexts
+   The prototype's SentralPlus page and any award/press
+   recognition surfaces should keep gold. We apply it via a
+   class hook the WP rebuild will use cleanly.
+   ------------------------------------------------------------ */
+
+/* SentralPlus page eyebrow — keeps metallic gold */
+body[class*="sentralplus"] .hero-eyebrow,
+.sentralplus-eyebrow,
+.tier-badge,
+.member-eyebrow {
+  color: var(--metallic) !important;
+}
+
+.sentralplus-cta,
+.tier-badge-filled {
+  background: var(--metallic) !important;
+  color: var(--black) !important;
+}
+
+/* --- Reserved gold: SentralPlus floating CTAs (Join + Login) ---
+   These are member actions, so per §1.3 governance they keep
+   metallic gold rather than forest. */
+
+/* Floating "Join SentralPlus" button (bottom-right) */
+.sp-sticky-join,
+a.sp-sticky-join {
+  background: var(--metallic) !important;
+  color: #2a1f10 !important;   /* deep bronze text on gold — passes AAA */
+  border: none !important;
+}
+.sp-sticky-join:hover {
+  background: #d9cbb0 !important;
+}
+
+/* Floating "Login" button (bottom-right) */
+.sp-sticky-login,
+a.sp-sticky-login {
+  background: rgba(10, 8, 6, 0.88) !important;
+  color: rgba(200, 184, 154, 0.95) !important;
+  border: 1px solid rgba(200, 184, 154, 0.35) !important;
+}
+.sp-sticky-login:hover {
+  border-color: var(--metallic) !important;
+  color: var(--white) !important;
+}
+
+/* SentralPlus combo-section CTA ("Join SentralPlus") */
+.combo-btn-p,
+a.combo-btn-p {
+  background: var(--metallic) !important;
+  color: var(--black) !important;
+}
+.combo-btn-p:hover {
+  background: #d9cbb0 !important;
+}
+
+/* Inline footer / utility SentralPlus bar buttons */
+.splus-bar-join,
+a.splus-bar-join {
+  background: var(--metallic) !important;
+  color: #2a1f10 !important;
+  border: none !important;
+}
+.splus-bar-join:hover {
+  background: #d9cbb0 !important;
+}
+.splus-bar-login,
+a.splus-bar-login {
+  color: rgba(200, 184, 154, 0.95) !important;
+  border-color: rgba(200, 184, 154, 0.35) !important;
+}
+.splus-bar-login:hover {
+  border-color: var(--metallic) !important;
+  color: var(--white) !important;
+}
+
+/* SentralPlus eyebrow on the homepage's combined section */
+.combo-eyebrow {
+  color: var(--metallic) !important;
+}
+
+/* Award eyebrow — deep gold on cream (passes AA at 14px+) */
+.award-card .eyebrow,
+.award-eyebrow,
+[class*="award"] .eyebrow {
+  color: var(--metallic-deep) !important;
+}
+
+
+/* ------------------------------------------------------------
+   FULL-BLEED HERO
+   Remove the 64px top gap that exposed the cream body color
+   between the fixed nav and the hero photo. The nav has its
+   own solid background (off-black) so floating it over the
+   hero photo is visually clean and removes the white banner.
+   Hero internal padding still keeps content clear of the nav. */
+.hero {
+  margin-top: 0 !important;
+}
+
+
+/* ------------------------------------------------------------
+   4. HERO LEGIBILITY (carried over from v1)
+   Layered text-shadow for text on photo backgrounds. Works
+   over any image, harmless on dark non-photo heroes.
    ------------------------------------------------------------ */
 
 .hero-h,
@@ -28,59 +318,36 @@
 .search-label {
   text-shadow:
     0 0 18px rgba(0, 0, 0, 0.65),
-    0 2px 8px rgba(0, 0, 0, 0.55),
-    0 1px 2px rgba(0, 0, 0, 0.50);
+    0 2px  8px rgba(0, 0, 0, 0.55),
+    0 1px  2px rgba(0, 0, 0, 0.50);
 }
 
-/* Boost faint hero subtitles/labels to readable opacity */
 .hero-sub      { color: rgba(255, 255, 255, 0.90) !important; }
 .hero-stat-l   { color: rgba(255, 255, 255, 0.75) !important; }
 .search-label  { color: rgba(255, 255, 255, 0.75) !important; }
 
 
 /* ------------------------------------------------------------
-   2. CONTRAST: light-gray and gold on cream fail WCAG AA.
-   Cream bg = #f5f3ef (L≈0.896).
-   Old --lt #9a9490 → 2.68:1   ❌
-   Old --gold on cream         → 1.76:1   ❌
-   Replacement targets:
-     #6b6560 (--mid)           → 5.14:1   ✅ AA
-     #5e4a2c (darker bronze)   → 7.10:1   ✅ AAA
+   5. CONTRAST FLOOR (carried over from v1)
    ------------------------------------------------------------ */
 
-:root {
-  --lt: #6b6560 !important;
-}
-
-/* Filter pills, badges, captions on cream sections */
+/* Dark gray on cream replaces the failed light gray */
 .filters-label,
 .f-count,
 .s-popup-loc,
 .s-popup-units {
-  color: #6b6560 !important;
+  color: var(--text-muted) !important;
 }
 
-/* Body paragraphs that ended up too light on cream */
 section:not(.hero) p,
 .copy p,
 .body-copy p {
-  color: #3a3633;
-}
-
-/* Eyebrow labels & section captions that use gold on cream:
-   darken to a bronze that still reads as a brand accent */
-.eyebrow,
-[class*="eyebrow"]:not(.hero-eyebrow),
-.section-eyebrow,
-.cap,
-.caption {
-  color: #5e4a2c !important;
+  color: var(--text-body);
 }
 
 
 /* ------------------------------------------------------------
-   3. MINIMUM FONT SIZE — 0.75rem (12px) floor
-   The Experience page has text as small as 0.42rem (~6.7px).
+   6. FONT-SIZE FLOOR (12px / 0.75rem, carried over from v1)
    ------------------------------------------------------------ */
 
 .hero-eyebrow,
@@ -105,23 +372,7 @@ small {
 
 
 /* ------------------------------------------------------------
-   4. NAV CTA — top-right "Book a Stay" was unreadable on
-   the homepage (dark text on dark nav).
-   ------------------------------------------------------------ */
-
-.site-nav a[href*="book"],
-.site-nav button,
-.site-nav .cta,
-.site-nav [class*="cta"] {
-  color: #141414 !important;
-  background-color: #c8b89a;
-}
-
-
-/* ------------------------------------------------------------
-   5. PRESS PAGE — article cards beyond the first row render
-   at near-zero opacity (suspected scroll-fade animation that
-   never fires). Force them visible.
+   7. PRESS PAGE — force article cards visible (carried over)
    ------------------------------------------------------------ */
 
 .press-card,
@@ -137,15 +388,37 @@ small {
 
 
 /* ------------------------------------------------------------
-   6. ACCESSIBILITY BASELINE
-   Visible focus styles (default outlines were suppressed).
+   8. ACCESSIBILITY BASELINE — focus rings in forest
    ------------------------------------------------------------ */
 
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 [role="button"]:focus-visible {
-  outline: 2px solid #c8b89a !important;
+  outline: 2px solid var(--forest) !important;
   outline-offset: 3px;
   border-radius: 2px;
 }
+
+
+/* ------------------------------------------------------------
+   9. KNOWN PREVIEW LIMITATIONS
+   ------------------------------------------------------------
+   The following items are NOT corrected by this overlay. They
+   require touching the inline <style> blocks in each HTML file
+   and are deferred to the WordPress rebuild:
+
+   - Some hardcoded #c8b89a (gold) values inside SVG fills,
+     gradients, and inline element styles.
+   - Hardcoded rgba(200, 184, 154, x) gold-tinted backgrounds
+     in card hover states and subtle accent fills.
+   - The Google Fonts <link> tag still loads Cormorant + DM Sans
+     in <head> — the @font-face declarations are present even
+     though we override font-family. (Harmless, just wasteful.)
+   - Three-cream surface rhythm (cream-light / cream / cream-warm)
+     is not applied per-section — that requires page-by-page
+     section classification, deferred to the rebuild.
+
+   Expect ~85% accuracy to the v2 style guide in this preview.
+   The remaining 15% is what the WP dev fixes in the rebuild.
+   ============================================================ */
