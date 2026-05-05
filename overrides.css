@@ -1,10 +1,13 @@
 /* ============================================================
-   Sentral Website — Brand Reconciliation Overrides (v2)
+   Sentral Website — Brand Reconciliation Overrides (v3)
    ------------------------------------------------------------
    Loaded after every page's inline <style>, so its rules win.
-   Implements STYLE_GUIDE.md v2 — the reconciled brand direction
-   (forest accent, off-black, three creams, Georgia + Aptos,
-   gold reserved for SentralPlus / awards).
+   Implements STYLE_GUIDE.md v3 — Racing Green as primary accent.
+
+   Racing Green replaces Forest as the primary accent.
+   Sage (#9CAE92) is italic emphasis on dark surfaces only.
+   Oat (#E8E0CC) is eyebrow text on dark surfaces only.
+   Gold (metallic) remains reserved for SentralPlus / awards.
 
    This is a PREVIEW overlay. The WordPress rebuild will bake
    these tokens into base styles cleanly; here we're patching
@@ -19,7 +22,7 @@
 /* ------------------------------------------------------------
    1. ROOT TOKEN OVERRIDES
    These rewrite the prototype's CSS custom properties to the
-   v2 values. Every place the prototype uses var(--black),
+   v3 values. Every place the prototype uses var(--black),
    var(--gold), var(--serif), var(--sans), etc. picks up the
    new value automatically.
    ------------------------------------------------------------ */
@@ -35,19 +38,23 @@
   --cream-light:  #FAF8F4;
   --cream-warm:   #EFEDE6;
 
-  /* Forest replaces gold as the general accent.
+  /* Racing Green replaces gold as the general accent.
      The prototype uses --gold and --accent for the same role,
-     so both point to forest. The metallic gold gets a separate
-     token below, only used in SentralPlus / awards contexts. */
-  --gold:         #196E5F !important;   /* now FOREST */
-  --accent:       #196E5F !important;
-  --gold-d:       #0F4A3F !important;   /* now DEEP FOREST */
+     so both point to Racing Green. The metallic gold gets a
+     separate token below, only used in SentralPlus / awards. */
+  --gold:         #1F3D2E !important;   /* now RACING GREEN */
+  --accent:       #1F3D2E !important;
+  --gold-d:       #0F2418 !important;   /* now RACING GREEN DEEP */
 
-  /* Forest tokens (canonical names) */
-  --forest:       #196E5F;
-  --forest-deep:  #0F4A3F;
-  --cloud:        #AFAA9B;
-  --stone:        #AFAA9B !important;   /* prototype --stone → cloud */
+  /* Racing Green tokens (canonical names) */
+  --racing-green:      #1F3D2E;   /* primary accent — all surfaces */
+  --racing-green-deep: #0F2418;   /* hover/pressed, italic on cream */
+  --cloud:             #AFAA9B;
+  --stone:             #AFAA9B !important;   /* prototype --stone → cloud */
+
+  /* Secondary accents — dark surfaces only */
+  --sage: #9CAE92;   /* italic emphasis in headlines on dark — ONLY */
+  --oat:  #E8E0CC;   /* eyebrow text on dark — ONLY */
 
   /* Reserved metallic — separate token, applied via .gold-* utility classes */
   --metallic:     #C8B89A;
@@ -56,7 +63,11 @@
   /* Text on cream */
   --text-body:    #3A3633;
   --text-muted:   #6B6560;
-  --text-accent:  #0F4A3F;
+  --text-accent:  #0F2418;   /* racing-green-deep — italic on cream */
+
+  /* Text on dark */
+  --text-on-dark-accent:  #9CAE92;   /* sage — italic emphasis only */
+  --text-on-dark-eyebrow: #E8E0CC;   /* oat — eyebrow text only */
 
   /* Type — system-safe, zero licensing */
   --serif:        Georgia, "Times New Roman", serif !important;
@@ -85,42 +96,43 @@ body [class*="serif"], body [class*="display"] {
    inline in many places. Catch the most common patterns.
    ------------------------------------------------------------ */
 
-/* Active nav link underline — was gold, now forest */
+/* Active nav link underline — was gold → forest → now sage
+   (sage on off-black: 6.2:1; Racing Green on off-black: 3.1:1 — too low for 1px stroke) */
 .nav-link.active {
-  border-color: var(--forest) !important;
+  border-color: var(--sage) !important;
   color: var(--white) !important;
 }
 
-/* Primary nav CTA — was tan/gold, now forest with white text */
+/* Primary nav CTA — Racing Green background, white text */
 .site-nav a[href*="book"],
 .site-nav .cta,
 .site-nav [class*="cta"],
 .site-nav button {
-  background-color: var(--forest) !important;
+  background-color: var(--racing-green) !important;
   color: var(--white) !important;
   border: none !important;
 }
 .site-nav a[href*="book"]:hover,
 .site-nav .cta:hover {
-  background-color: var(--forest-deep) !important;
+  background-color: var(--racing-green-deep) !important;
 }
 
-/* Hero eyebrow — was gold, now forest on dark */
+/* Hero eyebrow — oat on dark (Racing Green too dark to read on off-black at small text) */
 .hero-eyebrow {
-  color: var(--forest) !important;
+  color: var(--oat) !important;
 }
 
-/* Hero italic emphasis — was gold, now forest on dark.
+/* Hero italic emphasis — sage on dark.
    Excludes the homepage's .hero-h1 (photo carousel) which uses
    white italic instead — see rule below. */
 .hero-h em,
 .hero h2 em {
-  color: var(--forest) !important;
+  color: var(--sage) !important;
   font-style: italic;
 }
 
 /* Homepage hero (photo carousel) — italic emphasis stays WHITE because
-   forest text doesn't read well on the bright sunset photo.
+   Racing Green and sage are both hard to read over the bright sunset photo.
    Specificity bumped (h1.hero-h1) to win over the generic rule above. */
 h1.hero-h1 em,
 .hero h1.hero-h1 em {
@@ -129,7 +141,7 @@ h1.hero-h1 em,
 }
 
 /* Homepage secondary CTA "Live here" — solid off-black for visibility,
-   complements the forest "Book a Stay" primary button */
+   complements the Racing Green "Book a Stay" primary button */
 .btn-hg {
   background: var(--black) !important;
   color: var(--white) !important;
@@ -141,64 +153,64 @@ h1.hero-h1 em,
   color: var(--white) !important;
 }
 
-/* Section eyebrows on cream — bronze becomes deep forest */
+/* Section eyebrows on cream — Racing Green deep */
 section:not(.hero) .eyebrow,
 section:not(.hero) [class*="eyebrow"]:not(.hero-eyebrow),
 .section-eyebrow,
 .cap,
 .caption {
-  color: var(--forest-deep) !important;
+  color: var(--racing-green-deep) !important;
 }
 
-/* Italic emphasis on cream — bronze becomes deep forest */
+/* Italic emphasis on cream — Racing Green deep */
 .cream em,
 section:not(.hero):not(.dark) h1 em,
 section:not(.hero):not(.dark) h2 em,
 section:not(.hero):not(.dark) h3 em {
-  color: var(--forest-deep) !important;
+  color: var(--racing-green-deep) !important;
   font-style: italic;
 }
 
-/* Map pins — were gold, now forest */
+/* Map pins — Racing Green */
 .s-pin,
 .leaflet-marker-icon.s-pin {
-  background: var(--forest) !important;
-  border-color: rgba(25, 110, 95, 0.4) !important;
-  box-shadow: 0 0 0 5px rgba(25, 110, 95, 0.18),
+  background: var(--racing-green) !important;
+  border-color: rgba(31, 61, 46, 0.4) !important;
+  box-shadow: 0 0 0 5px rgba(31, 61, 46, 0.18),
               0 2px 8px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* Map popup borders — gold border becomes forest */
+/* Map popup borders — Racing Green */
 .leaflet-popup-content-wrapper {
-  border-color: rgba(25, 110, 95, 0.35) !important;
+  border-color: rgba(31, 61, 46, 0.35) !important;
 }
-.s-popup-loc { color: var(--forest) !important; }
+.s-popup-loc { color: var(--racing-green) !important; }
 .s-popup-link {
-  color: var(--forest) !important;
-  border-color: rgba(25, 110, 95, 0.35) !important;
+  color: var(--racing-green) !important;
+  border-color: rgba(31, 61, 46, 0.35) !important;
 }
 
-/* Filter pills active state — was already dark, keep but clean borders */
+/* Filter pills active state */
 .f-btn {
   border-color: var(--cloud) !important;
 }
 .f-btn:hover {
-  border-color: var(--forest-deep) !important;
+  border-color: var(--racing-green-deep) !important;
 }
 .f-btn.active {
   background: var(--black) !important;
   color: var(--white) !important;
 }
 
-/* Search input on dark — gold border → forest */
+/* Search input on dark — Racing Green border */
 .search-input {
-  border-color: rgba(25, 110, 95, 0.30) !important;
+  border-color: rgba(31, 61, 46, 0.30) !important;
 }
 .search-input:focus {
-  border-color: var(--forest) !important;
+  border-color: var(--racing-green) !important;
   background: rgba(255, 255, 255, 0.09) !important;
 }
-.search-icon { color: rgba(25, 110, 95, 0.55) !important; }
+.search-icon { color: rgba(31, 61, 46, 0.55) !important; }
 
 
 /* ------------------------------------------------------------
@@ -223,8 +235,8 @@ body[class*="sentralplus"] .hero-eyebrow,
 }
 
 /* --- Reserved gold: SentralPlus floating CTAs (Join + Login) ---
-   These are member actions, so per §1.3 governance they keep
-   metallic gold rather than forest. */
+   These are member actions, so per §1.4 governance they keep
+   metallic gold rather than Racing Green. */
 
 /* Floating "Join SentralPlus" button (bottom-right) */
 .sp-sticky-join,
@@ -281,9 +293,7 @@ a.splus-bar-login {
 
 /* SentralPlus side of the homepage combo-section — full gold treatment.
    Scoped to .combo-right specifically so the .combo-left side
-   ("Resident travel benefit") stays in forest. Selectors are written
-   with enough specificity (3+ classes + 1 element) to win against
-   the generic section eyebrow rule earlier in this file. */
+   ("Resident travel benefit") stays in Racing Green. */
 
 section.combo-section .combo-right .combo-eyebrow {
   color: var(--metallic) !important;
@@ -311,21 +321,13 @@ section.combo-section .combo-right .combo-btn-g:hover {
 /* ------------------------------------------------------------
    FULL-BLEED HERO
    Remove the 64px top gap that exposed the cream body color
-   between the fixed nav and the hero photo. The nav has its
-   own solid background (off-black) so floating it over the
-   hero photo is visually clean and removes the white banner.
-   Hero internal padding still keeps content clear of the nav. */
+   between the fixed nav and the hero photo. */
 .hero {
   margin-top: 0 !important;
 }
 
 /* ------------------------------------------------------------
-   HOMEPAGE HERO TEXT POSITIONING
-   - Wider max-width so "and comfort of home — elevated."
-     fits on one line at desktop widths (was 800px).
-   - More bottom padding so the headline sits higher up on
-     the hero photo (was 80px).
-   ------------------------------------------------------------ */
+   HOMEPAGE HERO TEXT POSITIONING */
 .hero-content {
   max-width: 1200px !important;
   padding-bottom: 220px !important;
@@ -340,9 +342,8 @@ section.combo-section .combo-right .combo-btn-g:hover {
 
 
 /* ------------------------------------------------------------
-   4. HERO LEGIBILITY (carried over from v1)
-   Layered text-shadow for text on photo backgrounds. Works
-   over any image, harmless on dark non-photo heroes.
+   4. HERO LEGIBILITY
+   Layered text-shadow for text on photo backgrounds.
    ------------------------------------------------------------ */
 
 .hero-h,
@@ -363,10 +364,9 @@ section.combo-section .combo-right .combo-btn-g:hover {
 
 
 /* ------------------------------------------------------------
-   5. CONTRAST FLOOR (carried over from v1)
+   5. CONTRAST FLOOR
    ------------------------------------------------------------ */
 
-/* Dark gray on cream replaces the failed light gray */
 .filters-label,
 .f-count,
 .s-popup-loc,
@@ -383,20 +383,6 @@ section:not(.hero) p,
 
 /* ============================================================
    6. ADA TYPE SCALE — LEGIBLE FLOOR
-   ------------------------------------------------------------
-   Minimums set here are the readable floor for the whole site.
-   The WordPress rebuild should treat these as the SMALLEST
-   acceptable size for each role; nothing smaller ships.
-
-     body / paragraph         16px (1rem)        — min
-     paragraph in cream       17px (1.0625rem)   — preferred
-     eyebrow / caption        14px (0.875rem)    — min, was 9–11px
-     uppercase letter-spacing 0.10em             — was 0.18–0.28em (tight at small sizes hurts readability)
-     bullet title             16px (1rem)
-     bullet description       15px (0.9375rem)
-     hero subtitle            16–18px
-     nav link                 14px
-     filter pill / badge      14px
    ============================================================ */
 
 /* ── Eyebrows / captions / small uppercase labels ── */
@@ -420,16 +406,16 @@ small {
   line-height: 1.4 !important;
 }
 
-/* Hero stat labels ("COMMUNITIES", "STATES", "RESIDENCES") */
+/* Hero stat labels */
 .hero-stat-l {
-  font-size: 0.8125rem !important;   /* 13px — sits under stat numbers */
+  font-size: 0.8125rem !important;
   letter-spacing: 0.10em !important;
   margin-top: 6px !important;
 }
 
-/* ── Hero subtitle — was 0.84rem, bump to 1rem ── */
+/* ── Hero subtitle ── */
 .hero-sub {
-  font-size: 1rem !important;        /* 16px */
+  font-size: 1rem !important;
   line-height: 1.7 !important;
   max-width: 640px !important;
 }
@@ -439,14 +425,14 @@ small {
   line-height: 1.7 !important;
 }
 
-/* ── Bullet list items in combo / SentralPlus benefits ── */
+/* ── Bullet list items ── */
 .sbi-title {
-  font-size: 1rem !important;        /* was 0.78rem */
+  font-size: 1rem !important;
   line-height: 1.4 !important;
   margin-bottom: 4px !important;
 }
 .sbi-desc {
-  font-size: 0.9375rem !important;   /* was 0.73rem */
+  font-size: 0.9375rem !important;
   line-height: 1.6 !important;
 }
 .sbi-dot {
@@ -457,7 +443,7 @@ small {
 
 /* ── Nav links ── */
 .nav-link {
-  font-size: 0.875rem !important;    /* 14px, was 0.75rem */
+  font-size: 0.875rem !important;
   letter-spacing: 0.08em !important;
 }
 
@@ -485,7 +471,7 @@ section:not(.hero) p,
 .body-copy p,
 .combo-body,
 .exp-sub {
-  font-size: 1.0625rem !important;   /* 17px — comfortable read on cream */
+  font-size: 1.0625rem !important;
   line-height: 1.7 !important;
 }
 
@@ -501,18 +487,8 @@ section:not(.hero) p,
 
 /* ============================================================
    6b. BUTTONS — bigger, bolder, easier to read & tap
-   ------------------------------------------------------------
-   Targets WCAG 2.5.5 (target size ≥ 44×44 px), AA contrast,
-   and a more confident visual hierarchy.
-
-     min height           48px (touch target)
-     padding              16px vertical, 32px horizontal
-     font-size            0.9375rem (15px) min
-     font-weight          500 min
-     letter-spacing       0.04em (was 0.06–0.10em — too stretched)
    ============================================================ */
 
-/* All major button variants on the site */
 .btn-hp,
 .btn-hg,
 .combo-btn-p,
@@ -525,7 +501,7 @@ section:not(.hero) p,
 .cta-btn,
 .book-btn,
 .sticky-book {
-  font-size: 0.9375rem !important;   /* 15px */
+  font-size: 0.9375rem !important;
   font-weight: 500 !important;
   padding: 14px 30px !important;
   min-height: 48px !important;
@@ -536,8 +512,6 @@ section:not(.hero) p,
   justify-content: center !important;
 }
 
-/* Schedule a Tour / Book a Stay nav-bar CTA — slightly tighter
-   to fit in the 64px nav, but still hits min target */
 .site-nav .cta,
 .site-nav [class*="cta"],
 .site-nav a[href*="book"],
@@ -545,11 +519,10 @@ section:not(.hero) p,
   font-size: 0.875rem !important;
   font-weight: 500 !important;
   padding: 10px 20px !important;
-  min-height: 40px !important;       /* 40px is OK in nav per WCAG (target spacing exception) */
+  min-height: 40px !important;
   letter-spacing: 0.04em !important;
 }
 
-/* Floating SentralPlus CTAs — bottom-right, need to be glanceable */
 .sp-sticky-join,
 a.sp-sticky-join {
   font-size: 0.9375rem !important;
@@ -567,7 +540,7 @@ a.sp-sticky-login {
 
 
 /* ------------------------------------------------------------
-   7. PRESS PAGE — force article cards visible (carried over)
+   7. PRESS PAGE — force article cards visible
    ------------------------------------------------------------ */
 
 .press-card,
@@ -583,37 +556,47 @@ a.sp-sticky-login {
 
 
 /* ------------------------------------------------------------
-   8. ACCESSIBILITY BASELINE — focus rings in forest
+   8. ACCESSIBILITY BASELINE — focus rings
+   Racing Green on cream (9.8:1 — AAA).
+   Sage on dark (6.2:1 — AA for all sizes).
    ------------------------------------------------------------ */
 
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 [role="button"]:focus-visible {
-  outline: 2px solid var(--forest) !important;
+  outline: 2px solid var(--racing-green) !important;
   outline-offset: 3px;
   border-radius: 2px;
+}
+
+/* Dark-surface elements get sage focus ring for better contrast */
+.site-nav a:focus-visible,
+.site-nav button:focus-visible,
+.hero a:focus-visible,
+.hero button:focus-visible,
+.dark a:focus-visible,
+.dark button:focus-visible {
+  outline-color: var(--sage) !important;
 }
 
 
 /* ------------------------------------------------------------
    9. KNOWN PREVIEW LIMITATIONS
    ------------------------------------------------------------
-   The following items are NOT corrected by this overlay. They
-   require touching the inline <style> blocks in each HTML file
-   and are deferred to the WordPress rebuild:
+   The following items are NOT corrected by this overlay:
 
    - Some hardcoded #c8b89a (gold) values inside SVG fills,
-     gradients, and inline element styles.
+     gradients, and inline element styles (e.g. partner-with-us
+     chart SVG, JavaScript color arrays).
    - Hardcoded rgba(200, 184, 154, x) gold-tinted backgrounds
      in card hover states and subtle accent fills.
    - The Google Fonts <link> tag still loads Cormorant + DM Sans
      in <head> — the @font-face declarations are present even
      though we override font-family. (Harmless, just wasteful.)
    - Three-cream surface rhythm (cream-light / cream / cream-warm)
-     is not applied per-section — that requires page-by-page
-     section classification, deferred to the rebuild.
+     is not applied per-section — deferred to the WP rebuild.
 
-   Expect ~85% accuracy to the v2 style guide in this preview.
+   Expect ~85% accuracy to the v3 style guide in this preview.
    The remaining 15% is what the WP dev fixes in the rebuild.
    ============================================================ */
