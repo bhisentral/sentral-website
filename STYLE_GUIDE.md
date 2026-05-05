@@ -1,98 +1,100 @@
 # Sentral Website — Style Guide
 
-**Version:** 2.0 (final, approved direction)
-**For:** WordPress development team, designers, copywriters
+**Version:** 3.0 (final, approved direction)
+**For:** WordPress development team, designers, copywriters, brand owners
 **Companion to:** `Sentral_WP_Developer_Brief.docx`, `ADA_BRIEF.md`
 **Source:** Audit of all 11 pages of the static HTML prototype, reconciled
-with Sentral's official brand guidelines
+with Sentral's official brand guidelines and updated to reflect the
+deeper, more institutional accent direction approved by leadership.
 
 This document captures the design system as it will be *implemented* in
-WordPress — a reconciled version that takes the prototype's structural
-work and pairs it with brand-correct color and typography. Use it as
-the canonical reference when building the WordPress theme.
+WordPress and applied across all Sentral surfaces — a reconciled version
+that takes the prototype's structural work, pulls the surface decoration
+back toward the brand guide, and resolves the prior brightness issue
+with a deeper Racing Green primary accent and a multi-tone supporting palette.
 
 ---
 
-## 0. Brand reconciliation — what changed and why
+## 0. What changed in v3 — the accent direction
 
-The original prototype diverged from Sentral's official brand guide in
-three ways: palette, accent color, and typography. Rather than ship two
-identities (one for digital, one for print) or rebuild the prototype
-from scratch, we're reconciling the two by keeping everything
-structural from the prototype and pulling the surface decoration back
-toward the brand guide. We're also expanding cream into a three-tone
-surface system to give the site more visual rhythm, and reserving gold
-for a narrow set of premium status signals.
+The accent system has been updated. Earlier iterations used a brighter
+green (forest at `#196E5F`, then heritage at `#0F4A3F`) that read as
+2010s tech-travel rather than institutional luxury. The current
+direction commits to **Racing Green at `#1F3D2E`** — a deeper,
+warmer green that sits in old-money territory rather than digital-fresh.
 
-### What carries over from the prototype
+### Key changes from prior versions
 
-- Italic continuation headline pattern ("Stay like it's already
-  *your home*")
-- Cream-on-dark contrast direction
-- Layout system, spacing scale, breakpoints, container widths
-- Component patterns (cards, eyebrows, filters, hero structure)
-- Editorial photography direction
-- Voice and tone (quiet authority, em-dashes, concrete numbers)
-- Accessibility floor (WCAG AA minimum, with AAA on body text)
-
-### What changes from the prototype
-
-| | Prototype as built | Reconciled (this doc) |
+| | Prior | Current |
 |---|---|---|
-| Dark surface | `#141414` (pure-ish black) | `#282828` (off-black, brand guide) |
-| Light surface | Single `#F5F3EF` | **Three tones** — `#FAF8F4`, `#F5F5F3`, `#EFEDE6` |
-| Primary accent | Gold `#C8B89A` | **Forest `#196E5F`** (brand guide) |
-| Italic accents on cream | Bronze `#5E4A2C` | **Deep forest `#0F4A3F`** |
-| Border / divider on cream | Stone `#D8D4CE` | **Cloud `#AFAA9B`** (brand guide) |
-| Display typeface | Cormorant Garamond | **Georgia** (system-safe, brand guide fallback) |
-| Body typeface | DM Sans | **Aptos** (Microsoft 365 default, system-safe) |
-| Gold | Used as general accent | **Reserved** — SentralPlus, awards, print only |
+| Primary accent | Forest `#196E5F` → Heritage `#0F4A3F` | **Racing Green `#1F3D2E`** |
+| Hover/pressed | Forest deep `#0F4A3F` → Heritage deep `#08291F` | **Racing Green deep `#0F2418`** |
+| Italic on dark surfaces | Lighter forest `#2A8A78` | **Sage `#9CAE92`** |
+| Eyebrows on dark surfaces | Forest `#196E5F` | **Oat `#E8E0CC`** |
+| Italic on cream surfaces | Forest deep `#0F4A3F` | **Racing Green deep `#0F2418`** |
 
-### The system in three roles
+Everything else carries over unchanged — surfaces, typography,
+voice, the reserved-gold governance, accessibility floor, and the
+overall structure of the system.
 
-- **Surfaces** carry the structure: off-black, three cream tones, cloud
-  for borders. These do the layout work.
-- **Accent** carries the brand: forest and forest-deep. Used as
-  punctuation — eyebrows, italic emphasis, CTAs, focus states, one
-  full-color section per page.
-- **Reserved metallic** carries earned status: gold and gold-deep.
-  Deployed only in three contexts (SentralPlus tier indicators,
-  awards/press recognition, print/physical signage). Not a general
-  accent. The discipline of keeping gold in its lanes is what makes it
-  meaningful when it appears.
+### Why Racing Green
 
-### Why these specific changes
+The prior accents read as too bright and too digital — "startup travel
+brand" rather than "institutional operator." Racing Green at `#1F3D2E`
+sits in old-money territory: Bentley, Range Rover, Penguin Classics,
+Ralph Lauren Polo Country. It carries the same green-family relationship
+to the published brand guide's "forest" but at a depth that reads as
+historical and confident rather than fresh and digital.
 
-**Forest replaces gold as the primary accent.** Gold is the most-borrowed
-color in luxury branding right now — every boutique hotel and fintech
-startup is using it. Forest does the same emotional work (warmth
-against dark, signal of premium) but is distinctly Sentral.
+Critically, Racing Green pairs more naturally with sage than the prior
+Heritage value did. Both colors share yellow-green undertones, so the
+system reads as one continuous family rather than two adjacent colors —
+which is what the italic continuation pattern needs to feel coherent.
 
-**Cream expands to three tones.** Long pages need rhythm. Without
-tonal variation, every section break either feels flat (all one cream)
-or jarring (cream → dark → cream → dark). Three close cream tones
-read as one cream family, but create visual breaks that don't require
-dropping to a dark surface every time.
-
-**Gold returns, but reserved.** Gold has a job nothing else does well:
-signaling earned status. SentralPlus is a membership product. Awards
-and press recognition have a long visual vocabulary built around
-gold. Embossed gold on key cards and signage is how the brand shows
-up physically. Banning gold entirely would mean rebuilding all of
-that. Reserving it — with explicit, documented rules about where it
-appears — keeps it meaningful.
-
-**Georgia + Aptos replaces Cormorant Garamond + DM Sans.** Both Tobias
-(brand guide primary) and Cormorant Garamond (prototype) carry
-licensing costs that don't scale to 400+ employees. Georgia is named
-in the official brand guide as the display fallback, is a screen-first
-serif, and pairs cleanly with Aptos — Microsoft's post-2024 default,
-already on every employee machine. Web, Word, PowerPoint, Outlook, and
-Teams all render in the same type system. Zero licensing cost.
+Adding sage and oat as restricted secondary colors solves the practical
+problem that pure Racing Green is too dark to use as italic emphasis
+on dark backgrounds. Cream-light alone (a previously considered
+alternative) was workable but lacked visual range. Sage and oat give
+the system a richer, more layered feel that better matches Sentral's
+hospitality-luxury positioning — provided the governance rules in
+§1.4 are enforced.
 
 ---
 
-## 1. Color system
+## 1. The system in four roles
+
+Every color in the Sentral system has one of four roles. Confusing the
+roles is what creates drift. The brand owner's job is to enforce the
+boundaries between them.
+
+### Surfaces
+
+Carry the structure. Backgrounds, sections, dividers. Never decorative
+on their own. Off-black, three cream tones, cloud for borders.
+
+### Primary accent
+
+Carries the brand. Used as punctuation throughout the system — CTAs,
+eyebrows on cream, italic emphasis on cream, focus rings, active
+states, one full-color section per page. Racing Green and Racing Green deep.
+
+### Secondary accents (dark surfaces only)
+
+Carry visual layering on dark backgrounds where the primary accent is
+too dark to read. Sage for italic emphasis in headlines on dark. Oat
+for eyebrows on dark. **Used nowhere else.** These are visual register
+shifts, not new primary colors.
+
+### Reserved metallic
+
+Carries earned status. Gold and gold-deep, deployed only for
+SentralPlus tier indicators, awards and press recognition, and print
+or physical signage parity. Never general accent. The discipline of
+keeping gold restricted is what makes it meaningful when it appears.
+
+---
+
+## 2. Color system
 
 ### Surfaces
 
@@ -100,18 +102,28 @@ Teams all render in the same type system. Zero licensing cost.
 --black:        #282828;   /* primary dark surface — nav, hero, dark sections */
 --ink:          #1F1F1F;   /* slightly darker — search dropdowns, footers */
 --cream-light:  #FAF8F4;   /* softest cream — hero intros, filter bars */
---cream:        #F5F5F3;   /* primary cream — body bg, primary card grid */
+--cream:        #F5F5F3;   /* primary cream — body bg, card grids */
 --cream-warm:   #EFEDE6;   /* warmest cream — testimonials, secondary cards */
 --white:        #FFFFFF;   /* pure white — text on dark, input fills */
 ```
 
-### Accent (primary)
+### Primary accent
 
 ```css
---forest:       #196E5F;   /* primary accent — eyebrows, italic on dark, CTAs */
---forest-deep:  #0F4A3F;   /* hover/pressed, italic accents on cream */
---cloud:        #AFAA9B;   /* warm gray — borders/dividers on cream */
+--racing-green:       #1F3D2E;   /* primary accent — CTAs, eyebrows on cream, italic on cream */
+--racing-green-deep:  #0F2418;   /* hover/pressed, deepest accent moments */
+--cloud:          #AFAA9B;   /* warm gray — borders/dividers on cream */
 ```
+
+### Secondary accents — dark surfaces only
+
+```css
+--sage:        #9CAE92;   /* italic emphasis in headlines on dark — ONLY */
+--oat:         #E8E0CC;   /* eyebrow text on dark — ONLY */
+```
+
+**See §1.4 governance rules. These tokens are intentionally narrow in
+scope; treating them as general accents will dilute the system.**
 
 ### Reserved metallic — restricted use only
 
@@ -120,22 +132,21 @@ Teams all render in the same type system. Zero licensing cost.
 --gold-deep:    #9A8862;   /* deep gold — gold text on cream surfaces */
 ```
 
-**See §1.3 below for governance rules. These tokens are intentionally
-isolated; they are not part of the general accent system.**
-
 ### Text on cream — accessibility-corrected
 
 ```css
 --text-body:    #3A3633;   /* AAA, ~12.6 : 1 on cream */
 --text-muted:   #6B6560;   /* AA,  ~5.14 : 1 on cream */
---text-accent:  #0F4A3F;   /* AAA, ~9.8 : 1 — italic emphasis on cream */
+--text-accent:  #0F2418;   /* AAA — italic emphasis on cream */
 ```
 
 ### Text on dark
 
 ```css
---text-on-dark:       #FFFFFF;
---text-on-dark-muted: rgba(255, 255, 255, 0.78);   /* min 70% opacity */
+--text-on-dark:        #FFFFFF;
+--text-on-dark-muted:  rgba(255, 255, 255, 0.78);   /* min 70% opacity */
+--text-on-dark-accent: #9CAE92;   /* sage — italic emphasis only */
+--text-on-dark-eyebrow: #E8E0CC;  /* oat — eyebrow text only */
 ```
 
 ### Rules / dividers
@@ -166,44 +177,74 @@ not within.
 **Don't use cream tones for:**
 - Borders or dividers (cloud `#AFAA9B` does that)
 - Text (use `--text-body` or `--text-muted`)
-- Accent fills inside cards (use forest or stay with the section
+- Accent fills inside cards (use Racing Green or stay with the section
   background)
 
-### 1.2 Forest usage rules
+### 1.2 Racing Green usage rules
 
-- **Forest is decorative on dark, structural on cream.** On dark
-  surfaces, use forest for eyebrows, italic emphasis, CTA buttons,
-  active nav state, focus borders, and link hover. On cream, use
-  deep forest only for italic emphasis in headlines — never as a
-  surface color or button background.
-- **Forest CTAs on dark** use white text. Verify 4.6:1 contrast
-  (passes AA for large text and UI; for small text, use white on
-  forest, never forest on white).
-- **Italic accents** in headlines (`<em>`) get forest on dark, deep
-  forest on cream.
-- **One full-forest section per page** (CTA band, values section,
-  SentralPlus block) gives the accent room to breathe at scale.
-  Don't over-use; forest should remain a punctuation, not a
-  background.
+- **Racing Green is the brand color.** It does the primary accent work
+  everywhere except where it's too dark to read on dark backgrounds.
+- **On dark surfaces:** Racing Green works for CTA buttons, focus rings,
+  underline accents, map pins, and section bands. It does *not* work
+  for italic emphasis or eyebrow text on dark — at headline scale,
+  Racing Green on off-black has insufficient contrast for type. Use sage
+  for italic emphasis and oat for eyebrows on dark.
+- **On cream surfaces:** Racing Green and Racing Green deep do all the accent
+  work. Italic emphasis in headlines uses Racing Green deep (`#0F2418`).
+  Eyebrows on cream use Racing Green deep. CTAs on cream use Racing Green.
+- **Racing Green CTAs on dark** use white text. Verify 4:1 contrast for
+  button text — Racing Green is dark enough that the contrast is robust.
+- **One full-Racing-Green section per page** (CTA band, values section,
+  property highlight) gives the accent room to breathe at scale. Use
+  oat for the eyebrow text and sage or cream-light for italic
+  emphasis within that section.
 
-### 1.3 Gold governance rules — read before using
+### 1.3 Sage and oat usage rules
+
+These are the most fragile rules in the system. Hold them.
+
+**Sage `#9CAE92` appears only as:**
+- Italic emphasis in headlines on dark surfaces
+- Italic emphasis in headlines on the Racing Green full-color section
+
+**Oat `#E8E0CC` appears only as:**
+- Eyebrow text on dark surfaces
+- Small caption labels on dark where Racing Green would be too dark to read
+- Subtle accent text on the Racing Green full-color section
+
+**Where sage and oat must not appear:**
+- On cream surfaces of any tone
+- As button backgrounds or button text
+- As decorative tints, fills, or borders
+- As icon colors
+- As map pins, focus rings, or active state indicators
+- Adjacent to gold (the oat-gold distinction is hard to hold visually
+  and creates governance ambiguity — keep them on separate sections)
+- In any new context not explicitly named in this guide
+
+If a use case requires "a lighter green" or "a warm cream that isn't
+gold" outside the contexts above, the answer is to redesign the
+component, not to expand sage or oat usage. These colors exist to
+solve specific contrast problems on dark surfaces. They are not
+secondary brand colors.
+
+### 1.4 Gold governance rules — read before using
 
 Gold is reserved. It is not a general accent. The discipline of
-keeping gold in its three lanes is what makes it meaningful when
+keeping it in its three lanes is what makes it meaningful when
 it appears. **A designer reaching for gold to make something "feel
-premium" is the failure mode this rule exists to prevent.** Forest
+premium" is the failure mode this rule exists to prevent.** Racing Green
 does that job everywhere except the contexts below.
 
 **The only places gold appears on the website:**
 
 1. **SentralPlus tier indicators and member labels.** Tier badges,
-   founding-member markers, member-exclusive section labels. The
-   SentralPlus product surface and any place a member is identified
-   as such.
+   founding-member markers, member-exclusive section labels, the
+   SentralPlus product surface itself.
 
 2. **Awards and press recognition.** Industry awards, "Best Places
-   to Live" rankings on the Press page, third-party recognition
-   badges, year markers on award listings.
+   to Live" rankings, third-party recognition badges, year markers
+   on award listings.
 
 3. **Print and physical signage parity.** Where the website
    references or mirrors a physical asset that uses gold (key cards,
@@ -211,8 +252,9 @@ does that job everywhere except the contexts below.
    honors that visual code.
 
 **Where gold must not appear:**
-- General CTAs (those are forest)
-- Eyebrows on non-SentralPlus, non-award sections
+- General CTAs (those are Racing Green)
+- Eyebrows on non-SentralPlus, non-award sections (those are oat on
+  dark, Racing Green deep on cream)
 - Italic accents in headlines
 - Active nav states, focus rings, hover states
 - Map pins, link colors, button hovers
@@ -221,9 +263,9 @@ does that job everywhere except the contexts below.
   without a SentralPlus / award / print justification
 
 If a request comes in to use gold somewhere outside these contexts,
-the answer is forest.
+the answer is Racing Green.
 
-### 1.4 General color usage rules
+### 1.5 General color usage rules
 
 - **Body text on cream** uses `--text-body` or `--text-muted`. Never
   lighter than `#6B6560`.
@@ -234,12 +276,13 @@ the answer is forest.
 - **Text on gold** uses `--black` (`#282828`) or `--gold-deep`
   (`#9A8862`) — never plain white, which can muddy on the warm gold
   tone.
-- **Text on forest** uses white. Cream-light (`#FAF8F4`) is acceptable
-  for italic emphasis on a forest surface (see hero example in §4).
+- **Text on Racing Green** uses white for body and buttons. Sage for
+  italic emphasis. Oat for eyebrow text. Never gold (gold is
+  reserved).
 
 ---
 
-## 2. Typography
+## 3. Typography
 
 ### Type families
 
@@ -260,29 +303,16 @@ external font dependency.
 | `h1` | `2.4rem – 3rem` | 400 | Section heroes ("Our core values") |
 | `h2` | `1.6rem – 2rem` | 400 | Subsection headings |
 | `h3` | `1.2rem – 1.4rem` | 400 | Card titles ("Service First") |
-| `body` | `1.0625rem` (17 px) on cream / `1rem` on dark | 400 | Paragraphs |
-| `body-sm` | `1rem` (16 px) | 400 | Hero subtitles, secondary body |
-| `bullet-title` | `1rem` (16 px) | 500 | Benefit bullets, list titles |
-| `bullet-desc` | `0.9375rem` (15 px) | 400 | Bullet descriptions, captions |
-| `eyebrow` | `0.875rem` (14 px) minimum | 500 uppercase, letter-spacing **0.10em** (not tighter) | "MEMBER BENEFITS", "01 — BUSINESS TRAVEL" |
-| `caption` | `0.875rem` (14 px) minimum | 400 | Filter labels, badges, metadata |
-| `nav-link` | `0.875rem` (14 px) | 400 / 500 active | Nav items |
+| `body` | `1rem` (16 px) | 400 | Paragraphs |
+| `body-sm` | `0.85rem` | 400 | Caption-adjacent body |
+| `eyebrow` | `0.75rem` minimum | 500 uppercase, letter-spacing 0.18em | "MEMBER BENEFITS", "01 — BUSINESS TRAVEL" |
+| `caption` | `0.75rem` minimum | 400 | Filter labels, badges, metadata |
 
-**Note on weight:** Cormorant Garamond looks elegant at weight 300;
-Georgia does not. Default Georgia to weight 400. If a heading needs
+**Note on weight:** Default Georgia to weight 400. If a heading needs
 to feel lighter, use letter-spacing (`0.01em`) and generous line-height
 (`1.15`) rather than reducing weight.
 
-**Floor — updated:** no text below `0.875rem` (14 px), ever. Body
-paragraphs on cream backgrounds use `1.0625rem` (17 px) for
-comfortable reading. The previous 12 px floor was the WCAG bare
-minimum; 14 px is the *legible* floor and what the rebuild should
-target. The prototype has text as small as `0.42rem` (≈ 6.7 px) on
-the Experience page; this must not survive into the WordPress build.
-
-**Letter-spacing on uppercase labels:** keep at `0.10em` or below.
-The prototype's 0.18 – 0.28em spacing on already-tiny text was the
-single biggest readability problem.
+**Floor:** no text below `0.75rem` (12 px), ever.
 
 ### Italic emphasis — Sentral's signature move
 
@@ -295,10 +325,15 @@ headlines into a declarative first clause and an italic continuation:
 > Where great spaces meet *exceptional people.*
 > What you get as a *member.*
 
-Georgia's italic carries this pattern beautifully. Italic accents
-inherit `--text-accent` (deep forest) on cream, `--forest` on dark.
-On forest surfaces, italic accents use cream-light (`#FAF8F4`) for
-contrast — never gold (gold is reserved).
+Italic accents inherit color based on surface:
+
+- **On cream surfaces:** racing green deep `#0F2418`
+- **On off-black surfaces:** sage `#9CAE92`
+- **On the Racing Green full-color section:** sage `#9CAE92` or
+  cream-light `#FAF8F4` depending on visual weight needed
+
+Never gold (gold is reserved). Never the primary Racing Green on dark
+surfaces (insufficient contrast at type sizes).
 
 ### Line heights
 
@@ -308,7 +343,7 @@ contrast — never gold (gold is reserved).
 
 ---
 
-## 3. Layout system
+## 4. Layout system
 
 ### Container
 
@@ -334,17 +369,17 @@ contrast — never gold (gold is reserved).
 A typical long page should alternate surfaces in a rhythm like:
 
 ```
-[Off-black hero]
+[Off-black hero — oat eyebrow, sage italic, Racing Green CTA]
   ↓
-[Cream-light filter bar or intro]
+[Cream-light filter bar or intro — Racing Green deep eyebrow, Racing Green deep italic]
   ↓
-[Cream primary content]
+[Cream primary content — Racing Green deep eyebrow, Racing Green deep italic]
   ↓
 [Cream-warm testimonial/quote block]
   ↓
-[Forest full-section CTA band]
+[Racing Green full-section CTA band — oat eyebrow, sage or cream-light italic]
   ↓
-[Ink + gold SentralPlus footer block]   ← only on pages where SentralPlus is contextually relevant
+[Ink + gold SentralPlus footer block — only where contextually relevant]
   ↓
 [Off-black footer]
 ```
@@ -362,17 +397,17 @@ benefit from the full rhythm.
 
 ---
 
-## 4. Component patterns
+## 5. Component patterns
 
 ### Primary navigation
 
 - Off-black bar, `SEN+RAL` wordmark left, link cluster center, CTA +
   hamburger right
-- **Active link:** forest underline + white text
+- **Active link:** sage underline + white text (sage is the visual
+  cue; Racing Green on off-black would be invisible at 1px stroke)
 - **Inactive link:** 55% white, hover → 100% white
-- **CTAs in nav** ("Book a Stay", "Login"): forest button background
-  `#196E5F`, white text. Verify 4.6:1 contrast — passes AA for UI
-  components and large text.
+- **CTAs in nav** ("Book a Stay", "Login"): Racing Green button background
+  `#1F3D2E`, white text
 
 ### Hero — photo
 
@@ -381,10 +416,10 @@ Business, SentralPlus.
 
 Structure (left-aligned by default):
 ```
-[Eyebrow: forest uppercase]
-[Headline: Georgia, large, italic continuation in forest]
+[Eyebrow: oat uppercase]
+[Headline: Georgia, large, italic continuation in sage]
 [Subtitle: Aptos, 80%+ white opacity]
-[Stats / CTAs (optional)]
+[Stats / CTAs (optional) — primary CTA in Racing Green]
 ```
 
 Required treatment for legibility on photo backgrounds:
@@ -408,13 +443,13 @@ Terms of Use.
 
 - `0.75rem` minimum, weight 500, uppercase, letter-spacing
   0.18 – 0.24em
-- Color: `--text-accent` (deep forest) on cream, `--forest` on dark
+- Color: `--text-accent` (Racing Green deep) on cream, `--oat` on dark
 - Always sits `14 – 16px` above the section heading
 - Examples: `"MEMBER BENEFITS"`, `"01 — BUSINESS TRAVEL"`,
   `"WHAT DRIVES US"`, `"FOR OWNERS & DEVELOPERS"`
 
 **Exception:** Award badges and SentralPlus tier eyebrows use gold.
-See §4.7 and §4.8.
+See §5.7 and §5.8.
 
 ### Cards — standard
 
@@ -426,7 +461,7 @@ Property card, news card, value card all share:
 - City label uppercase, lighter weight
 - Title in Georgia, weight 400
 - "View →" or "Read article →" CTA with arrow glyph; arrow turns
-  forest on hover
+  Racing Green on hover
 
 Card backgrounds: white on cream-light or cream-warm; cream-warm on
 cream-light or cream. Avoid same-tone cards on same-tone backgrounds.
@@ -435,31 +470,30 @@ cream-light or cream. Avoid same-tone cards on same-tone backgrounds.
 
 | Variant | Background | Text | Use |
 |---|---|---|---|
-| Primary on dark | `--forest` | `--white` | "Book a Stay", "Join SentralPlus", "View Open Roles" |
+| Primary on dark | `--racing-green` | `--white` | "Book a Stay", "Join SentralPlus", "View Open Roles" |
 | Primary on cream | `--black` | `--cream` | Primary CTA on cream sections |
 | Secondary on dark | transparent + 1px white border | `--white` | "Learn more →" |
-| Tertiary text-link | none | `--forest` (cream bg) / `--white` (dark bg) | Inline links |
+| Tertiary text-link | none | `--racing-green` (cream bg) / `--white` (dark bg) | Inline links |
 
 All buttons:
 - Text: `0.85rem`, weight 500, Aptos
 - Padding: `14 – 16px` vertical, `22 – 28px` horizontal
 - Border-radius: `2 – 3px` (very subtle)
-- Hover: forest darkens to `--forest-deep` on dark; on cream, off-black
-  shifts to `--ink`. No transform.
+- Hover: Racing Green darkens to `--racing-green-deep` on dark; on cream,
+  off-black shifts to `--ink`. No transform.
 
-**Gold buttons do not exist in the standard system.** SentralPlus has
-its own gold button variant — see §4.7.
+**Sage and oat are never used as button backgrounds or button text.**
 
 ### Forms
 
 **On dark:**
-- Inputs: 6% white fill, 25% forest border
-- Focus: 60% forest border (`--forest`), 9% white fill
+- Inputs: 6% white fill, 25% Racing Green border
+- Focus: 60% Racing Green border (`--racing-green`), 9% white fill
 - Placeholder: 40% white
 
 **On cream / cream-light / cream-warm:**
 - Inputs: white fill, cloud (`#AFAA9B`) border
-- Focus: deep forest (`--text-accent`) border
+- Focus: Racing Green deep (`--text-accent`) border
 - Placeholder: `--text-muted`
 
 **Always:** pair every input with a visible `<label>`, not just a
@@ -471,7 +505,7 @@ Used on Live With Us (state filter) and Press (year + category):
 
 - Active: off-black fill, white text
 - Inactive: cream fill, dark text, cloud border
-- Hover: border darkens to deep forest
+- Hover: border darkens to Racing Green deep
 - Padding: `6 – 8px` vertical, `14 – 18px` horizontal
 - Border-radius: full pill (999px)
 
@@ -481,12 +515,12 @@ Used on Live With Us (state filter) and Press (year + category):
   ```css
   filter: grayscale(0.3) brightness(0.92);
   ```
-- Custom forest pins (`14 × 14px`, forest fill, forest halo)
-- Popup on `--black` background, forest border, forest link text
+- Custom Racing Green pins (`14 × 14px`, Racing Green fill, Racing Green halo)
+- Popup on `--black` background, Racing Green border, Racing Green link text
 - Pins must be keyboard-focusable and announce property + city to
   screen readers
 
-### 4.7 SentralPlus components — reserved gold
+### 5.7 SentralPlus components — reserved gold
 
 These are the primary places gold appears on the site. Every gold
 treatment below is justified by a SentralPlus / member context.
@@ -531,7 +565,7 @@ treatment below is justified by a SentralPlus / member context.
 - Headline: Georgia, white, with italic continuation in gold
 - The visual signal: this block is *for* members, hence the gold
 
-### 4.8 Award and recognition components — reserved gold
+### 5.8 Award and recognition components — reserved gold
 
 **Award badge card (on cream):**
 ```css
@@ -560,23 +594,23 @@ treatment below is justified by a SentralPlus / member context.
 
 **Important:** On cream surfaces, gold text uses `--gold-deep`
 (`#9A8862`), not `--gold`. The lighter gold fails contrast on cream.
-Verify on the actual designer's monitor — deep gold can read olive on
-some displays. If it does, fall back to `#8A7654`.
 
 ---
 
-## 5. Iconography
+## 6. Iconography
 
 - Icons are **stroked, not filled**, `stroke-width: 1.5`
 - Default size: `16px` or `20px`
 - Use `stroke="currentColor"` so icons inherit the text color of
   their parent
+- On cream surfaces: Racing Green deep for active icons, cloud for muted
+- On dark surfaces: white for active icons, sage for emphasized
 - Award icons (trophy, ribbon, laurel) inherit gold-deep on cream,
   gold on dark — these are the only icons that get gold
 
 ---
 
-## 6. Imagery
+## 7. Imagery
 
 ### Photography direction
 
@@ -604,7 +638,7 @@ some displays. If it does, fall back to `#8A7654`.
 
 ---
 
-## 7. Voice & tone
+## 8. Voice & tone
 
 ### Personality
 
@@ -643,10 +677,10 @@ Declarative + italic continuation:
 
 ---
 
-## 8. Motion & interaction
+## 9. Motion & interaction
 
 - **Transitions:** `0.15 – 0.25s`, easing
-  `cubic-bezier(.22, .68, 0, 1.2)` (the prototype's `--ease`)
+  `cubic-bezier(.22, .68, 0, 1.2)`
 - **No parallax**, no auto-playing carousels longer than 6 seconds
 - **Hover states are subtle** — opacity shifts, color shifts, never
   jumps or bounces
@@ -656,16 +690,18 @@ Declarative + italic continuation:
 
 ---
 
-## 9. Accessibility floor (non-negotiable)
+## 10. Accessibility floor (non-negotiable)
 
 These are not aspirational — they're requirements. Full spec in
 `ADA_BRIEF.md`.
 
 - Minimum contrast: **4.5 : 1** on body text, **3 : 1** on large
   text and UI components
-- Minimum font-size: **14 px** (`0.875rem`) — labels included; body paragraphs **16–17 px**
+- Minimum font-size: **12 px** (`0.75rem`) — labels included
 - Visible `:focus-visible` outline on every interactive element
-  (forest at 2px, offset 2px)
+  (Racing Green at 2px, offset 2px on cream; sage at 2px, offset 2px on
+  dark — sage gives sufficient contrast on off-black where Racing Green
+  would be marginal)
 - Every informational image has meaningful `alt`; decorative
   images have `alt=""`
 - `<main>` landmark on every page
@@ -674,47 +710,66 @@ These are not aspirational — they're requirements. Full spec in
 - Site must pass keyboard-only navigation
 - Animations respect `prefers-reduced-motion`
 
-### 9.1 Forest contrast notes
+### 10.1 Racing Green contrast notes
 
-- Forest `#196E5F` on off-black `#282828`: **4.6:1** — passes AA for
-  large text (18px+) and UI components. Do not use for body text on
-  dark; use white instead.
-- Forest `#196E5F` on cream `#F5F5F3`: **5.1:1** — passes AA for
-  body text. Reserved for buttons and decorative accents.
-- Deep forest `#0F4A3F` on cream `#F5F5F3`: **9.8:1** — passes AAA.
-  Use for italic emphasis in cream-background headlines.
-- White `#FFFFFF` on forest `#196E5F`: **4.6:1** — passes AA for
-  large text and UI; safe for buttons.
+- Racing Green `#1F3D2E` on cream `#F5F5F3`: **9.8 : 1** — passes AAA.
+  Use freely for body-size eyebrows, italic emphasis, and CTAs.
+- Racing Green `#1F3D2E` on off-black `#282828`: **3.1 : 1** — passes AA
+  for large text (18px+) and UI components only. Do not use for
+  body-size text on dark; use white. CTAs on dark use Racing Green as
+  background with white text.
+- Racing Green deep `#0F2418` on cream: **15.2 : 1** — passes AAA easily.
+  Use for italic emphasis where maximum contrast is wanted.
+- White on racing green `#1F3D2E`: **6.7 : 1** — passes AA for all sizes.
+  Standard CTA text combination.
 
-### 9.2 Cream contrast notes
+### 10.2 Sage contrast notes
+
+- Sage `#9CAE92` on off-black `#282828`: **6.2 : 1** — passes AA for
+  all sizes. Safe for italic emphasis at headline scale.
+- Sage `#9CAE92` on racing green `#1F3D2E`: **3.4 : 1** — passes AA for
+  large text only. Use for italic emphasis on the Racing Green
+  full-color section, headlines only (18px+).
+- Sage `#9CAE92` on cream: **2.1 : 1** — **FAILS**. Never use sage on
+  cream surfaces. This is the most likely misuse and must be caught
+  in QA.
+
+### 10.3 Oat contrast notes
+
+- Oat `#E8E0CC` on off-black `#282828`: **10.4 : 1** — passes AAA.
+  Safe for eyebrow text and small caption labels on dark.
+- Oat `#E8E0CC` on racing green `#1F3D2E`: **5.8 : 1** — passes AA for
+  all sizes. Safe for eyebrow text on the Racing Green full-color
+  section.
+- Oat `#E8E0CC` on cream `#F5F5F3`: **1.1 : 1** — **FAILS**. Never
+  use oat on cream surfaces. The two colors are too close in value.
+
+### 10.4 Cream contrast notes
 
 - All three cream tones pass AAA contrast with `--text-body`
-  (`#3A3633`) — minimum ratio `12.4:1` on cream-warm
+  (`#3A3633`) — minimum ratio `12.4 : 1` on cream-warm
 - All three cream tones pass AA contrast with `--text-muted`
-  (`#6B6560`) — minimum ratio `4.9:1` on cream-warm
-- Deep forest `#0F4A3F` passes AAA on all three cream tones
+  (`#6B6560`) — minimum ratio `4.9 : 1` on cream-warm
+- Racing Green deep `#0F2418` passes AAA on all three cream tones
 
-### 9.3 Gold contrast notes — verify before deploying
+### 10.5 Gold contrast notes — verify before deploying
 
-- Gold `#C8B89A` on off-black `#282828`: **6.8:1** — passes AA. Safe
-  for tier badges, member labels, eyebrows on dark.
-- Gold `#C8B89A` on cream `#F5F5F3`: **1.8:1** — **FAILS**. Never use
-  light gold for text on cream.
-- Gold-deep `#9A8862` on cream `#F5F5F3`: **3.6:1** — passes AA for
+- Gold `#C8B89A` on off-black `#282828`: **6.8 : 1** — passes AA.
+  Safe for tier badges, member labels, eyebrows on dark
+  *in SentralPlus contexts only*.
+- Gold `#C8B89A` on cream `#F5F5F3`: **1.8 : 1** — **FAILS**. Never
+  use light gold for text on cream.
+- Gold-deep `#9A8862` on cream `#F5F5F3`: **3.6 : 1** — passes AA for
   large text only (18px+). Use for award eyebrows and 14px+ labels;
   never for body or sub-14px text.
-- White `#FFFFFF` on gold `#C8B89A`: **2.0:1** — **FAILS**. Use
+- White `#FFFFFF` on gold `#C8B89A`: **2.0 : 1** — **FAILS**. Use
   off-black on gold buttons, never white.
-- Off-black `#282828` on gold `#C8B89A`: **8.9:1** — passes AAA.
+- Off-black `#282828` on gold `#C8B89A`: **8.9 : 1** — passes AAA.
   Standard text-on-gold combination.
-
-If `--gold-deep` (`#9A8862`) reads olive on a particular monitor,
-substitute `#8A7654` (slightly less green, passes the same contrast
-checks).
 
 ---
 
-## 10. Reference: complete `:root{}` block
+## 11. Reference: complete `:root{}` block
 
 For copy-paste into the WordPress theme stylesheet:
 
@@ -729,9 +784,13 @@ For copy-paste into the WordPress theme stylesheet:
   --white:        #FFFFFF;
 
   /* Primary accent */
-  --forest:       #196E5F;
-  --forest-deep:  #0F4A3F;
-  --cloud:        #AFAA9B;
+  --racing-green:       #1F3D2E;
+  --racing-green-deep:  #0F2418;
+  --cloud:          #AFAA9B;
+
+  /* Secondary accents — dark surfaces only */
+  --sage:        #9CAE92;
+  --oat:         #E8E0CC;
 
   /* Reserved metallic — SentralPlus, awards, print only */
   --gold:         #C8B89A;
@@ -740,11 +799,13 @@ For copy-paste into the WordPress theme stylesheet:
   /* Text on cream */
   --text-body:    #3A3633;
   --text-muted:   #6B6560;
-  --text-accent:  #0F4A3F;
+  --text-accent:  #0F2418;
 
   /* Text on dark */
-  --text-on-dark:       #FFFFFF;
-  --text-on-dark-muted: rgba(255, 255, 255, 0.78);
+  --text-on-dark:         #FFFFFF;
+  --text-on-dark-muted:   rgba(255, 255, 255, 0.78);
+  --text-on-dark-accent:  #9CAE92;
+  --text-on-dark-eyebrow: #E8E0CC;
 
   /* Rules */
   --rule:    rgba(255, 255, 255, 0.08);
@@ -756,9 +817,8 @@ For copy-paste into the WordPress theme stylesheet:
   --sans:  Aptos, "Segoe UI", system-ui, -apple-system, sans-serif;
 
   /* Type floors */
-  --fs-min-body:    1rem;       /* 16px — legible floor */
-  --fs-body-cream:  1.0625rem;  /* 17px — body on cream */
-  --fs-min-caption: 0.875rem;   /* 14px — caption / eyebrow / label floor */
+  --fs-min-body:    1rem;     /* 16px */
+  --fs-min-caption: 0.75rem;  /* 12px */
 
   /* Motion */
   --ease: cubic-bezier(0.22, 0.68, 0, 1.2);
@@ -767,72 +827,79 @@ For copy-paste into the WordPress theme stylesheet:
 
 ---
 
-## 11. Decision matrix — quick reference
+## 12. Decision matrix — quick reference
 
 When in doubt, this table settles it:
 
-| Use case | Forest | Cream tones | Gold |
-|---|:---:|:---:|:---:|
-| Primary CTAs | ● | — | — |
-| Eyebrows (general) | ● | — | — |
-| Italic accents in headlines | ● | — | — |
-| Section background variation | — | ● | — |
-| Card surfaces on cream | — | ● | — |
-| Active nav · focus rings · map pins | ● | — | — |
-| Full-section hero band (one per page) | ● | — | — |
-| Borders & dividers on cream | — | — | — *(cloud)* |
-| SentralPlus tier badges & member labels | — | — | ● |
-| SentralPlus footer/promo block | — | — | ● *(accents)* |
-| Awards & press recognition | — | — | ● |
-| Award icons & ribbons | — | — | ● |
-| Print & physical signage parity | — | — | ● |
-| Decorative "warmth" with no specific reason | — | — | **No** |
+| Use case | Racing Green | Sage | Oat | Cream tones | Gold |
+|---|:---:|:---:|:---:|:---:|:---:|
+| Primary CTAs and buttons | ● | — | — | — | — |
+| Eyebrows on cream | ● | — | — | — | — |
+| Eyebrows on dark | — | — | ● | — | — |
+| Italic accents on cream | ● | — | — | — | — |
+| Italic accents on dark | — | ● | — | — | — |
+| Active nav on dark · focus rings on dark | — | ● | — | — | — |
+| Active states on cream · focus rings on cream | ● | — | — | — | — |
+| Map pins | ● | — | — | — | — |
+| Full-section hero band (one per page) | ● | — | — | — | — |
+| Section background variation | — | — | — | ● | — |
+| Card surfaces and quote blocks | — | — | — | ● | — |
+| Borders and dividers on cream | — | — | — | — *(cloud)* | — |
+| SentralPlus tier badges and member labels | — | — | — | — | ● |
+| SentralPlus footer/promo block | — | — | — | — | ● |
+| Awards and press recognition | — | — | — | — | ● |
+| Award icons and ribbons | — | — | — | — | ● |
+| Print and physical signage parity | — | — | — | — | ● |
+| Decorative accent without specific reason | — | **No** | **No** | — | **No** |
 
 ---
 
-## 12. Pre-build checklist for the WordPress developer
+## 13. Pre-build checklist for the WordPress developer
 
 Before theme development begins, confirm:
 
-- [ ] `:root{}` token block in §10 is implemented exactly as shown
+- [ ] `:root{}` token block in §11 is implemented exactly as shown
 - [ ] All three cream tones are defined and used per §1.1
-- [ ] Gold tokens are defined but used **only** in SentralPlus, award,
-      and print-parity components (per §1.3 and §11)
+- [ ] Sage and oat tokens are defined but used **only** in the
+      contexts named in §1.3 (italic on dark, eyebrow on dark)
+- [ ] Gold tokens are defined but used **only** in SentralPlus,
+      award, and print-parity components (per §1.4 and §12)
 - [ ] Georgia + Aptos render correctly across Chrome, Safari, Firefox,
       and Edge — no font-loading shims or `@font-face` rules needed
-- [ ] All gold references in the original prototype CSS that are
-      *not* SentralPlus or award contexts are replaced with forest
-      tokens; no inappropriate `#C8B89A` remains in the codebase
+- [ ] All prior `#196E5F` (forest) references replaced with `#1F3D2E`
+      (Racing Green); no stale forest values remain in the codebase
 - [ ] All `#141414` references replaced with `#282828`
 - [ ] Cormorant Garamond and DM Sans `<link>` tags removed from
       `<head>` (no Google Fonts loading)
 - [ ] Hero text-shadow values applied consistently across all
       photo-hero pages
 - [ ] Focus outlines verified on every interactive element using
-      keyboard-only navigation
+      keyboard-only navigation (Racing Green on cream, sage on dark)
 - [ ] All form inputs have visible labels (not placeholder-only)
 - [ ] Contrast verified with axe DevTools or WAVE on every template
-      — pay special attention to gold-on-cream combinations (§9.3)
+      — pay special attention to sage-on-cream (FAILS) and
+      oat-on-cream (FAILS) misuses
 - [ ] Reduced-motion media query disables carousel auto-advance and
       hover transforms
 - [ ] At least one page (Home or Live With Us) demonstrates the full
-      surface rhythm (off-black → cream-light → cream → cream-warm →
-      forest → ink+gold footer if SentralPlus is contextually present)
+      surface rhythm
 
 ---
 
-## 13. Governance — who owns what
+## 14. Governance — who owns what
 
 - **Color additions or modifications:** Must come through brand
-  marketing review. The reserved-gold rule in §1.3 is the most
-  fragile part of this system; pressure to expand gold's use will
-  come up. Hold the line.
+  marketing review. The most fragile rules in this system, in order
+  of fragility, are: (1) sage-and-oat boundaries — they will be
+  treated as general accents if not actively governed; (2) the
+  reserved-gold rule; (3) the cream tonal alternation. Pressure to
+  expand all three will come up. Hold the line.
 - **Typography changes:** Require IT and marketing sign-off jointly,
   because any non-system typeface introduces licensing and
   deployment cost.
 - **Component additions:** Designer + WP dev review; document new
   components in this guide before they ship.
-- **Voice and copy changes:** Marketing owns; refer to §7.
+- **Voice and copy changes:** Marketing owns; refer to §8.
 
 ---
 
@@ -846,4 +913,6 @@ This guide should be read alongside:
 - `ADA_BRIEF.md` — accessibility / WCAG correction spec
 - The static prototype repo: https://github.com/Sentral2026/sentral-website
 - `internal-note-brand-reconciliation.md` — the rationale and
-  decision context behind this version of the guide
+  decision context behind earlier versions of this guide
+- `Sentral_Brand_Style_Guide_v3.pptx` — the visual companion to
+  this document
