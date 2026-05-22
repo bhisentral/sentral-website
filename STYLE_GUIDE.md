@@ -1,63 +1,82 @@
 # Sentral Website — Style Guide
 
-**Version:** 3.0 (final, approved direction)
+**Version:** 4.0 (Slate system — supersedes v3 Racing Green)
 **For:** WordPress development team, designers, copywriters, brand owners
-**Companion to:** `Sentral_WP_Developer_Brief.docx`, `ADA_BRIEF.md`
+**Companion to:** `Sentral_WP_Developer_Brief.docx`, `ADA_BRIEF.md`,
+`Sentral_Brand_System_v2.pptx` (canonical brand book), `Sentral_Brand_Standards_Brief.docx`
 **Source:** Audit of all 11 pages of the static HTML prototype, reconciled
-with Sentral's official brand guidelines and updated to reflect the
-deeper, more institutional accent direction approved by leadership.
+with Sentral Brand System v2 (May 2026) — the locked, leadership-approved
+identity that moves Sentral from a green-anchored palette to a blue
+slate-and-neutral system.
 
 This document captures the design system as it will be *implemented* in
-WordPress and applied across all Sentral surfaces — a reconciled version
-that takes the prototype's structural work, pulls the surface decoration
-back toward the brand guide, and resolves the prior brightness issue
-with a deeper Racing Green primary accent and a multi-tone supporting palette.
+WordPress and applied across all Sentral surfaces. v4 swaps the v3
+Racing Green primary accent for **Slate (`#2D4A5C`)**, replaces sage
+with **Slate Light (`#5C8CA0`)**, updates oat to the v2 value
+(`#F2E8D5`), and re-anchors the reserved metallic to **Gold
+(`#B8924A`)** / **Gold deep (`#8C6A2E`)**. Surfaces, typography
+(Georgia + Aptos), the italic continuation pattern, and the
+reserved-gold governance all carry over unchanged.
+
+> **Prose-update status:** PR 1 (this PR) updates the canonical token
+> blocks in §2 and the §0 changelog. Prose elsewhere in this guide
+> (§1.2 "Racing Green usage rules," §1.3 "Sage and oat usage rules,"
+> §3 photography & motif language, etc.) still uses v3 terminology
+> and will be rewritten in a follow-up PR. **If §2 disagrees with
+> prose below, §2 wins.**
 
 ---
 
-## 0. What changed in v3 — the accent direction
+## 0. What changed in v4 — the accent direction
 
-The accent system has been updated. Earlier iterations used a brighter
-green (forest at `#196E5F`, then heritage at `#0F4A3F`) that read as
-2010s tech-travel rather than institutional luxury. The current
-direction commits to **Racing Green at `#1F3D2E`** — a deeper,
-warmer green that sits in old-money territory rather than digital-fresh.
+The brand moves from a green-anchored system (v3 Racing Green) to a
+blue slate-and-neutral system. The change is sourced from
+`Sentral_Brand_System_v2.pptx` (May 2026), approved by VP Marketing
+with full ET endorsement. The rationale per the brand book: legacy
+REIT operators own navy and Bozzuto owns green-and-sage; the
+Slate-and-cream combination occupies defensible whitespace in the
+multifamily peer set while reading as premium, contemporary, and
+tenure-neutral.
 
-### Key changes from prior versions
+### Key changes from v3 → v4
 
-| | Prior | Current |
+| | v3 (Racing Green) | v4 (Slate) |
 |---|---|---|
-| Primary accent | Forest `#196E5F` → Heritage `#0F4A3F` | **Racing Green `#1F3D2E`** |
-| Hover/pressed | Forest deep `#0F4A3F` → Heritage deep `#08291F` | **Racing Green deep `#0F2418`** |
-| Italic on dark surfaces | Lighter forest `#2A8A78` | **Sage `#9CAE92`** |
-| Eyebrows on dark surfaces | Forest `#196E5F` | **Oat `#E8E0CC`** |
-| Italic on cream surfaces | Forest deep `#0F4A3F` | **Racing Green deep `#0F2418`** |
+| Primary accent | Racing Green `#1F3D2E` | **Slate `#2D4A5C`** |
+| Hover / pressed, italic on cream | Racing Green deep `#0F2418` | **Slate deep `#3D6478`** |
+| Italic on dark surfaces | Sage `#9CAE92` | **Slate light `#5C8CA0`** |
+| Eyebrows on dark surfaces | Oat `#E8E0CC` | **Oat `#F2E8D5`** (value updated) |
+| SentralPlus / awards gold | Metallic `#C8B89A` | **Gold `#B8924A`** |
+| Award eyebrow gold deep | `#9A8862` | **Gold deep `#8C6A2E`** |
 
-Everything else carries over unchanged — surfaces, typography,
-voice, the reserved-gold governance, accessibility floor, and the
-overall structure of the system.
+Surfaces (`#282828`, `#1F1F1F`, `#F5F5F3`, `#FAF8F4`, `#EFEDE6`),
+cloud `#AFAA9B`, typography (Georgia + Aptos), the italic
+continuation pattern, the wordmark, the reserved-gold governance,
+the accessibility floor, and the overall structure of the system
+all carry over unchanged.
 
-### Why Racing Green
+### Why Slate
 
-The prior accents read as too bright and too digital — "startup travel
-brand" rather than "institutional operator." Racing Green at `#1F3D2E`
-sits in old-money territory: Bentley, Range Rover, Penguin Classics,
-Ralph Lauren Polo Country. It carries the same green-family relationship
-to the published brand guide's "forest" but at a depth that reads as
-historical and confident rather than fresh and digital.
+Per the Brand Standards Brief: the v4 palette anchors on Slate
+because legacy REIT operators own navy, Bozzuto owns green-and-sage,
+and warm-earth tones are cluttered in the multifamily peer set.
+Slate reads as institutional, contemporary, and tenure-neutral
+without crowding any existing competitor's identity.
 
-Critically, Racing Green pairs more naturally with sage than the prior
-Heritage value did. Both colors share yellow-green undertones, so the
-system reads as one continuous family rather than two adjacent colors —
-which is what the italic continuation pattern needs to feel coherent.
+Slate also pairs cleanly with the existing cream surfaces and
+off-black structural colors, so v3 surface decisions stay intact
+— this is a single-axis palette change, not a redesign.
 
-Adding sage and oat as restricted secondary colors solves the practical
-problem that pure Racing Green is too dark to use as italic emphasis
-on dark backgrounds. Cream-light alone (a previously considered
-alternative) was workable but lacked visual range. Sage and oat give
-the system a richer, more layered feel that better matches Sentral's
-hospitality-luxury positioning — provided the governance rules in
-§1.4 are enforced.
+### Accessibility note — slate light on dark
+
+Slate light (`#5C8CA0`) on off-black (`#282828`) measures ~4.15:1
+contrast — passes WCAG AA Large (3:1) and the 3:1 non-text contrast
+requirement for focus indicators, but falls short of AA Normal
+(4.5:1). v3 sage measured ~6.2:1 on off-black, so this is a
+deliberate accessibility trade-off the brand book accepts because
+slate-light is used only for italic emphasis in headlines (always
+Large) and never for body text. Eyebrow text on dark continues to
+use oat (`#F2E8D5`), which has very high contrast on off-black.
 
 ---
 
@@ -110,16 +129,16 @@ keeping gold restricted is what makes it meaningful when it appears.
 ### Primary accent
 
 ```css
---racing-green:       #1F3D2E;   /* primary accent — CTAs, eyebrows on cream, italic on cream */
---racing-green-deep:  #0F2418;   /* hover/pressed, deepest accent moments */
---cloud:          #AFAA9B;   /* warm gray — borders/dividers on cream */
+--slate:        #2D4A5C;   /* primary accent — CTAs, eyebrows on cream, italic on cream */
+--slate-deep:   #3D6478;   /* hover/pressed, italic on cream, deepest accent moments */
+--cloud:        #AFAA9B;   /* warm gray — borders/dividers on cream */
 ```
 
-### Secondary accents — dark surfaces only
+### Secondary accent — dark surfaces only
 
 ```css
---sage:        #9CAE92;   /* italic emphasis in headlines on dark — ONLY */
---oat:         #E8E0CC;   /* eyebrow text on dark — ONLY */
+--slate-light: #5C8CA0;   /* italic emphasis in headlines on dark — ONLY */
+--oat:         #F2E8D5;   /* eyebrow text on dark — ONLY */
 ```
 
 **See §1.4 governance rules. These tokens are intentionally narrow in
@@ -128,8 +147,8 @@ scope; treating them as general accents will dilute the system.**
 ### Reserved metallic — restricted use only
 
 ```css
---gold:         #C8B89A;   /* SentralPlus, awards, print — NOT a general accent */
---gold-deep:    #9A8862;   /* deep gold — gold text on cream surfaces */
+--gold:         #B8924A;   /* SentralPlus, awards on dark — NOT a general accent */
+--gold-deep:    #8C6A2E;   /* deep gold — gold text on cream surfaces (award eyebrows) */
 ```
 
 ### Text on cream — accessibility-corrected
@@ -137,7 +156,7 @@ scope; treating them as general accents will dilute the system.**
 ```css
 --text-body:    #3A3633;   /* AAA, ~12.6 : 1 on cream */
 --text-muted:   #6B6560;   /* AA,  ~5.14 : 1 on cream */
---text-accent:  #0F2418;   /* AAA — italic emphasis on cream */
+--text-accent:  #3D6478;   /* slate-deep — italic emphasis on cream (AAA ~7.3:1) */
 ```
 
 ### Text on dark
@@ -145,9 +164,24 @@ scope; treating them as general accents will dilute the system.**
 ```css
 --text-on-dark:        #FFFFFF;
 --text-on-dark-muted:  rgba(255, 255, 255, 0.78);   /* min 70% opacity */
---text-on-dark-accent: #9CAE92;   /* sage — italic emphasis only */
---text-on-dark-eyebrow: #E8E0CC;  /* oat — eyebrow text only */
+--text-on-dark-accent: #5C8CA0;   /* slate-light — italic emphasis only */
+--text-on-dark-eyebrow: #F2E8D5;  /* oat — eyebrow text only */
 ```
+
+### Legacy v3 token aliases
+
+For backward compatibility during the v3 → v4 migration, the following
+aliases are defined in `overrides.css`. They will be removed in a
+follow-up PR after the WP rebuild migrates off the v3 names:
+
+```css
+--racing-green:      var(--slate);
+--racing-green-deep: var(--slate-deep);
+--sage:              var(--slate-light);
+```
+
+**Do not introduce new uses of these aliases.** They exist only to keep
+v3-named references resolving during the transition.
 
 ### Rules / dividers
 
