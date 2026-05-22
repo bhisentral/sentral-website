@@ -599,7 +599,58 @@ input:focus-visible,
 
 
 /* ------------------------------------------------------------
-   9. KNOWN PREVIEW LIMITATIONS
+   9. TEXT-ON-SLATE GOVERNANCE (v4)
+   ------------------------------------------------------------
+   Per STYLE_GUIDE.md §1.5: any element with a Slate or Slate-deep
+   background MUST use white or cream text. Slate is dark enough
+   that black, slate-deep, or any darker accent on top would fail
+   contrast (white on slate ≈ 9.1:1 AAA; slate-deep on slate ≈
+   1.6:1 FAILS).
+
+   This block defaults the foreground for common Slate-surface
+   utility classes the WP rebuild is likely to introduce, plus
+   any inline style="background:#2D4A5C" patterns that bypass
+   the token system. Existing component rules above already set
+   color explicitly; this is a safety net for future additions.
+   ------------------------------------------------------------ */
+
+.bg-slate,
+.surface-slate,
+.cta-band-slate,
+section.slate,
+section.surface-slate,
+[style*="background:#2D4A5C"],
+[style*="background-color:#2D4A5C"],
+[style*="background: var(--slate)"],
+[style*="background-color: var(--slate)"] {
+  color: var(--white) !important;
+}
+
+/* Eyebrow text inside a Slate-surface block uses oat (not slate-deep,
+   which would fail contrast on slate). Italic emphasis inside a
+   Slate-surface block uses slate-light or cream-light. Both are
+   already governed by §2 component rules — restated here as
+   inheritable defaults for new utility-class adoptions. */
+.bg-slate .eyebrow,
+.surface-slate .eyebrow,
+.cta-band-slate .eyebrow,
+section.slate .eyebrow,
+section.surface-slate .eyebrow {
+  color: var(--oat) !important;
+}
+
+.bg-slate em,
+.surface-slate em,
+.cta-band-slate em,
+section.slate em,
+section.surface-slate em {
+  color: var(--slate-light) !important;
+  font-style: italic;
+}
+
+
+/* ------------------------------------------------------------
+   10. KNOWN PREVIEW LIMITATIONS
    ------------------------------------------------------------
    The following items are NOT corrected by this overlay:
 

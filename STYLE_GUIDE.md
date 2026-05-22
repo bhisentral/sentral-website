@@ -95,14 +95,14 @@ on their own. Off-black, three cream tones, cloud for borders.
 
 Carries the brand. Used as punctuation throughout the system — CTAs,
 eyebrows on cream, italic emphasis on cream, focus rings, active
-states, one full-color section per page. Racing Green and Racing Green deep.
+states, one full-color section per page. Slate and Slate deep.
 
 ### Secondary accents (dark surfaces only)
 
 Carry visual layering on dark backgrounds where the primary accent is
-too dark to read. Sage for italic emphasis in headlines on dark. Oat
-for eyebrows on dark. **Used nowhere else.** These are visual register
-shifts, not new primary colors.
+too dark to read. Slate light for italic emphasis in headlines on dark.
+Oat for eyebrows on dark. **Used nowhere else.** These are visual
+register shifts, not new primary colors.
 
 ### Reserved metallic
 
@@ -211,63 +211,72 @@ not within.
 **Don't use cream tones for:**
 - Borders or dividers (cloud `#AFAA9B` does that)
 - Text (use `--text-body` or `--text-muted`)
-- Accent fills inside cards (use Racing Green or stay with the section
+- Accent fills inside cards (use Slate or stay with the section
   background)
 
-### 1.2 Racing Green usage rules
+### 1.2 Slate usage rules
 
-- **Racing Green is the brand color.** It does the primary accent work
+- **Slate is the brand color.** It does the primary accent work
   everywhere except where it's too dark to read on dark backgrounds.
-- **On dark surfaces:** Racing Green works for CTA buttons, focus rings,
-  underline accents, map pins, and section bands. It does *not* work
-  for italic emphasis or eyebrow text on dark — at headline scale,
-  Racing Green on off-black has insufficient contrast for type. Use sage
-  for italic emphasis and oat for eyebrows on dark.
-- **On cream surfaces:** Racing Green and Racing Green deep do all the accent
-  work. Italic emphasis in headlines uses Racing Green deep (`#0F2418`).
-  Eyebrows on cream use Racing Green deep. CTAs on cream use Racing Green.
-- **Racing Green CTAs on dark** use white text. Verify 4:1 contrast for
-  button text — Racing Green is dark enough that the contrast is robust.
-- **One full-Racing-Green section per page** (CTA band, values section,
+- **On dark surfaces:** Slate is dark enough that it cannot be used as
+  italic emphasis, eyebrow text, hairline rules, or focus indicators
+  *on* off-black — the contrast is too low. On dark surfaces, slate
+  works only as a **background fill** with cream/white text on top
+  (CTA buttons, full-section bands). For italic emphasis on dark use
+  **slate light** (`#5C8CA0`); for eyebrows on dark use **oat**
+  (`#F2E8D5`); for hairlines and focus rings on dark use **slate
+  light** or oat depending on context.
+- **On cream surfaces:** Slate and Slate deep do all the accent
+  work. Italic emphasis in headlines uses Slate deep (`#3D6478`).
+  Eyebrows on cream use Slate or Slate deep. CTAs on cream use Slate.
+- **Text on Slate (any size, any context) is white or cream.** Never
+  set body text, button labels, or eyebrows to a darker color on a
+  Slate background — the contrast collapses. Default to `--white`
+  (`#FFFFFF`) for buttons and body, `--cream-light` (`#FAF8F4`) for
+  large display headlines where a softer warmth is wanted.
+- **One full-Slate section per page** (CTA band, values section,
   property highlight) gives the accent room to breathe at scale. Use
-  oat for the eyebrow text and sage or cream-light for italic
-  emphasis within that section.
+  oat for the eyebrow text and slate-light or cream-light for italic
+  emphasis within that section. Body text and buttons inside this
+  section are white.
 
-### 1.3 Sage and oat usage rules
+### 1.3 Slate-light and oat usage rules
 
 These are the most fragile rules in the system. Hold them.
 
-**Sage `#9CAE92` appears only as:**
-- Italic emphasis in headlines on dark surfaces
-- Italic emphasis in headlines on the Racing Green full-color section
+**Slate light `#5C8CA0` appears only as:**
+- Italic emphasis in headlines on off-black and ink surfaces
+- Italic emphasis in headlines on the full-Slate section
+- Active nav underlines and focus rings on dark surfaces (the
+  non-text 3:1 contrast minimum is met; do not use for text)
 
-**Oat `#E8E0CC` appears only as:**
+**Oat `#F2E8D5` appears only as:**
 - Eyebrow text on dark surfaces
-- Small caption labels on dark where Racing Green would be too dark to read
-- Subtle accent text on the Racing Green full-color section
+- Small caption labels on dark where slate would be too dark to read
+- Subtle accent text on the full-Slate section
 
-**Where sage and oat must not appear:**
-- On cream surfaces of any tone
+**Where slate-light and oat must not appear:**
+- On cream surfaces of any tone (slate-light on cream measures
+  ~3.2:1 — fails AA for text; oat on cream is even worse)
 - As button backgrounds or button text
 - As decorative tints, fills, or borders
-- As icon colors
-- As map pins, focus rings, or active state indicators
+- As icon colors on cream (use slate or slate-deep)
 - Adjacent to gold (the oat-gold distinction is hard to hold visually
   and creates governance ambiguity — keep them on separate sections)
 - In any new context not explicitly named in this guide
 
-If a use case requires "a lighter green" or "a warm cream that isn't
+If a use case requires "a lighter blue" or "a warm cream that isn't
 gold" outside the contexts above, the answer is to redesign the
-component, not to expand sage or oat usage. These colors exist to
-solve specific contrast problems on dark surfaces. They are not
-secondary brand colors.
+component, not to expand slate-light or oat usage. These colors
+exist to solve specific contrast problems on dark surfaces. They
+are not secondary brand colors.
 
 ### 1.4 Gold governance rules — read before using
 
 Gold is reserved. It is not a general accent. The discipline of
 keeping it in its three lanes is what makes it meaningful when
 it appears. **A designer reaching for gold to make something "feel
-premium" is the failure mode this rule exists to prevent.** Racing Green
+premium" is the failure mode this rule exists to prevent.** Slate
 does that job everywhere except the contexts below.
 
 **The only places gold appears on the website:**
@@ -286,10 +295,11 @@ does that job everywhere except the contexts below.
    honors that visual code.
 
 **Where gold must not appear:**
-- General CTAs (those are Racing Green)
+- General CTAs (those are Slate)
 - Eyebrows on non-SentralPlus, non-award sections (those are oat on
-  dark, Racing Green deep on cream)
-- Italic accents in headlines
+  dark, Slate or Slate deep on cream)
+- Italic accents in general headlines (those are Slate deep on cream,
+  Slate light on dark)
 - Active nav states, focus rings, hover states
 - Map pins, link colors, button hovers
 - Decorative tinting on cream
@@ -297,7 +307,7 @@ does that job everywhere except the contexts below.
   without a SentralPlus / award / print justification
 
 If a request comes in to use gold somewhere outside these contexts,
-the answer is Racing Green.
+the answer is Slate.
 
 ### 1.5 General color usage rules
 
@@ -308,11 +318,17 @@ the answer is Racing Green.
 - **Dividers** are nearly transparent (`rule`/`ruleW`) — never solid
   lines. Cloud is reserved for visible borders on cards and inputs.
 - **Text on gold** uses `--black` (`#282828`) or `--gold-deep`
-  (`#9A8862`) — never plain white, which can muddy on the warm gold
-  tone.
-- **Text on Racing Green** uses white for body and buttons. Sage for
-  italic emphasis. Oat for eyebrow text. Never gold (gold is
-  reserved).
+  (`#8C6A2E`) — never plain white, which fails contrast on the
+  warm gold tone (white on gold ≈ 2.9 : 1).
+- **Text on Slate (governance)** uses **white or cream only.**
+  Body text and button labels are `--white` (`#FFFFFF`). Eyebrows on
+  Slate are oat (`#F2E8D5`). Italic emphasis in headlines on Slate
+  is slate-light (`#5C8CA0`) or cream-light (`#FAF8F4`) depending on
+  whether warmth or coolness is wanted. **Any darker text color on
+  a Slate background is a brand violation — slate is dark enough
+  that black or slate-deep text on it would fail contrast.** Never
+  use gold on a Slate background (gold is reserved, and contrast is
+  marginal anyway).
 
 ---
 
@@ -361,13 +377,13 @@ headlines into a declarative first clause and an italic continuation:
 
 Italic accents inherit color based on surface:
 
-- **On cream surfaces:** racing green deep `#0F2418`
-- **On off-black surfaces:** sage `#9CAE92`
-- **On the Racing Green full-color section:** sage `#9CAE92` or
+- **On cream surfaces:** Slate deep `#3D6478`
+- **On off-black surfaces:** Slate light `#5C8CA0`
+- **On the full-Slate section:** Slate light `#5C8CA0` or
   cream-light `#FAF8F4` depending on visual weight needed
 
-Never gold (gold is reserved). Never the primary Racing Green on dark
-surfaces (insufficient contrast at type sizes).
+Never gold (gold is reserved). Never the primary Slate on dark
+surfaces (insufficient contrast at type sizes — use slate-light).
 
 ### Line heights
 
@@ -403,15 +419,15 @@ surfaces (insufficient contrast at type sizes).
 A typical long page should alternate surfaces in a rhythm like:
 
 ```
-[Off-black hero — oat eyebrow, sage italic, Racing Green CTA]
+[Off-black hero — oat eyebrow, slate-light italic, Slate CTA with white text]
   ↓
-[Cream-light filter bar or intro — Racing Green deep eyebrow, Racing Green deep italic]
+[Cream-light filter bar or intro — Slate deep eyebrow, Slate deep italic]
   ↓
-[Cream primary content — Racing Green deep eyebrow, Racing Green deep italic]
+[Cream primary content — Slate deep eyebrow, Slate deep italic]
   ↓
 [Cream-warm testimonial/quote block]
   ↓
-[Racing Green full-section CTA band — oat eyebrow, sage or cream-light italic]
+[Full-Slate CTA band — oat eyebrow, slate-light or cream-light italic, white body/buttons]
   ↓
 [Ink + gold SentralPlus footer block — only where contextually relevant]
   ↓
@@ -437,11 +453,11 @@ benefit from the full rhythm.
 
 - Off-black bar, `SEN+RAL` wordmark left, link cluster center, CTA +
   hamburger right
-- **Active link:** sage underline + white text (sage is the visual
-  cue; Racing Green on off-black would be invisible at 1px stroke)
+- **Active link:** slate-light underline + white text (slate-light is
+  the visual cue; Slate on off-black would be invisible at 1px stroke)
 - **Inactive link:** 55% white, hover → 100% white
-- **CTAs in nav** ("Book a Stay", "Login"): Racing Green button background
-  `#1F3D2E`, white text
+- **CTAs in nav** ("Book a Stay", "Login"): Slate button background
+  `#2D4A5C`, white text
 
 ### Hero — photo
 
@@ -451,9 +467,9 @@ Business, SentralPlus.
 Structure (left-aligned by default):
 ```
 [Eyebrow: oat uppercase]
-[Headline: Georgia, large, italic continuation in sage]
+[Headline: Georgia, large, italic continuation in slate-light]
 [Subtitle: Aptos, 80%+ white opacity]
-[Stats / CTAs (optional) — primary CTA in Racing Green]
+[Stats / CTAs (optional) — primary CTA in Slate with white text]
 ```
 
 Required treatment for legibility on photo backgrounds:
@@ -477,7 +493,7 @@ Terms of Use.
 
 - `0.75rem` minimum, weight 500, uppercase, letter-spacing
   0.18 – 0.24em
-- Color: `--text-accent` (Racing Green deep) on cream, `--oat` on dark
+- Color: `--text-accent` (Slate deep) on cream, `--oat` on dark
 - Always sits `14 – 16px` above the section heading
 - Examples: `"MEMBER BENEFITS"`, `"01 — BUSINESS TRAVEL"`,
   `"WHAT DRIVES US"`, `"FOR OWNERS & DEVELOPERS"`
@@ -495,7 +511,7 @@ Property card, news card, value card all share:
 - City label uppercase, lighter weight
 - Title in Georgia, weight 400
 - "View →" or "Read article →" CTA with arrow glyph; arrow turns
-  Racing Green on hover
+  Slate on hover
 
 Card backgrounds: white on cream-light or cream-warm; cream-warm on
 cream-light or cream. Avoid same-tone cards on same-tone backgrounds.
@@ -504,30 +520,32 @@ cream-light or cream. Avoid same-tone cards on same-tone backgrounds.
 
 | Variant | Background | Text | Use |
 |---|---|---|---|
-| Primary on dark | `--racing-green` | `--white` | "Book a Stay", "Join SentralPlus", "View Open Roles" |
+| Primary on dark | `--slate` | `--white` | "Book a Stay", "Join SentralPlus", "View Open Roles" |
 | Primary on cream | `--black` | `--cream` | Primary CTA on cream sections |
 | Secondary on dark | transparent + 1px white border | `--white` | "Learn more →" |
-| Tertiary text-link | none | `--racing-green` (cream bg) / `--white` (dark bg) | Inline links |
+| Tertiary text-link | none | `--slate` (cream bg) / `--white` (dark bg) | Inline links |
 
 All buttons:
 - Text: `0.85rem`, weight 500, Aptos
 - Padding: `14 – 16px` vertical, `22 – 28px` horizontal
 - Border-radius: `2 – 3px` (very subtle)
-- Hover: Racing Green darkens to `--racing-green-deep` on dark; on cream,
+- Hover: Slate darkens to `--slate-deep` on dark; on cream,
   off-black shifts to `--ink`. No transform.
 
-**Sage and oat are never used as button backgrounds or button text.**
+**Slate-light and oat are never used as button backgrounds or
+button text. Buttons with a Slate background ALWAYS use white
+text — never gold, never slate-deep, never any darker color.**
 
 ### Forms
 
 **On dark:**
-- Inputs: 6% white fill, 25% Racing Green border
-- Focus: 60% Racing Green border (`--racing-green`), 9% white fill
+- Inputs: 6% white fill, 25% Slate border
+- Focus: 60% Slate border (`--slate`), 9% white fill
 - Placeholder: 40% white
 
 **On cream / cream-light / cream-warm:**
 - Inputs: white fill, cloud (`#AFAA9B`) border
-- Focus: Racing Green deep (`--text-accent`) border
+- Focus: Slate deep (`--text-accent`) border
 - Placeholder: `--text-muted`
 
 **Always:** pair every input with a visible `<label>`, not just a
@@ -539,7 +557,7 @@ Used on Live With Us (state filter) and Press (year + category):
 
 - Active: off-black fill, white text
 - Inactive: cream fill, dark text, cloud border
-- Hover: border darkens to Racing Green deep
+- Hover: border darkens to Slate deep
 - Padding: `6 – 8px` vertical, `14 – 18px` horizontal
 - Border-radius: full pill (999px)
 
@@ -549,8 +567,8 @@ Used on Live With Us (state filter) and Press (year + category):
   ```css
   filter: grayscale(0.3) brightness(0.92);
   ```
-- Custom Racing Green pins (`14 × 14px`, Racing Green fill, Racing Green halo)
-- Popup on `--black` background, Racing Green border, Racing Green link text
+- Custom Slate pins (`14 × 14px`, Slate fill, Slate halo)
+- Popup on `--black` background, Slate border, Slate link text
 - Pins must be keyboard-focusable and announce property + city to
   screen readers
 
@@ -565,7 +583,7 @@ treatment below is justified by a SentralPlus / member context.
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(200, 184, 154, 0.12);
+  background: rgba(184, 146, 74, 0.12);
   border: 1px solid var(--gold);
   color: var(--gold);
   font-family: var(--sans);
@@ -627,7 +645,7 @@ treatment below is justified by a SentralPlus / member context.
 ```
 
 **Important:** On cream surfaces, gold text uses `--gold-deep`
-(`#9A8862`), not `--gold`. The lighter gold fails contrast on cream.
+(`#8C6A2E`), not `--gold`. The lighter gold fails contrast on cream.
 
 ---
 
@@ -637,8 +655,8 @@ treatment below is justified by a SentralPlus / member context.
 - Default size: `16px` or `20px`
 - Use `stroke="currentColor"` so icons inherit the text color of
   their parent
-- On cream surfaces: Racing Green deep for active icons, cloud for muted
-- On dark surfaces: white for active icons, sage for emphasized
+- On cream surfaces: Slate for active icons, cloud for muted
+- On dark surfaces: white for active icons, slate-light for emphasized
 - Award icons (trophy, ribbon, laurel) inherit gold-deep on cream,
   gold on dark — these are the only icons that get gold
 
@@ -733,9 +751,9 @@ These are not aspirational — they're requirements. Full spec in
   text and UI components
 - Minimum font-size: **12 px** (`0.75rem`) — labels included
 - Visible `:focus-visible` outline on every interactive element
-  (Racing Green at 2px, offset 2px on cream; sage at 2px, offset 2px on
-  dark — sage gives sufficient contrast on off-black where Racing Green
-  would be marginal)
+  (Slate at 2px, offset 2px on cream; slate-light at 2px, offset 2px
+  on dark — slate-light gives sufficient non-text contrast on
+  off-black where Slate itself would be too dark to see)
 - Every informational image has meaningful `alt`; decorative
   images have `alt=""`
 - `<main>` landmark on every page
@@ -744,38 +762,44 @@ These are not aspirational — they're requirements. Full spec in
 - Site must pass keyboard-only navigation
 - Animations respect `prefers-reduced-motion`
 
-### 10.1 Racing Green contrast notes
+### 10.1 Slate contrast notes
 
-- Racing Green `#1F3D2E` on cream `#F5F5F3`: **9.8 : 1** — passes AAA.
+- Slate `#2D4A5C` on cream `#F5F5F3`: **~8.3 : 1** — passes AAA.
   Use freely for body-size eyebrows, italic emphasis, and CTAs.
-- Racing Green `#1F3D2E` on off-black `#282828`: **3.1 : 1** — passes AA
-  for large text (18px+) and UI components only. Do not use for
-  body-size text on dark; use white. CTAs on dark use Racing Green as
-  background with white text.
-- Racing Green deep `#0F2418` on cream: **15.2 : 1** — passes AAA easily.
-  Use for italic emphasis where maximum contrast is wanted.
-- White on racing green `#1F3D2E`: **6.7 : 1** — passes AA for all sizes.
-  Standard CTA text combination.
+- Slate `#2D4A5C` on off-black `#282828`: **~1.6 : 1** — **FAILS** for
+  text and non-text use alike. Do not use Slate as text or stroke on
+  off-black. Use Slate as a background fill on dark sections (with
+  white text), use slate-light for italic emphasis and focus rings
+  on dark instead.
+- Slate deep `#3D6478` on cream: **~5.9 : 1** — passes AA for all
+  sizes, AAA for large text. Use for italic emphasis in headlines
+  on cream and hover/pressed states.
+- White on slate `#2D4A5C`: **~9.1 : 1** — passes AAA. Standard CTA
+  text combination. Use white (or `--cream-light`) for any text
+  placed on a Slate background, regardless of size.
 
-### 10.2 Sage contrast notes
+### 10.2 Slate-light contrast notes
 
-- Sage `#9CAE92` on off-black `#282828`: **6.2 : 1** — passes AA for
-  all sizes. Safe for italic emphasis at headline scale.
-- Sage `#9CAE92` on racing green `#1F3D2E`: **3.4 : 1** — passes AA for
-  large text only. Use for italic emphasis on the Racing Green
-  full-color section, headlines only (18px+).
-- Sage `#9CAE92` on cream: **2.1 : 1** — **FAILS**. Never use sage on
-  cream surfaces. This is the most likely misuse and must be caught
-  in QA.
+- Slate light `#5C8CA0` on off-black `#282828`: **~4.15 : 1** —
+  passes AA Large (3:1) and the 3:1 non-text contrast requirement
+  for focus indicators and active-state strokes. Falls short of
+  AA Normal (4.5:1) — use for italic emphasis in headlines (which
+  are always Large) and decorative strokes, never for body text.
+- Slate light `#5C8CA0` on Slate `#2D4A5C`: **~2.6 : 1** —
+  **FAILS**. Do not place slate-light text on a Slate background.
+  Use cream-light or white instead.
+- Slate light `#5C8CA0` on cream `#F5F5F3`: **~3.2 : 1** —
+  **FAILS for text** (under AA Normal). Never use slate-light on
+  cream surfaces. This is the most likely misuse and must be
+  caught in QA.
 
 ### 10.3 Oat contrast notes
 
-- Oat `#E8E0CC` on off-black `#282828`: **10.4 : 1** — passes AAA.
+- Oat `#F2E8D5` on off-black `#282828`: **~12.1 : 1** — passes AAA.
   Safe for eyebrow text and small caption labels on dark.
-- Oat `#E8E0CC` on racing green `#1F3D2E`: **5.8 : 1** — passes AA for
-  all sizes. Safe for eyebrow text on the Racing Green full-color
-  section.
-- Oat `#E8E0CC` on cream `#F5F5F3`: **1.1 : 1** — **FAILS**. Never
+- Oat `#F2E8D5` on slate `#2D4A5C`: **~8.0 : 1** — passes AAA. Safe
+  for eyebrow text on the full-Slate section.
+- Oat `#F2E8D5` on cream `#F5F5F3`: **~1.0 : 1** — **FAILS**. Never
   use oat on cream surfaces. The two colors are too close in value.
 
 ### 10.4 Cream contrast notes
@@ -784,22 +808,23 @@ These are not aspirational — they're requirements. Full spec in
   (`#3A3633`) — minimum ratio `12.4 : 1` on cream-warm
 - All three cream tones pass AA contrast with `--text-muted`
   (`#6B6560`) — minimum ratio `4.9 : 1` on cream-warm
-- Racing Green deep `#0F2418` passes AAA on all three cream tones
+- Slate deep `#3D6478` passes AA Normal (≥5.6 : 1) on all three
+  cream tones; Slate `#2D4A5C` passes AAA (≥8.0 : 1) on all three.
 
 ### 10.5 Gold contrast notes — verify before deploying
 
-- Gold `#C8B89A` on off-black `#282828`: **6.8 : 1** — passes AA.
-  Safe for tier badges, member labels, eyebrows on dark
-  *in SentralPlus contexts only*.
-- Gold `#C8B89A` on cream `#F5F5F3`: **1.8 : 1** — **FAILS**. Never
+- Gold `#B8924A` on off-black `#282828`: **~5.1 : 1** — passes AA
+  for all sizes. Safe for tier badges, member labels, eyebrows on
+  dark *in SentralPlus contexts only*.
+- Gold `#B8924A` on cream `#F5F5F3`: **~2.7 : 1** — **FAILS**. Never
   use light gold for text on cream.
-- Gold-deep `#9A8862` on cream `#F5F5F3`: **3.6 : 1** — passes AA for
-  large text only (18px+). Use for award eyebrows and 14px+ labels;
-  never for body or sub-14px text.
-- White `#FFFFFF` on gold `#C8B89A`: **2.0 : 1** — **FAILS**. Use
+- Gold-deep `#8C6A2E` on cream `#F5F5F3`: **~4.5 : 1** — passes AA
+  Normal at the threshold. Use for award eyebrows and 14px+ labels;
+  for body or sub-14px text, use `--text-body` instead.
+- White `#FFFFFF` on gold `#B8924A`: **~2.9 : 1** — **FAILS**. Use
   off-black on gold buttons, never white.
-- Off-black `#282828` on gold `#C8B89A`: **8.9 : 1** — passes AAA.
-  Standard text-on-gold combination.
+- Off-black `#282828` on gold `#B8924A`: **~5.1 : 1** — passes AA
+  Normal. Standard text-on-gold combination.
 
 ---
 
@@ -818,28 +843,28 @@ For copy-paste into the WordPress theme stylesheet:
   --white:        #FFFFFF;
 
   /* Primary accent */
-  --racing-green:       #1F3D2E;
-  --racing-green-deep:  #0F2418;
-  --cloud:          #AFAA9B;
+  --slate:        #2D4A5C;
+  --slate-deep:   #3D6478;
+  --slate-light:  #5C8CA0;
+  --cloud:        #AFAA9B;
 
-  /* Secondary accents — dark surfaces only */
-  --sage:        #9CAE92;
-  --oat:         #E8E0CC;
+  /* Eyebrow on dark surfaces — Oat */
+  --oat:          #F2E8D5;
 
   /* Reserved metallic — SentralPlus, awards, print only */
-  --gold:         #C8B89A;
-  --gold-deep:    #9A8862;
+  --gold:         #B8924A;
+  --gold-deep:    #8C6A2E;
 
   /* Text on cream */
   --text-body:    #3A3633;
   --text-muted:   #6B6560;
-  --text-accent:  #0F2418;
+  --text-accent:  #3D6478;
 
   /* Text on dark */
   --text-on-dark:         #FFFFFF;
   --text-on-dark-muted:   rgba(255, 255, 255, 0.78);
-  --text-on-dark-accent:  #9CAE92;
-  --text-on-dark-eyebrow: #E8E0CC;
+  --text-on-dark-accent:  #5C8CA0;
+  --text-on-dark-eyebrow: #F2E8D5;
 
   /* Rules */
   --rule:    rgba(255, 255, 255, 0.08);
@@ -865,7 +890,7 @@ For copy-paste into the WordPress theme stylesheet:
 
 When in doubt, this table settles it:
 
-| Use case | Racing Green | Sage | Oat | Cream tones | Gold |
+| Use case | Slate | Slate-light | Oat | Cream tones | Gold |
 |---|:---:|:---:|:---:|:---:|:---:|
 | Primary CTAs and buttons | ● | — | — | — | — |
 | Eyebrows on cream | ● | — | — | — | — |
@@ -894,25 +919,32 @@ Before theme development begins, confirm:
 
 - [ ] `:root{}` token block in §11 is implemented exactly as shown
 - [ ] All three cream tones are defined and used per §1.1
-- [ ] Sage and oat tokens are defined but used **only** in the
+- [ ] Slate-light and oat tokens are defined but used **only** in the
       contexts named in §1.3 (italic on dark, eyebrow on dark)
 - [ ] Gold tokens are defined but used **only** in SentralPlus,
       award, and print-parity components (per §1.4 and §12)
 - [ ] Georgia + Aptos render correctly across Chrome, Safari, Firefox,
       and Edge — no font-loading shims or `@font-face` rules needed
-- [ ] All prior `#196E5F` (forest) references replaced with `#1F3D2E`
-      (Racing Green); no stale forest values remain in the codebase
+- [ ] All v3 Racing Green (`#1F3D2E`) and Racing Green deep (`#0F2418`)
+      hex references replaced with Slate (`#2D4A5C`) and Slate deep
+      (`#3D6478`); no stale racing-green / sage / forest values remain
+      in the codebase (including SVG fills, gradient stops, JS color
+      arrays, inline `style=""` attributes)
+- [ ] All v3 gold hex values (`#C8B89A`, `#9A8862`) replaced with v4
+      (`#B8924A`, `#8C6A2E`)
 - [ ] All `#141414` references replaced with `#282828`
 - [ ] Cormorant Garamond and DM Sans `<link>` tags removed from
       `<head>` (no Google Fonts loading)
 - [ ] Hero text-shadow values applied consistently across all
       photo-hero pages
 - [ ] Focus outlines verified on every interactive element using
-      keyboard-only navigation (Racing Green on cream, sage on dark)
+      keyboard-only navigation (Slate on cream, slate-light on dark)
 - [ ] All form inputs have visible labels (not placeholder-only)
 - [ ] Contrast verified with axe DevTools or WAVE on every template
-      — pay special attention to sage-on-cream (FAILS) and
+      — pay special attention to slate-light-on-cream (FAILS) and
       oat-on-cream (FAILS) misuses
+- [ ] Every Slate background fill has white or cream text only
+      (no slate-deep, no gold, no dark text) — per §1.5
 - [ ] Reduced-motion media query disables carousel auto-advance and
       hover transforms
 - [ ] At least one page (Home or Live With Us) demonstrates the full
