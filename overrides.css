@@ -650,6 +650,84 @@ section.surface-slate em {
 
 
 /* ------------------------------------------------------------
+   9b. PROTOTYPE BUTTON CONTRAST FIX (text-on-Slate)
+   ------------------------------------------------------------
+   The prototype HTML hardcodes `.btn-sn { background: var(--gold);
+   color: var(--gold-d); }` and the same pattern on ~16 other
+   button classes across all 11 pages. In v4 those tokens resolve
+   to slate (#2D4A5C) and slate-deep (#3D6478) — a 2.6:1 contrast
+   ratio that FAILS per STYLE_GUIDE §10.1 and violates the §1.5
+   text-on-Slate governance rule.
+
+   This block reverts the text color to cream-light (#FAF8F4) on
+   every affected button so every Slate-background button is
+   readable (cream-light on slate ≈ 8.9:1 — AAA).
+
+   Reserved-gold buttons (.sp-sticky-join, .combo-btn-p,
+   .splus-bar-join, .splus-bar-login) are unaffected — their
+   explicit metallic-gold overrides higher up in this file win
+   on specificity / source order.
+   ------------------------------------------------------------ */
+
+.btn-sn,
+a.btn-sn,
+.ham-book,
+a.ham-book,
+.sticky-book,
+a.sticky-book,
+.book-btn,
+a.book-btn,
+.cta-btn,
+a.cta-btn,
+button.cta-btn,
+.hero-btn,
+a.hero-btn,
+.sticky-roles,
+a.sticky-roles,
+.sticky-tour,
+a.sticky-tour,
+.lookup-btn,
+button.lookup-btn,
+.modal-submit,
+button.modal-submit,
+.modal-success-close,
+button.modal-success-close,
+.rfp-mini-btn,
+button.rfp-mini-btn,
+.partner-callout-btn,
+a.partner-callout-btn,
+.mews-submit,
+button.mews-submit,
+.app-badge,
+a.app-badge,
+.phone-badge,
+a.phone-badge {
+  background: var(--slate) !important;
+  color: var(--cream-light) !important;
+}
+
+.btn-sn:hover,
+.ham-book:hover,
+.sticky-book:hover,
+.book-btn:hover,
+.cta-btn:hover,
+.hero-btn:hover,
+.sticky-roles:hover,
+.sticky-tour:hover,
+.lookup-btn:hover,
+.modal-submit:hover,
+.modal-success-close:hover,
+.rfp-mini-btn:hover,
+.partner-callout-btn:hover,
+.mews-submit:hover,
+.app-badge:hover,
+.phone-badge:hover {
+  background: var(--slate-deep) !important;
+  color: var(--cream-light) !important;
+}
+
+
+/* ------------------------------------------------------------
    10. KNOWN PREVIEW LIMITATIONS
    ------------------------------------------------------------
    The following items are NOT corrected by this overlay:
