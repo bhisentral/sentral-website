@@ -73,10 +73,12 @@
      = dividers). The prototype's original opacities (58/32/13)
      fail ADA on dark surfaces — combo-body and similar paragraphs
      rendered nearly illegible on ink/off-black. Brand book §1.5
-     requires 70–90% white opacity for body text on dark. */
-  --m1:  rgba(255, 255, 255, 0.88) !important;  /* body on dark — bumped from 58% */
-  --m2:  rgba(255, 255, 255, 0.65) !important;  /* secondary labels — bumped from 32% */
-  --m3:  rgba(255, 255, 255, 0.30) !important;  /* dividers — bumped from 13% */
+     requires 70–90% white opacity for body text on dark; we go
+     to 95% because the prototype also uses font-weight 300 (Light)
+     for body copy, which compounds the readability problem. */
+  --m1:  rgba(255, 255, 255, 0.95) !important;  /* body on dark — bumped from 58% */
+  --m2:  rgba(255, 255, 255, 0.75) !important;  /* secondary labels — bumped from 32% */
+  --m3:  rgba(255, 255, 255, 0.40) !important;  /* dividers — bumped from 13% */
 
   /* Reserved metallic — separate token, applied via .gold-* utility classes */
   --metallic:     #B8924A;   /* gold on dark — SentralPlus, awards */
@@ -737,6 +739,66 @@ a.phone-badge {
 .phone-badge:hover {
   background: var(--slate-deep) !important;
   color: var(--cream-light) !important;
+}
+
+
+/* ------------------------------------------------------------
+   9d. BODY TEXT ON DARK SURFACES — READABILITY SWEEP
+   ------------------------------------------------------------
+   Sitewide fix for body paragraph copy that sits on ink /
+   off-black surfaces. The prototype uses font-weight 300
+   (Light) on most descriptive paragraphs (.exp-sub, .p-desc,
+   .combo-body, .splus-sub, etc.) which compounds with low
+   opacity to make the text nearly illegible.
+
+   Forces font-weight 400 (Regular) and font-size floor of 14px
+   on every paragraph selector used inside a dark section.
+   Color is already handled by --m1 above (now 95% white).
+   ------------------------------------------------------------ */
+
+.exp-sub,
+.p-desc,
+.combo-body,
+.splus-sub,
+.splus-body,
+.splus-stat-l,
+.splus-eyebrow,
+.exp-stat-l,
+.hero-sub,
+.tb-discount-l,
+section.dark p,
+.dark p,
+.combo-section p,
+.experience-section p,
+.splus-block p,
+.press p {
+  font-weight: 400 !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.exp-sub,
+.p-desc,
+.combo-body,
+.splus-sub,
+.splus-body {
+  font-size: 0.95rem !important;   /* ~15.2px — above the 14px ADA floor */
+  line-height: 1.75 !important;
+}
+
+.exp-stat-l,
+.splus-stat-l,
+.slide-label,
+.tb-city,
+.ps-city,
+.mc-cap-city,
+.phone-card-sub,
+.phone-name,
+.phone-tile-lbl,
+.mc-ph-lbl,
+.ps-ph-lbl,
+.phone-card-img-lbl {
+  color: rgba(255, 255, 255, 0.80) !important;
+  font-weight: 500 !important;
 }
 
 
