@@ -803,6 +803,34 @@ section.dark p,
 
 
 /* ------------------------------------------------------------
+   9e. PILLAR / STEP NUMBERS — make them pop
+   ------------------------------------------------------------
+   The prototype's .p-num ("01", "02"…) and similar enumerated
+   eyebrows used --accent for color, which in v4 resolves to
+   slate (#2D4A5C) — ~1.6:1 contrast on off-black, essentially
+   invisible. Per brand book §1.3, numbers used as eyebrow
+   labels on dark should be Oat (which has ~12:1 contrast).
+
+   Also bumps size from ~1.3rem to 2rem so the numbering reads
+   as a deliberate visual anchor rather than a faint label.
+   ------------------------------------------------------------ */
+
+.p-num,
+.pillar .p-num,
+.exp-pillar-num,
+.value-num,
+.step-num,
+[class*="-num"]:not(.hero-stat-n):not(.exp-stat-n):not(.splus-stat-n):not(.tb-discount-n) {
+  color: var(--oat) !important;
+  font-size: 2rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.02em !important;
+  margin-bottom: 18px !important;
+  display: block !important;
+}
+
+
+/* ------------------------------------------------------------
    9c. NAV LOGO + SENTRALPLUS PROMO BAR
    ------------------------------------------------------------
    - Force the SEN+RAL wordmark to pure white. The prototype sets
