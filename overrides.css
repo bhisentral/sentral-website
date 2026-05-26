@@ -821,33 +821,12 @@ a.nav-logo {
   color: #FFFFFF !important;
 }
 
-/* The prototype HTML has no <div class="splus-bar"> wrapper — the
-   Login/Join-Free row is just <div class="splus-bar-right"> sitting
-   as a direct child of <header>. Without a parent background, the
-   cream body color showed through as a white strip. Style both
-   <header> and .splus-bar-right to ink so the band visually
-   extends the dark nav above. */
-header {
-  background: var(--ink) !important;
-}
-
+/* Hide the SentralPlus promo bar (Login | Join Free | ×) per
+   user request. The bar sits as a direct child of <header> with
+   no clean wrapper and was visually disruptive. Removing via CSS
+   (not HTML) so it can be re-enabled by deleting this rule. */
 .splus-bar-right {
-  background: var(--ink) !important;
-  color: var(--oat) !important;
-  padding: 8px 24px !important;
-}
-
-.splus-bar-right .splus-bar-login,
-a.splus-bar-login {
-  color: var(--oat) !important;
-  border-color: rgba(242, 232, 213, 0.35) !important;
-}
-
-.splus-bar-close,
-button.splus-bar-close {
-  color: var(--oat) !important;
-  background: transparent !important;
-  border: none !important;
+  display: none !important;
 }
 
 
