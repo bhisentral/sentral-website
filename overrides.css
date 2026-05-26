@@ -831,6 +831,94 @@ section.dark p,
 
 
 /* ------------------------------------------------------------
+   9f. SLATE-ON-DARK SWEEP — eyebrows, labels, tags, numbers
+   ------------------------------------------------------------
+   Every selector below uses color: var(--accent) or color:
+   var(--gold) in the prototype. In v4 both tokens resolve to
+   slate (#2D4A5C) which on off-black/ink gives ~1.6:1 contrast
+   (FAILS WCAG by a wide margin).
+
+   These are the labels/eyebrows that live on dark sections
+   across all 12 pages: hero eyebrows, combo eyebrows, page
+   headers, modal eyebrows, occasion/value/exec/dial/process
+   eyebrows, sub-section labels, card tags, etc.
+
+   All forced to Oat (#F2E8D5, ~12:1 on off-black — AAA).
+   Eyebrows that live on cream surfaces (.s-popup-loc map popup,
+   .srp-item-loc search result, .press-card-cat etc. — most on
+   cream cards) are NOT in this list; those keep slate correctly.
+   ------------------------------------------------------------ */
+
+/* Eyebrows on dark */
+.hero-eyebrow,
+.combo-eyebrow,
+.exp-eyebrow,
+.splus-eyebrow,
+.page-eyebrow,
+.lookup-eyebrow,
+.modal-eyebrow,
+.occasions-eyebrow,
+.exec-eyebrow,
+.dial-eyebrow,
+.process-eyebrow,
+.proof-eyebrow,
+.proof-card-eyebrow,
+.sbn-eyebrow,
+.staffing-eyebrow,
+.benefits-eyebrow,
+.feat-eyebrow,
+.mews-eyebrow,
+.events-eyebrow,
+.spaces-eyebrow,
+.values-eyebrow,
+.press-contact-label,
+.va-title,
+.story-name,
+.hero-kicker {
+  color: var(--oat) !important;
+}
+
+/* Numbers / counters on dark */
+.cp-num,
+.exp-num,
+.events-panel-num,
+.policy-section-num,
+.va-num {
+  color: var(--oat) !important;
+}
+
+/* Card tags / inline labels on dark surfaces */
+.phone-card-tag,
+.prop-feat-tag,
+.pt-soon-tag,
+.events-tab-label,
+.modal-req,
+.occ-card-label,
+.lookup-plus-text,
+.lookup-result-reward,
+.ipf-aum,
+.ipi-tier,
+.book-bar-title,
+.mews-widget-label,
+.app-award-text,
+.wendy-label,
+.story-arrow {
+  color: var(--oat) !important;
+}
+
+/* Larger dark-surface titles still using slate as accent —
+   bump to white for max readability since these are heading-
+   adjacent, not eyebrow-adjacent */
+.hero-rfp-title,
+.exec-modal-title,
+.exec-view,
+.sc-sentral,
+.pt-city {
+  color: #FFFFFF !important;
+}
+
+
+/* ------------------------------------------------------------
    9c. NAV LOGO + SENTRALPLUS PROMO BAR
    ------------------------------------------------------------
    - Force the SEN+RAL wordmark to pure white. The prototype sets
