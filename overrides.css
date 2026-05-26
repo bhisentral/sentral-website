@@ -935,28 +935,6 @@ section.dark p,
 .nav-logo,
 a.nav-logo {
   color: #FFFFFF !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  line-height: 0 !important;   /* prevents extra baseline space below img */
-}
-
-/* The wordmark is now an <img> sourced from /assets/sentral-wordmark-white.png
-   (white-on-transparent). Sized to read clearly in the 64px nav without
-   dominating the bar. Aspect ratio is 2:1 (2400x1200), so height 28px →
-   width ~56px — close to the visual footprint of the original text logo. */
-.nav-logo img,
-a.nav-logo img {
-  height: 28px !important;
-  width: auto !important;
-  display: block !important;
-  object-fit: contain !important;
-}
-
-@media (max-width: 900px) {
-  .nav-logo img,
-  a.nav-logo img {
-    height: 24px !important;
-  }
 }
 
 /* Hide the SentralPlus promo bar (Login | Join Free | ×) per
