@@ -821,15 +821,27 @@ a.nav-logo {
   color: #FFFFFF !important;
 }
 
-.splus-bar {
+/* The prototype HTML has no <div class="splus-bar"> wrapper — the
+   Login/Join-Free row is just <div class="splus-bar-right"> sitting
+   as a direct child of <header>. Without a parent background, the
+   cream body color showed through as a white strip. Style both
+   <header> and .splus-bar-right to ink so the band visually
+   extends the dark nav above. */
+header {
+  background: var(--ink) !important;
+}
+
+.splus-bar-right {
   background: var(--ink) !important;
   color: var(--oat) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  padding: 8px 24px !important;
 }
 
-.splus-bar a,
-.splus-bar .splus-bar-login {
+.splus-bar-right .splus-bar-login,
+a.splus-bar-login {
   color: var(--oat) !important;
+  border-color: rgba(242, 232, 213, 0.35) !important;
 }
 
 .splus-bar-close,
