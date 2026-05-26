@@ -940,19 +940,19 @@ a.nav-logo {
   line-height: 0 !important;
 }
 
-/* The wordmark is now an <img> sourced from the brand pptx —
-   the real Sentral wordmark (no "Plus"), white-on-near-black JPG.
-   Since the JPG has a baked-in dark background, mix-blend-mode:
-   screen makes the dark background blend invisibly into the
-   dark nav while the white wordmark stays crisp. Aspect ratio
-   is 4.54:1 (4554x1004) so height 28px → width ~127px. */
+/* The wordmark is now an <img> — the real Sentral wordmark
+   extracted from the brand pptx and converted to a true
+   white-on-transparent PNG (via Pillow with a brightness
+   threshold of 60 to eliminate any background haze). Renders
+   crisply on any dark surface without mix-blend tricks.
+   Aspect ratio is 4.54:1 (4554x1004) so height 28px → width
+   ~127px. */
 .nav-logo img,
 a.nav-logo img {
   height: 28px !important;
   width: auto !important;
   display: block !important;
   object-fit: contain !important;
-  mix-blend-mode: screen !important;
 }
 
 @media (max-width: 900px) {
