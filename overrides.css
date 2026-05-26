@@ -671,6 +671,9 @@ section.surface-slate em {
 
 .btn-sn,
 a.btn-sn,
+.btn-hp,
+a.btn-hp,
+button.btn-hp,
 .ham-book,
 a.ham-book,
 .sticky-book,
@@ -707,6 +710,7 @@ a.phone-badge {
 }
 
 .btn-sn:hover,
+.btn-hp:hover,
 .ham-book:hover,
 .sticky-book:hover,
 .book-btn:hover,
@@ -724,6 +728,44 @@ a.phone-badge {
 .phone-badge:hover {
   background: var(--slate-deep) !important;
   color: var(--cream-light) !important;
+}
+
+
+/* ------------------------------------------------------------
+   9c. NAV LOGO + SENTRALPLUS PROMO BAR
+   ------------------------------------------------------------
+   - Force the SEN+RAL wordmark to pure white. The prototype sets
+     `.nav-logo { color: var(--white) }` but anti-aliasing on the
+     dark nav can read as cream. This is an explicit safety override.
+   - The SentralPlus promo bar (`.splus-bar`) has no background set
+     in the prototype CSS, so the cream body color showed through
+     as a white strip between the nav and the hero. Per brand book
+     §1.4 the SentralPlus surface is Ink (`#1F1F1F`). Set the bar
+     to ink so it visually extends the nav band; the Login link
+     gets oat for legibility on ink.
+   ------------------------------------------------------------ */
+
+.nav-logo,
+a.nav-logo {
+  color: #FFFFFF !important;
+}
+
+.splus-bar {
+  background: var(--ink) !important;
+  color: var(--oat) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.splus-bar a,
+.splus-bar .splus-bar-login {
+  color: var(--oat) !important;
+}
+
+.splus-bar-close,
+button.splus-bar-close {
+  color: var(--oat) !important;
+  background: transparent !important;
+  border: none !important;
 }
 
 
