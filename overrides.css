@@ -69,6 +69,15 @@
   /* Eyebrow on dark surfaces — Oat (value updated in v4) */
   --oat:  #F2E8D5;   /* eyebrow text on dark — ONLY */
 
+  /* Prototype muted-text tokens (--m1 = body, --m2 = labels, --m3
+     = dividers). The prototype's original opacities (58/32/13)
+     fail ADA on dark surfaces — combo-body and similar paragraphs
+     rendered nearly illegible on ink/off-black. Brand book §1.5
+     requires 70–90% white opacity for body text on dark. */
+  --m1:  rgba(255, 255, 255, 0.88) !important;  /* body on dark — bumped from 58% */
+  --m2:  rgba(255, 255, 255, 0.65) !important;  /* secondary labels — bumped from 32% */
+  --m3:  rgba(255, 255, 255, 0.30) !important;  /* dividers — bumped from 13% */
+
   /* Reserved metallic — separate token, applied via .gold-* utility classes */
   --metallic:     #B8924A;   /* gold on dark — SentralPlus, awards */
   --metallic-deep:#8C6A2E;   /* gold deep on cream — award eyebrows */
