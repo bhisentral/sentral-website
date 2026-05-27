@@ -128,19 +128,13 @@ body [class*="serif"], body [class*="display"] {
   color: var(--white) !important;
 }
 
-/* Primary nav CTA — Slate background, white text */
-.site-nav a[href*="book"],
-.site-nav .cta,
-.site-nav [class*="cta"],
-.site-nav button {
-  background-color: var(--slate) !important;
-  color: var(--white) !important;
-  border: none !important;
-}
-.site-nav a[href*="book"]:hover,
-.site-nav .cta:hover {
-  background-color: var(--slate-deep) !important;
-}
+/* (Removed) — the old `.site-nav [class*="cta"]` and `.site-nav button`
+   selectors were matching too much: they painted the .nav-ctas
+   wrapper div AND the .hamburger button with a slate background,
+   creating a visible slate rectangle around the Book a Stay button
+   + hamburger. The button styles are now handled explicitly by
+   §9b further down. The hamburger keeps its plain transparent
+   background on the dark nav. */
 
 /* Hero eyebrow — oat on dark (slate too dark to read on off-black at small text) */
 .hero-eyebrow {
@@ -366,11 +360,26 @@ section.combo-section .combo-right .combo-btn-g:hover {
 
 
 /* ------------------------------------------------------------
-   FULL-BLEED HERO
-   Remove the 64px top gap that exposed the cream body color
-   between the fixed nav and the hero photo. */
+   FULL-BLEED HERO + CUSHION
+   - margin-top: 0 kills the 64px gap between fixed nav and hero
+     photo (would have exposed cream body color)
+   - padding-top: 128px restores breathing room INSIDE the hero
+     so that the eyebrow text on typographic page headers
+     (.hero with no photo carousel, e.g. /sentral-live2,
+     /sentral-partner, /press) sits 64px below the nav rather
+     than right against it. Doesn't affect the photo carousel
+     hero (homepage) because that hero uses align-items:
+     flex-end and its content is bottom-aligned regardless of
+     top padding. */
 .hero {
   margin-top: 0 !important;
+  padding-top: 128px !important;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    padding-top: 96px !important;
+  }
 }
 
 /* ------------------------------------------------------------
@@ -701,10 +710,10 @@ section.surface-slate em {
    on specificity / source order.
    ------------------------------------------------------------ */
 
-/* "Book a Stay" — the nav-level CTA — is now an OUTLINED (clear)
-   button per user request: transparent background, cream-light text,
-   1px cream-light border. Hover fills it cream-light with off-black
-   text for a satisfying click target. */
+/* "Book a Stay" — the nav-level CTA — is OUTLINED (clear) in
+   slate-light blue per user request: transparent background,
+   slate-light text and border. Hover fills it slate-light with
+   off-black text for a satisfying click affordance. */
 .btn-sn,
 a.btn-sn,
 .ham-book,
@@ -712,16 +721,16 @@ a.ham-book,
 .sticky-book,
 a.sticky-book {
   background: transparent !important;
-  color: var(--cream-light) !important;
-  border: 1px solid var(--cream-light) !important;
+  color: var(--slate-light) !important;
+  border: 1px solid var(--slate-light) !important;
 }
 
 .btn-sn:hover,
 .ham-book:hover,
 .sticky-book:hover {
-  background: var(--cream-light) !important;
+  background: var(--slate-light) !important;
   color: var(--black) !important;
-  border-color: var(--cream-light) !important;
+  border-color: var(--slate-light) !important;
 }
 
 /* Other CTAs that previously rendered as slate-bg + slate-deep-text
