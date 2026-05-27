@@ -403,6 +403,8 @@ section.combo-section .combo-right .combo-btn-g:hover {
    ------------------------------------------------------------ */
 
 .hero-h,
+.hero-h1,
+.hero-h1 em,
 .hero-eyebrow,
 .hero-sub,
 .hero-stat-n,
@@ -687,6 +689,29 @@ section.slate em,
 section.surface-slate em {
   color: var(--slate-light) !important;
   font-style: italic;
+}
+
+
+/* ------------------------------------------------------------
+   9a. STAY-WITH-US MARQUEE — cream text on slate band
+   ------------------------------------------------------------
+   The streaming amenities banner (.marquee-band on stay-with-us)
+   uses color: var(--gold-d) for text and background: var(--gold)
+   for the band. In v4 these resolve to slate-deep (#3D6478) text
+   on slate (#2D4A5C) background — ~1.6:1 contrast, FAILS.
+
+   Per user request, the marquee text needs to be cream. Cream-
+   light on slate ≈ 7.9:1 — AAA, much more readable. Same fix
+   for the .marquee-dot separator dots. */
+.marquee-item,
+.marquee-band .marquee-item {
+  color: var(--cream-light) !important;
+}
+
+.marquee-dot,
+.marquee-band .marquee-dot {
+  background: var(--cream-light) !important;
+  opacity: 0.55 !important;
 }
 
 
