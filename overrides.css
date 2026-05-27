@@ -710,26 +710,27 @@ section.surface-slate em {
    on specificity / source order.
    ------------------------------------------------------------ */
 
-/* "Book a Stay" — the nav-level CTA — is OUTLINED (clear) in
-   slate-light blue per user request: transparent background,
-   slate-light text and border. Hover fills it slate-light with
-   off-black text for a satisfying click affordance. */
+/* "Book a Stay" — the nav-level CTA — is FILLED in slate blue
+   with white text per user request. Inverts on hover to black
+   background with slate-light text. White on slate ≈ 9.1:1
+   contrast (AAA), slate-light on black ≈ 4.15:1 (AA Large,
+   acceptable for the larger hover-state CTA text). */
 .btn-sn,
 a.btn-sn,
 .ham-book,
 a.ham-book,
 .sticky-book,
 a.sticky-book {
-  background: transparent !important;
-  color: var(--slate-light) !important;
-  border: 1px solid var(--slate-light) !important;
+  background: var(--slate) !important;
+  color: var(--white) !important;
+  border: 1px solid var(--slate) !important;
 }
 
 .btn-sn:hover,
 .ham-book:hover,
 .sticky-book:hover {
-  background: var(--slate-light) !important;
-  color: var(--black) !important;
+  background: var(--black) !important;
+  color: var(--slate-light) !important;
   border-color: var(--slate-light) !important;
 }
 
