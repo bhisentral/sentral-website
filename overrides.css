@@ -69,6 +69,17 @@
   /* Eyebrow on dark surfaces — Oat (value updated in v4) */
   --oat:  #F2E8D5;   /* eyebrow text on dark — ONLY */
 
+  /* Prototype muted-text tokens (--m1 = body, --m2 = labels, --m3
+     = dividers). The prototype's original opacities (58/32/13)
+     fail ADA on dark surfaces — combo-body and similar paragraphs
+     rendered nearly illegible on ink/off-black. Brand book §1.5
+     requires 70–90% white opacity for body text on dark; we go
+     to 95% because the prototype also uses font-weight 300 (Light)
+     for body copy, which compounds the readability problem. */
+  --m1:  rgba(255, 255, 255, 0.95) !important;  /* body on dark — bumped from 58% */
+  --m2:  rgba(255, 255, 255, 0.75) !important;  /* secondary labels — bumped from 32% */
+  --m3:  rgba(255, 255, 255, 0.40) !important;  /* dividers — bumped from 13% */
+
   /* Reserved metallic — separate token, applied via .gold-* utility classes */
   --metallic:     #B8924A;   /* gold on dark — SentralPlus, awards */
   --metallic-deep:#8C6A2E;   /* gold deep on cream — award eyebrows */
@@ -146,12 +157,14 @@ body [class*="serif"], body [class*="display"] {
   font-style: italic;
 }
 
-/* Homepage hero (photo carousel) — italic emphasis stays WHITE because
-   slate and slate-light are both hard to read over the bright sunset photo.
-   Specificity bumped (h1.hero-h1) to win over the generic rule above. */
+/* Homepage hero italic emphasis — slate-light per brand book §3
+   (italic on dark/photo surfaces is slate-light, not white). The
+   layered text-shadow on .hero-h elements (defined in §4) keeps
+   slate-light readable over bright sky portions of the photo
+   carousel. Specificity bumped (h1.hero-h1) to win the cascade. */
 h1.hero-h1 em,
 .hero h1.hero-h1 em {
-  color: var(--white) !important;
+  color: var(--slate-light) !important;
   font-style: italic;
 }
 
@@ -599,7 +612,430 @@ input:focus-visible,
 
 
 /* ------------------------------------------------------------
-   9. KNOWN PREVIEW LIMITATIONS
+   9. TEXT-ON-SLATE GOVERNANCE (v4)
+   ------------------------------------------------------------
+   Per STYLE_GUIDE.md §1.5: any element with a Slate or Slate-deep
+   background MUST use white or cream text. Slate is dark enough
+   that black, slate-deep, or any darker accent on top would fail
+   contrast (white on slate ≈ 9.1:1 AAA; slate-deep on slate ≈
+   1.6:1 FAILS).
+
+   This block defaults the foreground for common Slate-surface
+   utility classes the WP rebuild is likely to introduce, plus
+   any inline style="background:#2D4A5C" patterns that bypass
+   the token system. Existing component rules above already set
+   color explicitly; this is a safety net for future additions.
+   ------------------------------------------------------------ */
+
+.bg-slate,
+.surface-slate,
+.cta-band-slate,
+section.slate,
+section.surface-slate,
+[style*="background:#2D4A5C"],
+[style*="background-color:#2D4A5C"],
+[style*="background: var(--slate)"],
+[style*="background-color: var(--slate)"] {
+  color: var(--white) !important;
+}
+
+/* Eyebrow text inside a Slate-surface block uses oat (not slate-deep,
+   which would fail contrast on slate). Italic emphasis inside a
+   Slate-surface block uses slate-light or cream-light. Both are
+   already governed by §2 component rules — restated here as
+   inheritable defaults for new utility-class adoptions. */
+.bg-slate .eyebrow,
+.surface-slate .eyebrow,
+.cta-band-slate .eyebrow,
+section.slate .eyebrow,
+section.surface-slate .eyebrow {
+  color: var(--oat) !important;
+}
+
+.bg-slate em,
+.surface-slate em,
+.cta-band-slate em,
+section.slate em,
+section.surface-slate em {
+  color: var(--slate-light) !important;
+  font-style: italic;
+}
+
+
+/* ------------------------------------------------------------
+   9b. PROTOTYPE BUTTON CONTRAST FIX (text-on-Slate)
+   ------------------------------------------------------------
+   The prototype HTML hardcodes `.btn-sn { background: var(--gold);
+   color: var(--gold-d); }` and the same pattern on ~16 other
+   button classes across all 11 pages. In v4 those tokens resolve
+   to slate (#2D4A5C) and slate-deep (#3D6478) — a 2.6:1 contrast
+   ratio that FAILS per STYLE_GUIDE §10.1 and violates the §1.5
+   text-on-Slate governance rule.
+
+   This block reverts the text color to cream-light (#FAF8F4) on
+   every affected button so every Slate-background button is
+   readable (cream-light on slate ≈ 8.9:1 — AAA).
+
+   Reserved-gold buttons (.sp-sticky-join, .combo-btn-p,
+   .splus-bar-join, .splus-bar-login) are unaffected — their
+   explicit metallic-gold overrides higher up in this file win
+   on specificity / source order.
+   ------------------------------------------------------------ */
+
+/* "Book a Stay" — the nav-level CTA — is now an OUTLINED (clear)
+   button per user request: transparent background, cream-light text,
+   1px cream-light border. Hover fills it cream-light with off-black
+   text for a satisfying click target. */
+.btn-sn,
+a.btn-sn,
+.ham-book,
+a.ham-book,
+.sticky-book,
+a.sticky-book {
+  background: transparent !important;
+  color: var(--cream-light) !important;
+  border: 1px solid var(--cream-light) !important;
+}
+
+.btn-sn:hover,
+.ham-book:hover,
+.sticky-book:hover {
+  background: var(--cream-light) !important;
+  color: var(--black) !important;
+  border-color: var(--cream-light) !important;
+}
+
+/* Other CTAs that previously rendered as slate-bg + slate-deep-text
+   (a contrast failure) stay FILLED in Slate with cream-light text —
+   these are page-content primary CTAs ("Schedule a tour", "Send
+   message", etc.) where a filled button is the expected affordance. */
+.btn-hp,
+a.btn-hp,
+button.btn-hp,
+.book-btn,
+a.book-btn,
+.cta-btn,
+a.cta-btn,
+button.cta-btn,
+.hero-btn,
+a.hero-btn,
+.sticky-roles,
+a.sticky-roles,
+.sticky-tour,
+a.sticky-tour,
+.lookup-btn,
+button.lookup-btn,
+.modal-submit,
+button.modal-submit,
+.modal-success-close,
+button.modal-success-close,
+.rfp-mini-btn,
+button.rfp-mini-btn,
+.partner-callout-btn,
+a.partner-callout-btn,
+.mews-submit,
+button.mews-submit,
+.app-badge,
+a.app-badge,
+.phone-badge,
+a.phone-badge {
+  background: var(--slate) !important;
+  color: var(--cream-light) !important;
+}
+
+.btn-hp:hover,
+.book-btn:hover,
+.cta-btn:hover,
+.hero-btn:hover,
+.sticky-roles:hover,
+.sticky-tour:hover,
+.lookup-btn:hover,
+.modal-submit:hover,
+.modal-success-close:hover,
+.rfp-mini-btn:hover,
+.partner-callout-btn:hover,
+.mews-submit:hover,
+.app-badge:hover,
+.phone-badge:hover {
+  background: var(--slate-deep) !important;
+  color: var(--cream-light) !important;
+}
+
+
+/* ------------------------------------------------------------
+   9d. BODY TEXT ON DARK SURFACES — READABILITY SWEEP
+   ------------------------------------------------------------
+   Sitewide fix for body paragraph copy that sits on ink /
+   off-black surfaces. The prototype uses font-weight 300
+   (Light) on most descriptive paragraphs (.exp-sub, .p-desc,
+   .combo-body, .splus-sub, etc.) which compounds with low
+   opacity to make the text nearly illegible.
+
+   Forces font-weight 400 (Regular) and font-size floor of 14px
+   on every paragraph selector used inside a dark section.
+   Color is already handled by --m1 above (now 95% white).
+   ------------------------------------------------------------ */
+
+.exp-sub,
+.p-desc,
+.combo-body,
+.splus-sub,
+.splus-body,
+.splus-stat-l,
+.splus-eyebrow,
+.exp-stat-l,
+.hero-sub,
+.tb-discount-l,
+.office-sub,
+.office-legal,
+.office .office-sub,
+.office .office-legal,
+section.dark p,
+.dark p,
+.combo-section p,
+.experience-section p,
+.splus-block p,
+.press p,
+.office p {
+  font-weight: 400 !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.exp-sub,
+.p-desc,
+.combo-body,
+.splus-sub,
+.splus-body {
+  font-size: 0.95rem !important;   /* ~15.2px — above the 14px ADA floor */
+  line-height: 1.75 !important;
+}
+
+.exp-stat-l,
+.splus-stat-l,
+.slide-label,
+.tb-city,
+.ps-city,
+.mc-cap-city,
+.phone-card-sub,
+.phone-name,
+.phone-tile-lbl,
+.mc-ph-lbl,
+.ps-ph-lbl,
+.phone-card-img-lbl {
+  color: rgba(255, 255, 255, 0.80) !important;
+  font-weight: 500 !important;
+}
+
+
+/* ------------------------------------------------------------
+   9e. PILLAR / STEP NUMBERS — make them pop
+   ------------------------------------------------------------
+   The prototype's .p-num ("01", "02"…) and similar enumerated
+   eyebrows used --accent for color, which in v4 resolves to
+   slate (#2D4A5C) — ~1.6:1 contrast on off-black, essentially
+   invisible. Per brand book §1.3, numbers used as eyebrow
+   labels on dark should be Oat (which has ~12:1 contrast).
+
+   Also bumps size from ~1.3rem to 2rem so the numbering reads
+   as a deliberate visual anchor rather than a faint label.
+   ------------------------------------------------------------ */
+
+.p-num,
+.pillar .p-num,
+.exp-pillar-num,
+.value-num,
+.step-num,
+[class*="-num"]:not(.hero-stat-n):not(.exp-stat-n):not(.splus-stat-n):not(.tb-discount-n) {
+  color: var(--oat) !important;
+  font-size: 2rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.02em !important;
+  margin-bottom: 18px !important;
+  display: block !important;
+}
+
+
+/* ------------------------------------------------------------
+   9f. SLATE-ON-DARK SWEEP — eyebrows, labels, tags, numbers
+   ------------------------------------------------------------
+   Every selector below uses color: var(--accent) or color:
+   var(--gold) in the prototype. In v4 both tokens resolve to
+   slate (#2D4A5C) which on off-black/ink gives ~1.6:1 contrast
+   (FAILS WCAG by a wide margin).
+
+   These are the labels/eyebrows that live on dark sections
+   across all 12 pages: hero eyebrows, combo eyebrows, page
+   headers, modal eyebrows, occasion/value/exec/dial/process
+   eyebrows, sub-section labels, card tags, etc.
+
+   All forced to Oat (#F2E8D5, ~12:1 on off-black — AAA).
+   Eyebrows that live on cream surfaces (.s-popup-loc map popup,
+   .srp-item-loc search result, .press-card-cat etc. — most on
+   cream cards) are NOT in this list; those keep slate correctly.
+   ------------------------------------------------------------ */
+
+/* Eyebrows on dark */
+.hero-eyebrow,
+.combo-eyebrow,
+.exp-eyebrow,
+.splus-eyebrow,
+.page-eyebrow,
+.lookup-eyebrow,
+.modal-eyebrow,
+.occasions-eyebrow,
+.exec-eyebrow,
+.dial-eyebrow,
+.process-eyebrow,
+.proof-eyebrow,
+.proof-card-eyebrow,
+.sbn-eyebrow,
+.staffing-eyebrow,
+.benefits-eyebrow,
+.feat-eyebrow,
+.mews-eyebrow,
+.events-eyebrow,
+.spaces-eyebrow,
+.values-eyebrow,
+.press-contact-label,
+.va-title,
+.story-name,
+.hero-kicker {
+  color: var(--oat) !important;
+}
+
+/* Numbers / counters on dark */
+.cp-num,
+.exp-num,
+.events-panel-num,
+.policy-section-num,
+.va-num {
+  color: var(--oat) !important;
+}
+
+/* Card tags / inline labels on dark surfaces */
+.phone-card-tag,
+.prop-feat-tag,
+.pt-soon-tag,
+.events-tab-label,
+.modal-req,
+.occ-card-label,
+.lookup-plus-text,
+.lookup-result-reward,
+.ipf-aum,
+.ipi-tier,
+.book-bar-title,
+.mews-widget-label,
+.app-award-text,
+.wendy-label,
+.story-arrow {
+  color: var(--oat) !important;
+}
+
+/* Larger dark-surface titles still using slate as accent —
+   bump to white for max readability since these are heading-
+   adjacent, not eyebrow-adjacent */
+.hero-rfp-title,
+.exec-modal-title,
+.exec-view,
+.sc-sentral,
+.pt-city {
+  color: #FFFFFF !important;
+}
+
+
+/* ------------------------------------------------------------
+   9c. NAV LOGO + SENTRALPLUS PROMO BAR
+   ------------------------------------------------------------
+   - Force the SEN+RAL wordmark to pure white. The prototype sets
+     `.nav-logo { color: var(--white) }` but anti-aliasing on the
+     dark nav can read as cream. This is an explicit safety override.
+   - The SentralPlus promo bar (`.splus-bar`) has no background set
+     in the prototype CSS, so the cream body color showed through
+     as a white strip between the nav and the hero. Per brand book
+     §1.4 the SentralPlus surface is Ink (`#1F1F1F`). Set the bar
+     to ink so it visually extends the nav band; the Login link
+     gets oat for legibility on ink.
+   ------------------------------------------------------------ */
+
+.nav-logo,
+a.nav-logo {
+  color: #FFFFFF !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 0 !important;
+}
+
+/* The wordmark is now an <img> — the real Sentral wordmark
+   extracted from the brand pptx and converted to a true
+   white-on-transparent PNG (via Pillow with a brightness
+   threshold of 60 to eliminate any background haze). Renders
+   crisply on any dark surface without mix-blend tricks.
+   Aspect ratio is 4.54:1 (4554x1004) so height 28px → width
+   ~127px. */
+.nav-logo img,
+a.nav-logo img {
+  height: 28px !important;
+  width: auto !important;
+  display: block !important;
+  object-fit: contain !important;
+}
+
+@media (max-width: 900px) {
+  .nav-logo img,
+  a.nav-logo img {
+    height: 24px !important;
+  }
+}
+
+/* Hide the SentralPlus promo bar (Login | Join Free | ×) per
+   user request. The bar sits as a direct child of <header> with
+   no clean wrapper and was visually disruptive. Removing via CSS
+   (not HTML) so it can be re-enabled by deleting this rule. */
+.splus-bar-right {
+  display: none !important;
+}
+
+/* Hide the standalone "Login" button (.btn-sn-ghost) in the
+   stay-with-us nav per user request. The page-level login flow
+   lives at sentralplus.laasie.ai which the SentralPlus block
+   already CTAs to; a separate Login button next to Book a Stay
+   in the global nav is redundant. */
+.btn-sn-ghost,
+a.btn-sn-ghost {
+  display: none !important;
+}
+
+/* The .skip-to-content link (accessibility skip link on contact.html)
+   has no CSS rule in the prototype — it renders as a visible default
+   <a> at the top of the page, creating a white strip with a colored
+   underline between the nav and the page-header. Hide it offscreen
+   per the standard a11y "visually hidden, keyboard-focusable" pattern. */
+.skip-to-content {
+  position: absolute !important;
+  left: -9999px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+.skip-to-content:focus,
+.skip-to-content:focus-visible {
+  position: fixed !important;
+  left: 16px !important;
+  top: 12px !important;
+  width: auto !important;
+  height: auto !important;
+  z-index: 9999 !important;
+  background: var(--ink) !important;
+  color: var(--cream-light) !important;
+  padding: 10px 16px !important;
+  border-radius: 2px !important;
+  font-size: 0.85rem !important;
+}
+
+
+/* ------------------------------------------------------------
+   10. KNOWN PREVIEW LIMITATIONS
    ------------------------------------------------------------
    The following items are NOT corrected by this overlay:
 
