@@ -784,12 +784,17 @@ a.phone-badge {
 .exp-stat-l,
 .hero-sub,
 .tb-discount-l,
+.office-sub,
+.office-legal,
+.office .office-sub,
+.office .office-legal,
 section.dark p,
 .dark p,
 .combo-section p,
 .experience-section p,
 .splus-block p,
-.press p {
+.press p,
+.office p {
   font-weight: 400 !important;
   color: rgba(255, 255, 255, 0.95) !important;
 }
