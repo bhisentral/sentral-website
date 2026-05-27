@@ -680,15 +680,36 @@ section.surface-slate em {
    on specificity / source order.
    ------------------------------------------------------------ */
 
+/* "Book a Stay" — the nav-level CTA — is now an OUTLINED (clear)
+   button per user request: transparent background, cream-light text,
+   1px cream-light border. Hover fills it cream-light with off-black
+   text for a satisfying click target. */
 .btn-sn,
 a.btn-sn,
-.btn-hp,
-a.btn-hp,
-button.btn-hp,
 .ham-book,
 a.ham-book,
 .sticky-book,
-a.sticky-book,
+a.sticky-book {
+  background: transparent !important;
+  color: var(--cream-light) !important;
+  border: 1px solid var(--cream-light) !important;
+}
+
+.btn-sn:hover,
+.ham-book:hover,
+.sticky-book:hover {
+  background: var(--cream-light) !important;
+  color: var(--black) !important;
+  border-color: var(--cream-light) !important;
+}
+
+/* Other CTAs that previously rendered as slate-bg + slate-deep-text
+   (a contrast failure) stay FILLED in Slate with cream-light text —
+   these are page-content primary CTAs ("Schedule a tour", "Send
+   message", etc.) where a filled button is the expected affordance. */
+.btn-hp,
+a.btn-hp,
+button.btn-hp,
 .book-btn,
 a.book-btn,
 .cta-btn,
@@ -720,10 +741,7 @@ a.phone-badge {
   color: var(--cream-light) !important;
 }
 
-.btn-sn:hover,
 .btn-hp:hover,
-.ham-book:hover,
-.sticky-book:hover,
 .book-btn:hover,
 .cta-btn:hover,
 .hero-btn:hover,
@@ -968,6 +986,44 @@ a.nav-logo img {
    (not HTML) so it can be re-enabled by deleting this rule. */
 .splus-bar-right {
   display: none !important;
+}
+
+/* Hide the standalone "Login" button (.btn-sn-ghost) in the
+   stay-with-us nav per user request. The page-level login flow
+   lives at sentralplus.laasie.ai which the SentralPlus block
+   already CTAs to; a separate Login button next to Book a Stay
+   in the global nav is redundant. */
+.btn-sn-ghost,
+a.btn-sn-ghost {
+  display: none !important;
+}
+
+/* The .skip-to-content link (accessibility skip link on contact.html)
+   has no CSS rule in the prototype — it renders as a visible default
+   <a> at the top of the page, creating a white strip with a colored
+   underline between the nav and the page-header. Hide it offscreen
+   per the standard a11y "visually hidden, keyboard-focusable" pattern. */
+.skip-to-content {
+  position: absolute !important;
+  left: -9999px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+.skip-to-content:focus,
+.skip-to-content:focus-visible {
+  position: fixed !important;
+  left: 16px !important;
+  top: 12px !important;
+  width: auto !important;
+  height: auto !important;
+  z-index: 9999 !important;
+  background: var(--ink) !important;
+  color: var(--cream-light) !important;
+  padding: 10px 16px !important;
+  border-radius: 2px !important;
+  font-size: 0.85rem !important;
 }
 
 
