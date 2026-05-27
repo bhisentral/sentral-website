@@ -157,12 +157,14 @@ body [class*="serif"], body [class*="display"] {
   font-style: italic;
 }
 
-/* Homepage hero (photo carousel) — italic emphasis stays WHITE because
-   slate and slate-light are both hard to read over the bright sunset photo.
-   Specificity bumped (h1.hero-h1) to win over the generic rule above. */
+/* Homepage hero italic emphasis — slate-light per brand book §3
+   (italic on dark/photo surfaces is slate-light, not white). The
+   layered text-shadow on .hero-h elements (defined in §4) keeps
+   slate-light readable over bright sky portions of the photo
+   carousel. Specificity bumped (h1.hero-h1) to win the cascade. */
 h1.hero-h1 em,
 .hero h1.hero-h1 em {
-  color: var(--white) !important;
+  color: var(--slate-light) !important;
   font-style: italic;
 }
 
