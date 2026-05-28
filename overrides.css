@@ -162,22 +162,25 @@ h1.hero-h1 em,
   font-style: italic;
 }
 
-/* Homepage carousel slide-overlay was much weaker than the other
-   photo-hero pages (.hero-veil), which is why the italic Home+
-   didn't pop the way it does on Stay/Live/Experience. Bring the
-   gradient up to match the stay-with-us treatment so slate-light
-   italic + white hero copy reads consistently across the site.
-
-   Previous: linear-gradient(to bottom, rgba(0,0,0,.02), rgba(0,0,0,.38))
-   New:      multi-stop with .75 black floor at the bottom 35% */
+/* Hero photo gradient — strong dark band at the very top
+   (so the photo visually merges into the dark nav with no
+   bright-sky "white line" at the boundary), fade to clear in
+   the upper-middle, then re-darken toward the bottom so the
+   white H1 + slate-light italic stay readable. Applies to
+   both the homepage carousel slides (.slide-overlay) and the
+   typographic photo heroes (.hero-veil). */
 .hero .slide-overlay,
-section.hero .slide-overlay {
+section.hero .slide-overlay,
+.hero .hero-veil,
+section.hero .hero-veil {
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.12) 0%,
-    rgba(0, 0, 0, 0.04) 30%,
-    rgba(0, 0, 0, 0.42) 65%,
-    rgba(0, 0, 0, 0.78) 100%
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.60) 8%,
+    rgba(0, 0, 0, 0.10) 22%,
+    rgba(0, 0, 0, 0.30) 55%,
+    rgba(0, 0, 0, 0.55) 75%,
+    rgba(0, 0, 0, 0.82) 100%
   ) !important;
 }
 
@@ -380,6 +383,7 @@ body {
   margin: 0 !important;
   padding: 0 !important;
   overflow-x: hidden !important;
+  background: var(--black) !important;   /* failsafe — any gap shows off-black, never cream */
 }
 
 .site-nav {
