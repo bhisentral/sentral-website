@@ -60,6 +60,12 @@
 /* ── Video hero (brand animation) — carousel relocated to .showcase below ── */
 .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: var(--black); }
 .hero-video-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.38) 100%); }
+.hero-motion-toggle { position: absolute; right: 28px; bottom: 28px; z-index: 6; width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.45); background: rgba(0,0,0,.35); color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: background .2s, border-color .2s; }
+.hero-motion-toggle:hover { background: rgba(0,0,0,.55); border-color: #fff; }
+.hero-motion-toggle svg { width: 15px; height: 15px; fill: currentColor; }
+@media (max-width: 640px) { .hero-motion-toggle { right: 18px; bottom: 18px; } }
 /* ── Property gallery (the relocated carousel) ── */
 .showcase { background: var(--cream); padding: 96px 0 0; }
 .showcase-head { max-width: 1400px; margin: 0 auto 48px; padding: 0 64px; }
@@ -541,6 +547,7 @@ body.ada-dyslexia-font, body.ada-dyslexia-font * { font-family: Georgia, serif !
     <source src="assets/sentral-hero-animation.mp4" type="video/mp4">
   </video>
   <div class="hero-video-overlay"></div>
+  <button class="hero-motion-toggle" id="heroMotionToggle" aria-label="Pause background video"></button>
 
 
   <!-- Hero content — sits above all slides -->
@@ -924,13 +931,29 @@ body.ada-dyslexia-font, body.ada-dyslexia-font * { font-family: Georgia, serif !
     window.addEventListener('scroll', onScroll, { passive: true });
   })();
 
-  /* ── HERO VIDEO — honor prefers-reduced-motion (§9): hold on poster frame ── */
+  /* ── HERO VIDEO — autoplay with a play/pause control (WCAG 2.2.2).
+     Reduced-motion users start on the poster and can opt in; if the
+     browser blocks autoplay (Safari settings, Low Power Mode), the
+     button shows "play" so one tap starts it. ── */
   (function() {
     const v = document.getElementById('heroVideo');
-    if (v && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      v.removeAttribute('autoplay');
-      v.pause();
+    const btn = document.getElementById('heroMotionToggle');
+    if (!v || !btn) return;
+    const iconPlay  = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 2.5l9 5.5-9 5.5z"/></svg>';
+    const iconPause = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 2.5h3.2v11H3.5zM9.3 2.5h3.2v11H9.3z"/></svg>';
+    function setUI(playing) {
+      btn.innerHTML = playing ? iconPause : iconPlay;
+      btn.setAttribute('aria-label', playing ? 'Pause background video' : 'Play background video');
     }
+    function tryPlay() { v.play().then(() => setUI(true)).catch(() => setUI(false)); }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      v.removeAttribute('autoplay'); v.pause(); setUI(false);
+    } else {
+      tryPlay();
+    }
+    btn.addEventListener('click', () => { v.paused ? tryPlay() : (v.pause(), setUI(false)); });
+    v.addEventListener('playing', () => setUI(true));
+    v.addEventListener('pause',   () => setUI(false));
   })();
 
   /* ── PROPERTY GALLERY CAROUSEL (relocated from the hero) ── */
