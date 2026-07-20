@@ -23,6 +23,8 @@ Keep all files in the same folder so internal links work.
   terms-of-use.html       → sentral.com/terms-of-use
 
   Sentral_WP_Developer_Brief.docx → WordPress handoff document
+  WP_HANDOFF.md           → START HERE: current source state, what the
+                            theme must still fix, checklist pointers
 
 ═══════════════════════════════════════════════════════
 HOW TO PREVIEW LOCALLY
