@@ -4,12 +4,21 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Find Your Home — Sentral</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<!-- v4: system fonts only (Georgia + Aptos) — no web-font loading, per STYLE_GUIDE §3 -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
-:root{--black:#141414;--ink:#1a1a1a;--cream:#f5f3ef;--gold:#c8b89a;--gold-d:#2a1f10;--mid:#6b6560;--lt:#9a9490;--white:#ffffff;--accent:#c8b89a;--rule:rgba(255,255,255,.08);--ruleW:rgba(0,0,0,.08);--stone:#d8d4ce;--serif:"Cormorant Garamond",Georgia,serif;--sans:"DM Sans",system-ui,sans-serif;--ease:cubic-bezier(.22,.68,0,1.2)}
+:root{
+  /* v4 Slate system — baked in from overrides.css per STYLE_GUIDE §11 (replaces the prototype's v3 tokens + web fonts) */
+  --black:#282828;--ink:#1F1F1F;--cream:#F5F5F3;--cream-light:#FAF8F4;--cream-warm:#EFEDE6;--white:#FFFFFF;
+  --gold:#2D4A5C;--accent:#2D4A5C;--gold-d:#3D6478; /* prototype accent tokens now resolve to Slate (general accent) */
+  --slate:#2D4A5C;--slate-deep:#3D6478;--slate-light:#5C8CA0;--cloud:#AFAA9B;--oat:#F2E8D5;
+  --metallic:#B8924A;--metallic-deep:#8C6A2E; /* reserved gold — SentralPlus / awards only */
+  --mid:#6B6560;--lt:#9a9490;--stone:#AFAA9B;
+  --text-body:#3A3633;--text-muted:#6B6560;--text-accent:#3D6478;
+  --rule:rgba(255,255,255,.08);--ruleW:rgba(0,0,0,.08);
+  --serif:Georgia,"Times New Roman",serif;--sans:Aptos,"Segoe UI",system-ui,-apple-system,sans-serif;
+  --ease:cubic-bezier(.22,.68,0,1.2)}
 /* ══ NAV ══ */
 .site-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--black);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;border-bottom:1px solid var(--rule)}
 .nav-logo{font-family:var(--serif);font-size:1.05rem;color:var(--white);letter-spacing:.18em;text-decoration:none}
@@ -19,7 +28,7 @@
 .nav-link.active{color:var(--white);border-color:var(--gold)}
 .nav-ctas{display:flex;gap:10px;align-items:center}
 .btn-sn{font-size:.72rem;font-weight:500;padding:8px 18px;border-radius:2px;background:var(--gold);color:var(--gold-d);border:none;cursor:pointer;text-decoration:none;transition:background .15s;white-space:nowrap;letter-spacing:.04em}
-.btn-sn:hover{background:#d9cbb0}
+.btn-sn:hover{background:#3D6478}
 .hamburger{background:none;border:none;cursor:pointer;padding:8px;display:flex;flex-direction:column;gap:5px;align-items:flex-end}
 .ham-line{display:block;height:1.5px;background:var(--white);transition:width .3s,transform .3s,opacity .3s}
 .ham-line:nth-child(1){width:22px}
@@ -92,7 +101,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 .leaflet-popup-close-button{color:rgba(255,255,255,.4)!important;top:8px!important;right:10px!important;font-size:18px!important}
 .s-popup{padding:0;min-width:220px;overflow:hidden;border-radius:4px}
 .s-popup-img{width:100%;height:110px;object-fit:cover;display:block}
-.s-popup-img-placeholder{width:100%;height:60px;background:linear-gradient(135deg,#1a1a1a,#242424);display:flex;align-items:center;justify-content:center}
+.s-popup-img-placeholder{width:100%;height:60px;background:linear-gradient(135deg,#1F1F1F,#282828);display:flex;align-items:center;justify-content:center}
 .s-popup-body{padding:12px 16px 14px}
 .s-popup-name{font-family:var(--serif);font-size:1rem;color:var(--white);margin-bottom:2px}
 .s-popup-loc{font-size:.63rem;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
@@ -133,7 +142,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 .prop-card-img{height:190px;overflow:hidden;position:relative;background:var(--black)}
 .prop-card-photo{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s var(--ease)}
 .prop-card:hover .prop-card-photo{transform:scale(1.04)}
-.prop-card-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#181818 0%,#232323 50%,#181818 100%);display:flex;align-items:flex-end;padding:12px}
+.prop-card-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#1F1F1F 0%,#282828 50%,#1F1F1F 100%);display:flex;align-items:flex-end;padding:12px}
 .prop-card-city-label{font-size:.54rem;font-weight:500;text-transform:uppercase;letter-spacing:.18em;color:rgba(200,184,154,.4)}
 .prop-badge{position:absolute;top:10px;left:10px;font-size:.54rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:100px}
 .badge-stable{background:rgba(200,184,154,.12);color:var(--gold);border:1px solid rgba(200,184,154,.22)}
@@ -152,7 +161,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 /* ── STICKY TOUR ── */
 .sticky-tour{position:fixed;bottom:28px;right:28px;z-index:150;background:var(--gold);color:var(--gold-d);font-family:var(--sans);font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:12px 22px;border-radius:2px;box-shadow:0 4px 20px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s,background .2s;pointer-events:none}
 .sticky-tour.visible{opacity:1;transform:translateY(0);pointer-events:auto}
-.sticky-tour:hover{background:#d4c4a8}
+.sticky-tour:hover{background:#3D6478}
 
 /* ── FOOTER ── */
 
@@ -190,15 +199,16 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 <link rel="stylesheet" href="/overrides.css">
 </head>
 <body>
+<a class="skip-to-content" href="#main">Skip to content</a>
 
 <a class="sticky-tour" id="stickyTour" href="#">Schedule a Tour &nbsp;&rarr;</a>
 
 <nav class="site-nav" aria-label="Main navigation">
-    <a class="nav-logo" href="sentral-fullpage.html"><img src="/assets/sentral-wordmark-white.png" alt="Sentral" /></a>
+    <a class="nav-logo" href="index.html"><img src="/assets/sentral-wordmark-white.png" alt="Sentral" /></a>
     <div class="nav-links">
-      <a class="nav-link" href="sentral-stay.html">Stay With Us</a>
-      <a class="nav-link active" href="sentral-live2.html">Live With Us</a>
-      <a class="nav-link" href="sentral-partner.html">Partner With Us</a>
+      <a class="nav-link" href="stay-with-us.html">Stay With Us</a>
+      <a class="nav-link active" href="live-with-us.html">Live With Us</a>
+      <a class="nav-link" href="partner-with-us.html">Partner With Us</a>
     </div>
     <div class="nav-ctas">
       <a class="btn-sn" href="#">Schedule a Tour</a>
@@ -209,9 +219,9 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
     <div class="ham-panel" id="mobileMenu" aria-hidden="true">
       <div class="ham-panel-inner">
         <nav class="ham-nav" aria-label="Main menu">
-          <a class="ham-link" href="sentral-stay.html"><span class="ham-link-title">Stay With Us</span><span class="ham-link-sub">Furnished stays, 1 night to a whole summer</span></a>
-          <a class="ham-link" href="sentral-live2.html"><span class="ham-link-title">Live With Us</span><span class="ham-link-sub">Apartment living, residentially priced</span></a>
-          <a class="ham-link" href="sentral-partner.html"><span class="ham-link-title">Partner With Us</span><span class="ham-link-sub">Institutional-grade property management</span></a>
+          <a class="ham-link" href="stay-with-us.html"><span class="ham-link-title">Stay With Us</span><span class="ham-link-sub">Furnished stays, 1 night to a whole summer</span></a>
+          <a class="ham-link" href="live-with-us.html"><span class="ham-link-title">Live With Us</span><span class="ham-link-sub">Apartment living, residentially priced</span></a>
+          <a class="ham-link" href="partner-with-us.html"><span class="ham-link-title">Partner With Us</span><span class="ham-link-sub">Institutional-grade property management</span></a>
         </nav>
         <div class="ham-footer">
           <a class="ham-book" href="#">Schedule a Tour &nbsp;&rarr;</a>
@@ -220,6 +230,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
     </div>
   </nav>
 
+<main id="main" tabindex="-1">
 <section class="hero">
   <div class="hero-inner">
     <div>
@@ -804,24 +815,25 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
   </div>
 </div>
 
+</main>
 <footer class="site-footer" role="contentinfo">
   <div class="footer-main">
     <div class="footer-col">
       <span class="footer-col-head">Stay With Us</span>
-      <a class="footer-link" href="sentral-stay.html">Book a Stay</a>
-      <a class="footer-link" href="sentral-sentralplus.html">SentralPlus</a>
-      <a class="footer-link" href="sentral-group.html">Group Business</a>
+      <a class="footer-link" href="stay-with-us.html">Book a Stay</a>
+      <a class="footer-link" href="sentralplus.html">SentralPlus</a>
+      <a class="footer-link" href="group-business.html">Group Business</a>
     </div>
     <div class="footer-col">
       <span class="footer-col-head">Partner With Us</span>
-      <a class="footer-link" href="sentral-partner.html">Partner with us</a>
-      <a class="footer-link" href="sentral-careers.html">Careers</a>
-      <a class="footer-link" href="sentral-press.html">Press</a>
+      <a class="footer-link" href="partner-with-us.html">Partner with us</a>
+      <a class="footer-link" href="careers.html">Careers</a>
+      <a class="footer-link" href="press.html">Press</a>
     </div>
     <div class="footer-col">
       <span class="footer-col-head">Live With Us</span>
-      <a class="footer-link" href="sentral-live2.html">Find a Home</a>
-      <a class="footer-link" href="sentral-experience.html">The Experience</a>
+      <a class="footer-link" href="live-with-us.html">Find a Home</a>
+      <a class="footer-link" href="the-experience.html">The Experience</a>
     </div>
     <div class="footer-col">
       <span class="footer-col-head">Support</span>
@@ -831,8 +843,8 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
   <div class="footer-bottom">
     <span class="footer-copy">&copy; 2026 BHI Holdings. All rights reserved.</span>
     <div class="footer-legal">
-      <a class="footer-legal-link" href="sentral-privacy.html">Privacy</a>
-      <a class="footer-legal-link" href="sentral-terms.html">Terms</a>
+      <a class="footer-legal-link" href="privacy-policy.html">Privacy</a>
+      <a class="footer-legal-link" href="terms-of-use.html">Terms</a>
       <a class="footer-legal-link" href="#">Accessibility</a>
     </div>
   </div>

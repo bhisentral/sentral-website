@@ -4,15 +4,13 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Press — Sentral</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --black:#141414;--ink:#1a1a1a;--cream:#f5f3ef;--gold:#c8b89a;--gold-d:#2a1f10;
+  --black:#282828;--ink:#1F1F1F;--cream:#F5F5F3;--gold:#2D4A5C;--gold-d:#3D6478;
   --mid:#6b6560;--lt:#9a9490;--white:#ffffff;
   --rule:rgba(255,255,255,.08);--ruleD:rgba(0,0,0,.09);
-  --serif:"Cormorant Garamond",Georgia,serif;
-  --sans:"DM Sans",system-ui,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:Aptos,"Segoe UI",system-ui,-apple-system,sans-serif;
   --ease:cubic-bezier(.22,.68,0,1.2);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -28,7 +26,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 .nav-link.active{color:var(--white);border-color:var(--gold)}
 .nav-ctas{display:flex;gap:10px;align-items:center}
 .btn-sn{font-size:.72rem;font-weight:500;padding:8px 18px;border-radius:2px;background:var(--gold);color:var(--gold-d);border:none;cursor:pointer;text-decoration:none;transition:background .15s;white-space:nowrap;letter-spacing:.04em}
-.btn-sn:hover{background:#d9cbb0}
+.btn-sn:hover{background:#3D6478}
 .hamburger{background:none;border:none;cursor:pointer;padding:8px;display:flex;flex-direction:column;gap:5px;align-items:flex-end}
 .ham-line{display:block;height:1.5px;background:var(--white);transition:width .3s,transform .3s,opacity .3s}
 .ham-line:nth-child(1){width:22px}
@@ -136,16 +134,17 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 <link rel="stylesheet" href="/overrides.css">
 </head>
 <body>
+<a class="skip-to-content" href="#main">Skip to content</a>
 
 <nav class="site-nav" aria-label="Main navigation">
-    <a class="nav-logo" href="sentral-fullpage.html"><img src="/assets/sentral-wordmark-white.png" alt="Sentral" /></a>
+    <a class="nav-logo" href="index.html"><img src="/assets/sentral-wordmark-white.png" alt="Sentral" /></a>
     <div class="nav-links">
-      <a class="nav-link" href="sentral-stay.html">Stay With Us</a>
-      <a class="nav-link" href="sentral-live2.html">Live With Us</a>
-      <a class="nav-link" href="sentral-partner.html">Partner With Us</a>
+      <a class="nav-link" href="stay-with-us.html">Stay With Us</a>
+      <a class="nav-link" href="live-with-us.html">Live With Us</a>
+      <a class="nav-link" href="partner-with-us.html">Partner With Us</a>
     </div>
     <div class="nav-ctas">
-      <a class="btn-sn" href="sentral-stay.html">Book a Stay</a>
+      <a class="btn-sn" href="stay-with-us.html">Book a Stay</a>
       <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
       </button>
@@ -153,18 +152,19 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
     <div class="ham-panel" id="mobileMenu" aria-hidden="true">
       <div class="ham-panel-inner">
         <nav class="ham-nav" aria-label="Main menu">
-          <a class="ham-link" href="sentral-stay.html"><span class="ham-link-title">Stay With Us</span><span class="ham-link-sub">Furnished stays, 1 night to a whole summer</span></a>
-          <a class="ham-link" href="sentral-live2.html"><span class="ham-link-title">Live With Us</span><span class="ham-link-sub">Apartment living, residentially priced</span></a>
-          <a class="ham-link" href="sentral-partner.html"><span class="ham-link-title">Partner With Us</span><span class="ham-link-sub">Institutional-grade property management</span></a>
+          <a class="ham-link" href="stay-with-us.html"><span class="ham-link-title">Stay With Us</span><span class="ham-link-sub">Furnished stays, 1 night to a whole summer</span></a>
+          <a class="ham-link" href="live-with-us.html"><span class="ham-link-title">Live With Us</span><span class="ham-link-sub">Apartment living, residentially priced</span></a>
+          <a class="ham-link" href="partner-with-us.html"><span class="ham-link-title">Partner With Us</span><span class="ham-link-sub">Institutional-grade property management</span></a>
         </nav>
         <div class="ham-footer">
-          <a class="ham-book" href="sentral-stay.html">Book a Stay &nbsp;&rarr;</a>
+          <a class="ham-book" href="stay-with-us.html">Book a Stay &nbsp;&rarr;</a>
         </div>
       </div>
     </div>
   </nav>
 
 <!-- PAGE HEADER -->
+<main id="main" tabindex="-1">
 <div class="page-header">
   <div class="page-header-inner">
     <div class="page-header-left">
@@ -557,24 +557,25 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
   </div>
 </section>
 
+</main>
 <footer class="site-footer" role="contentinfo">
   <div class="footer-main">
     <div class="footer-col">
       <span class="footer-col-head">Stay With Us</span>
-      <a class="footer-link" href="sentral-stay.html">Book a Stay</a>
-      <a class="footer-link" href="sentral-sentralplus.html">SentralPlus</a>
-      <a class="footer-link" href="sentral-group.html">Group Business</a>
+      <a class="footer-link" href="stay-with-us.html">Book a Stay</a>
+      <a class="footer-link" href="sentralplus.html">SentralPlus</a>
+      <a class="footer-link" href="group-business.html">Group Business</a>
     </div>
     <div class="footer-col">
       <span class="footer-col-head">Partner With Us</span>
-      <a class="footer-link" href="sentral-partner.html">Partner with us</a>
-      <a class="footer-link" href="sentral-careers.html">Careers</a>
-      <a class="footer-link" href="sentral-press.html">Press</a>
+      <a class="footer-link" href="partner-with-us.html">Partner with us</a>
+      <a class="footer-link" href="careers.html">Careers</a>
+      <a class="footer-link" href="press.html">Press</a>
     </div>
     <div class="footer-col">
       <span class="footer-col-head">Live With Us</span>
-      <a class="footer-link" href="sentral-live2.html">Find a Home</a>
-      <a class="footer-link" href="sentral-experience.html">The Experience</a>
+      <a class="footer-link" href="live-with-us.html">Find a Home</a>
+      <a class="footer-link" href="the-experience.html">The Experience</a>
     </div>
     <div class="footer-col">
       <span class="footer-col-head">Support</span>
@@ -584,8 +585,8 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
   <div class="footer-bottom">
     <span class="footer-copy">&copy; 2026 BHI Holdings. All rights reserved.</span>
     <div class="footer-legal">
-      <a class="footer-legal-link" href="sentral-privacy.html">Privacy</a>
-      <a class="footer-legal-link" href="sentral-terms.html">Terms</a>
+      <a class="footer-legal-link" href="privacy-policy.html">Privacy</a>
+      <a class="footer-legal-link" href="terms-of-use.html">Terms</a>
       <a class="footer-legal-link" href="#">Accessibility</a>
     </div>
   </div>
