@@ -809,6 +809,20 @@ a.sticky-book {
   border-color: var(--slate-light) !important;
 }
 
+/* Nav-level "Book a Stay" CTA: all-caps, larger block (user request 2026-07) */
+.btn-sn,
+a.btn-sn,
+.ham-book,
+a.ham-book,
+.sticky-book,
+a.sticky-book {
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  font-size: 0.8rem !important;
+  font-weight: 500 !important;
+  padding: 12px 26px !important;
+}
+
 /* Other CTAs that previously rendered as slate-bg + slate-deep-text
    (a contrast failure) stay FILLED in Slate with cream-light text —
    these are page-content primary CTAs ("Schedule a tour", "Send
