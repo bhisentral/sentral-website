@@ -78,10 +78,10 @@
 .book-mews-note{font-size:.58rem;color:rgba(255,255,255,.22);text-align:center;margin-top:8px;letter-spacing:.04em}
 
 /* ══ MARQUEE ══ */
-.marquee-band{background:var(--gold);padding:14px 0;overflow:hidden;white-space:nowrap}
-.marquee-track{display:inline-flex;animation:marquee 30s linear infinite}
-.marquee-item{font-family:var(--serif);font-size:1rem;font-weight:300;color:var(--gold-d);padding:0 28px;letter-spacing:.04em;font-style:italic}
-.marquee-dot{display:inline-block;width:3px;height:3px;background:var(--gold-d);border-radius:50%;opacity:.35;vertical-align:middle;margin:0 6px}
+.marquee-band{background:var(--black);padding:18px 24px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.marquee-track{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;row-gap:6px}
+.marquee-item{font-family:var(--serif);font-size:.85rem;font-weight:400;color:var(--metallic,#B8924A);padding:0 18px;letter-spacing:.2em;text-transform:uppercase;font-style:normal}
+.marquee-dot{display:inline-block;width:3px;height:3px;background:var(--metallic,#B8924A);border-radius:50%;opacity:.5;vertical-align:middle;margin:0 2px}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ══ INTRO ══ */
@@ -240,7 +240,7 @@
 .wideband-cta:hover{background:rgba(255,255,255,.1);border-color:var(--white)}
 @media(max-width:900px){.wideband-inner{padding:40px 20px}}
 </style>
-<link rel="stylesheet" href="/overrides.css?v=4dark2">
+<link rel="stylesheet" href="/overrides.css?v=4dark3">
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -351,7 +351,7 @@
 </section>
 
 <!-- MARQUEE -->
-<div class="marquee-band" aria-hidden="true">
+<div class="marquee-band" role="list" aria-label="Included amenities">
   <div class="marquee-track">
     
     <span class="marquee-item">Hotel-Grade Housekeeping</span><span class="marquee-dot"></span>
@@ -362,17 +362,7 @@
     <span class="marquee-item">Concierge Services</span><span class="marquee-dot"></span>
     <span class="marquee-item">High-Speed WiFi</span><span class="marquee-dot"></span>
     <span class="marquee-item">In-Unit Laundry</span><span class="marquee-dot"></span>
-    <span class="marquee-item">Pet Friendly</span><span class="marquee-dot"></span>
-    
-    <span class="marquee-item">Hotel-Grade Housekeeping</span><span class="marquee-dot"></span>
-    <span class="marquee-item">Furnished Suites</span><span class="marquee-dot"></span>
-    <span class="marquee-item">Rooftop Lounges</span><span class="marquee-dot"></span>
-    <span class="marquee-item">On-Site F&amp;B</span><span class="marquee-dot"></span>
-    <span class="marquee-item">Fitness &amp; Wellness</span><span class="marquee-dot"></span>
-    <span class="marquee-item">Concierge Services</span><span class="marquee-dot"></span>
-    <span class="marquee-item">High-Speed WiFi</span><span class="marquee-dot"></span>
-    <span class="marquee-item">In-Unit Laundry</span><span class="marquee-dot"></span>
-    <span class="marquee-item">Pet Friendly</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Pet Friendly</span>
   </div>
 </div>
 

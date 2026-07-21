@@ -753,15 +753,17 @@ section.surface-slate em {
    Per user request, the marquee text needs to be cream. Cream-
    light on slate ≈ 7.9:1 — AAA, much more readable. Same fix
    for the .marquee-dot separator dots. */
+/* Updated 2026-07 (owner): band is now STATIC on off-black with
+   reserved-gold all-caps text (gold on off-black ~5.1:1, AA). */
 .marquee-item,
 .marquee-band .marquee-item {
-  color: var(--cream-light) !important;
+  color: var(--metallic) !important;
 }
 
 .marquee-dot,
 .marquee-band .marquee-dot {
-  background: var(--cream-light) !important;
-  opacity: 0.55 !important;
+  background: var(--metallic) !important;
+  opacity: 0.5 !important;
 }
 
 
