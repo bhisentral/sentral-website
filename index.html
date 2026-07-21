@@ -60,12 +60,12 @@
 /* ── Video hero (brand animation) — carousel relocated to .showcase below ── */
 .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: var(--black); }
 .hero-video-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.38) 100%); }
-.hero-motion-toggle { position: absolute; right: 28px; bottom: 28px; z-index: 6; width: 44px; height: 44px; border-radius: 50%;
+.hero-motion-toggle { position: absolute; left: 28px; bottom: 28px; z-index: 6; width: 44px; height: 44px; border-radius: 50%;
   border: 1px solid rgba(255,255,255,.45); background: rgba(0,0,0,.35); color: #fff; cursor: pointer;
   display: flex; align-items: center; justify-content: center; transition: background .2s, border-color .2s; }
 .hero-motion-toggle:hover { background: rgba(0,0,0,.55); border-color: #fff; }
 .hero-motion-toggle svg { width: 15px; height: 15px; fill: currentColor; }
-@media (max-width: 640px) { .hero-motion-toggle { right: 18px; bottom: 18px; } }
+@media (max-width: 640px) { .hero-motion-toggle { left: 18px; bottom: 18px; } }
 /* ── Property gallery (the relocated carousel) ── */
 .showcase { background: var(--cream); padding: 96px 0 0; }
 .showcase-head { max-width: 1400px; margin: 0 auto 48px; padding: 0 64px; }
