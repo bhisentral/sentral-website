@@ -526,6 +526,9 @@ cream-light or cream. Avoid same-tone cards on same-tone backgrounds.
 | Tertiary text-link | none | `--slate` (cream bg) / `--white` (dark bg) | Inline links |
 
 All buttons:
+- **All-caps labels, always** — every button, CTA link, and nav link
+  is set in uppercase with 0.06–0.08em tracking (owner rule, Jul 2026).
+  Applies to any new component.
 - Text: `0.85rem`, weight 500, Aptos
 - Padding: `14 – 16px` vertical, `22 – 28px` horizontal
 - Border-radius: `2 – 3px` (very subtle)

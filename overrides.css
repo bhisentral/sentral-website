@@ -1198,3 +1198,18 @@ section.dark[class][class] p[class*="body"] {
 section.dark[class] h1:not(.hero-h), section.dark[class] h2, section.dark[class] h3 {
   color: var(--white);
 }
+
+/* ------------------------------------------------------------
+   STANDING RULE (owner, 2026-07): ALL nav links and CTAs are
+   set in all-caps, site-wide. New components must follow.
+   (Headings/subtitles inside CTA bands are NOT affected —
+   only interactive labels.)
+   ------------------------------------------------------------ */
+button,
+[class*="btn"],
+.posit-cta, .suite-cta, .wideband-cta, .inquiry-cta, .hero-cta,
+.cityidx-all, .ps-all, .ham-book, .sticky-book,
+.sp-sticky-join, .sp-sticky-login, .splus-bar-join, .splus-bar-login,
+.mews-submit, .nav-link, .ham-link-title {
+  text-transform: uppercase !important;
+}
