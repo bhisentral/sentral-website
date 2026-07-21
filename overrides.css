@@ -1226,3 +1226,13 @@ section.combo-section .sbi-dot { margin-top: 6px !important; }
 section.combo-section .combo-city-grid { gap: 2px 0 !important; margin-bottom: 12px !important; }
 section.combo-section .tb-city { padding: 2px 0 !important; }
 section.combo-section .tb-discount-n { font-size: 2.1rem !important; }
+
+/* Homepage exp-section is now CREAM (owner request 2026-07): its eyebrow
+   must be slate-deep, not the §9f oat (oat on cream ≈ 1:1, invisible).
+   Higher specificity than the sweep's bare class selectors. */
+section.exp-section .exp-eyebrow {
+  color: var(--slate-deep) !important;
+}
+section.exp-section .exp-sub {
+  color: var(--text-muted) !important;
+}
