@@ -1176,3 +1176,11 @@ section.dark[class] h3 em {
   color: var(--slate-light) !important;
   font-style: italic;
 }
+
+section.dark[class] .intro-body,
+section.dark[class][class] p[class*="body"] {
+  color: rgba(255,255,255,0.82) !important;
+}
+section.dark[class] h1:not(.hero-h), section.dark[class] h2, section.dark[class] h3 {
+  color: var(--white);
+}
