@@ -931,27 +931,35 @@ body.ada-dyslexia-font, body.ada-dyslexia-font * { font-family: Georgia, serif !
     window.addEventListener('scroll', onScroll, { passive: true });
   })();
 
-  /* ── HERO VIDEO — autoplay with a play/pause control (WCAG 2.2.2).
-     Reduced-motion users start on the poster and can opt in; if the
-     browser blocks autoplay (Safari settings, Low Power Mode), the
-     button shows "play" so one tap starts it. ── */
+  /* ── HERO VIDEO — always autoplay + loop (owner decision 2026-07);
+     the visible pause toggle is the WCAG 2.2.2 motion control. If a
+     browser still blocks autoplay (Safari "Never Auto-Play", Low
+     Power Mode), we retry on first interaction, and the button shows
+     "play" so one tap starts it. ── */
   (function() {
     const v = document.getElementById('heroVideo');
     const btn = document.getElementById('heroMotionToggle');
     if (!v || !btn) return;
     const iconPlay  = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 2.5l9 5.5-9 5.5z"/></svg>';
     const iconPause = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 2.5h3.2v11H3.5zM9.3 2.5h3.2v11H9.3z"/></svg>';
+    let userPaused = false;
     function setUI(playing) {
       btn.innerHTML = playing ? iconPause : iconPlay;
       btn.setAttribute('aria-label', playing ? 'Pause background video' : 'Play background video');
     }
     function tryPlay() { v.play().then(() => setUI(true)).catch(() => setUI(false)); }
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      v.removeAttribute('autoplay'); v.pause(); setUI(false);
-    } else {
-      tryPlay();
+    tryPlay();
+    /* Autoplay-blocked fallback: first scroll/tap/keypress kicks it off */
+    function kick(ev) {
+      if (ev && ev.target && btn.contains(ev.target)) return; /* the toggle's own handler decides */
+      if (v.paused && !userPaused) tryPlay();
+      ['pointerdown','scroll','keydown','touchstart'].forEach(e => window.removeEventListener(e, kick));
     }
-    btn.addEventListener('click', () => { v.paused ? tryPlay() : (v.pause(), setUI(false)); });
+    ['pointerdown','scroll','keydown','touchstart'].forEach(e => window.addEventListener(e, kick, { once: true, passive: true }));
+    btn.addEventListener('click', () => {
+      if (v.paused) { userPaused = false; tryPlay(); }
+      else { userPaused = true; v.pause(); setUI(false); }
+    });
     v.addEventListener('playing', () => setUI(true));
     v.addEventListener('pause',   () => setUI(false));
   })();
