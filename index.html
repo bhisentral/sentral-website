@@ -631,7 +631,7 @@ body.ada-dyslexia-font, body.ada-dyslexia-font * { font-family: Georgia, serif !
         <select id="bb-city"><option>All cities</option><option>Miami</option><option>Austin</option><option>Denver</option><option>Chicago</option><option>Nashville</option><option>Atlanta</option><option>Phoenix</option><option>Los Angeles</option></select></div>
       <div class="bb-field"><label for="bb-in">Check-in</label><input id="bb-in" type="date"></div>
       <div class="bb-field"><label for="bb-out">Check-out</label><input id="bb-out" type="date"></div>
-      <a class="bb-btn" href="stay-with-us.html">Search Stays</a>
+      <a class="bb-btn" href="stay-with-us.html">Check Rates</a>
     </div>
     <p class="bb-note"><strong>Best rate, always, when you book direct</strong> — and every stay earns SentralPlus.</p>
   </div>
@@ -1048,6 +1048,18 @@ body.ada-dyslexia-font, body.ada-dyslexia-font * { font-family: Georgia, serif !
       ada.classList.toggle('visible', show);
     }
     window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+
+  /* ── POSITIONING CTAs — the slate fill follows the cursor and stays
+     on the last-hovered door (Book a Stay is the default) ── */
+  (function() {
+    const ctas = document.querySelectorAll('.posit-cta');
+    if (!ctas.length) return;
+    const set = el => ctas.forEach(c => c.classList.toggle('primary', c === el));
+    ctas.forEach(c => {
+      c.addEventListener('mouseenter', () => set(c));
+      c.addEventListener('focus', () => set(c));
+    });
   })();
 
   /* ── HERO VIDEO — always autoplay + loop (owner decision 2026-07);
