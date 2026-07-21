@@ -1213,3 +1213,16 @@ button,
 .mews-submit, .nav-link, .ham-link-title {
   text-transform: uppercase !important;
 }
+
+/* Tighter Travel/SentralPlus combo band (owner request 2026-07) —
+   reduced padding + type a notch; all sizes stay above the 12px floor */
+section.combo-section .combo-left,
+section.combo-section .combo-right { padding: 32px 40px !important; }
+section.combo-section .combo-h { font-size: clamp(1.35rem, 2vw, 1.75rem) !important; margin-bottom: 8px !important; }
+section.combo-section .combo-body { font-size: 0.9375rem !important; line-height: 1.6 !important; margin-bottom: 12px !important; }
+section.combo-section .sbi-title { font-size: 0.9375rem !important; margin-bottom: 2px !important; }
+section.combo-section .sbi-desc { font-size: 0.875rem !important; line-height: 1.55 !important; }
+section.combo-section .sbi-dot { margin-top: 6px !important; }
+section.combo-section .combo-city-grid { gap: 2px 0 !important; margin-bottom: 12px !important; }
+section.combo-section .tb-city { padding: 2px 0 !important; }
+section.combo-section .tb-discount-n { font-size: 2.1rem !important; }
