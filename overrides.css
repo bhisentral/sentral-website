@@ -1158,3 +1158,21 @@ a.btn-sn-ghost {
    Expect ~85% accuracy to the v4 brand system in this preview.
    The remaining 15% is what the WP dev fixes in the rebuild.
    ============================================================ */
+
+/* ------------------------------------------------------------
+   Dark-section exception — sections carrying .dark are off-black/
+   ink surfaces, where the cream defaults above are illegible:
+   eyebrows go oat, italic emphasis goes slate-light (§1.3).
+   Selector padding ([class]) matches the cream rules' specificity
+   so file order resolves the tie in favor of these.
+   ------------------------------------------------------------ */
+section.dark [class*="eyebrow"][class][class],
+section.dark .mews-widget-label[class][class] {
+  color: var(--oat) !important;
+}
+section.dark[class] h1 em,
+section.dark[class] h2 em,
+section.dark[class] h3 em {
+  color: var(--slate-light) !important;
+  font-style: italic;
+}
