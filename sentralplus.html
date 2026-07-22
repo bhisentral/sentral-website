@@ -113,20 +113,10 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 .props-count{font-size:.72rem;color:var(--lt);letter-spacing:.08em}
 
 /* Masonry-ish scrolling grid */
-.props-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin-bottom:2px}
-.props-grid-soon{display:grid;grid-template-columns:repeat(8,1fr);gap:2px}
+.props-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-bottom:2px}
 
 .pt-card{position:relative;overflow:hidden;cursor:default}
 .pt-card:hover .pt-img{transform:scale(1.05)}
-/* Span variants for visual rhythm */
-.pt-card:nth-child(1){grid-column:span 2}
-.pt-card:nth-child(2){grid-column:span 1}
-.pt-card:nth-child(3){grid-column:span 2}
-.pt-card:nth-child(4){grid-column:span 1}
-.pt-card:nth-child(5){grid-column:span 2}
-.pt-card:nth-child(6){grid-column:span 1}
-.pt-card:nth-child(7){grid-column:span 1}
-.pt-card:nth-child(8){grid-column:span 1}
 
 .pt-img{aspect-ratio:3/2;background-size:cover;background-position:center;transition:transform .55s var(--ease);position:relative}
 .pt-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.72) 100%)}
@@ -138,9 +128,6 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 .pt-card-soon .pt-name{color:rgba(255,255,255,.7)}
 .pt-soon-tag{position:absolute;top:12px;right:12px;background:rgba(200,184,154,.15);border:1px solid rgba(200,184,154,.3);color:var(--gold);font-size:.52rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:4px 10px;border-radius:100px;backdrop-filter:blur(6px)}
 
-/* Soon row spans */
-.props-grid-soon .pt-card:nth-child(1){grid-column:span 3}
-.props-grid-soon .pt-card:nth-child(2){grid-column:span 3}
 
 /* Soon divider label */
 .props-coming-label{max-width:1400px;margin:0 auto;padding:32px 64px 16px;display:flex;align-items:center;gap:20px}
@@ -190,10 +177,8 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 @media(max-width:1100px){
   .proof-inner{grid-template-columns:1fr 1fr;gap:1px}
   .benefits-grid{grid-template-columns:repeat(3,1fr)}
-  .props-grid{grid-template-columns:repeat(4,1fr)}
+  .props-grid{grid-template-columns:repeat(3,1fr)}
   .pt-card:nth-child(n){grid-column:span 1}
-  .pt-card:nth-child(odd){grid-column:span 2}
-  .pt-card:nth-child(1){grid-column:span 2}
 }
 @media(max-width:900px){
   .site-nav{padding:0 20px}.nav-links{display:none}
@@ -204,7 +189,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
   .benefits-section{padding:72px 24px}.benefits-header{grid-template-columns:1fr;gap:24px}
   .benefits-grid{grid-template-columns:1fr 1fr}
   .props-section{padding:72px 0 0}.props-header{padding:0 24px 0;flex-direction:column;align-items:flex-start;gap:12px}
-  .props-grid,.props-grid-soon{grid-template-columns:repeat(2,1fr)}
+  .props-grid{grid-template-columns:repeat(2,1fr)}
   .pt-card:nth-child(n){grid-column:span 1}
   .props-coming-label{padding:24px 24px 12px}
   .cta-section{padding:72px 24px}.cta-form{flex-direction:column}
