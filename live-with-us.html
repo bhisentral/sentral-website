@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Find Your Home — Sentral</title>
+<title>Explore Our Communities — Sentral</title>
 <!-- v4: system fonts only (Georgia + Aptos) — no web-font loading, per STYLE_GUIDE §3 -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -73,6 +73,9 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 .hero-stats{display:flex;gap:32px}
 .hero-stat-n{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--white);line-height:1}
 .hero-stat-l{font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.3);margin-top:2px}
+.hero-map-cta{display:inline-block;margin-top:26px;background:var(--white);color:var(--black);padding:14px 28px;font-size:.78rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:background .2s,color .2s}
+.hero-map-cta:hover{background:#3D6478;color:var(--white)}
+html{scroll-behavior:smooth}
 
 /* Search */
 .search-wrap{width:340px;flex-shrink:0}
@@ -273,13 +276,14 @@ body .search-label{color:rgba(255,255,255,.85);text-shadow:0 1px 6px rgba(0,0,0,
   <div class="hero-inner">
     <div>
       <span class="hero-eyebrow">Sentral — Live With Us</span>
-      <h1 class="hero-h">Find your next home.<br><em>Elevated.</em></h1>
+      <h1 class="hero-h">Explore our<br><em>communities.</em></h1>
       <p class="hero-sub">Sentral communities combine the best of residential living with hotel-quality services, amenities, and experiences — across 12 states.</p>
       <div class="hero-stats">
         <div><div class="hero-stat-n">36</div><div class="hero-stat-l">Communities</div></div>
         <div><div class="hero-stat-n">12</div><div class="hero-stat-l">States</div></div>
         <div><div class="hero-stat-n">11K+</div><div class="hero-stat-l">Residences</div></div>
       </div>
+      <a class="hero-map-cta" href="#map-section">Explore the Map &nbsp;&darr;</a>
     </div>
     <div class="search-wrap">
       <span class="search-label">Search by name, city, or state</span>
@@ -293,7 +297,7 @@ body .search-label{color:rgba(255,255,255,.85);text-shadow:0 1px 6px rgba(0,0,0,
   </div>
 </section>
 
-<section class="map-section">
+<section class="map-section" id="map-section">
   <div class="map-wrap"><div id="map"></div></div>
 </section>
 
