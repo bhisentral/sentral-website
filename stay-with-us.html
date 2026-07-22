@@ -290,6 +290,16 @@
 </style>
 <link rel="stylesheet" href="/overrides.css?v=4dark6">
 <style>
+/* Full-bleed photo bands (owner directive 2026-07-21): grids/bands edge-to-edge, text headers keep gutters. */
+.suites{padding:96px 0 !important}
+.suites-head{max-width:none !important;padding:0 64px}
+.suites-grid{max-width:none !important;gap:2px !important}
+.suites-grid .city-card{flex:0 0 calc(25% - 1.5px) !important}
+@media(max-width:1000px){.suites-grid .city-card{flex:0 0 calc(33.33% - 1.4px) !important}}
+@media(max-width:700px){.suites-grid .city-card{flex:0 0 calc(50% - 1px) !important}}
+.feat-section{padding:96px 0 !important}
+.feat-inner{max-width:none !important}
+.feat-header{padding:0 64px}
 /* Display pull-quote: overrides.css floors all section <p> to 17px — restore display scale (late block wins). */
 body .quote-text{font-size:clamp(1.8rem,3.5vw,3rem) !important;line-height:1.28 !important}
 body .quote-attr{color:var(--mid) !important;font-size:.75rem !important}
