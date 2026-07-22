@@ -242,7 +242,6 @@ body .search-label{color:rgba(255,255,255,.85);text-shadow:0 1px 6px rgba(0,0,0,
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
 
-<a class="sticky-tour" id="stickyTour" href="#">Schedule a Tour &nbsp;&rarr;</a>
 
 <nav class="site-nav" aria-label="Main navigation">
     <a class="nav-logo" href="index.html"><img src="/assets/sentral-wordmark-white.png" alt="Sentral" /></a>
@@ -1450,6 +1449,7 @@ hamburgerBtn.addEventListener('click',()=>{
 (function(){
   const btn=document.getElementById('stickyTour');
   const hero=document.querySelector('.hero');
+  if(!btn||!hero)return;
   new IntersectionObserver(entries=>btn.classList.toggle('visible',!entries[0].isIntersecting),{threshold:0}).observe(hero);
 })();
 </script>
