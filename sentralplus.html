@@ -56,7 +56,6 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 .hero-content{position:relative;z-index:2;max-width:1400px;margin:0 auto;width:100%;padding:0 64px 80px}
 .hero-lockup{max-width:640px}
 .hero-wordmark{display:flex;align-items:center;gap:14px;margin-bottom:28px;opacity:0;animation:fadeUp .7s .2s ease forwards}
-.hero-star{color:var(--gold);font-size:1.3rem}
 .hero-wordmark-text{font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--white);letter-spacing:.22em}
 .hero-wordmark-text em{font-style:normal;font-size:.6rem;font-family:var(--sans);font-weight:300;letter-spacing:.18em;color:rgba(200,184,154,.7);display:block;margin-top:2px}
 .hero-h{font-family:var(--serif);font-size:clamp(3.2rem,6.5vw,6rem);font-weight:300;color:var(--white);line-height:.97;margin-bottom:22px;opacity:0;animation:fadeUp .8s .4s ease forwards}
@@ -101,7 +100,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 .benefits-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(255,255,255,.06)}
 .benefit-card{background:var(--ink);padding:36px 30px;transition:background .2s}
 .benefit-card:hover{background:#202020}
-.benefit-icon{font-size:1.6rem;margin-bottom:18px;display:block}
+.benefit-icon{font-family:var(--serif);font-style:italic;font-size:1.05rem;letter-spacing:.12em;color:var(--metallic);margin-bottom:18px;display:block}
 .benefit-title{font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--white);margin-bottom:10px;line-height:1.25}
 .benefit-desc{font-size:.74rem;line-height:1.85;color:rgba(255,255,255,.38)}
 
@@ -229,6 +228,14 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 @media(max-width:540px){.sp-sticky{bottom:16px;right:16px}}
 </style>
 <link rel="stylesheet" href="/overrides.css">
+<style>
+/* Page-scoped legibility fixes (after overrides.css). Dark sections carry
+   .dark; the rest patches runtime repaints + type floors. */
+.pt-body .pt-city{color:var(--slate-deep) !important;font-size:.75rem}
+.pt-card-soon .pt-body .pt-city{color:var(--oat) !important}
+.props-count{color:var(--mid) !important;font-size:.75rem}
+.props-coming-label-text{color:var(--mid) !important;font-size:.72rem}
+</style>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -270,7 +277,6 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
   <div class="hero-content">
     <div class="hero-lockup">
       <div class="hero-wordmark">
-        <span class="hero-star">⭐</span>
         <div class="hero-wordmark-text">SentralPlus<em>Member Rewards</em></div>
       </div>
       <h1 class="hero-h">Stay your way.<br><em>Rewarded every time.</em></h1>
@@ -315,7 +321,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 </section>
 
 <!-- BENEFITS -->
-<section class="benefits-section">
+<section class="benefits-section dark">
   <div class="benefits-inner">
     <div class="benefits-header">
       <div>
@@ -326,27 +332,27 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
     </div>
     <div class="benefits-grid">
       <div class="benefit-card">
-        <span class="benefit-icon">🔑</span>
+        <span class="benefit-icon">01</span>
         <div class="benefit-title">Member-Only Rates</div>
         <div class="benefit-desc">Exclusive pricing available only to logged-in members. Always better than the public rate, always better than OTAs.</div>
       </div>
       <div class="benefit-card">
-        <span class="benefit-icon">⬆️</span>
+        <span class="benefit-icon">02</span>
         <div class="benefit-title">Room Upgrades</div>
         <div class="benefit-desc">Complimentary upgrades when available — confirmed in real time at booking, no waiting at the front desk.</div>
       </div>
       <div class="benefit-card">
-        <span class="benefit-icon">🕐</span>
+        <span class="benefit-icon">03</span>
         <div class="benefit-title">Early Check-In &amp; Late Checkout</div>
         <div class="benefit-desc">Arrive when you want. Leave when you&rsquo;re ready. Subject to availability, confirmed digitally at booking.</div>
       </div>
       <div class="benefit-card">
-        <span class="benefit-icon">🍷</span>
+        <span class="benefit-icon">04</span>
         <div class="benefit-title">F&amp;B Credits &amp; Experiences</div>
         <div class="benefit-desc">On-property food and beverage credits, priority access to Sentral events, and curated experiences at select communities.</div>
       </div>
       <div class="benefit-card">
-        <span class="benefit-icon">🌐</span>
+        <span class="benefit-icon">05</span>
         <div class="benefit-title">Portfolio-Wide Recognition</div>
         <div class="benefit-desc">One membership. Every Sentral community. Your status and rewards follow you — every city, every stay, every time.</div>
       </div>
@@ -478,7 +484,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 </section>
 
 <!-- CTA -->
-<section class="cta-section">
+<section class="cta-section dark">
   <div class="cta-inner">
     <span class="cta-wordmark">SENTRALPLUS</span>
     <div class="cta-rule"></div>
