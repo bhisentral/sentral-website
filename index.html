@@ -100,6 +100,7 @@
 .cityidx-inner { max-width: 1400px; margin: 0 auto; }
 .cityidx-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 26px; }
 .cityidx-h { font-family: var(--serif); font-size: 1.5rem; color: var(--text-body); font-weight: 400; }
+.cityidx-sub { margin-top: 6px; font-size: .92rem; font-weight: 300; color: var(--text-muted); }
 .cityidx-all { font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--slate); text-decoration: none; font-weight: 500; }
 .city-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--ruleC); border: 1px solid var(--ruleC); }
 .city-tile { background: var(--cream-light); padding: 20px 22px; text-decoration: none; display: flex; justify-content: space-between; align-items: baseline; transition: background .15s; }
@@ -827,7 +828,10 @@ section.combo-section.dark[class][class][class] .combo-right .combo-btn-g:hover{
 <section class="cityidx" aria-label="Browse by city">
   <div class="cityidx-inner">
     <div class="cityidx-head">
-      <h2 class="cityidx-h">Where to <em>STAY</em> next?</h2>
+      <div>
+        <h2 class="cityidx-h">Where to <em>STAY</em> next?</h2>
+        <p class="cityidx-sub">Select the city you&rsquo;re visiting next &mdash; furnished suites, ready when you land.</p>
+      </div>
       <a class="cityidx-all" href="stay-with-us.html">All 13 cities &rarr;</a>
     </div>
     <div class="city-grid">
