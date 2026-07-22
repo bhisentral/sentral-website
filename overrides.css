@@ -883,6 +883,27 @@ a.phone-badge {
 
 
 /* ------------------------------------------------------------
+   9b-ii. DECORATIVE SLATE RULES & DOTS ON DARK SECTIONS
+   ------------------------------------------------------------
+   Slate (#2D4A5C) hairline dividers and bullet dots that sit on
+   ink/off-black sections read at ~1.6:1 — effectively invisible.
+   Slate-light keeps the same line language at ~4:1 vs off-black
+   (clears the 3:1 non-text floor). Cream-surface siblings
+   (e.g. .quote-rule on stay-with-us, 8.6:1) are untouched.
+   Affected: .cta-rule (careers, sentralplus), .exp-quote-rule
+   (the-experience), .intro-stats-rule (sentralplus),
+   .mews-perk-dot (stay-with-us booking widget).
+   ------------------------------------------------------------ */
+
+.cta-rule,
+.exp-quote-rule,
+.intro-stats-rule,
+.mews-perk-dot {
+  background: var(--slate-light) !important;
+}
+
+
+/* ------------------------------------------------------------
    9d. BODY TEXT ON DARK SURFACES — READABILITY SWEEP
    ------------------------------------------------------------
    Sitewide fix for body paragraph copy that sits on ink /
