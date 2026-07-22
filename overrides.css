@@ -1238,3 +1238,10 @@ section.exp-section .exp-eyebrow {
 section.exp-section .exp-sub {
   color: var(--text-muted) !important;
 }
+
+/* Full-Slate band exception: on slate, italics are cream-light —
+   slate-light on slate is 2.6:1 and FAILS (§10.2). */
+section.dark.extstay[class] h1 em,
+section.dark.extstay[class] h2 em {
+  color: var(--cream-light) !important;
+}

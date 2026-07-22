@@ -212,6 +212,20 @@
 @media(max-width:540px){.sp-sticky{bottom:16px;right:16px}}
 
 /* ══ ADDED: product showcase (placeholder imagery + prices — real assets at WP build) ══ */
+/* Elevated Extended Stay — full-Slate band (30+ nights product) */
+.extstay{background:var(--slate,#2D4A5C);padding:64px 64px}
+.extstay-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.extstay-eyebrow{display:block;font-size:.75rem;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--oat,#F2E8D5);margin-bottom:12px}
+.extstay-h{font-family:var(--serif);font-size:clamp(1.9rem,3.2vw,2.9rem);font-weight:400;color:var(--white);line-height:1.12;margin-bottom:14px}
+.extstay-h em{font-style:italic;color:var(--cream-light,#FAF8F4)}
+.extstay-body{font-size:.95rem;line-height:1.75;color:rgba(255,255,255,.92);max-width:52ch}
+.extstay-cta{display:inline-block;margin-top:22px;font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--white);border:1px solid rgba(255,255,255,.55);padding:13px 26px;text-decoration:none;transition:background .15s,color .15s}
+.extstay-cta:hover{background:var(--white);color:var(--slate,#2D4A5C)}
+.extstay-cities-label{display:block;font-size:.75rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--oat,#F2E8D5);margin-bottom:14px}
+.extstay-cities{display:flex;flex-wrap:wrap;gap:8px}
+.extstay-city{font-size:.8rem;font-weight:500;letter-spacing:.04em;color:var(--white);border:1px solid rgba(255,255,255,.35);padding:7px 14px;border-radius:999px}
+@media(max-width:900px){.extstay{padding:48px 24px}.extstay-inner{grid-template-columns:1fr;gap:32px}}
+
 .suites{background:var(--cream);padding:96px 64px}
 .suites-head{max-width:1280px;margin:0 auto 40px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
 .suites-eyebrow{display:block;font-size:.75rem;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-d);margin-bottom:12px}
@@ -254,7 +268,7 @@
 .wideband-cta:hover{background:rgba(255,255,255,.1);border-color:var(--white)}
 @media(max-width:900px){.wideband-inner{padding:40px 20px}}
 </style>
-<link rel="stylesheet" href="/overrides.css?v=4dark3">
+<link rel="stylesheet" href="/overrides.css?v=4dark4">
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -403,6 +417,38 @@
   </div>
 </section>
 
+<!-- ELEVATED EXTENDED STAY — 30+ nights product band.
+     COPY PLACEHOLDER: marketing to finalize name ("Elevated Extended Stay" working title)
+     and body copy. CONFIRM which cities offer 30+ programs — all 13 shown for now. -->
+<section class="extstay dark" aria-label="Elevated Extended Stay">
+  <div class="extstay-inner">
+    <div>
+      <span class="extstay-eyebrow">Elevated Extended Stay &middot; 30+ nights</span>
+      <h2 class="extstay-h">Stay with us longer. <em>Thirty nights and beyond.</em></h2>
+      <p class="extstay-body">For relocations, long projects, and the in-between chapters — fully furnished suites built for a month or more. Monthly rates, housekeeping on your schedule, and a home that&rsquo;s already set up the day you land.</p>
+      <a class="extstay-cta" href="#book-stay">Check Extended Rates &rarr;</a>
+    </div>
+    <div>
+      <span class="extstay-cities-label">Extended stays available in</span>
+      <div class="extstay-cities">
+        <span class="extstay-city">Atlanta</span>
+        <span class="extstay-city">Austin</span>
+        <span class="extstay-city">Chicago</span>
+        <span class="extstay-city">Denver</span>
+        <span class="extstay-city">Houston</span>
+        <span class="extstay-city">Las Vegas</span>
+        <span class="extstay-city">Miami</span>
+        <span class="extstay-city">Nashville</span>
+        <span class="extstay-city">Philadelphia</span>
+        <span class="extstay-city">Phoenix</span>
+        <span class="extstay-city">San Diego</span>
+        <span class="extstay-city">Scottsdale</span>
+        <span class="extstay-city">West Palm Beach</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SUITE TYPES — product tiers; placeholder prices/imagery, CTAs anchor to booking -->
 <section class="suites" aria-label="Suite types">
   <div class="suites-head">
@@ -448,7 +494,7 @@
   <div class="mews-inner">
     <div class="mews-left">
       <span class="mews-eyebrow">Reserve your stay</span>
-      <h2 class="mews-h">Your next chapter<br>starts <em>here.</em></h2>
+      <h2 class="mews-h">Your next adventure<br>starts <em>here.</em></h2>
       <p class="mews-body">Select your community, choose your dates, and book in minutes. Flexible cancellation available on most stays. Best rate guaranteed when you book direct.</p>
       <div class="mews-perks">
         <div class="mews-perk"><div class="mews-perk-dot"></div>Best rate guaranteed — book direct</div>
