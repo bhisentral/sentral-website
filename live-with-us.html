@@ -224,6 +224,9 @@ html{scroll-behavior:smooth}
    band than overrides.css's global 880px floor (which serves bottom-aligned
    heroes like partner-with-us). Must load after overrides.css to win. */
 body .hero{padding-top:96px !important;min-height:640px !important}
+/* This page's nav CTA is Explore the Map — stays slate; gold is reserved for Book a Stay. */
+.btn-sn.slate-cta,.ham-book.slate-cta{background:var(--slate) !important;color:var(--white) !important;border-color:var(--slate) !important}
+.btn-sn.slate-cta:hover,.ham-book.slate-cta:hover{background:var(--black) !important;color:var(--slate-light) !important;border-color:var(--slate-light) !important}
 /* Directory reads on cream — beat overrides.css's global off-black body
    failsafe; every dark section on this page carries its own background. */
 html,body{background:var(--cream) !important}
@@ -246,7 +249,7 @@ body .search-label{color:rgba(255,255,255,.85);text-shadow:0 1px 6px rgba(0,0,0,
       <a class="nav-link" href="partner-with-us.html">Partner With Us</a>
     </div>
     <div class="nav-ctas">
-      <a class="btn-sn" href="#">Schedule a Tour</a>
+      <a class="btn-sn slate-cta" href="#map-section">Explore the Map</a>
       <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
       </button>
@@ -259,7 +262,7 @@ body .search-label{color:rgba(255,255,255,.85);text-shadow:0 1px 6px rgba(0,0,0,
           <a class="ham-link" href="partner-with-us.html"><span class="ham-link-title">Partner With Us</span><span class="ham-link-sub">Institutional-grade property management</span></a>
         </nav>
         <div class="ham-footer">
-          <a class="ham-book" href="#">Schedule a Tour &nbsp;&rarr;</a>
+          <a class="ham-book slate-cta" href="#map-section">Explore the Map &nbsp;&rarr;</a>
         </div>
       </div>
     </div>
