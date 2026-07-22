@@ -529,6 +529,18 @@ body.ada-dyslexia-font, body.ada-dyslexia-font * { font-family: Georgia, serif !
 <link rel="stylesheet" href="/overrides.css">
 <style>
 /* Full-bleed photo bands (owner directive 2026-07-21): grids/bands edge-to-edge, text headers keep gutters. */
+/* Where to stay next? — photo-backed city index (Forme Houston night exterior) */
+.cityidx{position:relative;overflow:hidden;background:var(--black) !important}
+.cityidx-photo{position:absolute;inset:0;background-image:url('/assets/group-hero-poster.jpg');background-size:cover;background-position:center 30%}
+.cityidx-veil{position:absolute;inset:0;background:rgba(20,20,20,.6)}
+.cityidx-inner{position:relative;z-index:1}
+section.cityidx[class][class] .cityidx-h{color:var(--white) !important;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+section.cityidx[class][class] .cityidx-h em{font-style:italic;color:var(--slate-light,#5C8CA0) !important}
+section.cityidx[class][class] .cityidx-all{color:rgba(255,255,255,.85) !important}
+.cityidx .city-grid{background:rgba(255,255,255,.14) !important;border-color:rgba(255,255,255,.14) !important}
+.cityidx .city-tile{background:rgba(20,20,20,.52) !important;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.cityidx .city-tile:hover{background:rgba(45,74,92,.75) !important}
+section.cityidx[class][class] .ct-name{color:var(--white) !important}
 .property-strip{padding:72px 0 !important}
 .property-strip .ps-header{padding:0 56px}
 .exp-section{padding:48px 0 44px !important}
@@ -875,9 +887,11 @@ section.combo-section.dark[class][class][class] .combo-right .combo-btn-g:hover{
 
 <!-- CITY INDEX — network as a shoppable grid (placeholder from-prices; live rates via Mews in production) -->
 <section class="cityidx" aria-label="Browse by city">
+  <div class="cityidx-photo" aria-hidden="true"></div>
+  <div class="cityidx-veil" aria-hidden="true"></div>
   <div class="cityidx-inner">
     <div class="cityidx-head">
-      <h2 class="cityidx-h">Where to next?</h2>
+      <h2 class="cityidx-h">Where to <em>stay</em> next?</h2>
       <a class="cityidx-all" href="stay-with-us.html">All 13 cities &rarr;</a>
     </div>
     <div class="city-grid">
