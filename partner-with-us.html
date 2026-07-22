@@ -793,6 +793,24 @@ FOOTER ══ */
 
 </style>
 <link rel="stylesheet" href="/overrides.css">
+<style>
+/* Page-scoped legibility fixes (must load after overrides.css).
+   Dark sections carry .dark (overrides' on-dark exception: p -> 82% white,
+   eyebrows -> oat, headings -> white); the rest is patched here. */
+/* Investor-panel cards: captions were oat/gray on white — slate-deep & mid
+   at the 12px floor; primary card is off-black, keeps oat/light. */
+.ipi-card:not(.primary) .ipi-tier{color:var(--slate-deep) !important;font-size:.75rem}
+.ipi-card.primary .ipi-tier{color:var(--oat) !important;font-size:.75rem}
+.ipi-card:not(.primary) .ipi-aum{color:var(--mid) !important;font-size:.75rem}
+.ipi-card.primary .ipi-aum{color:rgba(255,255,255,.78) !important;font-size:.75rem}
+/* Sticky inquiry form: labels were 38% white at 9px */
+.sfp-label{color:rgba(255,255,255,.78) !important;font-size:.72rem !important}
+.sfp-input::placeholder{color:rgba(255,255,255,.45)}
+.sfp-input:focus,.sfp-select:focus{border-color:rgba(92,140,160,.65)}
+/* Submit was slate-on-slate like the hero CTA */
+.sfp-submit{background:var(--white) !important;color:var(--black) !important}
+.sfp-submit:hover{background:#3D6478 !important;color:var(--white) !important}
+</style>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -819,7 +837,7 @@ FOOTER ══ */
 <button class="sticky-partner" id="stickyPartner" onclick="toggleStickyForm()">Partner &nbsp;&rarr;</button>
 
 <!-- STICKY CONTACT FORM -->
-<div class="sticky-form-panel" id="stickyFormPanel">
+<div class="sticky-form-panel dark" id="stickyFormPanel">
   <div class="sfp-header">
     <span class="sfp-title">Let's talk about your asset.</span>
     <button class="sfp-close" onclick="toggleStickyForm()">&#x2715;</button>
@@ -902,7 +920,7 @@ FOOTER ══ */
 </section>
 
 <!-- THE CASE -->
-<section class="dial-section" id="proof">
+<section class="dial-section dark" id="proof">
   <div class="dial-inner">
     <div class="dial-header-row">
       <div>
@@ -1023,7 +1041,7 @@ FOOTER ══ */
 </section>
 
 <!-- STATS -->
-<section class="sbn-section">
+<section class="sbn-section dark">
   <div class="sbn-inner">
     <div class="sbn-header">
       <span class="sbn-eyebrow">Sentral by the numbers</span>
@@ -1154,7 +1172,7 @@ FOOTER ══ */
 <!-- STAFFING RATIOS SECTION -->
 
 <!-- EXECUTIVE TEAM -->
-<section class="exec-section">
+<section class="exec-section dark">
   <div class="exec-inner">
     <div class="exec-header">
       <span class="exec-eyebrow">Leadership</span>
