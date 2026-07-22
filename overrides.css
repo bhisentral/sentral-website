@@ -787,28 +787,28 @@ section.surface-slate em {
    on specificity / source order.
    ------------------------------------------------------------ */
 
-/* "Book a Stay" — the nav-level CTA — is FILLED in slate blue
-   with white text per user request. Inverts on hover to black
-   background with slate-light text. White on slate ≈ 9.1:1
-   contrast (AAA), slate-light on black ≈ 4.15:1 (AA Large,
-   acceptable for the larger hover-state CTA text). */
+/* "Book a Stay" — the nav-level CTA — is FILLED in metallic GOLD
+   with off-black text per user request 2026-07-21 (supersedes the
+   earlier slate fill; conscious exception to the gold-reserve rule).
+   Gold on off-black text ≈ 5.5:1 (AA). Inverts on hover to black
+   with gold text. */
 .btn-sn,
 a.btn-sn,
 .ham-book,
 a.ham-book,
 .sticky-book,
 a.sticky-book {
-  background: var(--slate) !important;
-  color: var(--white) !important;
-  border: 1px solid var(--slate) !important;
+  background: var(--metallic) !important;
+  color: var(--black) !important;
+  border: 1px solid var(--metallic) !important;
 }
 
 .btn-sn:hover,
 .ham-book:hover,
 .sticky-book:hover {
   background: var(--black) !important;
-  color: var(--slate-light) !important;
-  border-color: var(--slate-light) !important;
+  color: var(--metallic) !important;
+  border-color: var(--metallic) !important;
 }
 
 /* Nav-level "Book a Stay" CTA: all-caps, larger block (user request 2026-07) */
