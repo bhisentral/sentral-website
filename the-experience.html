@@ -154,7 +154,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 .app-h{font-family:var(--serif);font-size:clamp(2.4rem,4vw,3.8rem);font-weight:300;line-height:1.08;color:var(--black);margin-bottom:20px}
 .app-h em{font-style:italic;color:var(--gold)}
 .app-award{display:inline-flex;align-items:center;gap:10px;background:var(--black);padding:10px 18px;border-radius:2px;margin-bottom:24px}
-.app-award-icon{font-size:1.1rem}
+.app-award-icon{width:5px;height:5px;border-radius:50%;background:var(--metallic,#B8924A);display:inline-block;flex-shrink:0}
 .app-award-text{font-size:.62rem;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--gold)}
 .app-body{font-size:.9rem;line-height:1.95;color:var(--mid);margin-bottom:28px}
 .app-features{display:flex;flex-direction:column;gap:2px}
@@ -191,7 +191,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 .exp-quote-inner{max-width:760px;margin:0 auto}
 .exp-quote-rule{width:44px;height:1px;background:var(--gold);margin:0 auto 36px}
 .exp-quote-text{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;font-style:italic;line-height:1.3;color:var(--white);margin-bottom:28px}
-.exp-quote-text em{color:var(--gold);font-style:normal}
+.exp-quote-text em{color:var(--slate-light);font-style:normal}
 .exp-quote-attr{font-size:.6rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.3)}
 
 /* ══ MOBILE ══ */
@@ -297,6 +297,10 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 
 </style>
 <link rel="stylesheet" href="/overrides.css">
+<style>
+/* Display pull-quote: overrides.css floors all section <p> to 17px — restore display scale (late block wins). */
+body .exp-quote-text{font-size:clamp(1.8rem,3.5vw,2.8rem) !important;line-height:1.3 !important}
+</style>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -366,7 +370,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 </section>
 
 <!-- EVENTS & PROGRAMMING -->
-<section class="events-section section" id="events">
+<section class="events-section section dark" id="events">
   <div class="events-inner">
     <div class="events-header">
       <div>
@@ -477,7 +481,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 </section>
 
 <!-- SPACES -->
-<section class="spaces-section section" id="spaces">
+<section class="spaces-section section dark" id="spaces">
   <div class="spaces-inner">
     <div class="spaces-header">
       <div>
@@ -518,7 +522,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
       <span class="app-eyebrow">SentralLife App &mdash; Available on the App Store</span>
       <h2 class="app-h">Your entire home<br>in your <em>pocket.</em></h2>
       <div class="app-award">
-        <span class="app-award-icon">🏆</span>
+        <span class="app-award-icon" aria-hidden="true"></span>
         <span class="app-award-text">2024 MFE Award &mdash; Best Use of Proptech</span>
       </div>
       <p class="app-body">Sentral launched SentralLife in 2023 — winner of the 2024 MFE Award for Best Use of Proptech — and it now has a 90% adoption rate among residents. Available on the App Store, it's the operating system for living at Sentral: one place to run your home, access your building, and stay connected to everything happening around you.</p>
@@ -587,7 +591,6 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
           </div>
         </div>
         <div class="phone-award">
-          <span>🏆</span>
           <span>2024 MFE Award — Best Use of Proptech</span>
         </div>
       </div>
@@ -596,7 +599,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 </section>
 
 <!-- QUOTE -->
-<section class="exp-quote">
+<section class="exp-quote dark">
   <div class="exp-quote-inner">
     <div class="exp-quote-rule"></div>
     <p class="exp-quote-text">&ldquo;The goal is always the same — to leave residents, guests, and prospects feeling like the most important person in the room, and their daily lives <em>enhanced</em> following every interaction.&rdquo;</p>

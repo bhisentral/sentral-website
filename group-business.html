@@ -59,7 +59,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 .hero-left{max-width:580px}
 .hero-eyebrow{font-size:.58rem;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:rgba(200,184,154,.8);margin-bottom:18px;display:block;opacity:0;animation:fadeUp .8s .3s ease forwards}
 .hero-h{font-family:var(--serif);font-size:clamp(3rem,6vw,5.2rem);font-weight:300;color:var(--white);line-height:1.02;margin-bottom:18px;opacity:0;animation:fadeUp .8s .5s ease forwards}
-.hero-h em{font-style:italic;color:var(--gold)}
+.hero-h em{font-style:italic;color:var(--slate-light)}
 .hero-sub{font-size:.92rem;font-weight:300;color:rgba(255,255,255,.52);line-height:1.85;opacity:0;animation:fadeUp .8s .7s ease forwards}
 @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 
@@ -140,11 +140,11 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 /* ══ AWARDS BAND ══ */
 .awards-band{background:var(--gold);padding:26px 64px}
 .awards-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
-.awards-left{font-family:var(--serif);font-size:1.15rem;font-weight:300;color:var(--gold-d);font-style:italic}
+.awards-left{font-family:var(--serif);font-size:1.15rem;font-weight:300;color:var(--white);font-style:italic}
 .awards-right{display:flex;gap:36px;align-items:center;flex-wrap:wrap}
 .award-item{display:flex;align-items:center;gap:8px}
 .award-icon{width:5px;height:5px;border-radius:50%;background:var(--oat);display:inline-block;flex-shrink:0}
-.award-text{font-size:.6rem;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--gold-d)}
+.award-text{font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.85)}
 
 /* ══ GROUP REQUEST MODAL ══ */
 .modal-overlay{position:fixed;inset:0;z-index:400;background:rgba(10,8,6,.78);backdrop-filter:blur(4px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
@@ -156,7 +156,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 .modal-inner{padding:36px 40px 40px}
 .modal-eyebrow{font-size:.56rem;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:block}
 .modal-h{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:300;color:var(--white);line-height:1.12;margin-bottom:24px}
-.modal-h em{font-style:italic;color:var(--gold)}
+.modal-h em{font-style:italic;color:var(--slate-light)}
 .modal-form{display:flex;flex-direction:column;gap:14px}
 .modal-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .modal-field{display:flex;flex-direction:column;gap:6px}
@@ -213,7 +213,8 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 .lookup-result-name{font-family:var(--serif);font-size:1rem;color:var(--white);margin-bottom:4px}
 .lookup-result-detail{font-size:.72rem;color:rgba(255,255,255,.45);line-height:1.7}
 .lookup-result-reward{margin-top:10px;padding:10px 14px;background:rgba(200,184,154,.08);border:1px solid rgba(200,184,154,.2);border-radius:2px;font-size:.72rem;color:var(--gold)}
-.lookup-note{font-size:.58rem;color:rgba(255,255,255,.2);text-align:center;margin-top:14px;line-height:1.6}
+.lookup-note{font-size:.72rem;color:rgba(255,255,255,.6);text-align:center;margin-top:14px;line-height:1.6}
+.lookup-note a{color:var(--slate-light)}
 
 /* ══ MOBILE ══ */
 @media(max-width:1100px){.occasions-grid{grid-template-columns:repeat(2,1fr)}}
@@ -518,7 +519,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 </section>
 
 <!-- OCCASIONS -->
-<section class="occasions-section" id="occasions">
+<section class="occasions-section dark" id="occasions">
   <div class="occasions-inner">
     <span class="occasions-eyebrow">All occasions</span>
     <h2 class="occasions-h">Whatever brings<br>your group <em>together.</em></h2>
@@ -1025,7 +1026,7 @@ function lookupReservation() {
     'Confirmation: <strong style="color:var(--white)">' + conf + '</strong><br>' +
     'View full details, rewards, and SentralPlus benefits in the portal below.';
   document.getElementById('lookupResultReward').innerHTML =
-    'To view your rewards and check-in details, <a href="' + portalUrl + '" target="_blank" style="color:var(--gold);text-decoration:underline">open your SentralPlus portal &rarr;</a>';
+    'To view your rewards and check-in details, <a href="' + portalUrl + '" target="_blank" style="color:var(--slate-light);text-decoration:underline">open your SentralPlus portal &rarr;</a>';
   result.classList.add('show');
 }
 

@@ -206,6 +206,14 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 
 </style>
 <link rel="stylesheet" href="/overrides.css">
+<style>
+/* Page-scoped legibility (after overrides.css): the intro section assumes a
+   cream page ground — restore it (dark sections carry their own bg + .dark).
+   Story-card name labels get repainted oat at runtime — re-ground per card. */
+html,body{background:var(--cream) !important}
+body .story-card .story-name{color:var(--slate-deep) !important}
+body .wendy-card .story-name{color:var(--oat) !important}
+</style>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -278,7 +286,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 </section>
 
 <!-- VALUES -->
-<section class="values-section">
+<section class="values-section dark">
   <div class="values-header">
     <div>
       <span class="values-eyebrow">What drives us</span>
@@ -428,7 +436,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 <div class="img-band"></div>
 
 <!-- CTA -->
-<section class="cta-section">
+<section class="cta-section dark">
   <div class="cta-inner">
     <div class="cta-rule"></div>
     <h2 class="cta-h">Ready to build something<br>that actually <em>matters?</em></h2>

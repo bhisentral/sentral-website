@@ -122,6 +122,11 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 @media(max-width:540px){.footer-main{grid-template-columns:1fr}}
 </style>
 <link rel="stylesheet" href="/overrides.css">
+<style>
+/* Page-scoped: this page's inquiry/form sections assume a cream page ground —
+   restore it (the office card is ink and carries .dark). */
+html,body{background:var(--cream) !important}
+</style>
 </head>
 <body>
 
@@ -215,7 +220,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
     </div>
   </section>
 
-  <section class="office" aria-label="Sentral Corporate Office">
+  <section class="office dark" aria-label="Sentral Corporate Office">
     <div>
       <span class="office-eyebrow">Sentral Corporate Office</span>
       <h2 class="office-h">Headquartered in <em>Denver.</em></h2>
