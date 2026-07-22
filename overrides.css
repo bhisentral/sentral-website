@@ -799,9 +799,7 @@ a.ham-book,
 .sticky-book,
 a.sticky-book,
 .btn-hp,
-a.btn-hp,
-.posit-cta.primary,
-a.posit-cta.primary {
+a.btn-hp {
   background: var(--metallic) !important;
   color: var(--black) !important;
   border: 1px solid var(--metallic) !important;
@@ -810,8 +808,7 @@ a.posit-cta.primary {
 .btn-sn:hover,
 .ham-book:hover,
 .sticky-book:hover,
-.btn-hp:hover,
-.posit-cta.primary:hover {
+.btn-hp:hover {
   background: var(--black) !important;
   color: var(--metallic) !important;
   border-color: var(--metallic) !important;
