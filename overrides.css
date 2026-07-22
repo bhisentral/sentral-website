@@ -797,7 +797,11 @@ a.btn-sn,
 .ham-book,
 a.ham-book,
 .sticky-book,
-a.sticky-book {
+a.sticky-book,
+.btn-hp,
+a.btn-hp,
+.posit-cta.primary,
+a.posit-cta.primary {
   background: var(--metallic) !important;
   color: var(--black) !important;
   border: 1px solid var(--metallic) !important;
@@ -805,7 +809,9 @@ a.sticky-book {
 
 .btn-sn:hover,
 .ham-book:hover,
-.sticky-book:hover {
+.sticky-book:hover,
+.btn-hp:hover,
+.posit-cta.primary:hover {
   background: var(--black) !important;
   color: var(--metallic) !important;
   border-color: var(--metallic) !important;
@@ -829,9 +835,6 @@ a.sticky-book {
    (a contrast failure) stay FILLED in Slate with cream-light text —
    these are page-content primary CTAs ("Schedule a tour", "Send
    message", etc.) where a filled button is the expected affordance. */
-.btn-hp,
-a.btn-hp,
-button.btn-hp,
 .book-btn,
 a.book-btn,
 .cta-btn,
@@ -863,7 +866,6 @@ a.phone-badge {
   color: var(--cream-light) !important;
 }
 
-.btn-hp:hover,
 .book-btn:hover,
 .cta-btn:hover,
 .hero-btn:hover,
