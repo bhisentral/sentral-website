@@ -61,6 +61,10 @@
     {
       "source": "/sentral-group",
       "destination": "/group-travel"
+    },
+    {
+      "source": "/equal-housing",
+      "destination": "/fair-housing"
     }
   ],
   "redirects": [

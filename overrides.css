@@ -1298,6 +1298,11 @@ section.dark.extstay[class] h2 em {
 .footer-social-icons a:hover{background:var(--slate)}
 .footer-social-icons svg{width:14px;height:14px;fill:currentColor}
 .site-footer .footer-legal{display:flex;align-items:center}
+.footer-bottom-left{display:flex;flex-direction:column;gap:10px}
+.footer-logo{width:118px;height:auto;display:block;opacity:.92}
+.footer-social-icons a{width:40px !important;height:40px !important}
+.footer-social-icons svg{width:19px !important;height:19px !important}
+.footer-social-icons{gap:12px !important}
 /* Footer readability: bigger, brighter type throughout */
 .site-footer .footer-col-head{font-size:1.05rem !important;color:var(--white) !important;margin-bottom:14px !important}
 .site-footer .footer-link{font-size:.95rem !important;color:rgba(255,255,255,.78) !important;line-height:2.1 !important}
