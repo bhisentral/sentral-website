@@ -1306,6 +1306,9 @@ section.dark.extstay[class] h2 em {
 .footer-social-icons a{width:40px !important;height:40px !important}
 .footer-social-icons svg{width:19px !important;height:19px !important}
 .footer-social-icons{gap:12px !important}
+/* Bottom row sits ABOVE the hairline: rule moves below the wordmark/legal
+   row instead of above it (per user request, 7-23) */
+.site-footer .footer-bottom{border-top:0 !important;border-bottom:1px solid rgba(255,255,255,.16) !important;padding-top:0 !important;padding-bottom:24px !important}
 /* Footer readability: bigger, brighter type throughout */
 .site-footer .footer-col-head{font-size:1.05rem !important;color:var(--white) !important;margin-bottom:14px !important}
 .site-footer .footer-link{font-size:.95rem !important;color:rgba(255,255,255,.78) !important;line-height:2.1 !important}
