@@ -107,6 +107,21 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 <style>
 /* Page-scoped: legal copy assumes a cream page ground — restore it. */
 html,body{background:var(--cream) !important}
+/* Header photo (owner 2026-07-22) */
+.page-header{position:relative;overflow:hidden}
+.ph-photo{position:absolute;inset:0;background-image:url('/assets/live-hero-poster.jpg');background-size:cover;background-position:center 40%}
+.ph-veil{position:absolute;inset:0;background:rgba(20,20,20,.7)}
+.page-header-inner{position:relative;z-index:1}
+body .page-sub{color:rgba(255,255,255,.85) !important;font-size:1.02rem !important}
+body .page-meta{color:rgba(255,255,255,.8) !important;font-size:.92rem !important}
+/* Compliance type scale: legal text materially larger + darker */
+body .policy-body{font-size:1.05rem !important;line-height:1.9 !important;color:#3A3633 !important}
+body .policy-body li{font-size:1.05rem !important;color:#3A3633 !important}
+body .policy-section-title{font-size:1.6rem !important}
+#main .policy-section-num{font-size:1.05rem !important;color:#3D6478 !important;font-weight:600 !important;letter-spacing:.16em !important;margin-bottom:8px !important}
+body .policy-intro ul li{font-size:1rem !important;color:#3A3633 !important}
+body .policy-toc-title{font-size:.75rem !important}
+body .policy-toc-list li a{font-size:.95rem !important}
 .policy-contact-box a{color:var(--slate-light) !important}
 </style>
 </head>
@@ -142,6 +157,9 @@ html,body{background:var(--cream) !important}
 
 <main id="main" tabindex="-1">
 <div class="page-header">
+  <div class="ph-photo" aria-hidden="true"></div>
+  <div class="ph-veil" aria-hidden="true"></div>
+  <div class="photo-tag"><span class="photo-tag-name">Mission Rock</span><span class="photo-tag-city">San Francisco, CA</span></div>
   <div class="page-header-inner">
     <span class="page-eyebrow">Legal</span>
     <h1 class="page-h">Terms of Use</h1>

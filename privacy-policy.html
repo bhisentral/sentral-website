@@ -131,6 +131,21 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 <style>
 /* Page-scoped: legal copy assumes a cream page ground — restore it. */
 html,body{background:var(--cream) !important}
+/* Header photo (owner 2026-07-22) */
+.page-header{position:relative;overflow:hidden}
+.ph-photo{position:absolute;inset:0;background-image:url('/assets/hero-poster.jpg');background-size:cover;background-position:center 55%}
+.ph-veil{position:absolute;inset:0;background:rgba(20,20,20,.7)}
+.page-header-inner{position:relative;z-index:1}
+body .page-sub{color:rgba(255,255,255,.85) !important;font-size:1.02rem !important}
+body .page-meta{color:rgba(255,255,255,.8) !important;font-size:.92rem !important}
+/* Compliance type scale: legal text materially larger + darker */
+body .policy-body{font-size:1.05rem !important;line-height:1.9 !important;color:#3A3633 !important}
+body .policy-body li{font-size:1.05rem !important;color:#3A3633 !important}
+body .policy-section-title{font-size:1.6rem !important}
+#main .policy-section-num{font-size:1.05rem !important;color:#3D6478 !important;font-weight:600 !important;letter-spacing:.16em !important;margin-bottom:8px !important}
+body .policy-intro ul li{font-size:1rem !important;color:#3A3633 !important}
+body .policy-toc-title{font-size:.75rem !important}
+body .policy-toc-list li a{font-size:.95rem !important}
 .policy-contact-box a{color:var(--slate-light) !important}
 </style>
 </head>
@@ -166,6 +181,9 @@ html,body{background:var(--cream) !important}
 
 <main id="main" tabindex="-1">
 <div class="page-header">
+  <div class="ph-photo" aria-hidden="true"></div>
+  <div class="ph-veil" aria-hidden="true"></div>
+  <div class="photo-tag"><span class="photo-tag-name">NORA</span><span class="photo-tag-city">West Palm Beach, FL</span></div>
   <div class="page-header-inner">
     <span class="page-eyebrow">Legal</span>
     <h1 class="page-h">Privacy Policy</h1>
@@ -334,7 +352,7 @@ html,body{background:var(--cream) !important}
           <li><strong>The right to opt out of the sale of your Personal Information.</strong> You have the right to opt out of the sale of your Personal Information. If you do not affirmatively opt out, and you are not a minor, your Personal Information may be sold as disclosed in this Privacy Policy. You can submit your request to opt out of the sale of your Personal Information by submitting a &ldquo;Do not Sell my Personal Information&rdquo; request to <a href="mailto:questions@sentral.com">questions@sentral.com</a>.</li>
           <li><strong>The right to equal service.</strong> If you choose to exercise any of these rights, we will not discriminate against you in any way. If you exercise certain rights, understand that you may be unable to use or access certain features of the Websites or our services or properties.</li>
         </ul>
-        <p>You may exercise your right to know and your right to deletion two times a year free of charge. To exercise your right to know or your right to deletion, contact us by email at <a href="mailto:hello@sentral.com">hello@sentral.com</a>.</p>
+        <p>You may exercise your right to know and your right to deletion two times a year free of charge. To exercise your right to know or your right to deletion, contact us by email at <a href="mailto:questions@sentral.com">questions@sentral.com</a>.</p>
         <p>We will take steps to verify your identity before processing your request to know or request to delete. We will not fulfill your request unless you have provided sufficient information for us to reasonably verify you are the individual about whom we collected Personal Information. You may use an authorized agent to submit a request to know or a request to delete.</p>
         <p>California residents are entitled to request from us once per calendar year certain information regarding our disclosure of their Personal Information to third parties for those third parties&rsquo; direct marketing purposes. You may request information regarding such disclosures by contacting us at <a href="mailto:questions@sentral.com">questions@sentral.com</a>.</p>
       </div>
@@ -400,7 +418,7 @@ html,body{background:var(--cream) !important}
       <span class="policy-section-num">15</span>
       <h2 class="policy-section-title">How to Contact Us</h2>
       <div class="policy-body">
-        <p>If you have questions or comments about this Privacy Policy or our privacy practices, please contact us at <a href="mailto:hello@sentral.com">hello@sentral.com</a> or by mail at:</p>
+        <p>If you have questions or comments about this Privacy Policy or our privacy practices, please contact us at <a href="mailto:questions@sentral.com">questions@sentral.com</a> or by mail at:</p>
         <div class="policy-contact-box">
           <div class="policy-contact-box-title">Privacy Team</div>
           <div class="policy-contact-box-body">
@@ -408,7 +426,7 @@ html,body{background:var(--cream) !important}
             Attn: Privacy Team<br/>
             1550 Larimer Street, Suite 312<br/>
             Denver, Colorado 80202<br/><br/>
-            <a href="mailto:hello@sentral.com">hello@sentral.com</a>
+            <a href="mailto:questions@sentral.com">questions@sentral.com</a>
           </div>
         </div>
       </div>
