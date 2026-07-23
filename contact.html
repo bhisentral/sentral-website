@@ -126,6 +126,12 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 /* Page-scoped: this page's inquiry/form sections assume a cream page ground —
    restore it (the office card is ink and carries .dark). */
 html,body{background:var(--cream) !important}
+/* Header photo backdrop (owner 2026-07-22) */
+.page-header{position:relative;overflow:hidden}
+.ph-photo{position:absolute;inset:0;background-image:url('/assets/stay-hero-poster.jpg');background-size:cover;background-position:center 55%}
+.ph-veil{position:absolute;inset:0;background:rgba(20,20,20,.68)}
+.page-header-inner{position:relative;z-index:1}
+body .page-sub{color:rgba(255,255,255,.85) !important;font-size:1.02rem !important}
 </style>
 </head>
 <body>
@@ -160,6 +166,9 @@ html,body{background:var(--cream) !important}
 
 <main id="main" tabindex="-1">
 <div class="page-header" aria-label="Page heading">
+  <div class="ph-photo" aria-hidden="true"></div>
+  <div class="ph-veil" aria-hidden="true"></div>
+  <div class="photo-tag"><span class="photo-tag-name">Sol Modern</span><span class="photo-tag-city">Phoenix, AZ</span></div>
   <div class="page-header-inner">
     <span class="page-eyebrow">Sentral &mdash; Contact Us</span>
     <h1 class="page-h">Get in <em>touch.</em></h1>
