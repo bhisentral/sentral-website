@@ -1309,3 +1309,22 @@ section.dark.extstay[class] h2 em {
   .site-footer .footer-main{grid-template-columns:1fr 1fr !important}
   .footer-connect{grid-column:1/-1;max-width:none}
 }
+
+
+/* ------------------------------------------------------------
+   INSTAGRAM BAND (Juicer) — rolling @SentralLife strip, last
+   section on Home + Stay. Static tiles are the demo state; the
+   build team swaps in the Juicer feed (see HTML comment).
+   ------------------------------------------------------------ */
+.igb{background:var(--cream);padding:72px 0 64px;overflow:hidden}
+.igb-head{text-align:center;font-size:.9rem;font-weight:600;letter-spacing:.08em;color:var(--black);margin-bottom:8px;text-transform:uppercase}
+.igb-rule{width:56px;height:1px;background:rgba(0,0,0,.25);margin:0 auto 40px}
+.igb-track{display:flex;gap:2px;width:max-content;animation:igbRoll 40s linear infinite}
+.igb:hover .igb-track{animation-play-state:paused}
+@media(prefers-reduced-motion: reduce){.igb-track{animation:none}}
+@keyframes igbRoll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.igb-tile{width:300px;height:300px;flex-shrink:0;background-size:cover;background-position:center;display:block}
+.igb-link{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:36px;color:var(--black);font-size:.92rem;font-weight:500;text-decoration:none;letter-spacing:.04em}
+.igb-link:hover{color:var(--slate-deep)}
+.igb-link svg{width:20px;height:20px;fill:currentColor}
+@media(max-width:640px){.igb-tile{width:200px;height:200px}}
