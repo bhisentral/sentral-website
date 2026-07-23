@@ -188,42 +188,42 @@ body .page-sub{color:rgba(255,255,255,.85) !important;font-size:1.02rem !importa
         <span class="inquiry-eyebrow">Real Estate</span>
         <h3 class="inquiry-h">Developments &amp; Partnerships</h3>
         <p class="inquiry-desc">Operators, owners, and developers exploring how Sentral can program a new asset or convert an existing one.</p>
-        <a class="inquiry-cta" href="mailto:partnerships@sentral.com?subject=Real%20Estate%20Partnership%20Inquiry">Email partnerships <span class="arrow">&rarr;</span></a>
+        <a class="inquiry-cta" href="#contact-form" onclick="pickTopic('Real Estate')">Start an Inquiry <span class="arrow">&rarr;</span></a>
       </div>
 
       <div class="inquiry-card">
         <span class="inquiry-eyebrow">Sales</span>
         <h3 class="inquiry-h">Group, Corporate &amp; Long Stays</h3>
         <p class="inquiry-desc">Group bookings, corporate housing programs, project crews, productions &mdash; multi-night, multi-room.</p>
-        <a class="inquiry-cta" href="mailto:sales@sentral.com?subject=Sales%20Inquiry">Email sales <span class="arrow">&rarr;</span></a>
+        <a class="inquiry-cta" href="#contact-form" onclick="pickTopic('Sales')">Start an Inquiry <span class="arrow">&rarr;</span></a>
       </div>
 
       <div class="inquiry-card">
         <span class="inquiry-eyebrow">Retail</span>
         <h3 class="inquiry-h">Ground-Floor Retail</h3>
         <p class="inquiry-desc">Operators interested in retail, F&amp;B, and experiential leasing across the Sentral network.</p>
-        <a class="inquiry-cta" href="mailto:retail@sentral.com?subject=Retail%20Leasing%20Inquiry">Email retail <span class="arrow">&rarr;</span></a>
+        <a class="inquiry-cta" href="#contact-form" onclick="pickTopic('Retail')">Start an Inquiry <span class="arrow">&rarr;</span></a>
       </div>
 
       <div class="inquiry-card">
         <span class="inquiry-eyebrow">Press</span>
         <h3 class="inquiry-h">Media &amp; Editorial</h3>
         <p class="inquiry-desc">Press inquiries, media requests, executive interviews, and editorial coordination.</p>
-        <a class="inquiry-cta" href="mailto:press@sentral.com?subject=Press%20Inquiry">Email press <span class="arrow">&rarr;</span></a>
+        <a class="inquiry-cta" href="#contact-form" onclick="pickTopic('Press')">Start an Inquiry <span class="arrow">&rarr;</span></a>
       </div>
 
       <div class="inquiry-card">
         <span class="inquiry-eyebrow">Stay &amp; Reservations</span>
         <h3 class="inquiry-h">Existing Reservations</h3>
         <p class="inquiry-desc">Need to modify a stay, ask about a property, or get help mid-trip? Our reservations team is on it.</p>
-        <a class="inquiry-cta" href="mailto:reservations@sentral.com?subject=Reservation%20Question">Email reservations <span class="arrow">&rarr;</span></a>
+        <a class="inquiry-cta" href="#contact-form" onclick="pickTopic('Reservations')">Start an Inquiry <span class="arrow">&rarr;</span></a>
       </div>
 
       <div class="inquiry-card">
         <span class="inquiry-eyebrow">Other</span>
         <h3 class="inquiry-h">General &amp; Anything Else</h3>
         <p class="inquiry-desc">Not sure who to ask? Drop us a note here and we&rsquo;ll route it to the right person.</p>
-        <a class="inquiry-cta" href="mailto:hello@sentral.com?subject=General%20Inquiry">Email Sentral <span class="arrow">&rarr;</span></a>
+        <a class="inquiry-cta" href="#contact-form" onclick="pickTopic('General')">Start an Inquiry <span class="arrow">&rarr;</span></a>
       </div>
 
     </div>
@@ -233,26 +233,16 @@ body .page-sub{color:rgba(255,255,255,.85) !important;font-size:1.02rem !importa
     <div>
       <span class="office-eyebrow">Sentral Corporate Office</span>
       <h2 class="office-h">Headquartered in <em>Denver.</em></h2>
-      <p class="office-sub">Our team operates twenty-three properties across thirteen states from a single office in the Mile High City.</p>
-      <p class="office-legal">BHI Residential Long Term Corporation d/b/a Sentral</p>
     </div>
     <div class="office-side">
       <div class="office-row">
         <span class="office-row-label">Address</span>
         <span class="office-row-value">1550 Larimer St, Suite 312<br>Denver, CO 80202</span>
       </div>
-      <div class="office-row">
-        <span class="office-row-label">General</span>
-        <span class="office-row-value"><a href="mailto:hello@sentral.com">hello@sentral.com</a></span>
-      </div>
-      <div class="office-row">
-        <span class="office-row-label">Hours</span>
-        <span class="office-row-value">Monday &ndash; Friday<br>9:00 AM &ndash; 6:00 PM MT</span>
-      </div>
     </div>
   </section>
 
-  <section class="form-section" aria-label="Send us a note">
+  <section class="form-section" id="contact-form" aria-label="Send us a note">
     <h2 class="form-h">Or send a note.</h2>
     <p class="form-lede">Quick message and we&rsquo;ll get back within one business day.</p>
 
@@ -372,6 +362,14 @@ function submitContact(e){
   );
   window.location.href='mailto:'+to+'?subject='+subject+'&body='+body;
   return false;
+}
+</script>
+<script>
+/* Inquiry CTAs preselect the form topic — submissions route to CRM (endpoint TBD) */
+function pickTopic(prefix){
+  const sel=document.getElementById('cf-topic');
+  if(!sel)return;
+  for(const o of sel.options){if(o.text.indexOf(prefix)===0){sel.value=o.value||o.text;o.selected=true;break}}
 }
 </script>
 </body>
