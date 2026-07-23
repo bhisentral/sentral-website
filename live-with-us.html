@@ -139,17 +139,18 @@ html{scroll-behavior:smooth}
 /* ── GRID ── */
 .grid-section{padding:0 64px 80px}
 /* Life at Sentral band — square amenity footage + service copy */
-.lifeband{background:var(--cream);padding:36px 64px 96px}
-.lifeband-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:520px 1fr;gap:72px;align-items:center}
-.lifeband-media{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--black)}
+.lifeband{background:var(--cream);padding:0}
+.lifeband-inner{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:center}
+.lifeband-media{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--black);width:100%}
 .lifeband-video{width:100%;height:100%;object-fit:cover;display:block}
+.lifeband-copy{padding:72px 64px}
 .lifeband-eyebrow{font-size:.75rem;font-weight:500;text-transform:uppercase;letter-spacing:.28em;color:var(--slate-deep);margin-bottom:14px;display:block}
 .lifeband-h{font-family:var(--serif);font-size:clamp(1.9rem,3vw,2.7rem);font-weight:300;color:var(--black);line-height:1.15;margin-bottom:18px}
 .lifeband-h em{font-style:italic;color:var(--slate-deep)}
 .lifeband-body{font-size:1rem;font-weight:300;color:var(--text-body);line-height:1.7;max-width:560px;margin-bottom:14px}
 .lifeband-cta{display:inline-block;margin-top:10px;font-size:.78rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--black);text-decoration:none;border-bottom:1px solid var(--slate);padding-bottom:4px;transition:color .2s,border-color .2s}
 .lifeband-cta:hover{color:var(--slate-deep);border-color:var(--slate-deep)}
-@media(max-width:900px){.lifeband{padding:24px 20px 64px}.lifeband-inner{grid-template-columns:1fr;gap:28px}}
+@media(max-width:900px){.lifeband-inner{grid-template-columns:1fr;gap:0}.lifeband-copy{padding:40px 20px 56px}}
 .prop-grid{max-width:1400px;margin:0 auto}
 .state-block{margin-bottom:4px}
 .state-block.hidden{display:none}
@@ -299,6 +300,26 @@ body .search-label{color:rgba(255,255,255,.85);text-shadow:0 1px 6px rgba(0,0,0,
         <button class="search-clear" id="searchClear" onclick="clearSearch()">&times;</button>
         <div class="search-results-preview" id="searchPreview"></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIFE AT SENTRAL — amenities & service band (Forme Houston footage, square crop) -->
+<section class="lifeband" aria-label="Life at Sentral">
+  <div class="lifeband-inner">
+    <div class="lifeband-media">
+      <video class="lifeband-video" id="liveLifeVideo" autoplay muted loop playsinline preload="metadata" poster="/assets/forme-houston-square-poster.jpg" aria-hidden="true">
+        <source src="/assets/forme-houston-live-square.mp4" type="video/mp4">
+      </video>
+      <button class="hero-motion-toggle" id="liveLifeToggle" aria-label="Pause background video"></button>
+      <div class="photo-tag"><span class="photo-tag-name">Forme</span><span class="photo-tag-city">Houston, TX</span></div>
+    </div>
+    <div class="lifeband-copy">
+      <span class="lifeband-eyebrow">Life at Sentral</span>
+      <h2 class="lifeband-h">Resort amenities. <em>Hotel-level service.</em></h2>
+      <p class="lifeband-body">Rooftop pools, fitness studios, coworking lounges, and spaces made for gathering — every Sentral community is built around amenities you&rsquo;ll actually use, cared for by a team that&rsquo;s on site every day.</p>
+      <p class="lifeband-body">From package handling and housekeeping to pet care and 24/7 support through the Sentral Life app, we sweat the details of home so you don&rsquo;t have to.</p>
+      <a class="lifeband-cta" href="the-experience.html">Explore the Experience &rarr;</a>
     </div>
   </div>
 </section>
@@ -803,26 +824,6 @@ body .search-label{color:rgba(255,255,255,.85);text-shadow:0 1px 6px rgba(0,0,0,
 </div>
 
 </main>
-<!-- LIFE AT SENTRAL — amenities & service band (Forme Houston footage, square crop) -->
-<section class="lifeband" aria-label="Life at Sentral">
-  <div class="lifeband-inner">
-    <div class="lifeband-media">
-      <video class="lifeband-video" id="liveLifeVideo" autoplay muted loop playsinline preload="metadata" poster="/assets/forme-houston-square-poster.jpg" aria-hidden="true">
-        <source src="/assets/forme-houston-live-square.mp4" type="video/mp4">
-      </video>
-      <button class="hero-motion-toggle" id="liveLifeToggle" aria-label="Pause background video"></button>
-      <div class="photo-tag"><span class="photo-tag-name">Forme</span><span class="photo-tag-city">Houston, TX</span></div>
-    </div>
-    <div class="lifeband-copy">
-      <span class="lifeband-eyebrow">Life at Sentral</span>
-      <h2 class="lifeband-h">Resort amenities. <em>Hotel-level service.</em></h2>
-      <p class="lifeband-body">Rooftop pools, fitness studios, coworking lounges, and spaces made for gathering — every Sentral community is built around amenities you&rsquo;ll actually use, cared for by a team that&rsquo;s on site every day.</p>
-      <p class="lifeband-body">From package handling and housekeeping to pet care and 24/7 support through the Sentral Life app, we sweat the details of home so you don&rsquo;t have to.</p>
-      <a class="lifeband-cta" href="the-experience.html">Explore the Experience &rarr;</a>
-    </div>
-  </div>
-</section>
-
 <footer class="site-footer" role="contentinfo">
   <div class="footer-main">
     <div class="footer-col">
