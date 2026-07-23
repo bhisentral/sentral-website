@@ -1,0 +1,5 @@
+
+/* Full-bleed photo bands (owner directive 2026-07-21): grids/bands edge-to-edge, text headers keep gutters. */
+.cat-inner{max-width:none !important}
+.cat-body{justify-content:center}
+.cat-body > *{max-width:600px}
