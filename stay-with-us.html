@@ -291,6 +291,28 @@
 <link rel="stylesheet" href="/overrides.css?v=4dark11">
 <style>
 /* Full-bleed photo bands (owner directive 2026-07-21): grids/bands edge-to-edge, text headers keep gutters. */
+/* Inside Every Suite — cream ground, ink + slate type (owner) */
+.insuite{background:var(--cream) !important}
+.insuite-eyebrow{color:#3D6478 !important}
+.insuite-h{color:var(--black) !important}
+.insuite-h em{color:#3D6478 !important}
+/* Group booking band — slate, mirrors extended-stay band */
+.gbook{background:#2D4A5C;padding:88px 64px}
+.gbook-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center}
+.gbook-eyebrow{display:block;font-size:.78rem;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--oat,#F2E8D5);margin-bottom:14px}
+.gbook-h{font-family:var(--serif);font-size:clamp(1.9rem,3.2vw,2.8rem);font-weight:300;color:var(--white);line-height:1.15;margin-bottom:16px}
+.gbook-h em{font-style:italic;color:#A8C6D4}
+.gbook-body{font-size:1rem;font-weight:300;color:rgba(255,255,255,.85);line-height:1.75;max-width:52ch}
+.gbook-links{display:flex;flex-direction:column;gap:2px}
+.gbook-link{display:flex;align-items:center;justify-content:space-between;gap:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.22);padding:20px 24px;text-decoration:none;transition:background .2s,border-color .2s}
+.gbook-link:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.55)}
+.gbook-link-name{font-size:.85rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--white)}
+.gbook-link-desc{display:block;font-size:.85rem;font-weight:300;letter-spacing:0;text-transform:none;color:rgba(255,255,255,.7);margin-top:4px}
+.gbook-arrow{color:var(--white);font-size:1rem;flex-shrink:0}
+@media(max-width:900px){.gbook{padding:64px 24px}.gbook-inner{grid-template-columns:1fr;gap:36px}}
+.intro-section{max-width:none !important;padding:56px 0 48px !important}
+.intro-left{padding-left:64px}
+.intro-carousel{border-radius:0 !important}
 .suites{padding:96px 0 !important}
 .suites-head{max-width:none !important;padding:0 64px}
 .suites-grid{max-width:none !important;gap:2px !important}
@@ -458,7 +480,6 @@ body .quote-attr{color:var(--mid) !important;font-size:.75rem !important}
         <button class="ic-dot" aria-label="Photo 3"></button>
       </div>
     </div>
-    <div class="intro-img-caption">Sentral Michigan Avenue &mdash; Chicago, IL</div>
   </div>
 </section>
 
@@ -611,7 +632,7 @@ body .quote-attr{color:var(--mid) !important;font-size:.75rem !important}
 </section>
 
 <!-- INSIDE THE SUITE — full-bleed product gallery (placeholder imagery) -->
-<section class="insuite dark" aria-label="Inside a Sentral suite">
+<section class="insuite" aria-label="Inside a Sentral suite">
   <div class="insuite-head">
     <span class="insuite-eyebrow">Inside every suite</span>
     <h2 class="insuite-h">Everything a hotel room <em>wishes it had.</em></h2>
@@ -715,6 +736,22 @@ body .quote-attr{color:var(--mid) !important;font-size:.75rem !important}
 </section>
 
 </main>
+
+<!-- GROUP BOOKING CTAs — routes to the three segment pages -->
+<section class="gbook" aria-label="Group and corporate bookings">
+  <div class="gbook-inner">
+    <div>
+      <span class="gbook-eyebrow">Traveling for work &middot; or as a group?</span>
+      <h2 class="gbook-h">Six rooms, a project team, <em>or a whole quarter.</em></h2>
+      <p class="gbook-body">Beyond nightly stays, Sentral runs dedicated programs for business travelers, group blocks, and 30+ night corporate housing &mdash; each with its own team and its own front door.</p>
+    </div>
+    <div class="gbook-links">
+      <a class="gbook-link" href="business-travel.html"><span><span class="gbook-link-name">Business Travel</span><span class="gbook-link-desc">Solo travelers to full programs &mdash; no minimums</span></span><span class="gbook-arrow" aria-hidden="true">&rarr;</span></a>
+      <a class="gbook-link" href="group-travel.html"><span><span class="gbook-link-name">Group Travel &amp; Room Blocks</span><span class="gbook-link-desc">Weddings, off-sites, teams &mdash; six rooms to buyouts</span></span><span class="gbook-arrow" aria-hidden="true">&rarr;</span></a>
+      <a class="gbook-link" href="corporate-housing.html"><span><span class="gbook-link-name">Corporate Housing</span><span class="gbook-link-desc">30+ night placements, fully managed</span></span><span class="gbook-arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+  </div>
+</section>
 
 <!-- INSTAGRAM BAND — JUICER FEED SLOT.
      Build team: replace the static .igb-track below with the Juicer embed
