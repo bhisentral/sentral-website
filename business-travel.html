@@ -301,13 +301,25 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 
 
 /* ══ SEGMENT PAGES (generated) ══ */
+/* readability (owner 2026-07-22): bright hero copy + labels, darker light-surface metas */
+.hero .hero-sub{color:rgba(255,255,255,.88) !important;font-size:1.02rem !important;line-height:1.7 !important}
+.hero .hero-eyebrow{color:var(--oat,#F2E8D5) !important;font-size:.78rem !important}
+.rfp-mini-label{color:rgba(255,255,255,.82) !important;font-size:.75rem !important}
+.rfp-mini-note{color:rgba(255,255,255,.6) !important;font-size:.75rem !important}
+.hero-rfp-card{background:rgba(14,12,10,.94) !important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.hero-rfp-title{font-size:.9rem !important;color:var(--white) !important}
+.rfp-mini-input{font-size:1rem !important;color:var(--white) !important;background:rgba(255,255,255,.1) !important}
+.rfp-mini-note{color:rgba(255,255,255,.65) !important}
+.seg-quote-title{color:rgba(255,255,255,.75) !important;font-size:.9rem}
+.seg-logo{color:#6B6560}
+.seg-logos-note{color:#6B6560}
 .sticky-group,.sp-sticky{display:none !important}
 .seg-subnav{position:sticky;top:64px;z-index:150;background:var(--black);border-bottom:1px solid var(--ruleW,rgba(255,255,255,.12));display:flex;justify-content:center;gap:8px;padding:0 24px}
 .seg-subnav a{display:block;padding:16px 22px;font-size:.85rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.72);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
 .seg-subnav a:hover{color:var(--white)}
 .seg-subnav a.active{color:var(--white);border-color:var(--slate-light,#5C8CA0)}
 .hero{margin-top:0}
-.hero-h .l3{font-style:italic;color:var(--slate-light,#5C8CA0)}
+.hero-h .l3, .hero-h em.l3{font-style:italic;color:var(--slate-light,#5C8CA0)}
 .rfp-mini-input:invalid:focus{outline:1px solid #b46} .rfp-error{display:none;color:#e7a5a5;font-size:.72rem;margin-top:6px}
 .rfp-thanks{display:none;color:var(--white);font-size:.95rem;line-height:1.7;padding:12px 0}
 /* why / detail splits */
@@ -318,7 +330,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 .seg-split-copy.pad-l{padding-left:64px}.seg-split-copy.pad-r{padding-right:64px;justify-self:end}
 .seg-eyebrow{display:block;font-size:.78rem;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--slate-deep,#3D6478);margin-bottom:14px}
 .seg-h{font-family:var(--serif);font-size:clamp(1.9rem,3.2vw,2.8rem);font-weight:300;color:var(--black);line-height:1.12;margin-bottom:18px}
-.seg-h .l3{font-style:italic;color:var(--slate-deep,#3D6478)}
+.seg-h .l3, .seg-h em.l3{font-style:italic;color:var(--slate-deep,#3D6478)}
 .seg-kicker{font-family:var(--serif);font-size:1.15rem;font-style:italic;color:var(--slate-deep,#3D6478);margin-bottom:10px}
 .seg-subhead{font-size:1.02rem;font-weight:500;color:var(--black);margin-bottom:12px}
 .seg-body{font-size:1rem;font-weight:300;color:#3A3633;line-height:1.75;margin-bottom:14px}
@@ -438,7 +450,7 @@ a.gdir-cta{display:inline-block;text-decoration:none;text-align:center}
   <div class="hero-content">
     <div class="hero-left">
       <span class="hero-eyebrow">Sentral — Business Travel</span>
-      <h1 class="hero-h">Elevated stays for<br>the modern<br><span class="l3">professional.</span></h1>
+      <h1 class="hero-h">Elevated stays for<br>the modern<br><em class="l3">professional.</em></h1>
       <p class="hero-sub">Solo travelers, project teams, and executives who expect more than a hotel room. Furnished suites with hotel-caliber service in the country&rsquo;s top business destinations — for a night, a quarter, or a year.</p>
     </div>
     <div class="hero-rfp" id="rfp-form">
@@ -475,26 +487,15 @@ a.gdir-cta{display:inline-block;text-decoration:none;text-align:center}
   </div>
 </section>
 
-<div class="awards-band">
-  <div class="awards-inner">
-    <div class="awards-left">Recognized for excellence in hospitality and technology.</div>
-    <div class="awards-right">
-      <div class="award-item"><span class="award-icon" aria-hidden="true"></span><span class="award-text">2025 Skift IDEA Award — Short-Term Rentals</span></div>
-      <div class="award-item"><span class="award-icon" aria-hidden="true"></span><span class="award-text">88.9 ORA Elite Reputation Score</span></div>
-      <div class="award-item"><span class="award-icon" aria-hidden="true"></span><span class="award-text">2024 MFE — Best Use of Proptech</span></div>
-    </div>
-  </div>
-</div>
 
-
-<section class="seg-split seg-why"><div class="seg-split-inner"><div class="seg-split-copy pad-l"><span class="seg-eyebrow">Why Sentral for Business Travel</span><h2 class="seg-h">Consistency in<br>every market you<br><span class="l3">operate in.</span></h2><p class="seg-body">Business travel breaks down when every city means a different property, a different standard, and a different point of contact. Sentral runs its communities on one operating platform — the suite your team checks into in Nashville works exactly like the one in Denver, down to the in-unit laundry and the coffee.</p><p class="seg-body">We work directly with travel managers, TMCs, and RMCs: preferred corporate rates, direct billing, consolidated invoicing, and a single account contact across every market. No minimums, no thresholds — one traveler is a program.</p></div><div class="seg-split-img" role="img" aria-label="Forme Houston at night" style="background-image:url('/assets/group-hero-poster.jpg')"><div class="photo-tag"><span class="photo-tag-name">Forme</span><span class="photo-tag-city">Houston, TX</span></div></div></div></section>
+<section class="seg-split seg-why"><div class="seg-split-inner"><div class="seg-split-copy pad-l"><span class="seg-eyebrow">Why Sentral for Business Travel</span><h2 class="seg-h">Consistency in<br>every market you<br><em class="l3">operate in.</em></h2><p class="seg-body">Business travel breaks down when every city means a different property, a different standard, and a different point of contact. Sentral runs its communities on one operating platform — the suite your team checks into in Nashville works exactly like the one in Denver, down to the in-unit laundry and the coffee.</p><p class="seg-body">We work directly with travel managers, TMCs, and RMCs: preferred corporate rates, direct billing, consolidated invoicing, and a single account contact across every market. No minimums, no thresholds — one traveler is a program.</p></div><div class="seg-split-img" role="img" aria-label="Forme Houston at night" style="background-image:url('/assets/group-hero-poster.jpg')"><div class="photo-tag"><span class="photo-tag-name">Forme</span><span class="photo-tag-city">Houston, TX</span></div></div></div></section>
 
 <section class="seg-split seg-detail"><div class="seg-split-inner"><div class="seg-split-img" role="img" aria-label="Rooftop pool at a Sentral community" style="background-image:url('/assets/ig-social-2.jpg')"><div class="photo-tag"><span class="photo-tag-name">Sentral Community — TBC</span><span class="photo-tag-city">City TBC</span></div></div><div class="seg-split-copy pad-r"><span class="seg-eyebrow">01 — Business Travel</span><h2 class="seg-h">A simplified approach<br>to business travel.</h2><div class="seg-kicker">Purpose-built for the way work travels now.</div><p class="seg-subhead">Furnished apartment suites with hotel-caliber service — turnkey accommodations in top business destinations.</p><p class="seg-body">Hotels were built for two-night stays; your travelers increasingly stay two weeks. Sentral suites give them a full kitchen, in-unit laundry, real workspace, and separation between where they sleep and where they take calls — at rates that outperform extended-stay hotels as trips get longer. Whether you&rsquo;re booking one consultant on a recurring route, rotating project crews through a market, or placing an executive for a quarter, the experience is the same: seamless digital check-in, a 24/7 on-site hospitality team, and amenity spaces that make travel feel less like travel. Stay a few nights, a few months, or longer — the suite is ready when your traveler lands, and the invoice arrives the way your finance team wants it.</p><ul class="seg-bullets"><li>Turnkey furnished suites with full kitchens and in-unit laundry</li><li>Seamless check-in and 24/7 on-site hospitality team</li><li>Co-working stations and elevated amenity spaces</li><li>Pet-friendly with flexible term stays</li><li>Preferred corporate partnership rates and direct billing</li></ul></div></div></section>
 
 <!-- LOGO WALL — PLACEHOLDER marks; swap for real logo files once usage rights are confirmed -->
 <section class="seg-logos" aria-label="Client logos"><div class="seg-logos-inner"><span class="seg-eyebrow">Trusted by travel programs nationwide</span><div class="seg-logos-grid"><div class="seg-logo" role="img" aria-label="Global Consulting Firm">Global Consulting Firm</div><div class="seg-logo" role="img" aria-label="Fortune 100 Technology Co.">Fortune 100 Technology Co.</div><div class="seg-logo" role="img" aria-label="National Healthcare System">National Healthcare System</div><div class="seg-logo" role="img" aria-label="Film &amp; Production Studio">Film &amp; Production Studio</div><div class="seg-logo" role="img" aria-label="Enterprise TMC Partner">Enterprise TMC Partner</div><div class="seg-logo" role="img" aria-label="Top-10 ENR Contractor">Top-10 ENR Contractor</div></div><div class="seg-logos-note">Client marks pending usage-rights confirmation</div></div></section>
 
-<section class="seg-quotes" aria-label="What partners say"><div class="seg-quotes-inner"><div class="seg-quote"><p class="seg-quote-text">Our consultants stopped asking for hotel alternatives — they ask which cities have a Sentral. Same suite standard in every market, one invoice at the end of the month.</p><div class="seg-quote-name">Placeholder</div><div class="seg-quote-title">Director of Travel &middot; national consulting firm</div></div><div class="seg-quote"><p class="seg-quote-text">The direct-billing setup alone paid for the switch. Our travelers get a real apartment; our finance team gets one consolidated statement.</p><div class="seg-quote-name">Placeholder</div><div class="seg-quote-title">Travel &amp; Expense Manager &middot; enterprise technology company</div></div></div></section>
+<section class="seg-quotes dark" aria-label="What partners say"><div class="seg-quotes-inner"><div class="seg-quote"><p class="seg-quote-text">Our consultants stopped asking for hotel alternatives — they ask which cities have a Sentral. Same suite standard in every market, one invoice at the end of the month.</p><div class="seg-quote-name">Placeholder</div><div class="seg-quote-title">Director of Travel &middot; national consulting firm</div></div><div class="seg-quote"><p class="seg-quote-text">The direct-billing setup alone paid for the switch. Our travelers get a real apartment; our finance team gets one consolidated statement.</p><div class="seg-quote-name">Placeholder</div><div class="seg-quote-title">Travel &amp; Expense Manager &middot; enterprise technology company</div></div></div></section>
 
 
 
@@ -623,11 +624,11 @@ a.gdir-cta{display:inline-block;text-decoration:none;text-align:center}
 
 <section class="seg-faq" aria-label="Frequently asked questions"><div class="seg-faq-inner">
   <span class="seg-eyebrow">Good to know</span>
-  <h2 class="seg-h">Frequently asked <span class="l3">questions.</span></h2>
+  <h2 class="seg-h">Frequently asked <em class="l3">questions.</em></h2>
   <details><summary>Is there a minimum number of travelers or rooms?</summary><div class="a">No. Business travel programs start at a single traveler. Whether you have one consultant on a recurring route or a rotating bench of hundreds, the same rates, billing, and support apply.</div></details><details><summary>How does billing work for corporate accounts?</summary><div class="a">We offer direct billing with consolidated monthly invoicing across all markets and stays, mapped to your cost centers. Individual travelers can also pay by card with folios delivered automatically.</div></details><details><summary>Can we book through our TMC or GDS?</summary><div class="a">We work alongside TMCs and relocation management companies today, and can operate within your existing approval workflows. Talk to us about your program&rsquo;s booking path — we&rsquo;ll meet it where it is.</div></details><details><summary>What&rsquo;s included in the suite?</summary><div class="a">Every suite is fully furnished with a complete kitchen, kitchenware, linens, towels, in-unit or on-site laundry, high-speed WiFi, and streaming-ready TVs. Utilities are included — one rate, no setup.</div></details><details><summary>How fast can a traveler check in after booking?</summary><div class="a">Suites are move-in ready. With digital check-in and 24/7 on-site teams, same-week arrivals are routine, and same-day is often possible depending on the market.</div></details>
 </div></section>
 
-<section class="seg-close">
+<section class="seg-close dark">
   <h2>Ready when <em>your people are.</em></h2>
   <p>Tell us what you need &mdash; our team responds within one business day.</p>
   <a href="#rfp-form" data-track="closing_cta">Start My Travel Inquiry &nbsp;&rarr;</a>

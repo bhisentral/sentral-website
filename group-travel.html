@@ -301,13 +301,25 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 
 
 /* ══ SEGMENT PAGES (generated) ══ */
+/* readability (owner 2026-07-22): bright hero copy + labels, darker light-surface metas */
+.hero .hero-sub{color:rgba(255,255,255,.88) !important;font-size:1.02rem !important;line-height:1.7 !important}
+.hero .hero-eyebrow{color:var(--oat,#F2E8D5) !important;font-size:.78rem !important}
+.rfp-mini-label{color:rgba(255,255,255,.82) !important;font-size:.75rem !important}
+.rfp-mini-note{color:rgba(255,255,255,.6) !important;font-size:.75rem !important}
+.hero-rfp-card{background:rgba(14,12,10,.94) !important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.hero-rfp-title{font-size:.9rem !important;color:var(--white) !important}
+.rfp-mini-input{font-size:1rem !important;color:var(--white) !important;background:rgba(255,255,255,.1) !important}
+.rfp-mini-note{color:rgba(255,255,255,.65) !important}
+.seg-quote-title{color:rgba(255,255,255,.75) !important;font-size:.9rem}
+.seg-logo{color:#6B6560}
+.seg-logos-note{color:#6B6560}
 .sticky-group,.sp-sticky{display:none !important}
 .seg-subnav{position:sticky;top:64px;z-index:150;background:var(--black);border-bottom:1px solid var(--ruleW,rgba(255,255,255,.12));display:flex;justify-content:center;gap:8px;padding:0 24px}
 .seg-subnav a{display:block;padding:16px 22px;font-size:.85rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.72);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
 .seg-subnav a:hover{color:var(--white)}
 .seg-subnav a.active{color:var(--white);border-color:var(--slate-light,#5C8CA0)}
 .hero{margin-top:0}
-.hero-h .l3{font-style:italic;color:var(--slate-light,#5C8CA0)}
+.hero-h .l3, .hero-h em.l3{font-style:italic;color:var(--slate-light,#5C8CA0)}
 .rfp-mini-input:invalid:focus{outline:1px solid #b46} .rfp-error{display:none;color:#e7a5a5;font-size:.72rem;margin-top:6px}
 .rfp-thanks{display:none;color:var(--white);font-size:.95rem;line-height:1.7;padding:12px 0}
 /* why / detail splits */
@@ -318,7 +330,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 .seg-split-copy.pad-l{padding-left:64px}.seg-split-copy.pad-r{padding-right:64px;justify-self:end}
 .seg-eyebrow{display:block;font-size:.78rem;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--slate-deep,#3D6478);margin-bottom:14px}
 .seg-h{font-family:var(--serif);font-size:clamp(1.9rem,3.2vw,2.8rem);font-weight:300;color:var(--black);line-height:1.12;margin-bottom:18px}
-.seg-h .l3{font-style:italic;color:var(--slate-deep,#3D6478)}
+.seg-h .l3, .seg-h em.l3{font-style:italic;color:var(--slate-deep,#3D6478)}
 .seg-kicker{font-family:var(--serif);font-size:1.15rem;font-style:italic;color:var(--slate-deep,#3D6478);margin-bottom:10px}
 .seg-subhead{font-size:1.02rem;font-weight:500;color:var(--black);margin-bottom:12px}
 .seg-body{font-size:1rem;font-weight:300;color:#3A3633;line-height:1.75;margin-bottom:14px}
@@ -438,7 +450,7 @@ a.gdir-cta{display:inline-block;text-decoration:none;text-align:center}
   <div class="hero-content">
     <div class="hero-left">
       <span class="hero-eyebrow">Sentral — Groups &amp; Room Blocks</span>
-      <h1 class="hero-h">Six rooms to<br>full buyouts —<br><span class="l3">handled beautifully.</span></h1>
+      <h1 class="hero-h">Six rooms to<br>full buyouts —<br><em class="l3">handled beautifully.</em></h1>
       <p class="hero-sub">Wedding weekends, team off-sites, sports travel, reunions. Our group sales team handles every detail, from block management to VIP check-in.</p>
     </div>
     <div class="hero-rfp" id="rfp-form">
@@ -475,25 +487,14 @@ a.gdir-cta{display:inline-block;text-decoration:none;text-align:center}
   </div>
 </section>
 
-<div class="awards-band">
-  <div class="awards-inner">
-    <div class="awards-left">Recognized for excellence in hospitality and technology.</div>
-    <div class="awards-right">
-      <div class="award-item"><span class="award-icon" aria-hidden="true"></span><span class="award-text">2025 Skift IDEA Award — Short-Term Rentals</span></div>
-      <div class="award-item"><span class="award-icon" aria-hidden="true"></span><span class="award-text">88.9 ORA Elite Reputation Score</span></div>
-      <div class="award-item"><span class="award-icon" aria-hidden="true"></span><span class="award-text">2024 MFE — Best Use of Proptech</span></div>
-    </div>
-  </div>
-</div>
 
-
-<section class="seg-split seg-why"><div class="seg-split-inner"><div class="seg-split-copy pad-l"><span class="seg-eyebrow">Why Sentral for Groups</span><h2 class="seg-h">Your whole group,<br>under one roof —<br><span class="l3">and one contact.</span></h2><p class="seg-body">Group travel usually means a spreadsheet, a hotel block that half your guests book wrong, and a front desk that has never heard of you. Sentral assigns a dedicated group sales manager to every booking — one person who owns your block from first hold to final checkout.</p><p class="seg-body">And because our communities are residential buildings with hospitality teams, your group actually gets to be together: shared floors, gathering spaces, terraces and lounges you can reserve, and suites where families and crews spread out instead of splitting across doubles.</p></div><div class="seg-split-img" role="img" aria-label="Residents socializing over billiards" style="background-image:url('/assets/ig-social-1.jpg')"><div class="photo-tag"><span class="photo-tag-name">Sentral Community — TBC</span><span class="photo-tag-city">City TBC</span></div></div></div></section>
+<section class="seg-split seg-why"><div class="seg-split-inner"><div class="seg-split-copy pad-l"><span class="seg-eyebrow">Why Sentral for Groups</span><h2 class="seg-h">Your whole group,<br>under one roof —<br><em class="l3">and one contact.</em></h2><p class="seg-body">Group travel usually means a spreadsheet, a hotel block that half your guests book wrong, and a front desk that has never heard of you. Sentral assigns a dedicated group sales manager to every booking — one person who owns your block from first hold to final checkout.</p><p class="seg-body">And because our communities are residential buildings with hospitality teams, your group actually gets to be together: shared floors, gathering spaces, terraces and lounges you can reserve, and suites where families and crews spread out instead of splitting across doubles.</p></div><div class="seg-split-img" role="img" aria-label="Residents socializing over billiards" style="background-image:url('/assets/ig-social-1.jpg')"><div class="photo-tag"><span class="photo-tag-name">Sentral Community — TBC</span><span class="photo-tag-city">City TBC</span></div></div></div></section>
 
 <section class="seg-split seg-detail"><div class="seg-split-inner"><div class="seg-split-img" role="img" aria-label="Evening pool deck at Forme Houston" style="background-image:url('/assets/forme-houston-square-poster.jpg')"><div class="photo-tag"><span class="photo-tag-name">Forme</span><span class="photo-tag-city">Houston, TX</span></div></div><div class="seg-split-copy pad-r"><span class="seg-eyebrow">02 — Groups &amp; Room Blocks</span><h2 class="seg-h">Sentral has your<br>room blocks covered.</h2><div class="seg-kicker">From six rooms to the whole building.</div><p class="seg-subhead">Communities designed to bring people together in a more relaxed, elevated setting.</p><p class="seg-body">From intimate conference rooms to expansive outdoor terraces, fire pits, and rooftop lounges — Sentral communities are built for gathering. Your block lives in real apartments: full kitchens for the morning-of, living rooms for the night-before, and space for the people who make your event an event. Our group sales team manages every detail — block holds and release dates, rooming lists, staggered arrivals, welcome amenities in every suite, and on-site coordination the day your group lands. Whether it&rsquo;s a wedding weekend taking over a floor, a sports franchise on a road series, or a company off-site that needs breakout space by day and a rooftop by night, you get one contact, one contract, and a team that treats your group like the main event.</p><ul class="seg-bullets"><li>Dedicated group sales manager for every booking</li><li>Flexible block sizes — 6 rooms to full-building buyouts</li><li>Meeting spaces, terraces, and event-ready lounges</li><li>Custom arrival experiences and amenity activations</li></ul></div></div></section>
 
 
 
-<section class="seg-quotes" aria-label="What partners say"><div class="seg-quotes-inner"><div class="seg-quote"><p class="seg-quote-text">We took forty rooms for a wedding weekend and it felt like we had the building to ourselves. One rooming list, one contact, zero guests calling me confused.</p><div class="seg-quote-name">Placeholder</div><div class="seg-quote-title">Mother of the bride &middot; Nashville wedding block</div></div><div class="seg-quote"><p class="seg-quote-text">Our team stays together on every road trip now — same building, shared floor, film room in the resident lounge. The block process is the easiest in our league.</p><div class="seg-quote-name">Placeholder</div><div class="seg-quote-title">Director of Team Operations &middot; professional sports franchise</div></div></div></section>
+<section class="seg-quotes dark" aria-label="What partners say"><div class="seg-quotes-inner"><div class="seg-quote"><p class="seg-quote-text">We took forty rooms for a wedding weekend and it felt like we had the building to ourselves. One rooming list, one contact, zero guests calling me confused.</p><div class="seg-quote-name">Placeholder</div><div class="seg-quote-title">Mother of the bride &middot; Nashville wedding block</div></div><div class="seg-quote"><p class="seg-quote-text">Our team stays together on every road trip now — same building, shared floor, film room in the resident lounge. The block process is the easiest in our league.</p><div class="seg-quote-name">Placeholder</div><div class="seg-quote-title">Director of Team Operations &middot; professional sports franchise</div></div></div></section>
 
 <section class="occasions-section dark" id="occasions">
   <div class="occasions-inner">
@@ -663,11 +664,11 @@ a.gdir-cta{display:inline-block;text-decoration:none;text-align:center}
 
 <section class="seg-faq" aria-label="Frequently asked questions"><div class="seg-faq-inner">
   <span class="seg-eyebrow">Good to know</span>
-  <h2 class="seg-h">Frequently asked <span class="l3">questions.</span></h2>
+  <h2 class="seg-h">Frequently asked <em class="l3">questions.</em></h2>
   <details><summary>What&rsquo;s the minimum block size?</summary><div class="a">Group blocks start at six rooms and scale to full-building buyouts. Under six rooms? Book direct on our Stay page — every guest still gets the same suites and service.</div></details><details><summary>How do block holds and release dates work?</summary><div class="a">Your group sales manager sets a courtesy hold with an agreed release date. Unclaimed rooms release back without penalty on courtesy blocks; contracted blocks are structured to your event&rsquo;s needs.</div></details><details><summary>Can guests book into the block themselves?</summary><div class="a">Yes — we set up a dedicated booking link or code for your group so guests reserve their own suites inside your block, and your rooming list updates automatically.</div></details><details><summary>Do you host events on site?</summary><div class="a">Many communities have reservable lounges, terraces, and dining spaces for welcome parties, watch parties, and morning-afters. Your group sales manager will match spaces to your run of show.</div></details><details><summary>Can you handle staggered arrivals and departures?</summary><div class="a">Yes. Blocks routinely span different arrival dates, stay lengths, and suite types — we manage the matrix so you don&rsquo;t have to.</div></details>
 </div></section>
 
-<section class="seg-close">
+<section class="seg-close dark">
   <h2>Ready when <em>your people are.</em></h2>
   <p>Tell us what you need &mdash; our team responds within one business day.</p>
   <a href="#rfp-form" data-track="closing_cta">Submit RFP &nbsp;&rarr;</a>

@@ -301,13 +301,25 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 
 
 /* ══ SEGMENT PAGES (generated) ══ */
+/* readability (owner 2026-07-22): bright hero copy + labels, darker light-surface metas */
+.hero .hero-sub{color:rgba(255,255,255,.88) !important;font-size:1.02rem !important;line-height:1.7 !important}
+.hero .hero-eyebrow{color:var(--oat,#F2E8D5) !important;font-size:.78rem !important}
+.rfp-mini-label{color:rgba(255,255,255,.82) !important;font-size:.75rem !important}
+.rfp-mini-note{color:rgba(255,255,255,.6) !important;font-size:.75rem !important}
+.hero-rfp-card{background:rgba(14,12,10,.94) !important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.hero-rfp-title{font-size:.9rem !important;color:var(--white) !important}
+.rfp-mini-input{font-size:1rem !important;color:var(--white) !important;background:rgba(255,255,255,.1) !important}
+.rfp-mini-note{color:rgba(255,255,255,.65) !important}
+.seg-quote-title{color:rgba(255,255,255,.75) !important;font-size:.9rem}
+.seg-logo{color:#6B6560}
+.seg-logos-note{color:#6B6560}
 .sticky-group,.sp-sticky{display:none !important}
 .seg-subnav{position:sticky;top:64px;z-index:150;background:var(--black);border-bottom:1px solid var(--ruleW,rgba(255,255,255,.12));display:flex;justify-content:center;gap:8px;padding:0 24px}
 .seg-subnav a{display:block;padding:16px 22px;font-size:.85rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.72);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
 .seg-subnav a:hover{color:var(--white)}
 .seg-subnav a.active{color:var(--white);border-color:var(--slate-light,#5C8CA0)}
 .hero{margin-top:0}
-.hero-h .l3{font-style:italic;color:var(--slate-light,#5C8CA0)}
+.hero-h .l3, .hero-h em.l3{font-style:italic;color:var(--slate-light,#5C8CA0)}
 .rfp-mini-input:invalid:focus{outline:1px solid #b46} .rfp-error{display:none;color:#e7a5a5;font-size:.72rem;margin-top:6px}
 .rfp-thanks{display:none;color:var(--white);font-size:.95rem;line-height:1.7;padding:12px 0}
 /* why / detail splits */
@@ -318,7 +330,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 .seg-split-copy.pad-l{padding-left:64px}.seg-split-copy.pad-r{padding-right:64px;justify-self:end}
 .seg-eyebrow{display:block;font-size:.78rem;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--slate-deep,#3D6478);margin-bottom:14px}
 .seg-h{font-family:var(--serif);font-size:clamp(1.9rem,3.2vw,2.8rem);font-weight:300;color:var(--black);line-height:1.12;margin-bottom:18px}
-.seg-h .l3{font-style:italic;color:var(--slate-deep,#3D6478)}
+.seg-h .l3, .seg-h em.l3{font-style:italic;color:var(--slate-deep,#3D6478)}
 .seg-kicker{font-family:var(--serif);font-size:1.15rem;font-style:italic;color:var(--slate-deep,#3D6478);margin-bottom:10px}
 .seg-subhead{font-size:1.02rem;font-weight:500;color:var(--black);margin-bottom:12px}
 .seg-body{font-size:1rem;font-weight:300;color:#3A3633;line-height:1.75;margin-bottom:14px}
@@ -438,7 +450,7 @@ a.gdir-cta{display:inline-block;text-decoration:none;text-align:center}
   <div class="hero-content">
     <div class="hero-left">
       <span class="hero-eyebrow">Sentral — Corporate Housing</span>
-      <h1 class="hero-h">30+ nights.<br>Fully managed.<br><span class="l3">Ready on day one.</span></h1>
+      <h1 class="hero-h">30+ nights.<br>Fully managed.<br><em class="l3">Ready on day one.</em></h1>
       <p class="hero-sub">Premium corporate housing for relocating employees, project teams, and extended assignments — move-in-ready residences with full-time property teams.</p>
     </div>
     <div class="hero-rfp" id="rfp-form">
@@ -475,26 +487,15 @@ a.gdir-cta{display:inline-block;text-decoration:none;text-align:center}
   </div>
 </section>
 
-<div class="awards-band">
-  <div class="awards-inner">
-    <div class="awards-left">Recognized for excellence in hospitality and technology.</div>
-    <div class="awards-right">
-      <div class="award-item"><span class="award-icon" aria-hidden="true"></span><span class="award-text">2025 Skift IDEA Award — Short-Term Rentals</span></div>
-      <div class="award-item"><span class="award-icon" aria-hidden="true"></span><span class="award-text">88.9 ORA Elite Reputation Score</span></div>
-      <div class="award-item"><span class="award-icon" aria-hidden="true"></span><span class="award-text">2024 MFE — Best Use of Proptech</span></div>
-    </div>
-  </div>
-</div>
 
-
-<section class="seg-split seg-why"><div class="seg-split-inner"><div class="seg-split-copy pad-l"><span class="seg-eyebrow">Why Sentral for Corporate Housing</span><h2 class="seg-h">Housing your people<br>can move into —<br><span class="l3">not manage.</span></h2><p class="seg-body">Traditional corporate housing hands your employee a lease, a furniture vendor, and a utilities checklist. Sentral hands them keys. Every residence is in a Class A community we operate ourselves, with furniture, kitchenware, linens, WiFi, and utilities already running — one rate, one invoice, nothing to set up or return.</p><p class="seg-body">For mobility teams and project leads, that means placements measured in days, not weeks; a single operating standard across 20 cities; and a full-time on-site team your people can knock on — because a relocation succeeds or fails on how the first month feels.</p></div><div class="seg-split-img" role="img" aria-label="NORA West Palm Beach aerial" style="background-image:url('/assets/hero-poster.jpg')"><div class="photo-tag"><span class="photo-tag-name">NORA</span><span class="photo-tag-city">West Palm Beach, FL</span></div></div></div></section>
+<section class="seg-split seg-why"><div class="seg-split-inner"><div class="seg-split-copy pad-l"><span class="seg-eyebrow">Why Sentral for Corporate Housing</span><h2 class="seg-h">Housing your people<br>can move into —<br><em class="l3">not manage.</em></h2><p class="seg-body">Traditional corporate housing hands your employee a lease, a furniture vendor, and a utilities checklist. Sentral hands them keys. Every residence is in a Class A community we operate ourselves, with furniture, kitchenware, linens, WiFi, and utilities already running — one rate, one invoice, nothing to set up or return.</p><p class="seg-body">For mobility teams and project leads, that means placements measured in days, not weeks; a single operating standard across 20 cities; and a full-time on-site team your people can knock on — because a relocation succeeds or fails on how the first month feels.</p></div><div class="seg-split-img" role="img" aria-label="NORA West Palm Beach aerial" style="background-image:url('/assets/hero-poster.jpg')"><div class="photo-tag"><span class="photo-tag-name">NORA</span><span class="photo-tag-city">West Palm Beach, FL</span></div></div></div></section>
 
 <section class="seg-split seg-detail"><div class="seg-split-inner"><div class="seg-split-img" role="img" aria-label="Resident walking a dog at a Sentral community" style="background-image:url('/assets/ig-social-3.jpg')"><div class="photo-tag"><span class="photo-tag-name">Sentral Community — TBC</span><span class="photo-tag-city">City TBC</span></div></div><div class="seg-split-copy pad-r"><span class="seg-eyebrow">03 — Corporate Housing</span><h2 class="seg-h">The home-away-from-home<br>for your team.</h2><div class="seg-kicker">Placements that feel like moving up, not moving out.</div><p class="seg-subhead">Premium furnished residences for corporate travelers, relocating employees, and project teams.</p><p class="seg-body">A relocation is a vulnerable moment: new city, new role, and — too often — a beige apartment with rented furniture. Sentral placements put your people in the same residences our long-term residents choose, inside communities with real hospitality teams, fitness centers, coworking lounges, and programming that makes a new city feel navigable by the second week. Stays start at 30 nights and flex to whatever the assignment needs — extend, shorten, or move markets without renegotiating from scratch. Multi-unit blocks keep project teams together on shared floors; centralized operating standards mean the Denver placement and the Nashville placement are the same placement. And because we operate every building ourselves, your account contact and the on-site team work for the same company: no vendor chains, no finger-pointing, no surprises on the invoice.</p><ul class="seg-bullets"><li>Class A communities with centralized operating standards</li><li>Move-in ready — full kitchens, linens, everything included</li><li>Flexible 30+ night stays structured for corporate placements</li><li>Multi-unit group block capability for team housing</li><li>One invoice — furniture, utilities, WiFi, and housekeeping options included</li></ul></div></div></section>
 
 <!-- LOGO WALL — PLACEHOLDER marks; swap for real logo files once usage rights are confirmed -->
 <section class="seg-logos" aria-label="Client logos"><div class="seg-logos-inner"><span class="seg-eyebrow">Housing partners across industries</span><div class="seg-logos-grid"><div class="seg-logo" role="img" aria-label="Relocation Management Co.">Relocation Management Co.</div><div class="seg-logo" role="img" aria-label="Global Engineering Firm">Global Engineering Firm</div><div class="seg-logo" role="img" aria-label="Regional Health Network">Regional Health Network</div><div class="seg-logo" role="img" aria-label="Fortune 500 Retailer">Fortune 500 Retailer</div><div class="seg-logo" role="img" aria-label="Federal Project Contractor">Federal Project Contractor</div><div class="seg-logo" role="img" aria-label="University Medical Center">University Medical Center</div></div><div class="seg-logos-note">Client marks pending usage-rights confirmation</div></div></section>
 
-<section class="seg-quotes" aria-label="What partners say"><div class="seg-quotes-inner"><div class="seg-quote"><p class="seg-quote-text">We moved a nine-person implementation team into one building for five months. Same floor, full kitchens, and the on-site team knew them all by name in a week.</p><div class="seg-quote-name">Placeholder</div><div class="seg-quote-title">PMO Lead &middot; enterprise software rollout</div></div><div class="seg-quote"><p class="seg-quote-text">Our relocating hires used to spend their first month fighting utility companies. Now they land, get keys, and start work. Retention on relocations is up.</p><div class="seg-quote-name">Placeholder</div><div class="seg-quote-title">Global Mobility Manager &middot; Fortune 500 employer</div></div></div></section>
+<section class="seg-quotes dark" aria-label="What partners say"><div class="seg-quotes-inner"><div class="seg-quote"><p class="seg-quote-text">We moved a nine-person implementation team into one building for five months. Same floor, full kitchens, and the on-site team knew them all by name in a week.</p><div class="seg-quote-name">Placeholder</div><div class="seg-quote-title">PMO Lead &middot; enterprise software rollout</div></div><div class="seg-quote"><p class="seg-quote-text">Our relocating hires used to spend their first month fighting utility companies. Now they land, get keys, and start work. Retention on relocations is up.</p><div class="seg-quote-name">Placeholder</div><div class="seg-quote-title">Global Mobility Manager &middot; Fortune 500 employer</div></div></div></section>
 
 
 
@@ -623,11 +624,11 @@ a.gdir-cta{display:inline-block;text-decoration:none;text-align:center}
 
 <section class="seg-faq" aria-label="Frequently asked questions"><div class="seg-faq-inner">
   <span class="seg-eyebrow">Good to know</span>
-  <h2 class="seg-h">Frequently asked <span class="l3">questions.</span></h2>
+  <h2 class="seg-h">Frequently asked <em class="l3">questions.</em></h2>
   <details><summary>Is there a minimum stay?</summary><div class="a">Corporate housing stays start at 30 nights. Under 30 nights, our business travel suites cover you with the same residences on nightly terms — no gap between the two programs.</div></details><details><summary>Is there a minimum number of units?</summary><div class="a">No. We place a single executive as readily as a forty-person project team. Multi-unit blocks can be grouped on shared floors when you need the team together.</div></details><details><summary>What&rsquo;s included in the rate?</summary><div class="a">Everything: furniture, full kitchen and kitchenware, linens, utilities, high-speed WiFi, and access to all community amenities. Housekeeping can be added on your schedule. One rate, one invoice.</div></details><details><summary>Can stays be extended or shortened mid-assignment?</summary><div class="a">Yes. Assignments change; your placements flex with them. Extensions, early departures, and market transfers are handled by your account contact without restarting paperwork.</div></details><details><summary>Do you work with relocation management companies?</summary><div class="a">Yes — RMCs and mobility teams are a core part of our corporate housing business. We plug into your existing initiation and billing workflows.</div></details><details><summary>Are the residences pet-friendly?</summary><div class="a">Yes. Pets are welcome across Sentral communities — because a three-month assignment shouldn&rsquo;t mean boarding the dog.</div></details>
 </div></section>
 
-<section class="seg-close">
+<section class="seg-close dark">
   <h2>Ready when <em>your people are.</em></h2>
   <p>Tell us what you need &mdash; our team responds within one business day.</p>
   <a href="#rfp-form" data-track="closing_cta">Start My Housing Inquiry &nbsp;&rarr;</a>

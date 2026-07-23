@@ -244,13 +244,25 @@ GDIR_VARIANTS = {
 
 SEG_CSS = """
 /* ══ SEGMENT PAGES (generated) ══ */
+/* readability (owner 2026-07-22): bright hero copy + labels, darker light-surface metas */
+.hero .hero-sub{color:rgba(255,255,255,.88) !important;font-size:1.02rem !important;line-height:1.7 !important}
+.hero .hero-eyebrow{color:var(--oat,#F2E8D5) !important;font-size:.78rem !important}
+.rfp-mini-label{color:rgba(255,255,255,.82) !important;font-size:.75rem !important}
+.rfp-mini-note{color:rgba(255,255,255,.6) !important;font-size:.75rem !important}
+.hero-rfp-card{background:rgba(14,12,10,.94) !important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.hero-rfp-title{font-size:.9rem !important;color:var(--white) !important}
+.rfp-mini-input{font-size:1rem !important;color:var(--white) !important;background:rgba(255,255,255,.1) !important}
+.rfp-mini-note{color:rgba(255,255,255,.65) !important}
+.seg-quote-title{color:rgba(255,255,255,.75) !important;font-size:.9rem}
+.seg-logo{color:#6B6560}
+.seg-logos-note{color:#6B6560}
 .sticky-group,.sp-sticky{display:none !important}
 .seg-subnav{position:sticky;top:64px;z-index:150;background:var(--black);border-bottom:1px solid var(--ruleW,rgba(255,255,255,.12));display:flex;justify-content:center;gap:8px;padding:0 24px}
 .seg-subnav a{display:block;padding:16px 22px;font-size:.85rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.72);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
 .seg-subnav a:hover{color:var(--white)}
 .seg-subnav a.active{color:var(--white);border-color:var(--slate-light,#5C8CA0)}
 .hero{margin-top:0}
-.hero-h .l3{font-style:italic;color:var(--slate-light,#5C8CA0)}
+.hero-h .l3, .hero-h em.l3{font-style:italic;color:var(--slate-light,#5C8CA0)}
 .rfp-mini-input:invalid:focus{outline:1px solid #b46} .rfp-error{display:none;color:#e7a5a5;font-size:.72rem;margin-top:6px}
 .rfp-thanks{display:none;color:var(--white);font-size:.95rem;line-height:1.7;padding:12px 0}
 /* why / detail splits */
@@ -261,7 +273,7 @@ SEG_CSS = """
 .seg-split-copy.pad-l{padding-left:64px}.seg-split-copy.pad-r{padding-right:64px;justify-self:end}
 .seg-eyebrow{display:block;font-size:.78rem;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--slate-deep,#3D6478);margin-bottom:14px}
 .seg-h{font-family:var(--serif);font-size:clamp(1.9rem,3.2vw,2.8rem);font-weight:300;color:var(--black);line-height:1.12;margin-bottom:18px}
-.seg-h .l3{font-style:italic;color:var(--slate-deep,#3D6478)}
+.seg-h .l3, .seg-h em.l3{font-style:italic;color:var(--slate-deep,#3D6478)}
 .seg-kicker{font-family:var(--serif);font-size:1.15rem;font-style:italic;color:var(--slate-deep,#3D6478);margin-bottom:10px}
 .seg-subhead{font-size:1.02rem;font-weight:500;color:var(--black);margin-bottom:12px}
 .seg-body{font-size:1rem;font-weight:300;color:#3A3633;line-height:1.75;margin-bottom:14px}
@@ -377,7 +389,7 @@ def third_field(rfp):
 def split_section(sec, klass, third_line_slate=False, extra=''):
     lines = sec['headlineLines']
     if len(lines) == 3:
-        h = f'{lines[0]}<br>{lines[1]}<br><span class="l3">{lines[2]}</span>'
+        h = f'{lines[0]}<br>{lines[1]}<br><em class="l3">{lines[2]}</em>'
     else:
         h = '<br>'.join(lines)
     body = sec.get('body')
@@ -465,7 +477,7 @@ def render(seg):
   <div class="hero-content">
     <div class="hero-left">
       <span class="hero-eyebrow">{hero['eyebrow']}</span>
-      <h1 class="hero-h">{hl[0]}<br>{hl[1]}<br><span class="l3">{hl[2]}</span></h1>
+      <h1 class="hero-h">{hl[0]}<br>{hl[1]}<br><em class="l3">{hl[2]}</em></h1>
       <p class="hero-sub">{hero['body']}</p>
     </div>
     <div class="hero-rfp" id="rfp-form">
@@ -497,7 +509,6 @@ def render(seg):
   </div>
 </section>
 
-{AWARDS}
 
 {split_section(seg['whyUs'], 'seg-why')}
 
@@ -505,7 +516,7 @@ def render(seg):
 
 {logos}
 
-<section class="seg-quotes" aria-label="What partners say"><div class="seg-quotes-inner">{quotes}</div></section>
+<section class="seg-quotes dark" aria-label="What partners say"><div class="seg-quotes-inner">{quotes}</div></section>
 
 {occasions}
 
@@ -513,11 +524,11 @@ def render(seg):
 
 <section class="seg-faq" aria-label="Frequently asked questions"><div class="seg-faq-inner">
   <span class="seg-eyebrow">Good to know</span>
-  <h2 class="seg-h">Frequently asked <span class="l3">questions.</span></h2>
+  <h2 class="seg-h">Frequently asked <em class="l3">questions.</em></h2>
   {faq}
 </div></section>
 
-<section class="seg-close">
+<section class="seg-close dark">
   <h2>Ready when <em>your people are.</em></h2>
   <p>Tell us what you need &mdash; our team responds within one business day.</p>
   <a href="#rfp-form" data-track="closing_cta">{rfp['submitLabel']} &nbsp;&rarr;</a>
