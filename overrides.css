@@ -1300,6 +1300,9 @@ section.dark.extstay[class] h2 em {
 .site-footer .footer-legal{display:flex;align-items:center}
 .footer-bottom-left{display:flex;flex-direction:column;gap:10px}
 .footer-logo{width:118px;height:auto;display:block;opacity:.92}
+.footer-eho{display:block;width:44px;margin-top:4px}
+.footer-eho img{width:100%;height:auto;display:block;opacity:.8}
+.footer-eho:hover img{opacity:1}
 .footer-social-icons a{width:40px !important;height:40px !important}
 .footer-social-icons svg{width:19px !important;height:19px !important}
 .footer-social-icons{gap:12px !important}
