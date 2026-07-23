@@ -132,6 +132,19 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 @media(max-width:540px){.press-grid{grid-template-columns:1fr}.footer-main{grid-template-columns:1fr}}
 </style>
 <link rel="stylesheet" href="/overrides.css">
+<style>
+/* Press header: photo backdrop + readable copy (owner 2026-07-22) */
+.page-header{position:relative;overflow:hidden}
+.ph-photo{position:absolute;inset:0;background-image:url('/assets/group-hero-poster.jpg');background-size:cover;background-position:center 65%}
+.ph-veil{position:absolute;inset:0;background:rgba(20,20,20,.72)}
+.page-header-inner{position:relative;z-index:1}
+body .page-sub{font-size:1.02rem !important;color:rgba(255,255,255,.85) !important;max-width:560px}
+body .press-contact-label{color:var(--oat) !important;font-size:.75rem !important}
+body .press-contact-name{color:var(--white) !important;font-size:1.15rem !important}
+body .press-contact-detail{font-size:.92rem !important;color:rgba(255,255,255,.8) !important;line-height:1.7}
+body .press-contact-detail a{color:var(--slate-light) !important}
+body .press-contact{background:rgba(20,20,20,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.16)}
+</style>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -166,6 +179,9 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 <!-- PAGE HEADER -->
 <main id="main" tabindex="-1">
 <div class="page-header">
+  <div class="ph-photo" aria-hidden="true"></div>
+  <div class="ph-veil" aria-hidden="true"></div>
+  <div class="photo-tag"><span class="photo-tag-name">Forme</span><span class="photo-tag-city">Houston, TX</span></div>
   <div class="page-header-inner">
     <div class="page-header-left">
       <span class="page-eyebrow">Press &amp; Media</span>
