@@ -794,6 +794,11 @@ FOOTER ══ */
 </style>
 <link rel="stylesheet" href="/overrides.css">
 <style>
+/* By-the-numbers: photo backdrop behind the stats grid */
+.sbn-section{position:relative;overflow:hidden}
+.sbn-photo{position:absolute;inset:0;background-image:url('/assets/live-hero-poster.jpg');background-size:cover;background-position:center 40%}
+.sbn-photo-veil{position:absolute;inset:0;background:rgba(20,20,20,.82)}
+.sbn-inner{position:relative;z-index:1}
 /* Page-scoped legibility fixes (must load after overrides.css).
    Dark sections carry .dark (overrides' on-dark exception: p -> 82% white,
    eyebrows -> oat, headings -> white); the rest is patched here. */
@@ -1045,6 +1050,9 @@ FOOTER ══ */
 
 <!-- STATS -->
 <section class="sbn-section dark">
+  <div class="sbn-photo" aria-hidden="true"></div>
+  <div class="sbn-photo-veil" aria-hidden="true"></div>
+  <div class="photo-tag"><span class="photo-tag-name">Mission Rock</span><span class="photo-tag-city">San Francisco, CA</span></div>
   <div class="sbn-inner">
     <div class="sbn-header">
       <span class="sbn-eyebrow">Sentral by the numbers</span>
@@ -1054,7 +1062,7 @@ FOOTER ══ */
       <div class="sbn-item">
         <div class="sbn-n">$7<em>B</em></div>
         <div class="sbn-l">Assets under management</div>
-        <div class="sbn-sub">43 communities across 25 cities</div>
+        <div class="sbn-sub">36 communities across 20 cities</div>
       </div>
       <div class="sbn-item">
         <div class="sbn-n">$17.9<em>M</em></div>
