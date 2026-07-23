@@ -266,6 +266,8 @@ SEG_CSS = """
 .rfp-mini-input:invalid:focus{outline:1px solid #b46} .rfp-error{display:none;color:#e7a5a5;font-size:.72rem;margin-top:6px}
 .rfp-thanks{display:none;color:var(--white);font-size:.95rem;line-height:1.7;padding:12px 0}
 /* why / detail splits */
+.seg-cta{display:inline-block;margin-top:24px;border:1px solid var(--black);padding:14px 28px;font-size:.8rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--black);text-decoration:none;transition:background .2s,color .2s,border-color .2s}
+.seg-cta:hover{background:#3D6478;border-color:#3D6478;color:var(--white)}
 .seg-split{background:var(--cream);padding:88px 0}
 .seg-split-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
 .seg-split-img{position:relative;aspect-ratio:4/3;background-size:cover;background-position:center;width:100%}
@@ -407,7 +409,7 @@ def split_section(sec, klass, third_line_slate=False, extra=''):
            + photo_tag(sec['image']['tagName'], sec['image']['tagCity']) + '</div>')
     copy = (f'<div class="seg-split-copy {"pad-l" if sec["imagePosition"]=="right" else "pad-r"}">'
             f'<span class="seg-eyebrow">{sec["eyebrow"]}</span>'
-            f'<h2 class="seg-h">{h}</h2>{kicker}{subhead}{body_html}{bullets}{extra}</div>')
+            f'<h2 class="seg-h">{h}</h2>{kicker}{subhead}{body_html}{bullets}{extra}<a class="seg-cta" href="#rfp-form" data-track="closing_cta">Request Proposal &nbsp;&rarr;</a></div>')
     cols = (copy + img) if sec['imagePosition'] == 'right' else (img + copy)
     return f'<section class="seg-split {klass}"><div class="seg-split-inner">{cols}</div></section>'
 
@@ -531,7 +533,7 @@ def render(seg):
 <section class="seg-close dark">
   <h2>Ready when <em>your people are.</em></h2>
   <p>Tell us what you need &mdash; our team responds within one business day.</p>
-  <a href="#rfp-form" data-track="closing_cta">{rfp['submitLabel']} &nbsp;&rarr;</a>
+  <a href="#rfp-form" data-track="closing_cta">Request Proposal &nbsp;&rarr;</a>
 </section>
 </main>
 
