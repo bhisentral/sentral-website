@@ -158,8 +158,9 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 .space-cell-city{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(200,184,154,.7)}
 
 /* ══ APP ══ */
-.app-section{background:var(--cream);padding:96px 64px}
-.app-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center}
+.app-section{background:var(--cream);padding:96px 0}
+.app-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.app-inner > div:first-child{padding-left:64px}
 .app-eyebrow{font-size:.58rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--lt);margin-bottom:18px;display:block}
 .app-h{font-family:var(--serif);font-size:clamp(2.4rem,4vw,3.8rem);font-weight:300;line-height:1.08;color:var(--black);margin-bottom:20px}
 .app-h em{font-style:italic;color:var(--gold)}
@@ -222,7 +223,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
   .spaces-header{flex-direction:column;align-items:flex-start;gap:16px}.spaces-sub{text-align:left}
   .spaces-grid{grid-template-columns:1fr;grid-template-rows:auto}.space-cell-1{grid-row:auto}
   .space-cell-label{opacity:1}
-  .app-visual{display:none}
+  .app-visual{display:flex}
   .intro-section,.team-section,.spaces-section,.app-section,.exp-quote{padding:72px 24px}
   .events-section{padding:72px 24px}
 }
@@ -292,7 +293,7 @@ body{background:var(--cream);color:var(--black);font-family:var(--sans);font-wei
 }
 .phone-award span:first-child{font-size:1rem}
 .phone-award span:last-child{font-size:.62rem;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--gold)}
-.app-video-slot{position:relative;aspect-ratio:1/1;background:var(--ink,#1F1F1F);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;border:1px solid rgba(255,255,255,.12)}
+.app-video-slot{position:relative;aspect-ratio:1/1;width:100%;background:var(--ink,#1F1F1F);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;border:1px solid rgba(255,255,255,.12)}
 .avs-play{width:64px;height:64px;border-radius:50%;border:1.5px solid rgba(255,255,255,.65);position:relative}
 .avs-play::after{content:'';position:absolute;left:55%;top:50%;transform:translate(-50%,-50%);border-left:16px solid rgba(255,255,255,.85);border-top:10px solid transparent;border-bottom:10px solid transparent}
 .avs-label{font-family:var(--serif);font-size:1.15rem;color:var(--white)}
