@@ -173,67 +173,16 @@ body .page-sub{color:rgba(255,255,255,.85) !important;font-size:1.02rem !importa
   <div class="page-header-inner">
     <span class="page-eyebrow">Sentral &mdash; Contact Us</span>
     <h1 class="page-h">Get in <em>touch.</em></h1>
-    <p class="page-sub">From real-estate partnerships to retail leasing, press requests to general questions &mdash; reach the right team directly.</p>
+    <p class="page-sub">From real-estate partnerships to retail leasing, press requests to general questions &mdash; send us a note and we&rsquo;ll route it to the right team.</p>
   </div>
 </div>
 
 <div class="contact-layout">
 
-  <section class="inquiries" aria-label="Inquiries">
-    <h2 class="inquiries-h">Inquiries</h2>
-    <p class="inquiries-lede">Pick the team closest to your need and we&rsquo;ll route from there.</p>
-
-    <div class="inquiry-grid">
-
-      <div class="inquiry-card">
-        <span class="inquiry-eyebrow">Real Estate</span>
-        <h3 class="inquiry-h">Developments &amp; Partnerships</h3>
-        <p class="inquiry-desc">Operators, owners, and developers exploring how Sentral can program a new asset or convert an existing one.</p>
-        <a class="inquiry-cta" href="#contact-form" onclick="pickTopic('Real Estate')">Start an Inquiry <span class="arrow">&rarr;</span></a>
-      </div>
-
-      <div class="inquiry-card">
-        <span class="inquiry-eyebrow">Sales</span>
-        <h3 class="inquiry-h">Group, Corporate &amp; Long Stays</h3>
-        <p class="inquiry-desc">Group bookings, corporate housing programs, project crews, productions &mdash; multi-night, multi-room.</p>
-        <a class="inquiry-cta" href="#contact-form" onclick="pickTopic('Sales')">Start an Inquiry <span class="arrow">&rarr;</span></a>
-      </div>
-
-      <div class="inquiry-card">
-        <span class="inquiry-eyebrow">Retail</span>
-        <h3 class="inquiry-h">Ground-Floor Retail</h3>
-        <p class="inquiry-desc">Operators interested in retail, F&amp;B, and experiential leasing across the Sentral network.</p>
-        <a class="inquiry-cta" href="#contact-form" onclick="pickTopic('Retail')">Start an Inquiry <span class="arrow">&rarr;</span></a>
-      </div>
-
-      <div class="inquiry-card">
-        <span class="inquiry-eyebrow">Press</span>
-        <h3 class="inquiry-h">Media &amp; Editorial</h3>
-        <p class="inquiry-desc">Press inquiries, media requests, executive interviews, and editorial coordination.</p>
-        <a class="inquiry-cta" href="#contact-form" onclick="pickTopic('Press')">Start an Inquiry <span class="arrow">&rarr;</span></a>
-      </div>
-
-      <div class="inquiry-card">
-        <span class="inquiry-eyebrow">Stay &amp; Reservations</span>
-        <h3 class="inquiry-h">Existing Reservations</h3>
-        <p class="inquiry-desc">Need to modify a stay, ask about a property, or get help mid-trip? Our reservations team is on it.</p>
-        <a class="inquiry-cta" href="#contact-form" onclick="pickTopic('Reservations')">Start an Inquiry <span class="arrow">&rarr;</span></a>
-      </div>
-
-      <div class="inquiry-card">
-        <span class="inquiry-eyebrow">Other</span>
-        <h3 class="inquiry-h">General &amp; Anything Else</h3>
-        <p class="inquiry-desc">Not sure who to ask? Drop us a note here and we&rsquo;ll route it to the right person.</p>
-        <a class="inquiry-cta" href="#contact-form" onclick="pickTopic('General')">Start an Inquiry <span class="arrow">&rarr;</span></a>
-      </div>
-
-    </div>
-  </section>
-
   <p class="office-line">Sentral Corporate Office &middot; 1550 Larimer St, Suite 312, Denver, CO 80202</p>
 
   <section class="form-section" id="contact-form" aria-label="Send us a note">
-    <h2 class="form-h">Or send a note.</h2>
+    <h2 class="form-h">Contact us.</h2>
     <p class="form-lede">Quick message and we&rsquo;ll get back within one business day.</p>
 
     <form class="form" id="contactForm" onsubmit="return submitContact(event)">
@@ -344,7 +293,7 @@ body .page-sub{color:rgba(255,255,255,.85) !important;font-size:1.02rem !importa
 function submitContact(e){
   e.preventDefault();
   var f=e.target;
-  var to='hello@sentral.com';
+  var to='Contact@sentral.com';
   var subject=encodeURIComponent('Website contact: '+(f.topic.value||'General'));
   var body=encodeURIComponent(
     'Name: '+f.name.value+'\n'+
@@ -355,14 +304,6 @@ function submitContact(e){
   );
   window.location.href='mailto:'+to+'?subject='+subject+'&body='+body;
   return false;
-}
-</script>
-<script>
-/* Inquiry CTAs preselect the form topic — submissions route to CRM (endpoint TBD) */
-function pickTopic(prefix){
-  const sel=document.getElementById('cf-topic');
-  if(!sel)return;
-  for(const o of sel.options){if(o.text.indexOf(prefix)===0){sel.value=o.value||o.text;o.selected=true;break}}
 }
 </script>
 </body>
