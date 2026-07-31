@@ -24,20 +24,21 @@ def part(name):
 SEGMENTS = [
  dict(
   slug='business-travel',
-  navLabel='Business Travel',
-  title='Business Travel — Sentral',
+  navLabel='Business Travel &amp; Corporate Housing',
+  title='Business Travel &amp; Corporate Housing — Sentral',
   hero=dict(
-    eyebrow='Sentral — Business Travel',
+    eyebrow='Sentral — Business Travel &amp; Corporate Housing',
     headlineLines=['Elevated stays for', 'the modern', 'professional.'],
-    body='Solo travelers, project teams, and executives who expect more than a hotel room. Furnished suites with hotel-caliber service in the country&rsquo;s top business destinations — for a night, a quarter, or a year.',
+    body='Solo travelers, project teams, executives, and relocating employees who expect more than a hotel room. Furnished suites and fully managed 30+ night corporate placements in the country&rsquo;s top business destinations — for a night, a quarter, or a year.',
     media=dict(src='/assets/sol-modern-stay-header.mp4', poster='/assets/stay-hero-poster.jpg', tagName='Sol Modern', tagCity='Phoenix, AZ'),
   ),
   rfp=dict(
     thirdFieldType='travelers',
     thirdFieldLabel='Number of travelers',
     thirdFieldOptions=None,  # open integer, no minimum
-    occasionOptions=['Recurring travel program','Project-based travel','Single traveler','Event or conference'],
-    submitLabel='Start My Travel Inquiry',
+    occasionOptions=['Recurring travel program','Project-based travel','Single traveler','Event or conference','Relocation','Extended assignment','Executive placement'],
+    lengthOfStayOptions=['1 – 29 nights','30 – 60 nights','61 – 90 nights','91 – 180 nights','180+ nights'],
+    submitLabel='Start My Inquiry',
     leadSource='web-business-travel',
   ),
   whyUs=dict(
@@ -46,11 +47,12 @@ SEGMENTS = [
     body=[
       'Business travel breaks down when every city means a different property, a different standard, and a different point of contact. Sentral runs its communities on one operating platform — the suite your team checks into in Nashville works exactly like the one in Denver, down to the in-unit laundry and the coffee.',
       'We work directly with travel managers, TMCs, and RMCs: preferred corporate rates, direct billing, consolidated invoicing, and a single account contact across every market. No minimums, no thresholds — one traveler is a program.',
+      'And for 30+ night placements, traditional corporate housing hands your employee a lease, a furniture vendor, and a utilities checklist — Sentral hands them keys. Furniture, kitchenware, linens, WiFi, and utilities already running: one rate, one invoice, nothing to set up or return.',
     ],
     image=dict(src='/assets/group-hero-poster.jpg', alt='Forme Houston at night', tagName='Forme', tagCity='Houston, TX'),
     imagePosition='right',
   ),
-  detail=dict(
+  detail=[dict(
     eyebrow='01 — Business Travel',
     headlineLines=['A simplified approach', 'to business travel.'],
     kicker='Purpose-built for the way work travels now.',
@@ -66,13 +68,29 @@ SEGMENTS = [
     image=dict(src='/assets/ig-social-2.jpg', alt='Rooftop pool at a Sentral community', tagName='Sentral Community — TBC', tagCity='City TBC'),
     imagePosition='left',
   ),
-  logoWall=dict(enabled=True, heading='Trusted by travel programs nationwide',
-    logos=['Global Consulting Firm','Fortune 100 Technology Co.','National Healthcare System','Film &amp; Production Studio','Enterprise TMC Partner','Top-10 ENR Contractor']),
+  dict(
+    eyebrow='02 — Corporate Housing',
+    headlineLines=['The home-away-from-home', 'for your team.'],
+    kicker='Placements that feel like moving up, not moving out.',
+    subhead='Premium furnished residences for relocating employees, project teams, and extended assignments — 30+ nights, fully managed.',
+    body='A relocation is a vulnerable moment: new city, new role, and — too often — a beige apartment with rented furniture. Sentral placements put your people in the same residences our long-term residents choose, inside communities with real hospitality teams, fitness centers, coworking lounges, and programming that makes a new city feel navigable by the second week. Stays start at 30 nights and flex to whatever the assignment needs — extend, shorten, or move markets without renegotiating from scratch. Multi-unit blocks keep project teams together on shared floors; centralized operating standards mean the Denver placement and the Nashville placement are the same placement. And because we operate every building ourselves, your account contact and the on-site team work for the same company: no vendor chains, no finger-pointing, no surprises on the invoice.',
+    bullets=[
+      'Class A communities with centralized operating standards',
+      'Move-in ready — full kitchens, linens, everything included',
+      'Flexible 30+ night stays structured for corporate placements',
+      'Multi-unit group block capability for team housing',
+      'One invoice — furniture, utilities, WiFi, and housekeeping options included',
+    ],
+    image=dict(src='/assets/ig-social-3.jpg', alt='Resident walking a dog at a Sentral community', tagName='Sentral Community — TBC', tagCity='City TBC'),
+    imagePosition='right',
+  )],
+  logoWall=dict(enabled=True, heading='Trusted by travel &amp; housing programs nationwide',
+    logos=['Global Consulting Firm','Fortune 100 Technology Co.','Enterprise TMC Partner','Relocation Management Co.','Global Engineering Firm','National Healthcare System']),
   testimonials=[  # PLACEHOLDER quotes — marketing to source real ones
     dict(quote='Our consultants stopped asking for hotel alternatives — they ask which cities have a Sentral. Same suite standard in every market, one invoice at the end of the month.',
          name='Placeholder', title='Director of Travel', company='national consulting firm'),
-    dict(quote='The direct-billing setup alone paid for the switch. Our travelers get a real apartment; our finance team gets one consolidated statement.',
-         name='Placeholder', title='Travel &amp; Expense Manager', company='enterprise technology company'),
+    dict(quote='Our relocating hires used to spend their first month fighting utility companies. Now they land, get keys, and start work. Retention on relocations is up.',
+         name='Placeholder', title='Global Mobility Manager', company='Fortune 500 employer'),
   ],
   occasionsGrid=False,
   faq=[
@@ -86,6 +104,12 @@ SEGMENTS = [
          a='Every suite is fully furnished with a complete kitchen, kitchenware, linens, towels, in-unit or on-site laundry, high-speed WiFi, and streaming-ready TVs. Utilities are included — one rate, no setup.'),
     dict(q='How fast can a traveler check in after booking?',
          a='Suites are move-in ready. With digital check-in and 24/7 on-site teams, same-week arrivals are routine, and same-day is often possible depending on the market.'),
+    dict(q='How do 30+ night corporate housing placements work?',
+         a='Stays of 30 nights or more are structured as fully managed corporate placements — furniture, utilities, WiFi, and amenities included on one invoice. Under 30 nights, the same suites are available on nightly business-travel terms, so there&rsquo;s no gap between the two programs.'),
+    dict(q='Can placements be extended or shortened mid-assignment?',
+         a='Yes. Assignments change; your placements flex with them. Extensions, early departures, and market transfers are handled by your account contact without restarting paperwork.'),
+    dict(q='Are the residences pet-friendly?',
+         a='Yes. Pets are welcome across Sentral communities — because a three-month assignment shouldn&rsquo;t mean boarding the dog.'),
   ],
  ),
  dict(
@@ -152,74 +176,6 @@ SEGMENTS = [
          a='Yes. Blocks routinely span different arrival dates, stay lengths, and suite types — we manage the matrix so you don&rsquo;t have to.'),
   ],
  ),
- dict(
-  slug='corporate-housing',
-  navLabel='Corporate Housing',
-  title='Corporate Housing — Sentral',
-  hero=dict(
-    eyebrow='Sentral — Corporate Housing',
-    headlineLines=['30+ nights.', 'Fully managed.', 'Ready on day one.'],
-    body='Premium corporate housing for relocating employees, project teams, and extended assignments — move-in-ready residences with full-time property teams.',
-    media=dict(src='/assets/mission-rock-live-header.mp4', poster='/assets/live-hero-poster.jpg', tagName='Mission Rock', tagCity='San Francisco, CA'),
-  ),
-  rfp=dict(
-    thirdFieldType='lengthOfStay',
-    thirdFieldLabel='Length of stay',
-    thirdFieldOptions=['30 – 60 nights','61 – 90 nights','91 – 180 nights','180+ nights'],
-    occasionOptions=['Relocation','Project team','Extended assignment','Executive placement'],
-    submitLabel='Start My Housing Inquiry',
-    leadSource='web-corporate-housing',
-  ),
-  whyUs=dict(
-    eyebrow='Why Sentral for Corporate Housing',
-    headlineLines=['Housing your people', 'can move into —', 'not manage.'],
-    body=[
-      'Traditional corporate housing hands your employee a lease, a furniture vendor, and a utilities checklist. Sentral hands them keys. Every residence is in a Class A community we operate ourselves, with furniture, kitchenware, linens, WiFi, and utilities already running — one rate, one invoice, nothing to set up or return.',
-      'For mobility teams and project leads, that means placements measured in days, not weeks; a single operating standard across 20 cities; and a full-time on-site team your people can knock on — because a relocation succeeds or fails on how the first month feels.',
-    ],
-    image=dict(src='/assets/hero-poster.jpg', alt='NORA West Palm Beach aerial', tagName='NORA', tagCity='West Palm Beach, FL'),
-    imagePosition='right',
-  ),
-  detail=dict(
-    eyebrow='03 — Corporate Housing',
-    headlineLines=['The home-away-from-home', 'for your team.'],
-    kicker='Placements that feel like moving up, not moving out.',
-    subhead='Premium furnished residences for corporate travelers, relocating employees, and project teams.',
-    body='A relocation is a vulnerable moment: new city, new role, and — too often — a beige apartment with rented furniture. Sentral placements put your people in the same residences our long-term residents choose, inside communities with real hospitality teams, fitness centers, coworking lounges, and programming that makes a new city feel navigable by the second week. Stays start at 30 nights and flex to whatever the assignment needs — extend, shorten, or move markets without renegotiating from scratch. Multi-unit blocks keep project teams together on shared floors; centralized operating standards mean the Denver placement and the Nashville placement are the same placement. And because we operate every building ourselves, your account contact and the on-site team work for the same company: no vendor chains, no finger-pointing, no surprises on the invoice.',
-    bullets=[
-      'Class A communities with centralized operating standards',
-      'Move-in ready — full kitchens, linens, everything included',
-      'Flexible 30+ night stays structured for corporate placements',
-      'Multi-unit group block capability for team housing',
-      'One invoice — furniture, utilities, WiFi, and housekeeping options included',
-    ],
-    image=dict(src='/assets/ig-social-3.jpg', alt='Resident walking a dog at a Sentral community', tagName='Sentral Community — TBC', tagCity='City TBC'),
-    imagePosition='left',
-  ),
-  logoWall=dict(enabled=True, heading='Housing partners across industries',
-    logos=['Relocation Management Co.','Global Engineering Firm','Regional Health Network','Fortune 500 Retailer','Federal Project Contractor','University Medical Center']),
-  testimonials=[  # PLACEHOLDER quotes — marketing to source real ones
-    dict(quote='We moved a nine-person implementation team into one building for five months. Same floor, full kitchens, and the on-site team knew them all by name in a week.',
-         name='Placeholder', title='PMO Lead', company='enterprise software rollout'),
-    dict(quote='Our relocating hires used to spend their first month fighting utility companies. Now they land, get keys, and start work. Retention on relocations is up.',
-         name='Placeholder', title='Global Mobility Manager', company='Fortune 500 employer'),
-  ],
-  occasionsGrid=False,
-  faq=[
-    dict(q='Is there a minimum stay?',
-         a='Corporate housing stays start at 30 nights. Under 30 nights, our business travel suites cover you with the same residences on nightly terms — no gap between the two programs.'),
-    dict(q='Is there a minimum number of units?',
-         a='No. We place a single executive as readily as a forty-person project team. Multi-unit blocks can be grouped on shared floors when you need the team together.'),
-    dict(q='What&rsquo;s included in the rate?',
-         a='Everything: furniture, full kitchen and kitchenware, linens, utilities, high-speed WiFi, and access to all community amenities. Housekeeping can be added on your schedule. One rate, one invoice.'),
-    dict(q='Can stays be extended or shortened mid-assignment?',
-         a='Yes. Assignments change; your placements flex with them. Extensions, early departures, and market transfers are handled by your account contact without restarting paperwork.'),
-    dict(q='Do you work with relocation management companies?',
-         a='Yes — RMCs and mobility teams are a core part of our corporate housing business. We plug into your existing initiation and billing workflows.'),
-    dict(q='Are the residences pet-friendly?',
-         a='Yes. Pets are welcome across Sentral communities — because a three-month assignment shouldn&rsquo;t mean boarding the dog.'),
-  ],
- ),
 ]
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -237,9 +193,8 @@ NAV_JS     = part('nav.js')
 # destinations sentence per segment (brief: no six-room language on BT/CH)
 GDIR_SENTENCE = 'Individual business travelers may search for dates and book direct. For groups of six or more, get your RFP started today.'
 GDIR_VARIANTS = {
-  'business-travel': 'From a single traveler to a full team &mdash; every Sentral destination below is ready for your program.',
+  'business-travel': 'From a single traveler to a fully managed 30+ night placement &mdash; every Sentral destination below is ready for your program.',
   'group-travel': GDIR_SENTENCE,
-  'corporate-housing': 'Relocations, project teams, and extended assignments &mdash; every destination below offers 30+ night placements.',
 }
 
 SEG_CSS = """
@@ -388,6 +343,14 @@ def third_field(rfp):
             f'<select class="rfp-mini-input rfp-mini-select" id="rfp-third" name="{name}" required>'
             f'<option value="" disabled selected>Select&hellip;</option>{opts}</select></div>')
 
+def extra_field(rfp):
+    if not rfp.get('lengthOfStayOptions'):
+        return ''
+    opts = ''.join(f'<option>{o}</option>' for o in rfp['lengthOfStayOptions'])
+    return (f'<div class="rfp-mini-field"><label class="rfp-mini-label" for="rfp-los">Length of stay</label>'
+            f'<select class="rfp-mini-input rfp-mini-select" id="rfp-los" name="lengthOfStay" required>'
+            f'<option value="" disabled selected>Select&hellip;</option>{opts}</select></div>')
+
 def split_section(sec, klass, third_line_slate=False, extra=''):
     lines = sec['headlineLines']
     if len(lines) == 3:
@@ -415,6 +378,8 @@ def split_section(sec, klass, third_line_slate=False, extra=''):
 
 def render(seg):
     hero, rfp = seg['hero'], seg['rfp']
+    dets = seg['detail'] if isinstance(seg['detail'], list) else [seg['detail']]
+    details_html = '\n\n'.join(split_section(d, 'seg-detail') for d in dets)
     hl = hero['headlineLines']
     occ = ''.join(f'<option>{o}</option>' for o in rfp['occasionOptions'])
     def nav_item(s):
@@ -502,6 +467,7 @@ def render(seg):
             <input class="rfp-mini-input" id="rfp-checkin" name="checkin" type="date" required>
           </div>
           {third_field(rfp)}
+          {extra_field(rfp)}
           <button class="rfp-mini-btn" type="submit">{rfp['submitLabel']} &nbsp;&rarr;</button>
           <div class="rfp-mini-note">Our team responds within 1 business day</div>
         </form>
@@ -514,7 +480,7 @@ def render(seg):
 
 {split_section(seg['whyUs'], 'seg-why')}
 
-{split_section(seg['detail'], 'seg-detail')}
+{details_html}
 
 {logos}
 
