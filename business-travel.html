@@ -735,7 +735,19 @@ window.dataLayer = window.dataLayer || [];
   form.addEventListener('submit', function(e){
     e.preventDefault();
     track('rfp_submit_success',{leadSource:form.leadSource.value});
-    /* PRODUCTION: POST to CRM endpoint with form fields incl. leadSource */
+    /* RFP submissions email Contact@sentral.com (owner decision 7-31) — composed
+       via mailto so the sender's own mail client carries their identity. */
+    var segName = SEG==='group-travel' ? 'Group Travel' : 'Business Travel & Corporate Housing';
+    var subject = encodeURIComponent('RFP — '+segName+' — '+(form.occasion.value||''));
+    var lines = ['Occasion: '+form.occasion.value,
+                 'Destination: '+form.destination.value,
+                 'Check-in: '+form.checkin.value];
+    if(form.travelers) lines.push('Number of travelers: '+form.travelers.value);
+    if(form.rooms) lines.push('Rooms needed: '+form.rooms.value);
+    if(form.lengthOfStay) lines.push('Length of stay: '+form.lengthOfStay.value);
+    lines.push('Lead source: '+form.leadSource.value);
+    var body = encodeURIComponent(lines.join('\n'));
+    window.location.href = 'mailto:Contact@sentral.com?subject='+subject+'&body='+body;
     form.style.display='none';
     document.getElementById('rfp-thanks').style.display='block';
   });
