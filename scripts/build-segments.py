@@ -218,7 +218,7 @@ SEG_CSS = """
 .seg-subnav a.active{color:var(--white);border-color:var(--slate-light,#5C8CA0)}
 .hero{margin-top:0}
 .hero-h .l3, .hero-h em.l3{font-style:italic;color:var(--slate-light,#5C8CA0)}
-.rfp-mini-input:invalid:focus{outline:1px solid #b46} .rfp-error{display:none;color:#e7a5a5;font-size:.72rem;margin-top:6px}
+.rfp-mini-input:invalid:focus{outline:1px solid #b46} .rfp-error{display:none;color:#e7a5a5;font-size:.75rem;margin-top:6px}
 .rfp-thanks{display:none;color:var(--white);font-size:.95rem;line-height:1.7;padding:12px 0}
 /* why / detail splits */
 .seg-cta{display:inline-block;margin-top:24px;border:1px solid var(--black);padding:14px 28px;font-size:.8rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--black);text-decoration:none;transition:background .2s,color .2s,border-color .2s}
@@ -243,7 +243,7 @@ SEG_CSS = """
 .seg-logos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2px;margin-top:28px}
 .seg-logo{background:var(--white);padding:26px 18px;font-family:var(--serif);font-size:.95rem;color:#8a857e;display:flex;align-items:center;justify-content:center;text-align:center;filter:grayscale(1);transition:color .2s,filter .2s;min-height:84px}
 .seg-logo:hover{color:var(--slate-deep,#3D6478);filter:none}
-.seg-logos-note{margin-top:14px;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#9a9490}
+.seg-logos-note{margin-top:14px;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:#9a9490}
 /* testimonials */
 .seg-quotes{background:var(--black);padding:88px 64px}
 .seg-quotes-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:56px}
