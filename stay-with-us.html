@@ -329,7 +329,6 @@ body .quote-attr{color:var(--mid) !important;font-size:.75rem !important}
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
 
-<a class="sticky-book" id="stickyBook" href="#book-stay">Book a Stay &nbsp;&rarr;</a>
 
 <nav class="site-nav" aria-label="Main navigation">
     <a class="nav-logo" href="index.html"><img src="/assets/sentral-wordmark-white.png" alt="Sentral" /></a>
@@ -840,16 +839,6 @@ body .quote-attr{color:var(--mid) !important;font-size:.75rem !important}
       panel.setAttribute('aria-hidden', 'true');
     }
   });
-})();
-
-// ── STICKY BOOK ──
-(function() {
-  const btn = document.getElementById('stickyBook');
-  const hero = document.querySelector('.hero');
-  if (!btn || !hero) return;
-  new IntersectionObserver(entries => {
-    btn.classList.toggle('visible', !entries[0].isIntersecting);
-  }, {threshold: 0}).observe(hero);
 })();
 
 // ── SCROLL REVEAL ──
