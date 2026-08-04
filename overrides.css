@@ -1347,10 +1347,16 @@ section.dark.extstay[class] h2 em {
    SentralPlus is the brand's reserved-gold use. Hover fills gold
    with off-black text per owner request.
    ------------------------------------------------------------ */
-a.btn-splus{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border:1px solid var(--metallic) !important;border-radius:2px;background:transparent !important;color:var(--white) !important;text-decoration:none;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;transition:background .2s,color .2s}
-a.btn-splus svg{width:16px;height:16px;color:var(--metallic);transition:color .2s;flex:none}
+a.btn-splus{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border:1px solid var(--metallic) !important;border-radius:2px;background:transparent !important;color:var(--white) !important;text-decoration:none;font-size:.8125rem;line-height:15px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;transition:background .2s,color .2s}
+a.btn-splus svg{width:15px;height:15px;color:var(--metallic);transition:color .2s;flex:none}
 a.btn-splus .btn-splus-word em{font-family:var(--serif) !important;font-style:italic;text-transform:none;color:var(--metallic);letter-spacing:.02em;font-size:1.15em;transition:color .2s}
 a.btn-splus:hover,a.btn-splus:focus-visible{background:var(--metallic) !important;color:var(--black) !important}
 a.btn-splus:hover svg,a.btn-splus:hover .btn-splus-word em,
 a.btn-splus:focus-visible svg,a.btn-splus:focus-visible .btn-splus-word em{color:var(--black)}
 @media(max-width:700px){a.btn-splus{display:none}}
+
+/* Hamburger only appears when the nav links collapse (owner 8-3):
+   desktop shows STAY/LIVE/PARTNER inline, so the menu button is
+   redundant until the <=900px breakpoint hides .nav-links. */
+.site-nav .hamburger{display:none !important}
+@media(max-width:900px){.site-nav .hamburger{display:flex !important}}
