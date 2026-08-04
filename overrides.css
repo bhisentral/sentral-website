@@ -509,14 +509,14 @@ section:not(.hero) p,
 .caption,
 .tb-discount-l,
 small {
-  font-size: 0.875rem !important;   /* 14px floor */
+  font-size: .875rem !important;   /* 14px floor */
   letter-spacing: 0.10em !important;
   line-height: 1.4 !important;
 }
 
 /* Hero stat labels */
 .hero-stat-l {
-  font-size: 0.8125rem !important;
+  font-size: .8125rem !important;
   letter-spacing: 0.10em !important;
   margin-top: 6px !important;
 }
@@ -540,7 +540,7 @@ small {
   margin-bottom: 4px !important;
 }
 .sbi-desc {
-  font-size: 0.9375rem !important;
+  font-size: .9375rem !important;
   line-height: 1.6 !important;
 }
 .sbi-dot {
@@ -551,18 +551,18 @@ small {
 
 /* ── Nav links ── */
 .nav-link {
-  font-size: 0.875rem !important;
+  font-size: .875rem !important;
   letter-spacing: 0.08em !important;
 }
 
 /* ── Filter pills / badges ── */
 .f-btn {
-  font-size: 0.875rem !important;
+  font-size: .875rem !important;
   padding: 8px 18px !important;
   letter-spacing: 0.04em !important;
 }
 .f-count {
-  font-size: 0.8125rem !important;
+  font-size: .8125rem !important;
 }
 
 /* ── City / slide / property labels ── */
@@ -570,7 +570,7 @@ small {
 .tb-city,
 .s-popup-name,
 .s-popup-loc {
-  font-size: 0.8125rem !important;
+  font-size: .8125rem !important;
 }
 
 /* ── Body paragraphs in cream-bg sections ── */
@@ -585,10 +585,10 @@ section:not(.hero) p,
 
 /* ── 20% discount stat label ── */
 .tb-discount-n {
-  font-size: 2.6rem !important;
+  font-size: 2.5rem !important;
 }
 .tb-discount-l {
-  font-size: 0.8125rem !important;
+  font-size: .8125rem !important;
   letter-spacing: 0.10em !important;
 }
 
@@ -609,7 +609,7 @@ section:not(.hero) p,
 .cta-btn,
 .book-btn,
 .sticky-book {
-  font-size: 0.9375rem !important;
+  font-size: .9375rem !important;
   font-weight: 500 !important;
   padding: 14px 30px !important;
   min-height: 48px !important;
@@ -624,7 +624,7 @@ section:not(.hero) p,
 .site-nav [class*="cta"],
 .site-nav a[href*="book"],
 .site-nav button:not(.hamburger) {
-  font-size: 0.875rem !important;
+  font-size: .875rem !important;
   font-weight: 500 !important;
   padding: 10px 20px !important;
   min-height: 40px !important;
@@ -633,14 +633,14 @@ section:not(.hero) p,
 
 .sp-sticky-join,
 a.sp-sticky-join {
-  font-size: 0.9375rem !important;
+  font-size: .9375rem !important;
   padding: 14px 28px !important;
   min-height: 48px !important;
   letter-spacing: 0.06em !important;
 }
 .sp-sticky-login,
 a.sp-sticky-login {
-  font-size: 0.875rem !important;
+  font-size: .875rem !important;
   padding: 11px 22px !important;
   min-height: 42px !important;
   letter-spacing: 0.06em !important;
@@ -823,7 +823,7 @@ a.ham-book,
 a.sticky-book {
   text-transform: uppercase !important;
   letter-spacing: 0.08em !important;
-  font-size: 0.8rem !important;
+  font-size: .8125rem !important;
   font-weight: 500 !important;
   padding: 12px 26px !important;
 }
@@ -946,7 +946,7 @@ section.dark p,
 .combo-body,
 .splus-sub,
 .splus-body {
-  font-size: 0.95rem !important;   /* ~15.2px — above the 14px ADA floor */
+  font-size: .9375rem !important;   /* ~15.2px — above the 14px ADA floor */
   line-height: 1.75 !important;
 }
 
@@ -1170,7 +1170,7 @@ a.btn-sn-ghost {
   color: var(--cream-light) !important;
   padding: 10px 16px !important;
   border-radius: 2px !important;
-  font-size: 0.85rem !important;
+  font-size: .875rem !important;
 }
 
 
@@ -1240,14 +1240,14 @@ button,
    reduced padding + type a notch; all sizes stay above the 12px floor */
 section.combo-section .combo-left,
 section.combo-section .combo-right { padding: 32px 40px !important; }
-section.combo-section .combo-h { font-size: clamp(1.35rem, 2vw, 1.75rem) !important; margin-bottom: 8px !important; }
-section.combo-section .combo-body { font-size: 0.9375rem !important; line-height: 1.6 !important; margin-bottom: 12px !important; }
-section.combo-section .sbi-title { font-size: 0.9375rem !important; margin-bottom: 2px !important; }
-section.combo-section .sbi-desc { font-size: 0.875rem !important; line-height: 1.55 !important; }
+section.combo-section .combo-h { font-size: clamp(1.5rem,2.4vw,2.1rem) !important; margin-bottom: 8px !important; }
+section.combo-section .combo-body { font-size: .9375rem !important; line-height: 1.6 !important; margin-bottom: 12px !important; }
+section.combo-section .sbi-title { font-size: .9375rem !important; margin-bottom: 2px !important; }
+section.combo-section .sbi-desc { font-size: .875rem !important; line-height: 1.55 !important; }
 section.combo-section .sbi-dot { margin-top: 6px !important; }
 section.combo-section .combo-city-grid { gap: 2px 0 !important; margin-bottom: 12px !important; }
 section.combo-section .tb-city { padding: 2px 0 !important; }
-section.combo-section .tb-discount-n { font-size: 2.1rem !important; }
+section.combo-section .tb-discount-n { font-size: 2rem !important; }
 
 /* Homepage exp-section is now CREAM (owner request 2026-07): its eyebrow
    must be slate-deep, not the §9f oat (oat on cream ≈ 1:1, invisible).
@@ -1275,7 +1275,7 @@ section.dark.extstay[class] h2 em {
    </span><span class="photo-tag-city">City, ST</span></div>
    ------------------------------------------------------------ */
 .photo-tag{position:absolute;right:16px;bottom:12px;z-index:3;text-align:right;pointer-events:none}
-.photo-tag-name{display:block;font-family:var(--serif);font-size:.95rem;font-weight:400;color:var(--white);text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.photo-tag-name{display:block;font-family:var(--serif);font-size:.9375rem;font-weight:400;color:var(--white);text-shadow:0 1px 6px rgba(0,0,0,.7)}
 .photo-tag-city{display:block;font-size:.75rem;font-weight:500;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.78);margin-top:2px;text-shadow:0 1px 5px rgba(0,0,0,.7)}
 
 
@@ -1285,14 +1285,14 @@ section.dark.extstay[class] h2 em {
    ------------------------------------------------------------ */
 .site-footer .footer-main{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr .8fr .9fr !important;gap:40px !important}
 .footer-connect{max-width:360px}
-.footer-connect-h{font-family:var(--serif);font-size:1.9rem;font-weight:300;color:var(--white);margin-bottom:20px}
+.footer-connect-h{font-family:var(--serif);font-size:2rem;font-weight:300;color:var(--white);margin-bottom:20px}
 .footer-connect-form{display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.55);padding-bottom:10px}
-.footer-connect-input{flex:1;background:transparent;border:none;outline:none;color:var(--white);font-family:var(--sans);font-size:.95rem;font-weight:300}
+.footer-connect-input{flex:1;background:transparent;border:none;outline:none;color:var(--white);font-family:var(--sans);font-size:.9375rem;font-weight:300}
 .footer-connect-input::placeholder{color:rgba(255,255,255,.45)}
 .footer-connect-input:focus-visible{outline:1px solid var(--slate-light);outline-offset:2px}
 .footer-connect-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:transparent;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s}
 .footer-connect-btn:hover{background:rgba(255,255,255,.14)}
-.footer-connect-done{display:none;color:rgba(255,255,255,.8);font-size:.9rem;padding-bottom:10px}
+.footer-connect-done{display:none;color:rgba(255,255,255,.8);font-size:.875rem;padding-bottom:10px}
 .footer-social-icons{display:inline-flex;gap:10px;align-items:center;margin-left:20px;vertical-align:middle}
 .footer-social-icons a{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.85);transition:background .2s}
 .footer-social-icons a:hover{background:var(--slate)}
@@ -1310,11 +1310,11 @@ section.dark.extstay[class] h2 em {
    row instead of above it (per user request, 7-23) */
 .site-footer .footer-bottom{border-top:0 !important;border-bottom:1px solid rgba(255,255,255,.16) !important;padding-top:0 !important;padding-bottom:24px !important}
 /* Footer readability: bigger, brighter type throughout */
-.site-footer .footer-col-head{font-size:1.05rem !important;color:var(--white) !important;margin-bottom:14px !important}
-.site-footer .footer-link{font-size:.95rem !important;color:rgba(255,255,255,.78) !important;line-height:2.1 !important}
+.site-footer .footer-col-head{font-size:1.0625rem !important;color:var(--white) !important;margin-bottom:14px !important}
+.site-footer .footer-link{font-size:.9375rem !important;color:rgba(255,255,255,.78) !important;line-height:2.1 !important}
 .site-footer .footer-link:hover{color:var(--white) !important}
-.site-footer .footer-copy{font-size:.82rem !important;color:rgba(255,255,255,.55) !important}
-.site-footer .footer-legal-link{font-size:.82rem !important;color:rgba(255,255,255,.65) !important;letter-spacing:.04em !important}
+.site-footer .footer-copy{font-size:.8125rem !important;color:rgba(255,255,255,.55) !important}
+.site-footer .footer-legal-link{font-size:.8125rem !important;color:rgba(255,255,255,.65) !important;letter-spacing:.04em !important}
 .site-footer .footer-legal-link:hover{color:var(--white) !important}
 @media(max-width:900px){
   .site-footer .footer-main{grid-template-columns:1fr 1fr !important}
@@ -1328,14 +1328,14 @@ section.dark.extstay[class] h2 em {
    build team swaps in the Juicer feed (see HTML comment).
    ------------------------------------------------------------ */
 .igb{background:var(--cream);padding:72px 0 64px;overflow:hidden}
-.igb-head{text-align:center;font-size:.9rem;font-weight:600;letter-spacing:.08em;color:var(--black);margin-bottom:8px;text-transform:uppercase}
+.igb-head{text-align:center;font-size:.875rem;font-weight:600;letter-spacing:.08em;color:var(--black);margin-bottom:8px;text-transform:uppercase}
 .igb-rule{width:56px;height:1px;background:rgba(0,0,0,.25);margin:0 auto 40px}
 .igb-track{display:flex;gap:2px;width:max-content;animation:igbRoll 40s linear infinite}
 .igb:hover .igb-track{animation-play-state:paused}
 @media(prefers-reduced-motion: reduce){.igb-track{animation:none}}
 @keyframes igbRoll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .igb-tile{width:300px;height:300px;flex-shrink:0;background-size:cover;background-position:center;display:block}
-.igb-link{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:36px;color:var(--black);font-size:.92rem;font-weight:500;text-decoration:none;letter-spacing:.04em}
+.igb-link{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:36px;color:var(--black);font-size:.9375rem;font-weight:500;text-decoration:none;letter-spacing:.04em}
 .igb-link:hover{color:var(--slate-deep)}
 .igb-link svg{width:20px;height:20px;fill:currentColor}
 @media(max-width:640px){.igb-tile{width:200px;height:200px}}
