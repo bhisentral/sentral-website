@@ -1347,15 +1347,27 @@ section.dark.extstay[class] h2 em {
    SentralPlus is the brand's reserved-gold use. Hover fills gold
    with off-black text per owner request.
    ------------------------------------------------------------ */
-a.btn-splus{display:inline-flex;align-items:center;gap:10px;height:41px;box-sizing:border-box;padding:0 16px 0 14px;border:1px solid var(--metallic) !important;border-radius:2px;background:transparent !important;color:var(--white) !important;text-decoration:none;white-space:nowrap;transition:background .2s,color .2s}
-a.btn-splus svg{width:17px;height:17px;color:var(--metallic);transition:color .2s;flex:none}
-a.btn-splus .btn-splus-text{display:flex;flex-direction:column;align-items:flex-start;gap:0;border-left:1px solid rgba(255,255,255,.22);padding-left:10px}
-a.btn-splus .btn-splus-word{font-family:var(--sans) !important;font-size:.9375rem;line-height:17px;font-weight:600;letter-spacing:.04em !important;text-transform:none !important}
+/* Nav Book a Stay matches the 48px lockup height */
+.site-nav .btn-sn,.site-nav a.btn-sn{height:48px !important;box-sizing:border-box;display:inline-flex;align-items:center;padding:0 26px !important}
+
+a.btn-splus{display:inline-flex;align-items:center;gap:11px;height:48px;box-sizing:border-box;padding:0 16px 0 13px;border:1px solid var(--metallic) !important;border-radius:2px;background:transparent !important;color:var(--white) !important;text-decoration:none;white-space:nowrap;transition:background .2s,color .2s}
+a.btn-splus svg{width:22px;height:22px;color:var(--metallic);transition:color .2s;flex:none}
+a.btn-splus .btn-splus-text{display:flex;flex-direction:column;align-items:flex-start;gap:0;border-left:1px solid rgba(255,255,255,.22);padding-left:11px}
+a.btn-splus .btn-splus-word{font-family:var(--serif) !important;font-size:1.1875rem;line-height:20px;font-weight:600;letter-spacing:.01em !important;text-transform:none !important}
 a.btn-splus .btn-splus-word em{font-family:var(--serif) !important;font-style:italic;color:var(--metallic);letter-spacing:.01em !important;text-transform:none !important;transition:color .2s}
+a.btn-splus .btn-splus-tag{font-size:.75rem;line-height:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-top:3px;transition:color .2s}
 a.btn-splus:hover,a.btn-splus:focus-visible{background:var(--metallic) !important;color:var(--black) !important}
-a.btn-splus:hover svg,a.btn-splus:hover .btn-splus-word em,
-a.btn-splus:focus-visible svg,a.btn-splus:focus-visible .btn-splus-word em{color:var(--black)}
+a.btn-splus:hover svg,a.btn-splus:hover .btn-splus-word em,a.btn-splus:hover .btn-splus-tag,
+a.btn-splus:focus-visible svg,a.btn-splus:focus-visible .btn-splus-word em,a.btn-splus:focus-visible .btn-splus-tag{color:var(--black)}
 a.btn-splus:hover .btn-splus-text,a.btn-splus:focus-visible .btn-splus-text{border-left-color:rgba(0,0,0,.35)}
+/* 1150-1280px: compress nav gutters/spacing so the full lockup fits
+   alongside the center links; below 1150 the links collapse anyway. */
+@media(max-width:1280px){
+  .site-nav{padding:0 24px !important}
+  .site-nav .nav-link{padding:0 8px !important}
+  .site-nav .btn-sn,.site-nav a.btn-sn{padding:0 18px !important}
+  a.btn-splus{padding:0 12px 0 11px !important}
+}
 @media(max-width:700px){a.btn-splus{display:none}}
 
 /* ------------------------------------------------------------
@@ -1368,7 +1380,7 @@ a.btn-splus:hover .btn-splus-text,a.btn-splus:focus-visible .btn-splus-text{bord
 a.splus-lockup{display:inline-flex;align-items:center;gap:14px;margin-top:28px;padding:14px 22px 14px 18px;border:1px solid var(--metallic) !important;border-radius:2px;text-decoration:none;color:var(--white) !important;background:transparent !important;transition:background .2s,color .2s;max-width:max-content}
 a.splus-lockup svg{width:26px;height:26px;color:var(--metallic);flex:none;transition:color .2s}
 a.splus-lockup .splus-lockup-text{display:flex;flex-direction:column;align-items:flex-start;border-left:1px solid rgba(255,255,255,.22);padding-left:14px}
-a.splus-lockup .splus-lockup-word{font-family:var(--sans) !important;font-size:1.25rem;line-height:1.15;font-weight:600;letter-spacing:.04em !important;text-transform:none !important}
+a.splus-lockup .splus-lockup-word{font-family:var(--serif) !important;font-size:1.375rem;line-height:1.15;font-weight:600;letter-spacing:.01em !important;text-transform:none !important}
 a.splus-lockup .splus-lockup-word em{font-family:var(--serif) !important;font-style:italic;color:var(--metallic);letter-spacing:.01em !important;text-transform:none !important;transition:color .2s}
 a.splus-lockup .splus-lockup-tag{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.82);margin-top:3px;transition:color .2s}
 a.splus-lockup:hover,a.splus-lockup:focus-visible{background:var(--metallic) !important;color:var(--black) !important}
