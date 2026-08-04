@@ -1357,9 +1357,14 @@ a.btn-splus:hover,a.btn-splus:focus-visible{background:var(--metallic) !importan
 a.btn-splus:hover svg,a.btn-splus:hover .btn-splus-word em,a.btn-splus:hover .btn-splus-tag,
 a.btn-splus:focus-visible svg,a.btn-splus:focus-visible .btn-splus-word em,a.btn-splus:focus-visible .btn-splus-tag{color:var(--black)}
 a.btn-splus:hover .btn-splus-text,a.btn-splus:focus-visible .btn-splus-text{border-left-color:rgba(0,0,0,.35)}
-/* Between 900-1240px the three nav groups get tight — drop the tagline
-   so the lockup compacts to one line and nothing collides. */
-@media(max-width:1240px){a.btn-splus .btn-splus-tag{display:none}}
+/* Below 1240px the three nav groups get tight — compress paddings so the
+   full lockup (incl. tagline) keeps fitting instead of dropping lines. */
+@media(max-width:1240px){
+  .site-nav{padding:0 24px !important}
+  .site-nav .nav-link{padding:0 10px !important}
+  a.btn-splus{padding:0 12px 0 11px !important}
+  .btn-sn,a.btn-sn{padding:12px 18px !important}
+}
 @media(max-width:700px){a.btn-splus{display:none}}
 
 /* Hamburger only appears when the nav links collapse (owner 8-3):
@@ -1369,7 +1374,7 @@ a.btn-splus:hover .btn-splus-text,a.btn-splus:focus-visible .btn-splus-text{bord
 /* Links collapse at 1100px (raised from the pages' 900px so the wider
    SentralPlus lockup never collides with the center links) — the
    hamburger takes over at the same moment. */
-@media(max-width:1100px){
+@media(max-width:1150px){
   .site-nav .hamburger{display:flex !important}
   .site-nav .nav-links{display:none !important}
 }
