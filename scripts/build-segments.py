@@ -211,7 +211,7 @@ SEG_CSS = """
 .seg-quote-title{color:rgba(255,255,255,.75) !important;font-size:.875rem}
 .seg-logo{color:#6B6560}
 .seg-logos-note{color:#6B6560}
-.sticky-group,.sp-sticky{display:none !important}
+.sticky-group{display:none !important}
 .seg-subnav{position:sticky;top:64px;z-index:150;background:var(--black);border-bottom:1px solid var(--ruleW,rgba(255,255,255,.12));display:flex;justify-content:center;gap:8px;padding:0 24px}
 .seg-subnav a{display:block;padding:16px 22px;font-size:.875rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.72);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
 .seg-subnav a:hover{color:var(--white)}
