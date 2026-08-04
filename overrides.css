@@ -1368,7 +1368,9 @@ a.btn-splus:hover .btn-splus-text,a.btn-splus:focus-visible .btn-splus-text{bord
   .site-nav .btn-sn,.site-nav a.btn-sn{padding:0 18px !important}
   a.btn-splus{padding:0 12px 0 11px !important}
 }
-@media(max-width:700px){a.btn-splus{display:none}}
+@media(max-width:1150px){.nav-ctas a.btn-splus{display:none}}
+/* Hamburger-panel instance: full-width row at the bottom of the menu */
+.ham-footer a.btn-splus{width:100%;justify-content:flex-start;display:inline-flex}
 
 /* ------------------------------------------------------------
    9d. SENTRALPLUS FULL LOCKUP  (owner 8-3)
