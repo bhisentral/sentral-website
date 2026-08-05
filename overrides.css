@@ -1416,3 +1416,30 @@ a.splus-lockup:hover .splus-lockup-text,a.splus-lockup:focus-visible .splus-lock
 .nbp-btn{display:inline-flex;align-items:center;justify-content:center;background:var(--slate);color:var(--white) !important;padding:0 34px;font-size:.9375rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:background .2s}
 .nbp-btn:hover{background:var(--slate-deep)}
 @media(max-width:900px){.nbp-inner{flex-wrap:wrap}.nbp-field{flex-basis:100%}.nbp-btn{flex-basis:100%;padding:12px 0}}
+
+/* ------------------------------------------------------------
+   9f. STAY-SEARCH SUBMITS GO GOLD  (owner 8-4)
+   Every stay-booking search CTA (Check Rates / Check Availability)
+   uses the reserved booking gold — matching BOOK A STAY. The lease
+   FIND YOUR HOME stays slate on purpose: gold = booking, slate =
+   residential wayfinding.
+   ------------------------------------------------------------ */
+.bb-btn, a.bb-btn,
+.nbp-btn, a.nbp-btn,
+.book-btn, button.book-btn,
+.mews-submit, button.mews-submit {
+  background: var(--metallic) !important;
+  color: var(--black) !important;
+  border-color: var(--metallic) !important;
+}
+.bb-btn:hover, .nbp-btn:hover, .book-btn:hover, .mews-submit:hover {
+  background: var(--black) !important;
+  color: var(--metallic) !important;
+}
+/* exception: the hero Lease tab's FIND YOUR HOME keeps slate */
+#bbLeaseGo, a#bbLeaseGo {
+  background: var(--slate) !important;
+  color: var(--white) !important;
+  border-color: var(--slate) !important;
+}
+#bbLeaseGo:hover { background: var(--slate-deep) !important; color: var(--white) !important; }
