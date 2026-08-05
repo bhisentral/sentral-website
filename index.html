@@ -523,6 +523,18 @@ body.ada-dyslexia-font, body.ada-dyslexia-font * { font-family: Georgia, serif !
 
 /* ══ STICKY SENTRALPLUS ══ */
 </style>
+<style>
+/* Hero search-mode tabs (owner 8-4). Gold stays reserved for the Book tab. */
+.bookbar[hidden]{display:none !important}
+.bb-tabs{display:flex;gap:2px;margin-bottom:0}
+.bb-tab{appearance:none;background:rgba(10,10,10,.55);border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,.6);font-family:var(--sans);font-size:.9375rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:14px 22px 12px;cursor:pointer;transition:color .2s,border-color .2s,background .2s}
+.bb-tab:hover{color:var(--white)}
+.bb-tab.active{color:var(--white);background:rgba(10,10,10,.75)}
+#bbTabStay.active{border-bottom-color:var(--metallic)}
+#bbTabLease.active{border-bottom-color:var(--slate-light,#5C8CA0)}
+.bb-lease .bb-lease-note{flex:1;align-self:center;font-size:.875rem;color:rgba(255,255,255,.7);padding:0 18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:900px){.bb-lease .bb-lease-note{display:none}}
+</style>
 <link rel="stylesheet" href="/overrides.css">
 <style>
 /* Full-bleed photo bands (owner directive 2026-07-21): grids/bands edge-to-edge, text headers keep gutters. */
@@ -646,13 +658,16 @@ section.combo-section.dark[class][class][class] .combo-right .combo-btn-g:hover{
       We call it <em>Home+</em>
     </h1>
     <p class="hero-sub">An experience that no other apartment or hotel brand can match.</p>
-    <div class="hero-ctas">
-      <a class="btn-hp" href="stay-with-us.html">Book a Stay</a><!-- PRODUCTION: links to Mews booking widget -->
-      <a class="btn-hg" href="live-with-us.html">Lease an Apartment</a>
+    <!-- Mode tabs (E&V pattern, owner 8-4): switch the search module below;
+         no navigation. BOOK A STAY = stay search; LEASE AN APARTMENT = browse
+         the Live directory, optionally jumped to a state. -->
+    <div class="bb-tabs" role="tablist" aria-label="Search mode">
+      <button class="bb-tab active" id="bbTabStay" role="tab" aria-selected="true" aria-controls="bbStay">Book a Stay</button>
+      <button class="bb-tab" id="bbTabLease" role="tab" aria-selected="false" aria-controls="bbLease">Lease an Apartment</button>
     </div>
 
     <!-- BOOKING BAR — blocking only; wires to Mews availability search in production -->
-    <div class="bookbar" role="search" aria-label="Search stays">
+    <div class="bookbar" id="bbStay" role="search" aria-label="Search stays">
       <div class="bb-field"><label for="bb-city">Where</label>
         <select id="bb-city">
           <option selected>All Properties</option>
@@ -703,6 +718,18 @@ section.combo-section.dark[class][class][class] .combo-right .combo-btn-g:hover{
       <div class="bb-field"><label for="bb-in">Check-in</label><input id="bb-in" type="date"></div>
       <div class="bb-field"><label for="bb-out">Check-out</label><input id="bb-out" type="date"></div>
       <a class="bb-btn" href="stay-with-us.html">Check Rates</a>
+    </div>
+    <div class="bookbar bb-lease" id="bbLease" role="search" aria-label="Find a home" hidden>
+      <div class="bb-field"><label for="bb-state">State</label>
+        <select id="bb-state">
+          <option value="">All states</option>
+          <option value="AZ">Arizona</option><option value="CA">California</option><option value="CO">Colorado</option>
+          <option value="FL">Florida</option><option value="GA">Georgia</option><option value="IL">Illinois</option>
+          <option value="NC">North Carolina</option><option value="NV">Nevada</option><option value="PA">Pennsylvania</option>
+          <option value="TN">Tennessee</option><option value="TX">Texas</option><option value="WA">Washington</option>
+        </select></div>
+      <div class="bb-lease-note">36 communities across 12 states &mdash; map, list, and leasing sites</div>
+      <a class="bb-btn" id="bbLeaseGo" href="live-with-us.html#map-section">Find Your Home</a>
     </div>
     <p class="bb-note"><strong>Best rate, always, when you book direct</strong> — with instant SentralPlus rewards at participating properties.</p>
   </div>
@@ -1243,5 +1270,25 @@ section.combo-section.dark[class][class][class] .combo-right .combo-btn-g:hover{
 // ── SP STICKY ──
 </script>
 
+<script>
+// Hero search-mode tabs
+(function(){
+  var tS=document.getElementById('bbTabStay'), tL=document.getElementById('bbTabLease');
+  var pS=document.getElementById('bbStay'), pL=document.getElementById('bbLease');
+  if(!tS||!tL||!pS||!pL) return;
+  var note=document.querySelector('.bb-note');
+  function mode(lease){
+    pS.hidden=lease; pL.hidden=!lease;
+    if(note) note.style.display=lease?'none':'';
+    tS.classList.toggle('active',!lease); tL.classList.toggle('active',lease);
+    tS.setAttribute('aria-selected',String(!lease)); tL.setAttribute('aria-selected',String(lease));
+  }
+  tS.addEventListener('click',function(){mode(false)});
+  tL.addEventListener('click',function(){mode(true)});
+  var sel=document.getElementById('bb-state'), go=document.getElementById('bbLeaseGo');
+  function sync(){ go.href='live-with-us.html'+(sel.value?('#state-'+sel.value):'#map-section'); }
+  sel.addEventListener('change',sync); sync();
+})();
+</script>
 </body>
 </html>
