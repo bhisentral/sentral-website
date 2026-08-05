@@ -139,6 +139,58 @@ body .page-sub{color:rgba(255,255,255,.85) !important;font-size:1rem !important}
 
 <a class="skip-to-content" href="#main">Skip to content</a>
 <nav class="site-nav" aria-label="Main navigation">
+<div class="nav-book-panel" id="navBookPanel" hidden>
+  <div class="nbp-inner">
+    <div class="nbp-field"><label for="nbp-where">Where</label>
+      <select id="nbp-where"><option selected>All Properties</option>
+          <optgroup label="Arizona">
+            <option>Phoenix — Sol Modern</option>
+            <option>Scottsdale — Sentral Old Town</option>
+          </optgroup>
+          <optgroup label="California">
+            <option>Los Angeles — Sentral DTLA 755 (30+ only)</option>
+            <option>Los Angeles — Sentral DTLA 732 (30+ only)</option>
+            <option>Los Angeles — Figueroa Eight (30+ only)</option>
+          </optgroup>
+          <optgroup label="Colorado">
+            <option>Denver — Sentral Union Station</option>
+          </optgroup>
+          <optgroup label="Florida">
+            <option>Miami — Alea</option>
+            <option>Miami — Sentral Wynwood</option>
+          </optgroup>
+          <optgroup label="Georgia">
+            <option>Atlanta — Star Metals West Midtown</option>
+          </optgroup>
+          <optgroup label="Illinois">
+            <option>Chicago — Sentral Michigan Avenue</option>
+          </optgroup>
+          <optgroup label="Nevada">
+            <option>Las Vegas — Otonomus</option>
+          </optgroup>
+          <optgroup label="North Carolina">
+            <option>Charlotte — Inkwell</option>
+            <option>Charlotte — Joinery North</option>
+            <option>Charlotte — Joinery West</option>
+          </optgroup>
+          <optgroup label="Pennsylvania">
+            <option>Philadelphia — The Battery (30+ only)</option>
+          </optgroup>
+          <optgroup label="Tennessee">
+            <option>Nashville — Sentral SoBro</option>
+          </optgroup>
+          <optgroup label="Texas">
+              <option>Austin — Sentral East Austin 1630</option>
+            <option>Houston — Forme</option>
+          </optgroup>
+          <optgroup label="Washington">
+            <option>Seattle — Sentral First Hill (30+ only)</option>
+          </optgroup></select></div>
+    <div class="nbp-field"><label for="nbp-in">Check-in</label><input id="nbp-in" type="date"></div>
+    <div class="nbp-field"><label for="nbp-out">Check-out</label><input id="nbp-out" type="date"></div>
+    <a class="nbp-btn" href="stay-with-us.html#book-stay">Check Rates</a>
+  </div>
+</div>
     <a class="nav-logo" href="index.html"><img src="/assets/sentral-wordmark-white.png" alt="Sentral" /></a>
     <div class="nav-links">
       <a class="nav-link" href="stay-with-us.html">Stay with us</a>
@@ -304,6 +356,16 @@ function submitContact(e){
   window.location.href='mailto:'+to+'?subject='+subject+'&body='+body;
   return false;
 }
+</script>
+<script>
+// Nav BOOK A STAY opens the booking strip instead of navigating (owner 8-4)
+(function(){
+  var btn=document.querySelector('.nav-ctas .btn-sn'), panel=document.getElementById('navBookPanel');
+  if(!btn||!panel) return;
+  btn.addEventListener('click',function(e){ e.preventDefault(); panel.hidden=!panel.hidden; });
+  document.addEventListener('click',function(e){ if(!panel.hidden && !panel.contains(e.target) && !btn.contains(e.target)) panel.hidden=true; });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') panel.hidden=true; });
+})();
 </script>
 </body>
 </html>
