@@ -728,7 +728,8 @@ section.combo-section.dark[class][class][class] .combo-right .combo-btn-g:hover{
           <option value="NC">North Carolina</option><option value="NV">Nevada</option><option value="PA">Pennsylvania</option>
           <option value="TN">Tennessee</option><option value="TX">Texas</option><option value="WA">Washington</option>
         </select></div>
-      <div class="bb-lease-note">36 communities across 12 states &mdash; map, list, and leasing sites</div>
+      <div class="bb-field"><label for="bb-city-lease">City</label>
+        <select id="bb-city-lease"><option value="">All cities</option></select></div>
       <a class="bb-btn" id="bbLeaseGo" href="live-with-us.html#map-section">Find Your Home</a>
     </div>
     <p class="bb-note"><strong>Best rate, always, when you book direct</strong> — with instant SentralPlus rewards at participating properties.</p>
@@ -1285,9 +1286,21 @@ section.combo-section.dark[class][class][class] .combo-right .combo-btn-g:hover{
   }
   tS.addEventListener('click',function(){mode(false)});
   tL.addEventListener('click',function(){mode(true)});
-  var sel=document.getElementById('bb-state'), go=document.getElementById('bbLeaseGo');
-  function sync(){ go.href='live-with-us.html'+(sel.value?('#state-'+sel.value):'#map-section'); }
-  sel.addEventListener('change',sync); sync();
+  var CITIES={AZ:['Phoenix','Scottsdale'],CA:['Alameda','Beverly Hills','Los Angeles','San Francisco','San Jose','Santa Monica'],CO:['Denver'],FL:['Miami'],GA:['Atlanta'],IL:['Chicago'],NC:['Charlotte'],NV:['Las Vegas'],PA:['Philadelphia','Pittsburgh'],TN:['Nashville'],TX:['Austin','Houston'],WA:['Seattle']};
+  var sel=document.getElementById('bb-state'), city=document.getElementById('bb-city-lease'), go=document.getElementById('bbLeaseGo');
+  function slug(c){ return c.toLowerCase().replace(/[^a-z]+/g,'-'); }
+  function fillCities(){
+    var st=sel.value, list=st?CITIES[st]:Object.keys(CITIES).reduce(function(a,k){return a.concat(CITIES[k])},[]).sort();
+    city.innerHTML='<option value="">All cities</option>'+list.map(function(c){return '<option>'+c+'</option>'}).join('');
+  }
+  function sync(){
+    if(city.value){ go.href='live-with-us.html#city-'+slug(city.value); }
+    else if(sel.value){ go.href='live-with-us.html#state-'+sel.value; }
+    else { go.href='live-with-us.html#map-section'; }
+  }
+  sel.addEventListener('change',function(){fillCities();city.value='';sync();});
+  city.addEventListener('change',sync);
+  fillCities(); sync();
 })();
 </script>
 </body>

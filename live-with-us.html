@@ -157,6 +157,7 @@ html{scroll-behavior:smooth}
 .state-header{display:flex;align-items:baseline;gap:14px;padding:18px 0 10px;border-top:1px solid rgba(0,0,0,.07);position:sticky;top:125px;z-index:50;background:var(--cream)}
 .state-block:first-child .state-header{border-top:none}
 .state-block{scroll-margin-top:130px}
+.prop-card{scroll-margin-top:145px}
 .state-header-name{font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--black)}
 .state-header-count{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:var(--lt)}
 .state-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:2px}
@@ -1492,6 +1493,23 @@ hamburgerBtn.addEventListener('click',()=>{
   btn.addEventListener('click',()=>{if(v.paused){userPaused=false;go()}else{userPaused=true;v.pause();ui(false)}});
   v.addEventListener('playing',()=>ui(true));v.addEventListener('pause',()=>ui(false));
 });
+</script>
+<script>
+// Homepage lease-search deep links: #city-<slug> scrolls to the first
+// community card in that city (state anchors are native ids).
+(function(){
+  function jump(){
+    var m=(location.hash||'').match(/^#city-([a-z-]+)$/); if(!m) return;
+    var want=m[1];
+    var cards=document.querySelectorAll('.prop-card[data-city]');
+    for(var i=0;i<cards.length;i++){
+      var c=cards[i].getAttribute('data-city').toLowerCase().replace(/[^a-z]+/g,'-');
+      if(c===want){ cards[i].scrollIntoView({block:'start'}); return; }
+    }
+  }
+  window.addEventListener('hashchange',jump);
+  window.addEventListener('load',function(){ setTimeout(jump,150); });
+})();
 </script>
 </body>
 </html>
