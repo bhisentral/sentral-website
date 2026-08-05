@@ -1413,6 +1413,11 @@ a.splus-lockup:hover .splus-lockup-text,a.splus-lockup:focus-visible .splus-lock
 .nbp-field{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);padding:10px 16px 12px;display:flex;flex-direction:column;gap:4px}
 .nbp-field label{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6)}
 .nbp-field select,.nbp-field input{appearance:none;background:transparent;border:none;color:var(--white);font-family:var(--sans);font-size:.9375rem;outline:none;color-scheme:dark}
+/* Windows Chrome paints the dropdown popup with page styles — without an
+   explicit option bg the inherited white text lands on the UA's white
+   popup (owner 8-5 report). Mirrors .book-select option on stay. */
+.nbp-field select option{background:var(--ink);color:var(--white)}
+.nbp-field select optgroup{background:var(--ink);color:rgba(255,255,255,.55)}
 .nbp-btn{display:inline-flex;align-items:center;justify-content:center;background:var(--slate);color:var(--white) !important;padding:0 34px;font-size:.9375rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:background .2s}
 .nbp-btn:hover{background:var(--slate-deep)}
 @media(max-width:900px){.nbp-inner{flex-wrap:wrap}.nbp-field{flex-basis:100%}.nbp-btn{flex-basis:100%;padding:12px 0}}
