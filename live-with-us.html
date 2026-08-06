@@ -108,7 +108,11 @@ html{scroll-behavior:smooth}
 .s-pin{width:13px;height:13px;background:#2D4A5C;border:2.5px solid #fff;border-radius:50%;box-shadow:0 1px 6px rgba(0,0,0,.35);cursor:pointer;transition:transform .15s,background .15s}
 .s-pin:hover{transform:scale(1.35);background:#3D6478}
 .leaflet-container{font-family:var(--sans)!important;background:#F1EDE6!important}
-.leaflet-tile-pane{filter:sepia(.22) saturate(.92) brightness(1.01)}
+.leaflet-tile-pane{filter:sepia(.22) saturate(.92) contrast(1.12)}
+.s-lab-philadelphia{transform:translate(12px,8px) !important}
+.s-lab-houston{transform:translate(12px,6px) !important}
+.s-lab-charlotte{transform:translate(12px,2px) !important}
+.s-city-lab{font-family:var(--sans);font-size:.75rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#3A3633;white-space:nowrap;pointer-events:none;text-shadow:0 0 3px #F5F1E8,0 0 6px #F5F1E8,0 0 10px #F5F1E8;transform:translate(11px,-6px)}
 .leaflet-control-attribution{background:rgba(255,255,255,.75)!important;color:rgba(40,40,40,.55)!important;font-size:10px!important;padding:2px 8px!important}
 .leaflet-control-attribution a{color:rgba(40,40,40,.55)!important}
 .leaflet-popup-content-wrapper{background:var(--black)!important;border:1px solid rgba(40,40,40,.25)!important;border-radius:3px!important;box-shadow:0 12px 36px rgba(0,0,0,.35)!important;padding:0!important}
@@ -1384,11 +1388,19 @@ const STATE_CENTERS = {
 
 // ── MAP ──
 const map = L.map('map',{center:[38.8,-96.5],zoom:4.5,zoomSnap:0.25,zoomControl:false,scrollWheelZoom:false});
-// CARTO Positron — muted, near-monochrome basemap (free tier, attribution required)
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+// CARTO Positron split into two layers so labels stay crisp under the cream wash:
+// geography (no labels) gets the sepia tint; labels ride an unfiltered pane, darkened.
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',{
   maxZoom:19, subdomains:'abcd',
   attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
 }).addTo(map);
+// No tile labels: only Sentral markets get named (owner) — see METRO_LABELS below.
+// Crisp state boundaries drawn as a vector overlay in brand slate (tile lines are too faint).
+fetch('https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json')
+  .then(function(r){return r.json()})
+  .then(function(gj){
+    L.geoJSON(gj,{style:{color:'#2D4A5C',weight:1,opacity:0.38,fill:false},interactive:false}).addTo(map);
+  }).catch(function(){/* boundaries are an enhancement — fine without */});
 L.control.zoom({position:'bottomright'}).addTo(map);
 
 const pinIcon = L.divIcon({html:'<div class="s-pin"></div>',className:'',iconSize:[14,14],iconAnchor:[7,7],popupAnchor:[0,-12]});
@@ -1434,6 +1446,26 @@ const markers = PROPS.map((p,i) => {
   window.addEventListener('load',frame);
   frame();
 })();
+
+// Sentral market labels — one per metro cluster (nearby cities share the
+// anchor label so nothing collides at the framed zoom). Positions are the
+// centroid of that metro's property pins.
+const METRO_LABELS = {
+  'Seattle':['Seattle'], 'San Francisco':['San Francisco','Alameda','San Jose'],
+  'Los Angeles':['Los Angeles','Beverly Hills','Santa Monica'], 'Las Vegas':['Las Vegas'],
+  'Phoenix':['Phoenix','Scottsdale'], 'Denver':['Denver'], 'Austin':['Austin'],
+  'Houston':['Houston'], 'Chicago':['Chicago'], 'Nashville':['Nashville'],
+  'Atlanta':['Atlanta'], 'Charlotte':['Charlotte'], 'Pittsburgh':['Pittsburgh'],
+  'Philadelphia':['Philadelphia'], 'Miami':['Miami'],
+};
+Object.keys(METRO_LABELS).forEach(function(label){
+  var members = PROPS.filter(function(p){ return METRO_LABELS[label].indexOf(p.city) >= 0; });
+  if(!members.length) return;
+  var lat = members.reduce(function(a,p){return a+p.lat},0)/members.length;
+  var lng = members.reduce(function(a,p){return a+p.lng},0)/members.length;
+  var slug=label.toLowerCase().replace(/[^a-z]+/g,'-');
+  L.marker([lat,lng],{icon:L.divIcon({html:'<div class="s-city-lab s-lab-'+slug+'">'+label+'</div>',className:'',iconSize:null}),interactive:false,keyboard:false}).addTo(map);
+});
 
 // ── STATE FILTER ──
 let activeState='all', activeSearch='';
