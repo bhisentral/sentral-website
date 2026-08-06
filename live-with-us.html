@@ -103,18 +103,23 @@ html{scroll-behavior:smooth}
 .leaflet-tile-pane{filter:grayscale(.3) brightness(.92)}
 .leaflet-control-attribution{display:none}
 .leaflet-control-zoom{border:none!important;box-shadow:0 2px 12px rgba(0,0,0,.12)!important}
-.leaflet-control-zoom a{background:rgba(31,31,31,.92)!important;color:rgba(255,255,255,.85)!important;border:1px solid rgba(255,255,255,.18)!important;width:32px!important;height:32px!important;line-height:32px!important;font-size:17px!important;font-weight:300!important}
-.leaflet-control-zoom a:hover{background:#282828!important;color:#8FB6C9!important}
-.s-pin{width:12px;height:12px;background:#5C8CA0;border:2px solid rgba(255,255,255,.9);border-radius:50%;box-shadow:0 0 0 4px rgba(92,140,160,.18),0 2px 10px rgba(0,0,0,.5);cursor:pointer;transition:transform .15s,background .15s}
-.s-pin:hover{transform:scale(1.35);background:#8FB6C9}
-.leaflet-container{font-family:var(--sans)!important;background:#3A3A38!important}
-.leaflet-tile-pane{filter:brightness(1.85) saturate(.5) sepia(.14)}
-.s-lab-philadelphia{transform:translate(12px,8px) !important}
-.s-lab-houston{transform:translate(12px,6px) !important}
-.s-lab-charlotte{transform:translate(12px,2px) !important}
-.s-city-lab{font-family:var(--sans);font-size:.75rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:rgba(242,232,213,.92);white-space:nowrap;pointer-events:none;text-shadow:0 0 4px rgba(20,18,16,.9),0 0 8px rgba(20,18,16,.7);transform:translate(11px,-6px)}
-.leaflet-control-attribution{background:rgba(20,18,16,.6)!important;color:rgba(255,255,255,.45)!important;font-size:10px!important;padding:2px 8px!important}
-.leaflet-control-attribution a{color:rgba(255,255,255,.45)!important}
+.leaflet-control-zoom a{background:#fff!important;color:#282828!important;border:1px solid rgba(40,40,40,.16)!important;width:32px!important;height:32px!important;line-height:32px!important;font-size:17px!important;font-weight:300!important}
+.leaflet-control-zoom a:hover{background:#F5F5F3!important;color:#2D4A5C!important}
+/* legacy dot pin retired — lollipop marker via .s-lolli */
+
+.leaflet-container{font-family:var(--sans)!important;background:#FBFAF8!important}
+.s-lolli{cursor:pointer;transition:transform .15s;transform-origin:50% 100%}
+.s-lolli:hover{transform:scale(1.18)}
+.s-lab-los-angeles{transform:translate(calc(-100% - 14px),-30px) !important}
+.s-lab-pittsburgh{transform:translate(calc(-100% - 14px),-30px) !important}
+.s-lab-phoenix{transform:translate(18px,-2px) !important}
+.s-lab-philadelphia{transform:translate(18px,-2px) !important}
+.s-lab-atlanta{transform:translate(18px,-2px) !important}
+.s-lab-houston{transform:translate(18px,-4px) !important}
+.s-lab-austin{transform:translate(18px,-38px) !important}
+.s-city-lab{font-family:var(--sans);font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:#4B4A47;padding:6px 12px;border-radius:2px;white-space:nowrap;pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,.18);transform:translate(16px,-30px)}
+.leaflet-control-attribution{background:transparent!important;color:rgba(40,40,40,.4)!important;font-size:10px!important;padding:2px 8px!important}
+.leaflet-control-attribution a{color:rgba(40,40,40,.4)!important}
 .leaflet-popup-content-wrapper{background:var(--black)!important;border:1px solid rgba(40,40,40,.25)!important;border-radius:3px!important;box-shadow:0 12px 36px rgba(0,0,0,.35)!important;padding:0!important}
 .leaflet-popup-tip{background:var(--black)!important}
 .leaflet-popup-close-button{color:rgba(255,255,255,.4)!important;top:8px!important;right:10px!important;font-size:18px!important}
@@ -1387,23 +1392,18 @@ const STATE_CENTERS = {
 };
 
 // ── MAP ──
-const map = L.map('map',{center:[38.8,-96.5],zoom:4.5,zoomSnap:0.25,zoomControl:false,scrollWheelZoom:false});
-// CARTO Positron split into two layers so labels stay crisp under the cream wash:
-// geography (no labels) gets the sepia tint; labels ride an unfiltered pane, darkened.
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{
-  maxZoom:19, subdomains:'abcd',
-  attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-}).addTo(map);
-// No tile labels: only Sentral markets get named (owner) — see METRO_LABELS below.
-// Crisp state boundaries drawn as a vector overlay in brand slate (tile lines are too faint).
+const map = L.map('map',{center:[38.8,-96.5],zoom:4.5,zoomSnap:0.25,zoomControl:false,scrollWheelZoom:false,attributionControl:false});
+L.control.attribution({prefix:false}).addAttribution('State shapes: US Census Bureau').addTo(map);
+// Corporate-style flat map (owner reference): no photo tiles — the US states
+// GeoJSON IS the map. Gray landmass, white state lines, near-white ground.
 fetch('https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json')
   .then(function(r){return r.json()})
   .then(function(gj){
-    L.geoJSON(gj,{style:{color:'#FFFFFF',weight:0.8,opacity:0.15,fill:false},interactive:false}).addTo(map);
-  }).catch(function(){/* boundaries are an enhancement — fine without */});
+    L.geoJSON(gj,{style:{fillColor:'#E4E2DD',fillOpacity:1,color:'#FFFFFF',weight:1.4,opacity:1},interactive:false}).addTo(map);
+  }).catch(function(){/* without shapes the pins still render on the plain ground */});
 L.control.zoom({position:'bottomright'}).addTo(map);
 
-const pinIcon = L.divIcon({html:'<div class="s-pin"></div>',className:'',iconSize:[14,14],iconAnchor:[7,7],popupAnchor:[0,-12]});
+const pinIcon = L.divIcon({html:'<div class="s-lolli"><svg viewBox="0 0 24 34" width="24" height="34"><line x1="12" y1="21" x2="12" y2="33" stroke="#2D4A5C" stroke-width="2.5"/><circle cx="12" cy="11" r="10" fill="#2D4A5C"/><path d="M12 6.5v9M7.5 11h9" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/></svg></div>',className:'',iconSize:[24,34],iconAnchor:[12,33],popupAnchor:[0,-30]});
 
 const markers = PROPS.map((p,i) => {
   const imgHtml = null
@@ -1464,7 +1464,8 @@ Object.keys(METRO_LABELS).forEach(function(label){
   var lat = members.reduce(function(a,p){return a+p.lat},0)/members.length;
   var lng = members.reduce(function(a,p){return a+p.lng},0)/members.length;
   var slug=label.toLowerCase().replace(/[^a-z]+/g,'-');
-  L.marker([lat,lng],{icon:L.divIcon({html:'<div class="s-city-lab s-lab-'+slug+'">'+label+'</div>',className:'',iconSize:null}),interactive:false,keyboard:false}).addTo(map);
+  var text=label + (members.length>1 ? ' ('+members.length+')' : '');
+  L.marker([lat,lng],{icon:L.divIcon({html:'<div class="s-city-lab s-lab-'+slug+'">'+text+'</div>',className:'',iconSize:null}),interactive:false,keyboard:false,zIndexOffset:-1000}).addTo(map);
 });
 
 // ── STATE FILTER ──
