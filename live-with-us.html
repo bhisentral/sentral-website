@@ -98,7 +98,7 @@ html{scroll-behavior:smooth}
 
 /* ── MAP ── */
 .map-section{background:var(--black);border-top:1px solid var(--rule)}
-.map-wrap{height:480px;position:relative}
+.map-wrap{height:560px;position:relative}
 #map{height:100%;width:100%}
 .leaflet-tile-pane{filter:grayscale(.3) brightness(.92)}
 .leaflet-control-attribution{display:none}
@@ -107,7 +107,8 @@ html{scroll-behavior:smooth}
 .leaflet-control-zoom a:hover{background:#F5F5F3!important;color:#2D4A5C!important}
 .s-pin{width:13px;height:13px;background:#2D4A5C;border:2.5px solid #fff;border-radius:50%;box-shadow:0 1px 6px rgba(0,0,0,.35);cursor:pointer;transition:transform .15s,background .15s}
 .s-pin:hover{transform:scale(1.35);background:#3D6478}
-.leaflet-container{font-family:var(--sans)!important;background:#EDECEA!important}
+.leaflet-container{font-family:var(--sans)!important;background:#F1EDE6!important}
+.leaflet-tile-pane{filter:sepia(.22) saturate(.92) brightness(1.01)}
 .leaflet-control-attribution{background:rgba(255,255,255,.75)!important;color:rgba(40,40,40,.55)!important;font-size:10px!important;padding:2px 8px!important}
 .leaflet-control-attribution a{color:rgba(40,40,40,.55)!important}
 .leaflet-popup-content-wrapper{background:var(--black)!important;border:1px solid rgba(40,40,40,.25)!important;border-radius:3px!important;box-shadow:0 12px 36px rgba(0,0,0,.35)!important;padding:0!important}
@@ -206,7 +207,7 @@ html{scroll-behavior:smooth}
   .hero{padding:24px 20px 28px}.hero-inner{grid-template-columns:1fr}.search-wrap{width:100%}
   .filters-bar,.results-bar,.grid-section{padding-left:20px;padding-right:20px}
   .state-grid{grid-template-columns:repeat(2,1fr)}
-  .map-wrap{height:340px}
+  .map-wrap{height:400px}
 }
 @media(max-width:540px){.state-grid{grid-template-columns:1fr}}
 
@@ -1382,7 +1383,7 @@ const STATE_CENTERS = {
 };
 
 // ── MAP ──
-const map = L.map('map',{center:[38.8,-96.5],zoom:4.5,zoomSnap:0.5,zoomControl:false,scrollWheelZoom:false});
+const map = L.map('map',{center:[38.8,-96.5],zoom:4.5,zoomSnap:0.25,zoomControl:false,scrollWheelZoom:false});
 // CARTO Positron — muted, near-monochrome basemap (free tier, attribution required)
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
   maxZoom:19, subdomains:'abcd',
@@ -1427,7 +1428,7 @@ const markers = PROPS.map((p,i) => {
     if(framed || el.clientWidth<50) return;
     framed=true;
     map.invalidateSize();
-    map.fitBounds(L.latLngBounds(PROPS.map(function(p){return [p.lat,p.lng]})).pad(0.10),{maxZoom:5});
+    map.fitBounds(L.latLngBounds(PROPS.map(function(p){return [p.lat,p.lng]})).pad(0.03),{maxZoom:5});
   }
   new ResizeObserver(frame).observe(el);
   window.addEventListener('load',frame);
