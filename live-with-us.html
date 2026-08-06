@@ -98,7 +98,7 @@ html{scroll-behavior:smooth}
 
 /* ── MAP ── */
 .map-section{background:var(--black);border-top:1px solid var(--rule)}
-.map-wrap{height:560px;position:relative}
+.map-wrap{height:560px;position:relative;z-index:1;isolation:isolate}
 #map{height:100%;width:100%}
 .leaflet-tile-pane{filter:grayscale(.3) brightness(.92)}
 .leaflet-control-attribution{display:none}
