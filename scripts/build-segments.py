@@ -197,7 +197,11 @@ SEG_CSS = """
 .rfp-check-grid label{display:flex;align-items:center;gap:7px;font-size:.8125rem;color:rgba(255,255,255,.85);cursor:pointer}
 .rfp-check-grid input{accent-color:#5C8CA0;width:14px;height:14px}
 .rfp-mini-textarea{min-height:48px;resize:vertical;padding-top:8px;line-height:1.4}
-.seg-hero .hero-rfp-card{padding:20px 22px 16px}
+.rfp-mini-reach{color:#8DB1C4 !important;text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
+.rfp-mobile{padding:40px 24px 48px;background:#141311}
+.rfp-mobile .hero-rfp{display:block;opacity:1;animation:none;max-width:520px;margin:0 auto}
+.rfp-mobile .hero-rfp-card{width:100%}
+.seg-hero .hero-rfp-card{padding:18px 22px 14px}
 .seg-hero .hero-rfp-card .hero-rfp-title{margin-bottom:12px}
 .seg-hero .rfp-mini-form{gap:8px}
 .seg-hero .rfp-mini-field{gap:4px}
@@ -295,6 +299,17 @@ window.dataLayer = window.dataLayer || [];
     var h=document.documentElement, d=(h.scrollTop+window.innerHeight)/h.scrollHeight*100;
     [25,50,75,100].forEach(function(m){ if(d>=m && !fired[m]){ fired[m]=1; track('scroll_depth',{depth:m}); }});
   }, {passive:true});
+  // ≤900px: relocate the hero RFP card into #rfp-mobile below the hero (hero hides it)
+  (function(){
+    var card=document.getElementById('rfp-form'), host=document.getElementById('rfp-mobile');
+    if(!card||!host) return;
+    var home=card.parentNode, next=card.nextSibling, mq=window.matchMedia('(max-width:900px)');
+    function place(){
+      if(mq.matches){ if(card.parentNode!==host){ host.appendChild(card); host.hidden=false; } }
+      else if(card.parentNode!==home){ home.insertBefore(card,next); host.hidden=true; }
+    }
+    place(); mq.addEventListener ? mq.addEventListener('change',place) : mq.addListener(place);
+  })();
   // form
   var form=document.getElementById('rfp-form-el'); if(!form) return;
   var started=false;
@@ -492,13 +507,15 @@ def render(seg):
             <textarea class="rfp-mini-input rfp-mini-textarea" id="rfp-message" name="message" rows="2"></textarea>
           </div>
           <button class="rfp-mini-btn" type="submit">{rfp['submitLabel']} &nbsp;&rarr;</button>
-          <div class="rfp-mini-note">Our team responds within 1 business day</div>
+          <div class="rfp-mini-note">We respond within 1 business day &middot; or email <a class="rfp-mini-reach" href="mailto:sales@sentral.com">sales@sentral.com</a></div>
         </form>
         <div class="rfp-thanks" id="rfp-thanks">Thanks &mdash; your inquiry is on its way to our team. We&rsquo;ll be in touch within one business day.</div>
       </div>
     </div>
   </div>
 </section>
+<!-- ≤900px: the hero RFP card is moved here by script (single form, single id) -->
+<section class="rfp-mobile dark" id="rfp-mobile" aria-label="Submit an RFP" hidden></section>
 
 
 {split_section(seg['whyUs'], 'seg-why')}

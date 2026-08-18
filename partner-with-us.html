@@ -854,13 +854,13 @@ FOOTER ══ */
     <p class="sfp-sub">Tell us about your property. We respond within one business day.</p>
     <form class="sfp-fields" id="sfpForm" onsubmit="submitSFP(event)">
       <div class="sfp-row">
-        <div class="sfp-field"><label class="sfp-label">First name</label><input class="sfp-input" type="text" placeholder="First name" required></div>
-        <div class="sfp-field"><label class="sfp-label">Last name</label><input class="sfp-input" type="text" placeholder="Last name" required></div>
+        <div class="sfp-field"><label class="sfp-label">First name</label><input class="sfp-input" name="firstName" type="text" placeholder="First name" autocomplete="given-name" required></div>
+        <div class="sfp-field"><label class="sfp-label">Last name</label><input class="sfp-input" name="lastName" type="text" placeholder="Last name" autocomplete="family-name" required></div>
       </div>
-      <div class="sfp-field"><label class="sfp-label">Email</label><input class="sfp-input" type="email" placeholder="your@company.com" required></div>
+      <div class="sfp-field"><label class="sfp-label">Email</label><input class="sfp-input" name="email" type="email" placeholder="your@company.com" autocomplete="email" required></div>
       <div class="sfp-field">
         <label class="sfp-label">Asset type</label>
-        <select class="sfp-select sfp-input">
+        <select class="sfp-select sfp-input" name="assetType">
           <option value="">Select type</option>
           <option>Stabilized multifamily</option>
           <option>Lease-up / pre-stabilization</option>
@@ -868,7 +868,7 @@ FOOTER ══ */
           <option>Portfolio &mdash; multiple assets</option>
         </select>
       </div>
-      <div class="sfp-field"><label class="sfp-label">Location &amp; unit count</label><input class="sfp-input" type="text" placeholder="e.g. Chicago, IL &mdash; 280 units"></div>
+      <div class="sfp-field"><label class="sfp-label">Location &amp; unit count</label><input class="sfp-input" name="location" type="text" placeholder="e.g. Chicago, IL &mdash; 280 units"></div>
       <button class="sfp-submit" type="submit">Send inquiry &nbsp;&rarr;</button>
     </form>
     <div class="sfp-success" id="sfpSuccess">
@@ -1421,6 +1421,17 @@ function toggleStickyForm() {
 }
 function submitSFP(e) {
   e.preventDefault();
+  /* Partner inquiries email Contact@sentral.com (owner decision 8-17) — composed
+     via mailto, same pattern as the Contact + sales RFP forms. */
+  var f = document.getElementById('sfpForm');
+  var name = (f.firstName.value + ' ' + f.lastName.value).trim();
+  var lines = ['Name: ' + name,
+               'Email: ' + f.email.value,
+               'Asset type: ' + (f.assetType.value || '—'),
+               'Location & unit count: ' + (f.location.value || '—'),
+               'Lead source: web-partner-with-us'];
+  window.location.href = 'mailto:Contact@sentral.com?subject=' + encodeURIComponent('Partner Inquiry — ' + name)
+    + '&body=' + encodeURIComponent(lines.join('\n'));
   document.getElementById('sfpForm').style.display = 'none';
   document.getElementById('sfpSuccess').style.display = 'block';
   document.getElementById('stickyPartner').innerHTML = '&#x2713;&nbsp; Sent';
