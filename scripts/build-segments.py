@@ -33,11 +33,6 @@ SEGMENTS = [
     media=dict(src='/assets/sol-modern-stay-header.mp4', poster='/assets/stay-hero-poster.jpg', tagName='Sol Modern', tagCity='Phoenix, AZ'),
   ),
   rfp=dict(
-    thirdFieldType='travelers',
-    thirdFieldLabel='Number of travelers',
-    thirdFieldOptions=None,  # open integer, no minimum
-    occasionOptions=['Recurring travel program','Project-based travel','Single traveler','Event or conference','Relocation','Extended assignment','Executive placement'],
-    lengthOfStayOptions=['1 – 29 nights','30 – 60 nights','61 – 90 nights','91 – 180 nights','180+ nights'],
     submitLabel='Start My Inquiry',
     leadSource='web-business-travel',
   ),
@@ -123,10 +118,6 @@ SEGMENTS = [
     media=dict(src='/assets/forme-houston-group-header.mp4', poster='/assets/group-hero-poster.jpg', tagName='Forme', tagCity='Houston, TX'),
   ),
   rfp=dict(
-    thirdFieldType='rooms',
-    thirdFieldLabel='Rooms needed',
-    thirdFieldOptions=['6 – 10','11 – 25','26 – 50','51+'],
-    occasionOptions=['Wedding','Team off-site','Sports team','Reunion','Other'],
     submitLabel='Submit RFP',
     leadSource='web-group-travel',
   ),
@@ -198,6 +189,17 @@ GDIR_VARIANTS = {
 }
 
 SEG_CSS = """
+.rfp-mini-two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rfp-mini-hint{font-weight:400;text-transform:none;letter-spacing:.02em;opacity:.75}
+.rfp-check-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;margin-top:4px}
+.rfp-check-grid label{display:flex;align-items:center;gap:7px;font-size:.8125rem;color:rgba(255,255,255,.85);cursor:pointer}
+.rfp-check-grid input{accent-color:#5C8CA0;width:14px;height:14px}
+.rfp-mini-textarea{min-height:48px;resize:vertical;padding-top:8px;line-height:1.4}
+.seg-hero .hero-rfp-card{padding:20px 22px 16px}
+.seg-hero .hero-rfp-card .hero-rfp-title{margin-bottom:12px}
+.seg-hero .rfp-mini-form{gap:8px}
+.seg-hero .rfp-mini-field{gap:4px}
+
 /* ══ SEGMENT PAGES (generated) ══ */
 /* readability (owner 2026-07-22): bright hero copy + labels, darker light-surface metas */
 .hero .hero-sub{color:rgba(255,255,255,.88) !important;font-size:1rem !important;line-height:1.7 !important}
@@ -302,13 +304,14 @@ window.dataLayer = window.dataLayer || [];
     /* RFP submissions email Contact@sentral.com (owner decision 7-31) — composed
        via mailto so the sender's own mail client carries their identity. */
     var segName = SEG==='group-travel' ? 'Group Travel' : 'Business Travel & Corporate Housing';
-    var subject = encodeURIComponent('RFP — '+segName+' — '+(form.occasion.value||''));
-    var lines = ['Occasion: '+form.occasion.value,
-                 'Destination: '+form.destination.value,
-                 'Check-in: '+form.checkin.value];
-    if(form.travelers) lines.push('Number of travelers: '+form.travelers.value);
-    if(form.rooms) lines.push('Rooms needed: '+form.rooms.value);
-    if(form.lengthOfStay) lines.push('Length of stay: '+form.lengthOfStay.value);
+    var subject = encodeURIComponent('RFP — '+segName+' — '+(form.fullName.value||''));
+    var communities = Array.prototype.slice.call(form.querySelectorAll('input[name=community]:checked')).map(function(c){return c.value}).join(', ');
+    var lines = ['Full Name: '+form.fullName.value,
+                 'Company: '+(form.company.value||'—'),
+                 'Email: '+form.email.value,
+                 'Phone: '+(form.phone.value||'—'),
+                 'Community: '+(communities||'—'),
+                 'Message: '+(form.message.value||'—')];
     lines.push('Lead source: '+form.leadSource.value);
     var body = encodeURIComponent(lines.join('\\n'));
     window.location.href = 'mailto:Contact@sentral.com?subject='+subject+'&body='+body;
@@ -345,24 +348,6 @@ DEST_OPTIONS = """<option value="" disabled selected>Select a market&hellip;</op
 def photo_tag(name, city):
     return f'<div class="photo-tag"><span class="photo-tag-name">{name}</span><span class="photo-tag-city">{city}</span></div>'
 
-def third_field(rfp):
-    if rfp['thirdFieldType'] == 'travelers':
-        return (f'<div class="rfp-mini-field"><label class="rfp-mini-label" for="rfp-third">{rfp["thirdFieldLabel"]}</label>'
-                f'<input class="rfp-mini-input" id="rfp-third" name="travelers" type="number" min="1" step="1" required placeholder="e.g. 3"></div>')
-    opts = ''.join(f'<option>{o}</option>' for o in rfp['thirdFieldOptions'])
-    name = 'rooms' if rfp['thirdFieldType'] == 'rooms' else 'lengthOfStay'
-    return (f'<div class="rfp-mini-field"><label class="rfp-mini-label" for="rfp-third">{rfp["thirdFieldLabel"]}</label>'
-            f'<select class="rfp-mini-input rfp-mini-select" id="rfp-third" name="{name}" required>'
-            f'<option value="" disabled selected>Select&hellip;</option>{opts}</select></div>')
-
-def extra_field(rfp):
-    if not rfp.get('lengthOfStayOptions'):
-        return ''
-    opts = ''.join(f'<option>{o}</option>' for o in rfp['lengthOfStayOptions'])
-    return (f'<div class="rfp-mini-field"><label class="rfp-mini-label" for="rfp-los">Length of stay</label>'
-            f'<select class="rfp-mini-input rfp-mini-select" id="rfp-los" name="lengthOfStay" required>'
-            f'<option value="" disabled selected>Select&hellip;</option>{opts}</select></div>')
-
 def split_section(sec, klass, third_line_slate=False, extra=''):
     lines = sec['headlineLines']
     if len(lines) == 3:
@@ -393,7 +378,6 @@ def render(seg):
     dets = seg['detail'] if isinstance(seg['detail'], list) else [seg['detail']]
     details_html = '\n\n'.join(split_section(d, 'seg-detail') for d in dets)
     hl = hero['headlineLines']
-    occ = ''.join(f'<option>{o}</option>' for o in rfp['occasionOptions'])
     def nav_item(s):
         active = ' class="active" aria-current="page"' if s['slug'] == seg['slug'] else ''
         return '<a href="' + s['slug'] + '.html"' + active + '>' + s['navLabel'] + '</a>'
@@ -463,23 +447,49 @@ def render(seg):
       <div class="hero-rfp-card">
         <span class="hero-rfp-title">Submit an RFP</span>
         <form class="rfp-mini-form" id="rfp-form-el">
+          <!-- Question set mirrors the live Smartsheet form
+               (app.smartsheet.com/b/form/940b9b3148204de984af92596333d025);
+               PRODUCTION: feed submissions into that Smartsheet. -->
           <input type="hidden" name="leadSource" value="{rfp['leadSource']}">
-          <div class="rfp-mini-field">
-            <label class="rfp-mini-label" for="rfp-occasion">Occasion type</label>
-            <select class="rfp-mini-input rfp-mini-select" id="rfp-occasion" name="occasion" required>
-              <option value="" disabled selected>Select&hellip;</option>{occ}
-            </select>
+          <div class="rfp-mini-two">
+            <div class="rfp-mini-field">
+              <label class="rfp-mini-label" for="rfp-name">Full Name</label>
+              <input class="rfp-mini-input" id="rfp-name" name="fullName" type="text" autocomplete="name" required>
+            </div>
+            <div class="rfp-mini-field">
+              <label class="rfp-mini-label" for="rfp-company">Company</label>
+              <input class="rfp-mini-input" id="rfp-company" name="company" type="text" autocomplete="organization">
+            </div>
+          </div>
+          <div class="rfp-mini-two">
+            <div class="rfp-mini-field">
+              <label class="rfp-mini-label" for="rfp-email">Email</label>
+              <input class="rfp-mini-input" id="rfp-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="rfp-mini-field">
+              <label class="rfp-mini-label" for="rfp-phone">Phone</label>
+              <input class="rfp-mini-input" id="rfp-phone" name="phone" type="tel" autocomplete="tel" placeholder="1 (702) 123-4567">
+            </div>
           </div>
           <div class="rfp-mini-field">
-            <label class="rfp-mini-label" for="rfp-dest">Destination</label>
-            <select class="rfp-mini-input rfp-mini-select" id="rfp-dest" name="destination" required>{DEST_OPTIONS}</select>
+            <span class="rfp-mini-label">Community <span class="rfp-mini-hint">&mdash; select all that apply</span></span>
+            <div class="rfp-check-grid">
+              <label><input type="checkbox" name="community" value="Atlanta">Atlanta</label>
+              <label><input type="checkbox" name="community" value="Austin">Austin</label>
+              <label><input type="checkbox" name="community" value="Chicago">Chicago</label>
+              <label><input type="checkbox" name="community" value="Denver">Denver</label>
+              <label><input type="checkbox" name="community" value="Los Angeles">Los Angeles</label>
+              <label><input type="checkbox" name="community" value="Miami">Miami</label>
+              <label><input type="checkbox" name="community" value="Nashville">Nashville</label>
+              <label><input type="checkbox" name="community" value="Scottsdale">Scottsdale</label>
+              <label><input type="checkbox" name="community" value="San Francisco">San Francisco</label>
+              <label><input type="checkbox" name="community" value="Portland">Portland</label>
+            </div>
           </div>
           <div class="rfp-mini-field">
-            <label class="rfp-mini-label" for="rfp-checkin">Check-in</label>
-            <input class="rfp-mini-input" id="rfp-checkin" name="checkin" type="date" required>
+            <label class="rfp-mini-label" for="rfp-message">Message</label>
+            <textarea class="rfp-mini-input rfp-mini-textarea" id="rfp-message" name="message" rows="2"></textarea>
           </div>
-          {third_field(rfp)}
-          {extra_field(rfp)}
           <button class="rfp-mini-btn" type="submit">{rfp['submitLabel']} &nbsp;&rarr;</button>
           <div class="rfp-mini-note">Our team responds within 1 business day</div>
         </form>
