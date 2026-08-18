@@ -189,7 +189,9 @@ GDIR_VARIANTS = {
 }
 
 SEG_CSS = """
-.rfp-mini-two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rfp-mini-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.rfp-mini-two .rfp-mini-field{min-width:0}
+.rfp-mini-form .rfp-mini-input{width:100%;box-sizing:border-box;min-width:0}
 .rfp-mini-hint{font-weight:400;text-transform:none;letter-spacing:.02em;opacity:.75}
 .rfp-check-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;margin-top:4px}
 .rfp-check-grid label{display:flex;align-items:center;gap:7px;font-size:.8125rem;color:rgba(255,255,255,.85);cursor:pointer}
@@ -483,7 +485,6 @@ def render(seg):
               <label><input type="checkbox" name="community" value="Nashville">Nashville</label>
               <label><input type="checkbox" name="community" value="Scottsdale">Scottsdale</label>
               <label><input type="checkbox" name="community" value="San Francisco">San Francisco</label>
-              <label><input type="checkbox" name="community" value="Portland">Portland</label>
             </div>
           </div>
           <div class="rfp-mini-field">
