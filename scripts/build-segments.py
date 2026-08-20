@@ -32,15 +32,7 @@ SEGMENTS = [
     body='Solo travelers, project teams, executives, and relocating employees who expect more than a hotel room. Furnished suites and fully managed 30+ night corporate placements in the country&rsquo;s top business destinations — for a night, a quarter, or a year.',
     media=dict(src='/assets/sol-modern-stay-header.mp4', poster='/assets/stay-hero-poster.jpg', tagName='Sol Modern', tagCity='Phoenix, AZ'),
   ),
-  rfp=dict(
-    thirdFieldType='travelers',
-    thirdFieldLabel='Number of travelers',
-    thirdFieldOptions=None,  # open integer, no minimum
-    occasionOptions=['Recurring travel program','Project-based travel','Single traveler','Event or conference','Relocation','Extended assignment','Executive placement'],
-    lengthOfStayOptions=['1 – 29 nights','30 – 60 nights','61 – 90 nights','91 – 180 nights','180+ nights'],
-    submitLabel='Start My Inquiry',
-    leadSource='web-business-travel',
-  ),
+  rfp=dict(leadSource='web-business-travel'),
   whyUs=dict(
     eyebrow='Why Sentral for Business Travel',
     headlineLines=['Consistency in', 'every market you', 'operate in.'],
@@ -122,14 +114,7 @@ SEGMENTS = [
     body='Wedding weekends, team off-sites, sports travel, reunions. Our group sales team handles every detail, from block management to VIP check-in.',
     media=dict(src='/assets/forme-houston-group-header.mp4', poster='/assets/group-hero-poster.jpg', tagName='Forme', tagCity='Houston, TX'),
   ),
-  rfp=dict(
-    thirdFieldType='rooms',
-    thirdFieldLabel='Rooms needed',
-    thirdFieldOptions=['6 – 10','11 – 25','26 – 50','51+'],
-    occasionOptions=['Wedding','Team off-site','Sports team','Reunion','Other'],
-    submitLabel='Submit RFP',
-    leadSource='web-group-travel',
-  ),
+  rfp=dict(leadSource='web-group-travel'),
   whyUs=dict(
     eyebrow='Why Sentral for Groups',
     headlineLines=['Your whole group,', 'under one roof —', 'and one contact.'],
@@ -198,6 +183,9 @@ GDIR_VARIANTS = {
 }
 
 SEG_CSS = """
+.rfp-mini-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.rfp-mini-two .rfp-mini-field{min-width:0}
+.rfp-mini-form .rfp-mini-input{width:100%;box-sizing:border-box;min-width:0}
 .rfp-mini-reach{color:#8DB1C4 !important;text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
 .rfp-mobile{padding:40px 24px 48px;background:#141311}
 .rfp-mobile .hero-rfp{display:block;opacity:1;animation:none;max-width:520px;margin:0 auto}
@@ -318,14 +306,12 @@ window.dataLayer = window.dataLayer || [];
     /* RFP submissions email Sales@Sentral.com (owner decision 8-17) — composed
        via mailto so the sender's own mail client carries their identity. */
     var segName = SEG==='group-travel' ? 'Group Travel' : 'Business Travel & Corporate Housing';
-    var subject = encodeURIComponent('RFP — '+segName+' — '+(form.occasion.value||''));
-    var lines = ['Occasion: '+form.occasion.value,
-                 'Destination: '+form.destination.value,
-                 'Check-in: '+form.checkin.value];
-    if(form.travelers) lines.push('Number of travelers: '+form.travelers.value);
-    if(form.rooms) lines.push('Rooms needed: '+form.rooms.value);
-    if(form.lengthOfStay) lines.push('Length of stay: '+form.lengthOfStay.value);
-    lines.push('Lead source: '+form.leadSource.value);
+    var subject = encodeURIComponent('RFP — '+segName+' — '+form.destination.value);
+    var lines = ['Destination: '+form.destination.value,
+                 'Check-in: '+form.checkin.value,
+                 'Number of travelers: '+form.travelers.value,
+                 'Number of rooms: '+form.rooms.value,
+                 'Lead source: '+form.leadSource.value];
     var body = encodeURIComponent(lines.join('\\n'));
     window.location.href = 'mailto:Sales@Sentral.com?subject='+subject+'&body='+body;
     form.style.display='none';
@@ -361,24 +347,6 @@ DEST_OPTIONS = """<option value="" disabled selected>Select a market&hellip;</op
 def photo_tag(name, city):
     return f'<div class="photo-tag"><span class="photo-tag-name">{name}</span><span class="photo-tag-city">{city}</span></div>'
 
-def third_field(rfp):
-    if rfp['thirdFieldType'] == 'travelers':
-        return (f'<div class="rfp-mini-field"><label class="rfp-mini-label" for="rfp-third">{rfp["thirdFieldLabel"]}</label>'
-                f'<input class="rfp-mini-input" id="rfp-third" name="travelers" type="number" min="1" step="1" required placeholder="e.g. 3"></div>')
-    opts = ''.join(f'<option>{o}</option>' for o in rfp['thirdFieldOptions'])
-    name = 'rooms' if rfp['thirdFieldType'] == 'rooms' else 'lengthOfStay'
-    return (f'<div class="rfp-mini-field"><label class="rfp-mini-label" for="rfp-third">{rfp["thirdFieldLabel"]}</label>'
-            f'<select class="rfp-mini-input rfp-mini-select" id="rfp-third" name="{name}" required>'
-            f'<option value="" disabled selected>Select&hellip;</option>{opts}</select></div>')
-
-def extra_field(rfp):
-    if not rfp.get('lengthOfStayOptions'):
-        return ''
-    opts = ''.join(f'<option>{o}</option>' for o in rfp['lengthOfStayOptions'])
-    return (f'<div class="rfp-mini-field"><label class="rfp-mini-label" for="rfp-los">Length of stay</label>'
-            f'<select class="rfp-mini-input rfp-mini-select" id="rfp-los" name="lengthOfStay" required>'
-            f'<option value="" disabled selected>Select&hellip;</option>{opts}</select></div>')
-
 def split_section(sec, klass, third_line_slate=False, extra=''):
     lines = sec['headlineLines']
     if len(lines) == 3:
@@ -409,7 +377,6 @@ def render(seg):
     dets = seg['detail'] if isinstance(seg['detail'], list) else [seg['detail']]
     details_html = '\n\n'.join(split_section(d, 'seg-detail') for d in dets)
     hl = hero['headlineLines']
-    occ = ''.join(f'<option>{o}</option>' for o in rfp['occasionOptions'])
     def nav_item(s):
         active = ' class="active" aria-current="page"' if s['slug'] == seg['slug'] else ''
         return '<a href="' + s['slug'] + '.html"' + active + '>' + s['navLabel'] + '</a>'
@@ -481,12 +448,6 @@ def render(seg):
         <form class="rfp-mini-form" id="rfp-form-el">
           <input type="hidden" name="leadSource" value="{rfp['leadSource']}">
           <div class="rfp-mini-field">
-            <label class="rfp-mini-label" for="rfp-occasion">Occasion type</label>
-            <select class="rfp-mini-input rfp-mini-select" id="rfp-occasion" name="occasion" required>
-              <option value="" disabled selected>Select&hellip;</option>{occ}
-            </select>
-          </div>
-          <div class="rfp-mini-field">
             <label class="rfp-mini-label" for="rfp-dest">Destination</label>
             <select class="rfp-mini-input rfp-mini-select" id="rfp-dest" name="destination" required>{DEST_OPTIONS}</select>
           </div>
@@ -494,9 +455,17 @@ def render(seg):
             <label class="rfp-mini-label" for="rfp-checkin">Check-in</label>
             <input class="rfp-mini-input" id="rfp-checkin" name="checkin" type="date" required>
           </div>
-          {third_field(rfp)}
-          {extra_field(rfp)}
-          <button class="rfp-mini-btn" type="submit">{rfp['submitLabel']} &nbsp;&rarr;</button>
+          <div class="rfp-mini-two">
+            <div class="rfp-mini-field">
+              <label class="rfp-mini-label" for="rfp-travelers">Number of travelers</label>
+              <input class="rfp-mini-input" id="rfp-travelers" name="travelers" type="number" min="1" step="1" required placeholder="e.g. 8">
+            </div>
+            <div class="rfp-mini-field">
+              <label class="rfp-mini-label" for="rfp-rooms">Number of rooms</label>
+              <input class="rfp-mini-input" id="rfp-rooms" name="rooms" type="number" min="1" step="1" required placeholder="e.g. 4">
+            </div>
+          </div>
+          <button class="rfp-mini-btn" type="submit">Submit RFP &nbsp;&rarr;</button>
           <div class="rfp-mini-note">We respond within 1 business day &middot; or email <a class="rfp-mini-reach" href="mailto:Sales@Sentral.com">Sales@Sentral.com</a></div>
         </form>
         <div class="rfp-thanks" id="rfp-thanks">Thanks &mdash; your inquiry is on its way to our team. We&rsquo;ll be in touch within one business day.</div>
