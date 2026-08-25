@@ -1,7 +1,7 @@
 # STAY Property Template — Phase 2
 
 **File:** `property-template.html` · **Demo property:** Sol Modern, Phoenix
-**Status:** design proposal, branch `feat/stay-property-template`, not deployed
+**Status:** design proposal, branch `feat/stay-property-template`, preview-deployed
 **Companion to:** `STYLE_GUIDE.md` (v4 Slate), `WP_HANDOFF.md`, `ADA_BRIEF.md`
 
 One template, every STAY property. Drop in the fields listed in §3 and the page
@@ -79,7 +79,9 @@ Copy longer than the cap gets cut, not shrunk. If a property "needs" a fourth
 story block, the answer is that one of the three is not earning its place.
 
 ### Suites — 3 to 6 cards
-`photo` · `name` · `sleeps` · `sq_ft` · `bed_config` · `from_rate` · `link`
+`photo` · `name` · `sleeps` · `sq_ft` · `bed_config` · `mews_room_category_id` · `link`
+
+There is no `from_rate` field — the rate badge is live. See §5.
 
 ### Amenities
 - `glance[7]` — the seven that actually decide a booking. Icon + label.
@@ -133,7 +135,51 @@ slots. Real property photography replaces all of it.
 
 ---
 
-## 5. One deliberate difference from the other pages
+## 5. Live rates
+
+Suite-card badges read live from Mews. Nothing about a price is hardcoded.
+
+```
+suite card  →  /api/rates?property=<slug>  →  Mews Booking Engine API
+                                              POST /api/distributor/v1/hotels/getAvailability
+```
+
+`api/rates.mjs` returns the lowest nightly rate per Mews room category. The page
+fills each `.pt-suite-badge[data-rate-category]` and unhides it.
+
+**Configuration** — Vercel env vars, no code change to add a property:
+
+| Var | Value |
+|---|---|
+| `MEWS_PROPERTIES` | `{"sol-modern":{"configurationId":"…","hotelId":"…"}}` |
+| `MEWS_CLIENT` | optional, defaults to `Sentral Website 1.0.0` |
+| `MEWS_API_BASE` | optional, defaults to `https://api.mews.com` |
+
+Each suite card also needs its `mews_room_category_id` — the badge is keyed on it.
+
+**The "from" price is a heuristic.** Four one-night probes (+7, +14, +30, +60
+days), minimum per category, cached an hour at the edge. That is four upstream
+calls per hour per property instead of one per night in the booking window. The
+badge claims an indicative starting rate, not a quote. If it needs to be exact,
+`PROBE_OFFSETS_DAYS` in `api/rates.mjs` is the only thing to change.
+
+**Failure behaviour — deliberate.** No rate, sold out, upstream down, or not yet
+configured all produce the same result: the badge stays hidden and the card
+renders without it. There is no hardcoded fallback anywhere in the path, because
+a stale price on a booking page is worse than no price. Verified against mocked
+Mews responses for all four cases.
+
+**`?demoRates=1`** renders sample numbers labelled `SAMPLE — FROM $189/NIGHT`
+for design review. Opt-in per URL, never on a normal load.
+
+Because the Distributor API is the same guest-facing surface the booking widget
+uses, `Client` and `ConfigurationId` are not secrets. The call still runs
+server-side so we own the caching and are not subject to allowed-origin rules
+from the browser.
+
+---
+
+## 6. One deliberate difference from the other pages
 
 On every other page, nav **BOOK A STAY** opens the cross-property booking strip
 (`overrides.css` §9e). On a property page the property is already known, so it
@@ -144,10 +190,11 @@ pre-selecting the property in its "Where" field.
 
 ---
 
-## 6. Open items
+## 7. Open items
 
-1. **Rates.** Suite cards show `FROM $189/NIGHT`. If Mews cannot feed a live
-   from-rate, the badges come off — a stale price is worse than no price.
+1. ~~Rates.~~ **Resolved** — Mews feeds them live. See §5. Still needed before
+   the badges appear anywhere: the `MEWS_PROPERTIES` env var and each suite's
+   `mews_room_category_id`.
 2. **Suite detail pages.** `VIEW SUITE →` currently jumps to the booking band.
    Phase 2b question: does each suite type get its own page?
 3. **URL shape.** Demo is at `/property-template`. Live pages are

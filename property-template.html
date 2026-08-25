@@ -179,6 +179,9 @@ img{max-width:100%;display:block}
 .pt-suite:hover .pt-suite-img img{transform:scale(1.05)}
 .pt-suite-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 42%,rgba(0,0,0,.8) 100%)}
 .pt-suite-badge{position:absolute;top:14px;left:14px;z-index:2;font-size:.6875rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--oat);background:rgba(20,20,20,.6);border:1px solid rgba(242,232,213,.28);padding:5px 11px;border-radius:100px;backdrop-filter:blur(8px)}
+/* Rate badges are live (Mews). Hidden until a real rate arrives — a stale or
+   invented price is worse than no price, so there is no hardcoded fallback. */
+.pt-suite-badge[hidden]{display:none}
 .pt-suite-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:20px}
 .pt-suite-name{font-family:var(--serif);font-size:1.25rem;font-weight:400;color:#fff;margin-bottom:8px}
 .pt-suite-specs{display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:12px}
@@ -494,7 +497,9 @@ img{max-width:100%;display:block}
     <!-- [FIELD] 3–6 suite cards. Photo 1200×1500. -->
     <a class="pt-suite" href="#book-stay">
       <div class="pt-suite-img"><img src="/assets/ig-social-1.jpg" alt="Studio suite living area"/></div>
-      <span class="pt-suite-badge">From $189/night</span>
+      <span class="pt-suite-badge" hidden
+            data-rate-category="[FIELD] mews-room-category-id:studio"
+            data-suite="studio"></span>
       <div class="pt-suite-body">
         <div class="pt-suite-name">Studio</div>
         <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 2</span><span class="pt-suite-spec">520 sq ft</span><span class="pt-suite-spec">Queen</span></div>
@@ -503,7 +508,9 @@ img{max-width:100%;display:block}
     </a>
     <a class="pt-suite" href="#book-stay">
       <div class="pt-suite-img"><img src="/assets/ig-social-2.jpg" alt="One bedroom suite"/></div>
-      <span class="pt-suite-badge">From $229/night</span>
+      <span class="pt-suite-badge" hidden
+            data-rate-category="[FIELD] mews-room-category-id:one-bedroom"
+            data-suite="one-bedroom"></span>
       <div class="pt-suite-body">
         <div class="pt-suite-name">One Bedroom</div>
         <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 3</span><span class="pt-suite-spec">710 sq ft</span><span class="pt-suite-spec">King</span></div>
@@ -512,7 +519,9 @@ img{max-width:100%;display:block}
     </a>
     <a class="pt-suite" href="#book-stay">
       <div class="pt-suite-img"><img src="/assets/ig-social-3.jpg" alt="Two bedroom suite"/></div>
-      <span class="pt-suite-badge">From $319/night</span>
+      <span class="pt-suite-badge" hidden
+            data-rate-category="[FIELD] mews-room-category-id:two-bedroom"
+            data-suite="two-bedroom"></span>
       <div class="pt-suite-body">
         <div class="pt-suite-name">Two Bedroom</div>
         <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 4</span><span class="pt-suite-spec">1,050 sq ft</span><span class="pt-suite-spec">King + Queen</span></div>
@@ -521,7 +530,9 @@ img{max-width:100%;display:block}
     </a>
     <a class="pt-suite" href="#book-stay">
       <div class="pt-suite-img"><img src="/assets/forme-houston-square-poster.jpg" alt="Three bedroom suite"/></div>
-      <span class="pt-suite-badge">From $429/night</span>
+      <span class="pt-suite-badge" hidden
+            data-rate-category="[FIELD] mews-room-category-id:three-bedroom"
+            data-suite="three-bedroom"></span>
       <div class="pt-suite-body">
         <div class="pt-suite-name">Three Bedroom</div>
         <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 6</span><span class="pt-suite-spec">1,340 sq ft</span><span class="pt-suite-spec">2 King + Queen</span></div>
@@ -856,6 +867,53 @@ img{max-width:100%;display:block}
       if(o.value&&o.value<=i.value)o.value='';
     });
   });
+})();
+
+// ── LIVE "FROM" RATES ──
+// Fills the suite-card badges from /api/rates, which reads the Mews Booking
+// Engine (Distributor) API server-side. Badges start hidden and stay hidden if
+// anything goes wrong — a stale price is worse than no price, so there is
+// deliberately no hardcoded fallback anywhere in this path.
+//
+// ?demoRates=1 renders visibly-marked sample numbers for design review only.
+// It is opt-in per URL and never fires on a normal page load.
+(function(){
+  var PROPERTY='sol-modern';           // [FIELD] slug, must match MEWS_PROPERTIES
+  var badges=[].slice.call(document.querySelectorAll('.pt-suite-badge[data-rate-category]'));
+  if(!badges.length) return;
+
+  function money(amount,currency){
+    try{
+      return new Intl.NumberFormat('en-US',{style:'currency',currency:currency||'USD',
+        minimumFractionDigits:0,maximumFractionDigits:0}).format(amount);
+    }catch(e){ return '$'+Math.round(amount); }
+  }
+
+  function paint(categories,currency,demo){
+    badges.forEach(function(el){
+      var rate=categories[el.getAttribute('data-rate-category')];
+      if(!rate||!(rate.from>0)) return;      // no rate → badge stays hidden
+      el.textContent=(demo?'Sample — from ':'From ')+money(rate.from,rate.currency||currency)+'/night';
+      el.hidden=false;
+    });
+  }
+
+  if(new URLSearchParams(location.search).get('demoRates')==='1'){
+    var sample=[189,229,319,429];
+    badges.forEach(function(el,i){
+      el.textContent='Sample — from '+money(sample[i]||sample[sample.length-1],'USD')+'/night';
+      el.hidden=false;
+    });
+    return;
+  }
+
+  fetch('/api/rates?property='+encodeURIComponent(PROPERTY))
+    .then(function(r){ return r.ok?r.json():null; })
+    .then(function(d){
+      if(!d||!d.categories) return;
+      paint(d.categories,d.currency,false);
+    })
+    .catch(function(){ /* badges stay hidden */ });
 })();
 
 // ── CHECK RATES ──
