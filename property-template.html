@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Sol Modern, Phoenix — Sentral</title>
+<meta name="description" content="Fully furnished suites with full kitchens and in-unit laundry in Downtown Phoenix. Book direct for the best rate."/>
+
+<!--
+  ══════════════════════════════════════════════════════════════
+  SENTRAL — STAY PROPERTY TEMPLATE  (Phase 2)
+  ══════════════════════════════════════════════════════════════
+  One template, every STAY property. Demo content = Sol Modern,
+  Phoenix. Everything a property changes is marked  [FIELD] —
+  see PROPERTY_TEMPLATE.md for the full content model.
+
+  Design intent: the current sentral.com property pages front-load
+  four amenity essays and a 28-item amenity dump before a guest can
+  do anything. This template follows the 1 Hotels / Ace pattern —
+  photography leads, copy is short, booking is always one tap away,
+  completeness lives behind a disclosure instead of on the page.
+
+  Section order (fixed for every property):
+    1  Hero — photo/video, name, one line, booking card
+    2  Sticky book bar (appears past hero)
+    3  At a glance — 7 attributes + full amenity disclosure
+    4  Intro — two paragraphs, three stats. That's it.
+    5  Suites — the browse grid sentral.com does not have today
+    6  Three story blocks — Stay / Gather / Neighborhood
+    7  Booking band (Mews)
+    8  Neighborhood — map + curated walk times
+    9  Longer stays — 30+ nights, business, group
+    10 Practical info — collapsed accordion
+  ══════════════════════════════════════════════════════════════
+-->
+
+<style>
+:root{
+  --black:#282828;--ink:#1F1F1F;--cream:#F5F5F3;--white:#FFFFFF;
+  --cream-light:#FAF8F4;--cream-warm:#EFEDE6;
+  --slate:#2D4A5C;--slate-deep:#3D6478;--slate-light:#5C8CA0;
+  --oat:#F2E8D5;--cloud:#AFAA9B;--metallic:#B8924A;
+  --text-body:#3A3633;--text-muted:#6B6560;--text-accent:#3D6478;
+  --rule:rgba(255,255,255,.08);--ruleD:rgba(0,0,0,.09);
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:Aptos,"Segoe UI",system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--black);font-family:var(--sans);font-weight:400;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+.skip-to-content{position:absolute;left:-9999px;top:0;z-index:400;background:var(--slate);color:#fff;padding:12px 20px;text-decoration:none}
+.skip-to-content:focus{left:12px;top:12px}
+
+/* ══ NAV (global — identical to every other page) ══ */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--black);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;border-bottom:1px solid var(--rule)}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-logo img{height:19px;width:auto}
+.nav-links{display:flex;align-items:stretch;height:64px}
+.nav-link{display:flex;align-items:center;padding:0 18px;font-size:.75rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);text-decoration:none;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap}
+.nav-link:hover{color:#fff}
+.nav-link.active{color:#fff;border-color:#5C8CA0}
+.nav-ctas{display:flex;gap:10px;align-items:center}
+.btn-sn{font-size:.75rem;font-weight:500;padding:8px 18px;border-radius:2px;background:var(--cream);color:#2D4A5C;border:none;cursor:pointer;text-decoration:none;transition:background .15s;white-space:nowrap;letter-spacing:.04em}
+.btn-sn-ghost{font-size:.75rem;font-weight:400;padding:7px 16px;border-radius:2px;background:transparent;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.2);text-decoration:none;transition:all .2s;white-space:nowrap;letter-spacing:.04em}
+.btn-sn-ghost:hover{color:var(--white);border-color:rgba(255,255,255,.5)}
+.hamburger{background:none;border:none;cursor:pointer;padding:8px;display:flex;flex-direction:column;gap:5px;align-items:flex-end}
+.ham-line{display:block;height:1.5px;background:#fff;transition:width .3s,transform .3s,opacity .3s}
+.ham-line:nth-child(1){width:22px}.ham-line:nth-child(2){width:16px}.ham-line:nth-child(3){width:22px}
+.hamburger[aria-expanded=true] .ham-line:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger[aria-expanded=true] .ham-line:nth-child(2){opacity:0;width:0}
+.hamburger[aria-expanded=true] .ham-line:nth-child(3){width:22px;transform:translateY(-6.5px) rotate(-45deg)}
+.ham-panel{position:fixed;top:64px;right:0;width:360px;height:calc(100vh - 64px);background:var(--black);z-index:199;transform:translateX(100%);transition:transform .35s cubic-bezier(.22,.68,0,1.2);border-left:1px solid var(--rule);overflow-y:auto;pointer-events:none}
+.ham-panel.open{transform:translateX(0);pointer-events:auto}
+.ham-panel-inner{padding:40px 36px}
+.ham-nav{display:flex;flex-direction:column;gap:2px;margin-bottom:32px}
+.ham-link{display:block;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.06);text-decoration:none}
+.ham-link-title{display:block;font-family:var(--serif);font-size:1.25rem;color:#fff;margin-bottom:4px}
+.ham-link-sub{display:block;font-size:.75rem;color:rgba(255,255,255,.35);letter-spacing:.03em}
+.ham-footer{display:flex;flex-direction:column;gap:10px}
+.ham-book{display:block;padding:12px 20px;background:#2D4A5C;color:#fff;font-size:.8125rem;font-weight:500;text-decoration:none;border-radius:2px;text-align:center;letter-spacing:.04em}
+@media(max-width:900px){.site-nav{padding:0 20px}.nav-links{display:none}}
+
+/* ══ 1. HERO ══ */
+.pt-hero{position:relative;min-height:88vh;margin-top:64px;overflow:hidden;display:flex;align-items:flex-end}
+.pt-hero-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--ink)}
+.pt-hero-veil{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.42) 0%,rgba(0,0,0,.12) 34%,rgba(0,0,0,.46) 72%,rgba(0,0,0,.82) 100%)}
+.pt-hero-inner{position:relative;z-index:2;width:100%;max-width:1400px;margin:0 auto;padding:0 64px 64px;display:grid;grid-template-columns:1fr auto;gap:56px;align-items:end}
+.pt-hero-left{max-width:640px}
+.pt-crumb{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.pt-crumb a{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);text-decoration:none;transition:color .2s}
+.pt-crumb a:hover{color:#fff}
+.pt-crumb span{color:rgba(255,255,255,.35);font-size:.75rem}
+.hero-eyebrow{display:block;font-size:.75rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--oat);margin-bottom:16px}
+.hero-h{font-family:var(--serif);font-size:clamp(2.6rem,5.4vw,4.6rem);font-weight:300;color:#fff;line-height:1.04;letter-spacing:.005em;margin-bottom:18px}
+.hero-h em{font-style:italic;color:var(--slate-light)}
+.hero-sub{font-size:1rem;color:rgba(255,255,255,.9);line-height:1.75;max-width:48ch;margin-bottom:24px}
+.pt-hero-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.pt-hero-addr{font-size:.875rem;letter-spacing:.06em;color:rgba(255,255,255,.85);text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.pt-dir-btn{font-size:.75rem;font-weight:500;letter-spacing:.12em;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.45);padding-bottom:2px;transition:border-color .2s}
+.pt-dir-btn:hover{border-color:#fff}
+.photo-tag{position:absolute;right:24px;top:88px;z-index:3;text-align:right}
+.photo-tag-name{display:block;font-family:var(--serif);font-size:.875rem;color:rgba(255,255,255,.9);text-shadow:0 1px 6px rgba(0,0,0,.8)}
+.pt-motion{position:absolute;left:28px;bottom:28px;z-index:6;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.45);background:rgba(0,0,0,.35);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.pt-motion svg{width:14px;height:14px;fill:currentColor}
+
+/* Hero booking card */
+.pt-bookcard{position:relative;z-index:2;background:rgba(14,12,10,.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(242,232,213,.2);border-radius:3px;padding:26px 26px 24px;width:340px;flex-shrink:0}
+.pt-bookcard-title{display:block;font-family:var(--serif);font-size:1.125rem;color:#fff;margin-bottom:4px}
+.pt-bookcard-note{display:block;font-size:.75rem;letter-spacing:.06em;color:rgba(255,255,255,.6);margin-bottom:18px}
+.pt-bf{margin-bottom:12px}
+.pt-bf label{display:block;font-size:.6875rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:6px}
+.pt-bf input,.pt-bf select{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(45,74,92,.5);color:#fff;padding:11px 12px;font-family:var(--sans);font-size:.875rem;border-radius:2px;color-scheme:dark}
+.pt-bf input:focus,.pt-bf select:focus{outline:none;border-color:var(--slate-light);background:rgba(255,255,255,.1)}
+.pt-bf select option,.pt-bf select optgroup{background:var(--ink);color:#fff}
+.pt-bf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pt-book-btn{display:block;width:100%;margin-top:6px;background:var(--slate);color:#fff;border:none;padding:14px;font-family:var(--sans);font-size:.875rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:background .2s;text-align:center;text-decoration:none}
+.pt-book-btn:hover{background:var(--slate-deep)}
+.pt-bookcard-fine{display:block;margin-top:12px;font-size:.6875rem;letter-spacing:.05em;color:rgba(255,255,255,.55);text-align:center}
+@media(max-width:1080px){.pt-hero-inner{grid-template-columns:1fr;gap:32px;padding:0 32px 48px}.pt-bookcard{width:100%;max-width:520px}}
+@media(max-width:640px){.pt-hero{min-height:78vh}.pt-hero-inner{padding:0 20px 36px}.photo-tag{display:none}}
+
+/* ══ 2. STICKY BOOK BAR ══ */
+.pt-sticky{position:fixed;top:64px;left:0;right:0;z-index:190;background:rgba(31,31,31,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule);transform:translateY(-110%);transition:transform .32s cubic-bezier(.22,.68,0,1);will-change:transform}
+.pt-sticky.show{transform:translateY(0)}
+.pt-sticky-inner{max-width:1400px;margin:0 auto;padding:12px 64px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.pt-sticky-name{font-family:var(--serif);font-size:1rem;color:#fff;white-space:nowrap}
+.pt-sticky-name small{display:block;font-family:var(--sans);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:2px}
+.pt-sticky-jump{display:flex;gap:26px}
+.pt-sticky-jump a{font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;transition:color .2s}
+.pt-sticky-jump a:hover{color:#fff}
+.pt-sticky-book{background:var(--slate);color:#fff;font-size:.8125rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:12px 26px;border-radius:2px;text-decoration:none;white-space:nowrap;transition:background .2s}
+.pt-sticky-book:hover{background:var(--slate-deep)}
+@media(max-width:1000px){.pt-sticky-jump{display:none}.pt-sticky-inner{padding:10px 20px}}
+
+/* ══ 3. AT A GLANCE ══ */
+.pt-glance{background:var(--cream-light);border-bottom:1px solid var(--ruleD);padding:34px 64px}
+.pt-glance-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.pt-glance-list{display:flex;flex-wrap:wrap;gap:14px 38px}
+.pt-glance-item{display:flex;align-items:center;gap:9px;font-size:.8125rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-body);white-space:nowrap}
+.pt-glance-item svg{width:19px;height:19px;flex-shrink:0;fill:none;stroke:var(--slate);stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round}
+.pt-glance-all{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);background:none;border:none;border-bottom:1px solid var(--slate);padding:0 0 3px;cursor:pointer;white-space:nowrap}
+@media(max-width:900px){.pt-glance{padding:26px 20px}.pt-glance-list{gap:12px 24px}}
+
+/* Full amenity disclosure */
+.pt-amen{background:var(--cream-light);border-bottom:1px solid var(--ruleD);overflow:hidden;max-height:0;transition:max-height .45s cubic-bezier(.22,.68,0,1)}
+.pt-amen.open{max-height:1400px}
+.pt-amen-inner{max-width:1400px;margin:0 auto;padding:44px 64px 52px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.pt-amen-h{display:block;font-size:.75rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--text-accent);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--ruleD)}
+.pt-amen-list{list-style:none;display:flex;flex-direction:column;gap:9px}
+.pt-amen-list li{font-size:.9375rem;color:var(--text-body);line-height:1.5}
+@media(max-width:900px){.pt-amen-inner{grid-template-columns:1fr;padding:32px 20px 40px;gap:28px}}
+
+/* ══ 4. INTRO ══ */
+.pt-intro{background:var(--cream);padding:104px 64px}
+.pt-intro-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.15fr 1fr;gap:80px;align-items:start}
+.pt-eyebrow{display:block;font-size:.75rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--text-accent);margin-bottom:16px}
+.pt-h2{font-family:var(--serif);font-size:clamp(1.9rem,3.4vw,3rem);font-weight:300;color:var(--black);line-height:1.14;letter-spacing:.005em;margin-bottom:24px}
+.pt-h2 em{font-style:italic;color:var(--text-accent)}
+.pt-intro p{font-size:1.0625rem;color:var(--text-body);line-height:1.78;max-width:56ch;margin-bottom:16px}
+.pt-stats{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--ruleD)}
+.pt-stat{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--ruleD)}
+.pt-stat-n{font-family:var(--serif);font-size:2rem;font-weight:300;color:var(--slate);line-height:1}
+.pt-stat-l{font-size:.8125rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);line-height:1.5}
+@media(max-width:900px){.pt-intro{padding:64px 20px}.pt-intro-inner{grid-template-columns:1fr;gap:40px}}
+
+/* ══ 5. SUITES ══ */
+.pt-suites{background:var(--black);padding:104px 0}
+.pt-suites-head{max-width:1400px;margin:0 auto 44px;padding:0 64px;display:flex;align-items:flex-end;justify-content:space-between;gap:32px}
+.pt-suites-head .pt-eyebrow{color:var(--oat)}
+.pt-suites-head .pt-h2{color:#fff;margin-bottom:0}
+.pt-suites-head .pt-h2 em{color:var(--slate-light)}
+.pt-suites-all{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:3px;white-space:nowrap;transition:border-color .2s}
+.pt-suites-all:hover{border-color:#fff}
+.pt-suites-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.pt-suite{position:relative;background:var(--ink);text-decoration:none;display:block;overflow:hidden}
+.pt-suite-img{position:relative;aspect-ratio:4/5;overflow:hidden;background:#22282c}
+.pt-suite-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.22,.68,0,1)}
+.pt-suite:hover .pt-suite-img img{transform:scale(1.05)}
+.pt-suite-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 42%,rgba(0,0,0,.8) 100%)}
+.pt-suite-badge{position:absolute;top:14px;left:14px;z-index:2;font-size:.6875rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--oat);background:rgba(20,20,20,.6);border:1px solid rgba(242,232,213,.28);padding:5px 11px;border-radius:100px;backdrop-filter:blur(8px)}
+.pt-suite-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:20px}
+.pt-suite-name{font-family:var(--serif);font-size:1.25rem;font-weight:400;color:#fff;margin-bottom:8px}
+.pt-suite-specs{display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:12px}
+.pt-suite-spec{font-size:.75rem;letter-spacing:.06em;color:rgba(255,255,255,.78)}
+.pt-suite-cta{font-size:.6875rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff}
+.pt-suite:hover .pt-suite-cta{color:var(--slate-light)}
+@media(max-width:1100px){.pt-suites-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.pt-suites{padding:64px 0}.pt-suites-head{padding:0 20px;flex-direction:column;align-items:flex-start;gap:16px}}
+@media(max-width:560px){.pt-suites-grid{grid-template-columns:1fr}}
+
+/* ══ 6. STORY BLOCKS ══ */
+.pt-story{display:grid;grid-template-columns:1fr 1fr;align-items:stretch}
+.pt-story.cream{background:var(--cream)}
+.pt-story.warm{background:var(--cream-warm)}
+.pt-story-img{position:relative;min-height:520px;overflow:hidden;background:#dcd9d1}
+.pt-story-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.pt-story-copy{display:flex;flex-direction:column;justify-content:center;padding:88px 72px}
+.pt-story-copy p{font-size:1.0625rem;color:var(--text-body);line-height:1.78;max-width:46ch;margin-bottom:26px}
+.pt-story-cta{align-self:flex-start;font-size:.8125rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--black);border:1px solid var(--black);padding:14px 28px;text-decoration:none;border-radius:2px;transition:background .18s,color .18s}
+.pt-story-cta:hover{background:var(--black);color:var(--cream)}
+.pt-story.flip .pt-story-img{order:2}
+@media(max-width:900px){.pt-story,.pt-story.flip{grid-template-columns:1fr}.pt-story-img,.pt-story.flip .pt-story-img{order:0;min-height:300px}.pt-story-copy{padding:48px 20px 56px}}
+
+/* ══ 7. BOOKING BAND ══ */
+.pt-book{background:var(--slate);padding:96px 64px}
+.pt-book-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.05fr 1fr;gap:72px;align-items:center}
+.pt-book .pt-eyebrow{color:var(--oat)}
+.pt-book .pt-h2{color:#fff}
+.pt-book .pt-h2 em{color:#A8C6D4}
+.pt-book-body{font-size:1.0625rem;color:rgba(255,255,255,.9);line-height:1.75;max-width:50ch;margin-bottom:26px}
+.pt-perks{display:flex;flex-direction:column;gap:12px}
+.pt-perk{display:flex;align-items:flex-start;gap:12px;font-size:.9375rem;color:rgba(255,255,255,.92);line-height:1.55}
+.pt-perk-dot{width:7px;height:7px;border-radius:50%;background:var(--oat);flex-shrink:0;margin-top:7px}
+.pt-form-wrap{background:rgba(0,0,0,.24);border:1px solid rgba(255,255,255,.2);border-radius:3px;padding:32px}
+.pt-form-label{display:block;font-family:var(--serif);font-size:1.25rem;color:#fff;margin-bottom:4px}
+.pt-form-note{display:block;font-size:.75rem;letter-spacing:.06em;color:rgba(255,255,255,.6);margin-bottom:22px}
+.pt-form .pt-bf label{color:rgba(255,255,255,.75)}
+.pt-form .pt-bf input,.pt-form .pt-bf select{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3)}
+.pt-form .pt-bf input:focus,.pt-form .pt-bf select:focus{border-color:#fff;background:rgba(255,255,255,.16)}
+@media(max-width:960px){.pt-book{padding:64px 20px}.pt-book-inner{grid-template-columns:1fr;gap:40px}}
+
+/* ══ 8. NEIGHBORHOOD ══ */
+.pt-hood{background:var(--cream-warm);padding:104px 64px}
+.pt-hood-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:72px;align-items:center}
+.pt-hood-map{position:relative;aspect-ratio:4/3;background:#e2ded4;border:1px solid var(--ruleD);overflow:hidden}
+.pt-hood-map img{width:100%;height:100%;object-fit:cover}
+.pt-poi{list-style:none;border-top:1px solid var(--ruleD);margin-top:8px}
+.pt-poi li{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--ruleD)}
+.pt-poi-name{font-family:var(--serif);font-size:1.0625rem;color:var(--black)}
+.pt-poi-kind{display:block;font-family:var(--sans);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-top:3px}
+.pt-poi-dist{font-size:.8125rem;font-weight:500;letter-spacing:.08em;color:var(--slate);white-space:nowrap}
+@media(max-width:960px){.pt-hood{padding:64px 20px}.pt-hood-inner{grid-template-columns:1fr;gap:36px}}
+
+/* ══ 9. LONGER STAYS ══ */
+.pt-longer{background:var(--ink);padding:72px 64px}
+.pt-longer-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:.9fr 1.4fr;gap:56px;align-items:center}
+.pt-longer .pt-eyebrow{color:var(--oat)}
+.pt-longer-h{font-family:var(--serif);font-size:clamp(1.5rem,2.4vw,2.1rem);font-weight:300;color:#fff;line-height:1.2}
+.pt-longer-h em{font-style:italic;color:var(--slate-light)}
+.pt-longer-links{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.pt-longer-link{display:block;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);padding:22px 24px;text-decoration:none;transition:background .2s,border-color .2s}
+.pt-longer-link:hover{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.5)}
+.pt-longer-name{display:block;font-size:.8125rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-bottom:6px}
+.pt-longer-desc{display:block;font-size:.875rem;color:rgba(255,255,255,.72);line-height:1.55}
+@media(max-width:960px){.pt-longer{padding:56px 20px}.pt-longer-inner{grid-template-columns:1fr;gap:28px}.pt-longer-links{grid-template-columns:1fr}}
+
+/* ══ 10. PRACTICAL INFO ══ */
+.pt-info{background:var(--cream-light);padding:96px 64px}
+.pt-info-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:.8fr 1.6fr;gap:72px;align-items:start}
+.pt-acc{border-top:1px solid var(--ruleD)}
+.pt-acc details{border-bottom:1px solid var(--ruleD)}
+.pt-acc summary{list-style:none;cursor:pointer;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:.9375rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--black)}
+.pt-acc summary::-webkit-details-marker{display:none}
+.pt-acc summary::after{content:'+';font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--slate);line-height:1;transition:transform .2s}
+.pt-acc details[open] summary::after{content:'\2212'}
+.pt-acc-body{padding:0 0 24px;max-width:70ch}
+.pt-acc-body p{font-size:1rem;color:var(--text-body);line-height:1.75;margin-bottom:10px}
+.pt-acc-body dl{display:grid;grid-template-columns:auto 1fr;gap:8px 24px;font-size:1rem;color:var(--text-body);line-height:1.6}
+.pt-acc-body dt{font-weight:600;color:var(--black)}
+.pt-contact-card{background:var(--white);border:1px solid var(--ruleD);padding:30px}
+.pt-contact-name{font-family:var(--serif);font-size:1.25rem;color:var(--black);margin-bottom:6px}
+.pt-contact-line{display:block;font-size:.9375rem;color:var(--text-body);line-height:1.7}
+.pt-contact-link{display:inline-block;margin-top:16px;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);text-decoration:none;border-bottom:1px solid var(--slate);padding-bottom:3px}
+@media(max-width:960px){.pt-info{padding:64px 20px}.pt-info-inner{grid-template-columns:1fr;gap:36px}}
+
+/* ══ FOOTER (global) ══ */
+.site-footer{background:var(--black);color:rgba(255,255,255,.45);padding:64px 64px 32px;border-top:1px solid var(--rule)}
+.footer-main{max-width:1400px;margin:0 auto 48px;display:grid;grid-template-columns:repeat(5,1fr);gap:48px}
+.footer-col-head{font-family:var(--serif);font-size:.875rem;color:var(--white);display:block;margin-bottom:16px;letter-spacing:.02em}
+.footer-link{display:block;font-size:.75rem;color:rgba(255,255,255,.4);text-decoration:none;margin-bottom:10px;letter-spacing:.04em;transition:color .2s}
+.footer-link:hover{color:var(--white)}
+.footer-bottom{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--rule);gap:24px;flex-wrap:wrap}
+.footer-bottom-left{display:flex;align-items:center;gap:16px}
+.footer-logo{height:15px;width:auto;opacity:.7}
+.footer-eho img{height:22px;width:auto;opacity:.6}
+.footer-copy{font-size:.75rem;color:rgba(255,255,255,.2)}
+.footer-legal{display:flex;gap:20px;align-items:center}
+.footer-legal-link{font-size:.75rem;color:rgba(255,255,255,.2);text-decoration:none;letter-spacing:.04em;transition:color .2s}
+.footer-legal-link:hover{color:rgba(255,255,255,.5)}
+@media(max-width:900px){.site-footer{padding:48px 20px 24px}.footer-main{grid-template-columns:1fr 1fr;gap:32px}}
+@media(max-width:540px){.footer-main{grid-template-columns:1fr}}
+
+@media(prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+</style>
+
+<link rel="stylesheet" href="/overrides.css?v=4dark31">
+
+<style>
+/* Late block — wins over overrides.css where the template needs its own scale. */
+.pt-hero .hero-h,.pt-hero .hero-eyebrow,.pt-hero .hero-sub{
+  text-shadow:0 0 18px rgba(0,0,0,.65),0 2px 8px rgba(0,0,0,.55),0 1px 2px rgba(0,0,0,.5)}
+.pt-hero .hero-sub{max-width:48ch !important}
+.pt-suite-specs .pt-suite-spec,.pt-glance-item,.pt-poi-kind{font-size:.8125rem !important;letter-spacing:.1em !important}
+.pt-suite-name,.pt-poi-name,.pt-contact-name,.pt-form-label,.pt-bookcard-title{font-family:var(--serif) !important}
+/* Jump links must clear the fixed nav (64px) + the sticky book bar (~68px). */
+#suites,#amenities,#book-stay,#neighborhood,#info,#ptAmen{scroll-margin-top:140px}
+@media(max-width:900px){#suites,#amenities,#book-stay,#neighborhood,#info,#ptAmen{scroll-margin-top:120px}}
+/* NOTE: the two standing sitewide rules this template opts into are registered in
+   overrides.css, not here, so there is one source of truth:
+     §9f  — booking-search CTAs (.pt-book-btn, .pt-sticky-book) render in booking gold
+     §all-caps — every interactive label on this page is uppercase */
+</style>
+</head>
+<body>
+<a class="skip-to-content" href="#main">Skip to content</a>
+
+<!-- ══════════ NAV — global, unchanged ══════════ -->
+<nav class="site-nav" aria-label="Main navigation">
+  <a class="nav-logo" href="index.html"><img src="/assets/sentral-wordmark-white.png" alt="Sentral"/></a>
+  <div class="nav-links">
+    <a class="nav-link active" href="stay-with-us.html">Stay With Us</a>
+    <a class="nav-link" href="live-with-us.html">Live With Us</a>
+    <a class="nav-link" href="partner-with-us.html">Partner With Us</a>
+  </div>
+  <div class="nav-ctas">
+    <a class="btn-sn-ghost" href="https://sentralplus.laasie.ai/login" target="_blank" rel="noopener">Login</a>
+    <!-- On a property page the property is already known, so nav BOOK A STAY scrolls
+         to this property's booking band instead of opening the cross-property strip. -->
+    <a class="btn-sn" href="#book-stay">Book a Stay</a>
+    <a class="btn-splus" href="https://sentralplus.laasie.ai/sign-up" target="_blank" rel="noopener" aria-label="Join SentralPlus — Rewards Program"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10 6.2v7.6M6.2 10h7.6" stroke="currentColor" stroke-width="1.3"/></svg><span class="btn-splus-text"><span class="btn-splus-word">Sentral<em>Plus</em></span><span class="btn-splus-tag">Rewards</span></span></a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+    </button>
+  </div>
+  <div class="ham-panel" id="mobileMenu" aria-hidden="true">
+    <div class="ham-panel-inner">
+      <nav class="ham-nav" aria-label="Main menu">
+        <a class="ham-link" href="stay-with-us.html"><span class="ham-link-title">Stay With Us</span><span class="ham-link-sub">Furnished stays, 1 night to a whole summer</span></a>
+        <a class="ham-link" href="live-with-us.html"><span class="ham-link-title">Live With Us</span><span class="ham-link-sub">Apartment living, residentially priced</span></a>
+        <a class="ham-link" href="partner-with-us.html"><span class="ham-link-title">Partner With Us</span><span class="ham-link-sub">Institutional-grade property management</span></a>
+      </nav>
+      <div class="ham-footer">
+        <a class="ham-book" href="#book-stay">Book a Stay &nbsp;&rarr;</a>
+        <a class="btn-splus" href="https://sentralplus.laasie.ai/sign-up" target="_blank" rel="noopener" aria-label="Join SentralPlus — Rewards Program"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10 6.2v7.6M6.2 10h7.6" stroke="currentColor" stroke-width="1.3"/></svg><span class="btn-splus-text"><span class="btn-splus-word">Sentral<em>Plus</em></span><span class="btn-splus-tag">Rewards</span></span></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════ 2. STICKY BOOK BAR ══════════ -->
+<div class="pt-sticky" id="ptSticky">
+  <div class="pt-sticky-inner">
+    <div class="pt-sticky-name">Sol Modern<small>Phoenix, AZ</small></div><!-- [FIELD] name + city -->
+    <nav class="pt-sticky-jump" aria-label="On this page">
+      <a href="#suites">Suites</a>
+      <a href="#amenities">Amenities</a>
+      <a href="#neighborhood">Neighborhood</a>
+      <a href="#info">Good to Know</a>
+    </nav>
+    <a class="pt-sticky-book" href="#book-stay">Check Rates</a>
+  </div>
+</div>
+
+<main id="main" tabindex="-1">
+
+<!-- ══════════ 1. HERO ══════════ -->
+<section class="pt-hero hero" id="hero">
+  <!-- [FIELD] hero-media: property film (mp4, 1920×1080, muted loop) or still (2400×1350) -->
+  <video class="pt-hero-media" id="ptHeroVideo" autoplay muted loop playsinline preload="auto"
+         poster="/assets/stay-hero-poster.jpg" aria-hidden="true">
+    <source src="/assets/sol-modern-stay-header.mp4" type="video/mp4">
+  </video>
+  <button class="pt-motion" id="ptHeroToggle" aria-label="Pause background video">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="3" width="3" height="10"/><rect x="9" y="3" width="3" height="10"/></svg>
+  </button>
+  <div class="photo-tag"><span class="photo-tag-name">Sol Modern &mdash; Phoenix</span></div>
+  <div class="pt-hero-veil"></div>
+
+  <div class="pt-hero-inner">
+    <div class="pt-hero-left">
+      <div class="pt-crumb">
+        <a href="stay-with-us.html">Stay With Us</a><span>&rsaquo;</span>
+        <a href="stay-with-us.html#properties">Phoenix</a><!-- [FIELD] city -->
+      </div>
+      <span class="hero-eyebrow">Phoenix, Arizona</span><!-- [FIELD] city, state -->
+      <h1 class="hero-h">Sol Modern</h1><!-- [FIELD] property name -->
+      <p class="hero-sub">Furnished studio to three-bedroom suites in Downtown Phoenix &mdash; full kitchens, in-unit laundry, and a rooftop pool two blocks from Roosevelt Row. Stay a night, a month, or a season.</p><!-- [FIELD] one-paragraph positioning, 2 sentences max -->
+      <div class="pt-hero-meta">
+        <span class="pt-hero-addr">50 E. Fillmore Street, Phoenix, AZ 85004</span><!-- [FIELD] address -->
+        <a class="pt-dir-btn" href="https://maps.google.com/?q=50+E+Fillmore+St+Phoenix+AZ+85004" target="_blank" rel="noopener">Get Directions</a>
+      </div>
+    </div>
+
+    <!-- Hero booking card — property is fixed, so the guest picks dates only -->
+    <div class="pt-bookcard">
+      <span class="pt-bookcard-title">Reserve your stay</span>
+      <span class="pt-bookcard-note">Sol Modern &mdash; best rate, booked direct</span>
+      <form onsubmit="return ptCheckRates(event,'hero')">
+        <div class="pt-bf-row">
+          <div class="pt-bf"><label for="hero-in">Check-in</label><input id="hero-in" type="date" required></div>
+          <div class="pt-bf"><label for="hero-out">Check-out</label><input id="hero-out" type="date" required></div>
+        </div>
+        <div class="pt-bf-row">
+          <div class="pt-bf"><label for="hero-guests">Guests</label>
+            <select id="hero-guests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6+</option></select>
+          </div>
+          <div class="pt-bf"><label for="hero-suite">Suite</label>
+            <select id="hero-suite"><option selected>Any</option><option>Studio</option><option>One Bedroom</option><option>Two Bedroom</option><option>Three Bedroom</option></select>
+          </div>
+        </div>
+        <button class="pt-book-btn" type="submit">Check Rates &nbsp;&rarr;</button>
+      </form>
+      <span class="pt-bookcard-fine">Flexible cancellation on most stays</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 3. AT A GLANCE ══════════ -->
+<!-- Seven attributes, max. Everything else lives in the disclosure below. -->
+<section class="pt-glance" id="amenities" aria-label="Property at a glance">
+  <div class="pt-glance-inner">
+    <div class="pt-glance-list">
+      <span class="pt-glance-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h18M5 12V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5M4 12v6M20 12v6"/></svg>Full Kitchens</span>
+      <span class="pt-glance-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M8 7h2"/></svg>In-Unit Laundry</span>
+      <span class="pt-glance-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 17c2 0 2 1.4 4 1.4S8 17 10 17s2 1.4 4 1.4S16 17 18 17s2 1.4 4 1.4M6 13V6a2 2 0 0 1 4 0M6 9h4M14 13V7"/></svg>Rooftop Pool</span>
+      <span class="pt-glance-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6M20 9v6M7 6v12M17 6v12M7 12h10"/></svg>Fitness Center</span>
+      <span class="pt-glance-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Coworking</span>
+      <span class="pt-glance-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17.5a3.5 3.5 0 0 1 4 0"/><ellipse cx="6.5" cy="9" rx="2" ry="2.8"/><ellipse cx="17.5" cy="9" rx="2" ry="2.8"/><ellipse cx="10.5" cy="5.5" rx="1.8" ry="2.5"/><ellipse cx="13.5" cy="5.5" rx="1.8" ry="2.5"/></svg>Pet Friendly</span>
+      <span class="pt-glance-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M9 15V9h3a2 2 0 0 1 0 4H9"/></svg>Secure Parking</span>
+    </div>
+    <button class="pt-glance-all" id="ptAmenBtn" aria-expanded="false" aria-controls="ptAmen">All 18 Amenities &nbsp;+</button><!-- [FIELD] count -->
+  </div>
+</section>
+
+<!-- Full amenity list — the 18-item completeness, one click away instead of on the page -->
+<div class="pt-amen" id="ptAmen" hidden>
+  <div class="pt-amen-inner">
+    <div>
+      <span class="pt-amen-h">In your suite</span>
+      <ul class="pt-amen-list">
+        <li>Fully equipped kitchen &mdash; quartz counters, full-size appliances</li>
+        <li>In-unit washer and dryer</li>
+        <li>Stainless steel refrigerator, dishwasher, microwave</li>
+        <li>Vinyl plank wood flooring</li>
+        <li>Walk-in showers</li>
+        <li>Keyless apartment entry</li>
+        <li>Balconies in select suites</li>
+      </ul>
+    </div>
+    <div>
+      <span class="pt-amen-h">Around the building</span>
+      <ul class="pt-amen-list">
+        <li>Indoor/outdoor fitness center with yoga studio and cold plunge</li>
+        <li>Coworking lounge and private work spaces</li>
+        <li>Entertainment lounge and gathering spaces</li>
+        <li>Indoor and outdoor entertaining areas</li>
+        <li>WiFi in common areas</li>
+        <li>On-site pet amenities</li>
+      </ul>
+    </div>
+    <div>
+      <span class="pt-amen-h">Building &amp; access</span>
+      <ul class="pt-amen-list">
+        <li>Secure building access</li>
+        <li>Secure garage parking</li>
+        <li>EV charging stations</li>
+        <li>On-site management</li>
+        <li>Walkable to shopping, restaurants, and more</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ 4. INTRO ══════════ -->
+<!-- Two paragraphs. Not four amenity essays. -->
+<section class="pt-intro">
+  <div class="pt-intro-inner">
+    <div>
+      <span class="pt-eyebrow">The Property</span>
+      <h2 class="pt-h2">Downtown Phoenix,<br><em>with the doors unlocked.</em></h2>
+      <p>Sol Modern sits on Fillmore between the arts district and the ballpark &mdash; close enough to walk to dinner, far enough to sleep. Suites are furnished end to end, with kitchens you would actually cook in and laundry you never have to leave for.</p>
+      <p>Everything downstairs is yours while you are here: the pool deck, the fitness floor, the work lounges, and the people who run them.</p>
+    </div>
+    <div class="pt-stats">
+      <div class="pt-stat"><span class="pt-stat-n">1&ndash;3</span><span class="pt-stat-l">Bedroom suites<br>plus studios</span></div>
+      <div class="pt-stat"><span class="pt-stat-n">1</span><span class="pt-stat-l">Night minimum stay</span></div>
+      <div class="pt-stat"><span class="pt-stat-n">6</span><span class="pt-stat-l">Guests, largest suite</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 5. SUITES ══════════ -->
+<!-- The browse grid sentral.com property pages do not have today. -->
+<section class="pt-suites dark" id="suites">
+  <div class="pt-suites-head">
+    <div>
+      <span class="pt-eyebrow">Suites</span>
+      <h2 class="pt-h2">Pick your <em>footprint.</em></h2>
+    </div>
+    <a class="pt-suites-all" href="#book-stay">See rates &amp; availability &nbsp;&rarr;</a>
+  </div>
+  <div class="pt-suites-grid">
+    <!-- [FIELD] 3–6 suite cards. Photo 1200×1500. -->
+    <a class="pt-suite" href="#book-stay">
+      <div class="pt-suite-img"><img src="/assets/ig-social-1.jpg" alt="Studio suite living area"/></div>
+      <span class="pt-suite-badge">From $189/night</span>
+      <div class="pt-suite-body">
+        <div class="pt-suite-name">Studio</div>
+        <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 2</span><span class="pt-suite-spec">520 sq ft</span><span class="pt-suite-spec">Queen</span></div>
+        <span class="pt-suite-cta">View suite &nbsp;&rarr;</span>
+      </div>
+    </a>
+    <a class="pt-suite" href="#book-stay">
+      <div class="pt-suite-img"><img src="/assets/ig-social-2.jpg" alt="One bedroom suite"/></div>
+      <span class="pt-suite-badge">From $229/night</span>
+      <div class="pt-suite-body">
+        <div class="pt-suite-name">One Bedroom</div>
+        <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 3</span><span class="pt-suite-spec">710 sq ft</span><span class="pt-suite-spec">King</span></div>
+        <span class="pt-suite-cta">View suite &nbsp;&rarr;</span>
+      </div>
+    </a>
+    <a class="pt-suite" href="#book-stay">
+      <div class="pt-suite-img"><img src="/assets/ig-social-3.jpg" alt="Two bedroom suite"/></div>
+      <span class="pt-suite-badge">From $319/night</span>
+      <div class="pt-suite-body">
+        <div class="pt-suite-name">Two Bedroom</div>
+        <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 4</span><span class="pt-suite-spec">1,050 sq ft</span><span class="pt-suite-spec">King + Queen</span></div>
+        <span class="pt-suite-cta">View suite &nbsp;&rarr;</span>
+      </div>
+    </a>
+    <a class="pt-suite" href="#book-stay">
+      <div class="pt-suite-img"><img src="/assets/forme-houston-square-poster.jpg" alt="Three bedroom suite"/></div>
+      <span class="pt-suite-badge">From $429/night</span>
+      <div class="pt-suite-body">
+        <div class="pt-suite-name">Three Bedroom</div>
+        <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 6</span><span class="pt-suite-spec">1,340 sq ft</span><span class="pt-suite-spec">2 King + Queen</span></div>
+        <span class="pt-suite-cta">View suite &nbsp;&rarr;</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ══════════ 6. STORY BLOCKS — exactly three ══════════ -->
+<section class="pt-story cream" aria-label="Inside the suites">
+  <div class="pt-story-img"><img src="/assets/stay-hero-poster.jpg" alt="Furnished suite interior"/></div>
+  <div class="pt-story-copy">
+    <span class="pt-eyebrow">01 &mdash; Stay</span>
+    <h2 class="pt-h2">A kitchen, a couch,<br><em>a door that closes.</em></h2>
+    <p>Every suite is furnished and stocked: full-size appliances, cookware, in-unit washer and dryer, fast WiFi, and a desk that works for a real work day. Bedrooms are separate rooms, not a corner of one.</p>
+    <a class="pt-story-cta" href="#suites">See the suites</a>
+  </div>
+</section>
+
+<section class="pt-story warm flip" aria-label="Amenity spaces">
+  <div class="pt-story-img"><img src="/assets/hero-poster.jpg" alt="Rooftop pool deck"/></div>
+  <div class="pt-story-copy">
+    <span class="pt-eyebrow">02 &mdash; Gather</span>
+    <h2 class="pt-h2">The building is<br><em>part of the stay.</em></h2>
+    <p>Rooftop pool and cabanas, an indoor-outdoor fitness floor with a yoga studio and cold plunge, work lounges you can actually take a call in, and grill decks for the nights you would rather stay in.</p>
+    <a class="pt-story-cta" href="#ptAmen" id="ptAmenJump">All amenities</a>
+  </div>
+</section>
+
+<section class="pt-story cream" aria-label="The neighborhood">
+  <div class="pt-story-img"><img src="/assets/group-hero-poster.jpg" alt="Downtown Phoenix streetscape"/></div>
+  <div class="pt-story-copy">
+    <span class="pt-eyebrow">03 &mdash; Neighborhood</span>
+    <h2 class="pt-h2">Roosevelt Row<br><em>is two blocks north.</em></h2>
+    <p>Galleries, coffee, and the best of the downtown restaurant run are all inside a ten-minute walk. Chase Field, Footprint Center, and the light rail are closer than that.</p>
+    <a class="pt-story-cta" href="#neighborhood">What&rsquo;s nearby</a>
+  </div>
+</section>
+
+<!-- ══════════ 7. BOOKING BAND ══════════ -->
+<section class="pt-book dark" id="book-stay">
+  <div class="pt-book-inner">
+    <div>
+      <span class="pt-eyebrow">Reserve your stay</span>
+      <h2 class="pt-h2">Book direct.<br>Pay <em>less.</em></h2>
+      <p class="pt-book-body">Choose your dates and book in minutes. No hidden fees, no resort charges, and the best rate we offer anywhere.</p>
+      <div class="pt-perks">
+        <div class="pt-perk"><span class="pt-perk-dot"></span>Best rate guaranteed &mdash; book direct</div>
+        <div class="pt-perk"><span class="pt-perk-dot"></span>Full kitchen and in-unit washer/dryer in every suite</div>
+        <div class="pt-perk"><span class="pt-perk-dot"></span>Flexible cancellation on most bookings</div>
+        <div class="pt-perk"><span class="pt-perk-dot"></span>Transparent pricing &mdash; no hidden fees</div>
+        <div class="pt-perk"><span class="pt-perk-dot"></span>SentralPlus rewards on every night booked</div>
+      </div>
+    </div>
+    <div class="pt-form-wrap">
+      <span class="pt-form-label">Sol Modern</span><!-- [FIELD] property name -->
+      <span class="pt-form-note">50 E. Fillmore Street, Phoenix, AZ 85004</span><!-- [FIELD] address -->
+      <!--
+        MEWS DISTRIBUTOR — at build, replace this form with:
+        <script src="https://api.mews.com/distributor/distributor.min.js"></script>
+        Mews.Distributor({ configurationIds: ['[FIELD] mews-config-id'], openElements: '.pt-book-btn' });
+        The property is fixed on this page, so there is no property selector.
+      -->
+      <form class="pt-form" onsubmit="return ptCheckRates(event,'band')">
+        <div class="pt-bf-row">
+          <div class="pt-bf"><label for="bk-in">Check-in</label><input id="bk-in" type="date" required></div>
+          <div class="pt-bf"><label for="bk-out">Check-out</label><input id="bk-out" type="date" required></div>
+        </div>
+        <div class="pt-bf-row">
+          <div class="pt-bf"><label for="bk-adults">Adults</label>
+            <select id="bk-adults"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select>
+          </div>
+          <div class="pt-bf"><label for="bk-kids">Children</label>
+            <select id="bk-kids"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
+          </div>
+        </div>
+        <div class="pt-bf"><label for="bk-code">Promo or corporate code &mdash; optional</label><input id="bk-code" type="text" placeholder="Enter code"></div>
+        <button class="pt-book-btn" type="submit">Check Rates &nbsp;&rarr;</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 8. NEIGHBORHOOD ══════════ -->
+<!-- Six curated points with walk times. Replaces the generic city-guide essay. -->
+<section class="pt-hood" id="neighborhood">
+  <div class="pt-hood-inner">
+    <div class="pt-hood-map">
+      <!-- [FIELD] static map image, or a Leaflet mount like live-with-us.html -->
+      <img src="/assets/live-hero-poster.jpg" alt="Map of Downtown Phoenix showing Sol Modern"/>
+    </div>
+    <div>
+      <span class="pt-eyebrow">The Neighborhood</span>
+      <h2 class="pt-h2">Everything worth walking to,<br><em>within ten minutes.</em></h2>
+      <ul class="pt-poi">
+        <!-- [FIELD] 5–7 points, walk time from the front door -->
+        <li><span><span class="pt-poi-name">Roosevelt Row</span><span class="pt-poi-kind">Galleries &amp; nightlife</span></span><span class="pt-poi-dist">4 min walk</span></li>
+        <li><span><span class="pt-poi-name">Chase Field</span><span class="pt-poi-kind">Baseball</span></span><span class="pt-poi-dist">9 min walk</span></li>
+        <li><span><span class="pt-poi-name">Footprint Center</span><span class="pt-poi-kind">Basketball &amp; concerts</span></span><span class="pt-poi-dist">11 min walk</span></li>
+        <li><span><span class="pt-poi-name">Valley Metro Rail &mdash; Van Buren/1st Ave</span><span class="pt-poi-kind">Light rail</span></span><span class="pt-poi-dist">5 min walk</span></li>
+        <li><span><span class="pt-poi-name">Phoenix Sky Harbor (PHX)</span><span class="pt-poi-kind">Airport</span></span><span class="pt-poi-dist">12 min drive</span></li>
+        <li><span><span class="pt-poi-name">Arizona State University Downtown</span><span class="pt-poi-kind">Campus</span></span><span class="pt-poi-dist">7 min walk</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 9. LONGER STAYS ══════════ -->
+<section class="pt-longer dark" aria-label="Longer stays">
+  <div class="pt-longer-inner">
+    <div>
+      <span class="pt-eyebrow">Staying a while?</span>
+      <h2 class="pt-longer-h">Rates drop <em>after 30 nights.</em></h2>
+    </div>
+    <div class="pt-longer-links">
+      <a class="pt-longer-link" href="business-travel.html">
+        <span class="pt-longer-name">Business Travel</span>
+        <span class="pt-longer-desc">Corporate housing, per-diem friendly, invoiced monthly.</span>
+      </a>
+      <a class="pt-longer-link" href="group-travel.html">
+        <span class="pt-longer-name">Group Travel</span>
+        <span class="pt-longer-desc">Five suites or more, one contact, one contract.</span>
+      </a>
+      <a class="pt-longer-link" href="live-with-us.html">
+        <span class="pt-longer-name">Live With Us</span>
+        <span class="pt-longer-desc">Staying past a season? Look at a lease instead.</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 10. PRACTICAL INFO ══════════ -->
+<!-- Collapsed by default. This is where the old page's clutter earns its keep. -->
+<section class="pt-info" id="info">
+  <div class="pt-info-inner">
+    <div>
+      <span class="pt-eyebrow">Good to know</span>
+      <h2 class="pt-h2">The <em>practical</em> part.</h2>
+      <div class="pt-contact-card">
+        <div class="pt-contact-name">Sol Modern</div><!-- [FIELD] -->
+        <span class="pt-contact-line">50 E. Fillmore Street</span>
+        <span class="pt-contact-line">Phoenix, AZ 85004</span>
+        <span class="pt-contact-line"><a href="tel:+18333704161" style="color:inherit">(833) 370-4161</a></span>
+        <a class="pt-contact-link" href="/contact">Contact the property</a>
+      </div>
+    </div>
+
+    <div class="pt-acc">
+      <details open>
+        <summary>Check-in &amp; check-out</summary>
+        <div class="pt-acc-body">
+          <dl>
+            <dt>Check-in</dt><dd>4:00 PM &mdash; self check-in with keyless entry, code sent the morning of arrival</dd>
+            <dt>Check-out</dt><dd>11:00 AM &mdash; late check-out to 2:00 PM subject to availability</dd>
+            <dt>Front desk</dt><dd>Staffed 8:00 AM &ndash; 8:00 PM daily; on-call after hours</dd>
+            <dt>Minimum stay</dt><dd>1 night</dd>
+          </dl>
+        </div>
+      </details>
+      <details>
+        <summary>Parking &amp; getting here</summary>
+        <div class="pt-acc-body">
+          <dl>
+            <dt>Self parking</dt><dd>Secure garage, $25 per night &mdash; [FIELD] confirm rate</dd>
+            <dt>EV charging</dt><dd>On-site stations, first come first served</dd>
+            <dt>Airport</dt><dd>Phoenix Sky Harbor (PHX), 12 minutes by car</dd>
+            <dt>Transit</dt><dd>Valley Metro Rail, Van Buren/1st Ave, 5 minute walk</dd>
+          </dl>
+        </div>
+      </details>
+      <details>
+        <summary>Pets</summary>
+        <div class="pt-acc-body">
+          <p>Dogs and cats welcome. Two pets per suite, [FIELD] weight limit. A one-time pet fee of [FIELD] applies per stay. On-site pet amenities available. Service animals are always welcome at no charge.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Fees, deposits &amp; cancellation</summary>
+        <div class="pt-acc-body">
+          <p>No resort fee and no hidden charges &mdash; the rate you see is the rate you pay, plus tax. Most bookings cancel free up to 48 hours before arrival; rates marked non-refundable are noted at checkout.</p>
+          <dl>
+            <dt>Incidental hold</dt><dd>[FIELD] per stay, released at check-out</dd>
+            <dt>Stays of 30+ nights</dt><dd>Monthly rate and separate terms apply</dd>
+          </dl>
+        </div>
+      </details>
+      <details>
+        <summary>Accessibility</summary>
+        <div class="pt-acc-body">
+          <p>Step-free entry from the street and the garage, elevator access to every floor, and accessible suites with roll-in showers available on request. Call the property before booking so we can hold the right suite for you.</p>
+        </div>
+      </details>
+      <details>
+        <summary>House rules</summary>
+        <div class="pt-acc-body">
+          <p>Smoke-free throughout, including balconies. Quiet hours 10:00 PM &ndash; 8:00 AM. Guests must be 21 or older to book. Events and parties are not permitted in suites &mdash; ask us about the event spaces instead.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════ FOOTER — global, unchanged ══════════ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-main">
+    <div class="footer-col">
+      <span class="footer-col-head">Stay With Us</span>
+      <a class="footer-link" href="stay-with-us.html">Book a Stay</a>
+      <a class="footer-link" href="sentralplus.html">SentralPlus</a>
+      <a class="footer-link" href="business-travel.html">Business Travel &amp; Corporate Housing</a>
+      <a class="footer-link" href="group-travel.html">Group Travel</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-head">Partner With Us</span>
+      <a class="footer-link" href="partner-with-us.html">Partner with us</a>
+      <a class="footer-link" href="careers.html">Careers</a>
+      <a class="footer-link" href="press.html">Press</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-head">Live With Us</span>
+      <a class="footer-link" href="live-with-us.html">Find a Home</a>
+      <a class="footer-link" href="the-experience.html">The Experience</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-head">Support</span>
+      <a class="footer-link" href="/contact">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-head">Social</span>
+      <a class="footer-link" href="https://www.instagram.com/sentrallife/" target="_blank" rel="noopener">Instagram</a>
+      <a class="footer-link" href="https://www.facebook.com/sentrallife/" target="_blank" rel="noopener">Facebook</a>
+      <a class="footer-link" href="https://www.linkedin.com/company/sentral-life" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="footer-link" href="https://www.youtube.com/channel/UCvpIGx24v3Be73bThpC5A4A" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-left">
+      <img class="footer-logo" src="/assets/sentral-wordmark-white.png" alt="Sentral"/>
+      <span class="footer-copy">&copy; 2026 BHI Holdings. All rights reserved.</span>
+      <a class="footer-eho" href="fair-housing.html" aria-label="Equal Housing Opportunity — Fair Housing statement"><img src="/assets/eho-white.png" alt="Equal Housing Opportunity logo"/></a>
+    </div>
+    <div class="footer-legal">
+      <a class="footer-legal-link" href="privacy-policy.html">Privacy</a>
+      <a class="footer-legal-link" href="terms-of-use.html">Terms</a>
+      <a class="footer-legal-link" href="fair-housing.html">Fair Housing</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── HAMBURGER ──
+(function(){
+  var btn=document.getElementById('hamburgerBtn'),panel=document.getElementById('mobileMenu');
+  if(!btn||!panel)return;
+  btn.addEventListener('click',function(){
+    var open=panel.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open);
+    panel.setAttribute('aria-hidden',!open);
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&panel.classList.contains('open')){
+      panel.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      panel.setAttribute('aria-hidden','true');
+    }
+  });
+})();
+
+// ── STICKY BOOK BAR — reveals once the hero is off screen ──
+(function(){
+  var bar=document.getElementById('ptSticky'),hero=document.getElementById('hero');
+  if(!bar||!hero||!('IntersectionObserver' in window))return;
+  new IntersectionObserver(function(entries){
+    bar.classList.toggle('show',!entries[0].isIntersecting);
+  },{rootMargin:'-64px 0px 0px 0px'}).observe(hero);
+})();
+
+// ── AMENITY DISCLOSURE ──
+(function(){
+  var btn=document.getElementById('ptAmenBtn'),panel=document.getElementById('ptAmen');
+  if(!btn||!panel)return;
+  var label=btn.textContent;
+  function open(){
+    panel.hidden=false;
+    void panel.offsetHeight;           // force reflow so max-height animates from 0
+    panel.classList.add('open');
+    btn.setAttribute('aria-expanded','true');
+    btn.textContent=label.replace(/\s*\+$/,' −');
+  }
+  function close(){
+    panel.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+    btn.textContent=label;
+    setTimeout(function(){if(!panel.classList.contains('open'))panel.hidden=true;},460);
+  }
+  btn.addEventListener('click',function(){
+    panel.classList.contains('open')?close():open();
+  });
+  var jump=document.getElementById('ptAmenJump');
+  if(jump)jump.addEventListener('click',function(e){
+    e.preventDefault();
+    if(!panel.classList.contains('open'))open();
+    panel.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+})();
+
+// ── HERO MOTION TOGGLE ──
+(function(){
+  var v=document.getElementById('ptHeroVideo'),b=document.getElementById('ptHeroToggle');
+  if(!v||!b)return;
+  var PLAY='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3l9 5-9 5z"/></svg>';
+  var PAUSE='<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="3" width="3" height="10"/><rect x="9" y="3" width="3" height="10"/></svg>';
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){v.pause();b.innerHTML=PLAY;b.setAttribute('aria-label','Play background video');}
+  b.addEventListener('click',function(){
+    if(v.paused){v.play();b.innerHTML=PAUSE;b.setAttribute('aria-label','Pause background video');}
+    else{v.pause();b.innerHTML=PLAY;b.setAttribute('aria-label','Play background video');}
+  });
+})();
+
+// ── DATE FIELDS: no past dates, check-out always after check-in ──
+(function(){
+  var today=new Date().toISOString().split('T')[0];
+  [['hero-in','hero-out'],['bk-in','bk-out']].forEach(function(pair){
+    var i=document.getElementById(pair[0]),o=document.getElementById(pair[1]);
+    if(!i||!o)return;
+    i.min=today;o.min=today;
+    i.addEventListener('change',function(){
+      o.min=i.value||today;
+      if(o.value&&o.value<=i.value)o.value='';
+    });
+  });
+})();
+
+// ── CHECK RATES ──
+// Placeholder until the Mews Distributor is wired in. At build, this handler
+// is replaced by Mews.Distributor({configurationIds:['[FIELD] mews-config-id']}).
+function ptCheckRates(e,source){
+  e.preventDefault();
+  var p=source==='hero'?['hero-in','hero-out']:['bk-in','bk-out'];
+  var i=document.getElementById(p[0]).value,o=document.getElementById(p[1]).value;
+  if(!i||!o){document.getElementById(p[0]).focus();return false;}
+  window.location.hash='book-stay';
+  console.log('Mews booking:',{property:'sol-modern',checkin:i,checkout:o,source:source});
+  return false;
+}
+</script>
+</body>
+</html>

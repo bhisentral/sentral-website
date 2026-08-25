@@ -1232,7 +1232,10 @@ button,
 .posit-cta, .suite-cta, .wideband-cta, .inquiry-cta, .hero-cta,
 .cityidx-all, .ps-all, .ham-book, .sticky-book,
 .sp-sticky-join, .sp-sticky-login, .splus-bar-join, .splus-bar-login,
-.mews-submit, .nav-link, .ham-link-title {
+.mews-submit, .nav-link, .ham-link-title,
+.pt-book-btn, .pt-sticky-book, .pt-story-cta, .pt-suites-all,
+.pt-glance-all, .pt-suite-cta, .pt-longer-name, .pt-contact-link,
+.pt-dir-btn, .pt-sticky-jump a, .pt-acc summary {
   text-transform: uppercase !important;
 }
 
@@ -1432,12 +1435,15 @@ a.splus-lockup:hover .splus-lockup-text,a.splus-lockup:focus-visible .splus-lock
 .bb-btn, a.bb-btn,
 .nbp-btn, a.nbp-btn,
 .book-btn, button.book-btn,
-.mews-submit, button.mews-submit {
+.mews-submit, button.mews-submit,
+.pt-book-btn, button.pt-book-btn, a.pt-book-btn,
+.pt-sticky-book, a.pt-sticky-book {
   background: var(--metallic) !important;
   color: var(--black) !important;
   border-color: var(--metallic) !important;
 }
-.bb-btn:hover, .nbp-btn:hover, .book-btn:hover, .mews-submit:hover {
+.bb-btn:hover, .nbp-btn:hover, .book-btn:hover, .mews-submit:hover,
+.pt-book-btn:hover, .pt-sticky-book:hover {
   background: var(--black) !important;
   color: var(--metallic) !important;
 }
