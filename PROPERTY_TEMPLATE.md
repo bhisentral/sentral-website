@@ -38,7 +38,9 @@ short, and the guest can book from anywhere on it.
 | 3 | At a glance | cream-light | 7 attributes, then `ALL N AMENITIES +` disclosure |
 | 4 | Intro | cream | Two paragraphs and three stats. Nothing else |
 | 5 | Suites | off-black | Full-bleed grid, 3–6 cards |
-| 6 | Story blocks ×3 | cream / cream-warm alternating | Stay · Gather · Neighborhood. One CTA each |
+| 6 | Story block 01 — Stay | cream | Inside the suites. One CTA |
+| 6b | Amenity showcase 02 — Gather | cream-warm | 4–6 photo tiles: pool, fitness, coworking, lounges |
+| 6c | Story block 03 — Neighborhood | cream | One CTA |
 | 7 | Booking band | slate | Mews widget + direct-book perks |
 | 8 | Neighborhood | cream-warm | Map + 5–7 places with walk times |
 | 9 | Longer stays | ink | Business Travel · Group Travel · Live With Us |
@@ -83,10 +85,18 @@ story block, the answer is that one of the three is not earning its place.
 
 There is no `from_rate` field — the rate badge is live. See §5.
 
-### Amenities
-- `glance[7]` — the seven that actually decide a booking. Icon + label.
-- `all` — the full list, grouped: **In your suite** / **Around the building** /
-  **Building & access**. Any length; it is behind the disclosure.
+Clicking a suite card pre-selects that suite in **both** booking forms, scrolls
+to the booking band, and focuses Check-in. The two forms carry the same `Suite`
+field for exactly this reason — a guest who picks Two Bedroom should not have to
+pick it again.
+
+### Amenities — shown three ways, deliberately
+- `glance[7]` — the seven that decide a booking. Icon + label, up top.
+- `spaces[4..6]` — **photo tiles** in the §6b showcase. Lead with pool and
+  fitness; these are what sell an extended stay, so they get shown rather than
+  listed. Photo 1200×900 + a short chip label.
+- `all` — the full list behind the disclosure, grouped **In your suite** /
+  **Around the building** / **Building & access**. Any length.
 
 ### Neighborhood
 - `map` — static image, or a Leaflet mount matching `live-with-us.html`
@@ -103,7 +113,8 @@ Blank is not an option. A property with no parking says so.
 |---|---|---|
 | Hero | 1920×1080 mp4 (muted loop) or 2400×1350 still | Poster image required either way |
 | Suite card | 1200×1500 | 4:5 |
-| Story block | 1600×1200 | 3 per property |
+| Story block | 1600×1200 | 2 per property (01 Stay, 03 Neighborhood) |
+| Amenity tile | 1200×900 | 4–6 per property, §6b showcase |
 | Map | 1200×900 | |
 
 **The demo page uses stand-in photography** from `/assets/` — Sol Modern's

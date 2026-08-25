@@ -205,6 +205,21 @@ img{max-width:100%;display:block}
 .pt-story.flip .pt-story-img{order:2}
 @media(max-width:900px){.pt-story,.pt-story.flip{grid-template-columns:1fr}.pt-story-img,.pt-story.flip .pt-story-img{order:0;min-height:300px}.pt-story-copy{padding:48px 20px 56px}}
 
+/* ══ 6b. AMENITY SHOWCASE ══ */
+.pt-spaces{background:var(--cream-warm);padding:96px 0}
+.pt-spaces-header{max-width:1400px;margin:0 auto 40px;padding:0 64px;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:end}
+.pt-spaces-sub{font-size:1.0625rem;color:var(--text-body);line-height:1.75;max-width:54ch}
+.pt-spaces-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.pt-space{position:relative;aspect-ratio:4/3;overflow:hidden;background:#dcd9d1}
+.pt-space img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.22,.68,0,1)}
+.pt-space:hover img{transform:scale(1.04)}
+.pt-space::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 45%,rgba(0,0,0,.62) 100%)}
+.pt-space-chip{position:absolute;left:16px;bottom:16px;z-index:2;font-size:.8125rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-shadow:0 1px 6px rgba(0,0,0,.75)}
+.pt-spaces-cta{display:inline-block;margin:32px 0 0 64px}
+@media(max-width:1000px){.pt-spaces-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.pt-spaces{padding:64px 0}.pt-spaces-header{grid-template-columns:1fr;gap:18px;padding:0 20px}.pt-spaces-cta{margin-left:20px}}
+@media(max-width:600px){.pt-spaces-grid{grid-template-columns:1fr}}
+
 /* ══ 7. BOOKING BAND ══ */
 .pt-book{background:var(--slate);padding:96px 64px}
 .pt-book-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.05fr 1fr;gap:72px;align-items:center}
@@ -399,7 +414,7 @@ img{max-width:100%;display:block}
             <select id="hero-guests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6+</option></select>
           </div>
           <div class="pt-bf"><label for="hero-suite">Suite</label>
-            <select id="hero-suite"><option selected>Any</option><option>Studio</option><option>One Bedroom</option><option>Two Bedroom</option><option>Three Bedroom</option></select>
+            <select id="hero-suite"><option value="" selected>Any</option><option value="studio">Studio</option><option value="one-bedroom">One Bedroom</option><option value="two-bedroom">Two Bedroom</option><option value="three-bedroom">Three Bedroom</option></select>
           </div>
         </div>
         <button class="pt-book-btn" type="submit">Check Rates &nbsp;&rarr;</button>
@@ -495,7 +510,7 @@ img{max-width:100%;display:block}
   </div>
   <div class="pt-suites-grid">
     <!-- [FIELD] 3–6 suite cards. Photo 1200×1500. -->
-    <a class="pt-suite" href="#book-stay">
+    <a class="pt-suite" href="#book-stay" data-suite="studio">
       <div class="pt-suite-img"><img src="/assets/ig-social-1.jpg" alt="Studio suite living area"/></div>
       <span class="pt-suite-badge" hidden
             data-rate-category="[FIELD] mews-room-category-id:studio"
@@ -506,7 +521,7 @@ img{max-width:100%;display:block}
         <span class="pt-suite-cta">View suite &nbsp;&rarr;</span>
       </div>
     </a>
-    <a class="pt-suite" href="#book-stay">
+    <a class="pt-suite" href="#book-stay" data-suite="one-bedroom">
       <div class="pt-suite-img"><img src="/assets/ig-social-2.jpg" alt="One bedroom suite"/></div>
       <span class="pt-suite-badge" hidden
             data-rate-category="[FIELD] mews-room-category-id:one-bedroom"
@@ -517,7 +532,7 @@ img{max-width:100%;display:block}
         <span class="pt-suite-cta">View suite &nbsp;&rarr;</span>
       </div>
     </a>
-    <a class="pt-suite" href="#book-stay">
+    <a class="pt-suite" href="#book-stay" data-suite="two-bedroom">
       <div class="pt-suite-img"><img src="/assets/ig-social-3.jpg" alt="Two bedroom suite"/></div>
       <span class="pt-suite-badge" hidden
             data-rate-category="[FIELD] mews-room-category-id:two-bedroom"
@@ -528,7 +543,7 @@ img{max-width:100%;display:block}
         <span class="pt-suite-cta">View suite &nbsp;&rarr;</span>
       </div>
     </a>
-    <a class="pt-suite" href="#book-stay">
+    <a class="pt-suite" href="#book-stay" data-suite="three-bedroom">
       <div class="pt-suite-img"><img src="/assets/forme-houston-square-poster.jpg" alt="Three bedroom suite"/></div>
       <span class="pt-suite-badge" hidden
             data-rate-category="[FIELD] mews-room-category-id:three-bedroom"
@@ -553,14 +568,28 @@ img{max-width:100%;display:block}
   </div>
 </section>
 
-<section class="pt-story warm flip" aria-label="Amenity spaces">
-  <div class="pt-story-img"><img src="/assets/hero-poster.jpg" alt="Rooftop pool deck"/></div>
-  <div class="pt-story-copy">
-    <span class="pt-eyebrow">02 &mdash; Gather</span>
-    <h2 class="pt-h2">The building is<br><em>part of the stay.</em></h2>
-    <p>Rooftop pool and cabanas, an indoor-outdoor fitness floor with a yoga studio and cold plunge, work lounges you can actually take a call in, and grill decks for the nights you would rather stay in.</p>
-    <a class="pt-story-cta" href="#ptAmen" id="ptAmenJump">All amenities</a>
+<!-- 02 — Gather. A photo tile per space rather than one image and a paragraph:
+     the pool and the gym are what sell an extended stay, so they get shown, not
+     listed. Uses the sitewide .space-tile / .space-chip pattern from
+     stay-with-us.html so it reads as the same system. -->
+<section class="pt-spaces" aria-label="Amenity spaces">
+  <div class="pt-spaces-header">
+    <div>
+      <span class="pt-eyebrow">02 &mdash; Gather</span>
+      <h2 class="pt-h2">The building is<br><em>part of the stay.</em></h2>
+    </div>
+    <p class="pt-spaces-sub">Rooftop pool and cabanas, an indoor-outdoor fitness floor with a yoga studio and cold plunge, work lounges you can take a call in, and grill decks for the nights you would rather stay in. All of it is included &mdash; no day passes, no add-ons.</p>
   </div>
+  <div class="pt-spaces-grid">
+    <!-- [FIELD] 4–6 tiles. Photo 1200×900. Lead with pool and fitness. -->
+    <div class="pt-space"><img src="/assets/hero-poster.jpg" alt="Rooftop pool deck with cabanas"/><span class="pt-space-chip">Rooftop Pool &amp; Cabanas</span></div>
+    <div class="pt-space"><img src="/assets/ig-social-2.jpg" alt="Fitness floor with strength and cardio equipment"/><span class="pt-space-chip">Fitness Floor &amp; Yoga Studio</span></div>
+    <div class="pt-space"><img src="/assets/ig-social-1.jpg" alt="Coworking lounge with seating and natural light"/><span class="pt-space-chip">Coworking Lounge</span></div>
+    <div class="pt-space"><img src="/assets/forme-houston-square-poster.jpg" alt="Entertainment lounge"/><span class="pt-space-chip">Entertainment Lounge</span></div>
+    <div class="pt-space"><img src="/assets/group-hero-poster.jpg" alt="Open-air grilling and fire pit deck"/><span class="pt-space-chip">Grill Decks &amp; Fire Pits</span></div>
+    <div class="pt-space"><img src="/assets/ig-social-3.jpg" alt="On-site pet amenities"/><span class="pt-space-chip">Pet Amenities</span></div>
+  </div>
+  <a class="pt-story-cta pt-spaces-cta" href="#ptAmen" id="ptAmenJump">See all 18 amenities</a>
 </section>
 
 <section class="pt-story cream" aria-label="The neighborhood">
@@ -609,6 +638,17 @@ img{max-width:100%;display:block}
           <div class="pt-bf"><label for="bk-kids">Children</label>
             <select id="bk-kids"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
           </div>
+        </div>
+        <!-- Mirrors the hero card's Suite field. Both forms carry the same
+             selection so a guest who picks a suite upstairs keeps it here. -->
+        <div class="pt-bf"><label for="bk-suite">Suite</label>
+          <select id="bk-suite">
+            <option value="" selected>Any</option>
+            <option value="studio">Studio</option>
+            <option value="one-bedroom">One Bedroom</option>
+            <option value="two-bedroom">Two Bedroom</option>
+            <option value="three-bedroom">Three Bedroom</option>
+          </select>
         </div>
         <div class="pt-bf"><label for="bk-code">Promo or corporate code &mdash; optional</label><input id="bk-code" type="text" placeholder="Enter code"></div>
         <button class="pt-book-btn" type="submit">Check Rates &nbsp;&rarr;</button>
@@ -865,6 +905,37 @@ img{max-width:100%;display:block}
     i.addEventListener('change',function(){
       o.min=i.value||today;
       if(o.value&&o.value<=i.value)o.value='';
+    });
+  });
+})();
+
+// ── SUITE SELECTION CARRIES THROUGH ──
+// Clicking a suite card used to dump the guest on a generic date form, losing
+// the one decision they had just made. Now the card pre-selects that suite in
+// both booking forms, scrolls to the band, and puts the cursor on Check-in —
+// so the only thing left to do is pick dates.
+(function(){
+  var cards=[].slice.call(document.querySelectorAll('.pt-suite[data-suite]'));
+  if(!cards.length) return;
+
+  function selectSuite(slug){
+    ['hero-suite','bk-suite'].forEach(function(id){
+      var sel=document.getElementById(id);
+      if(!sel) return;
+      var match=[].slice.call(sel.options).some(function(o){ return o.value===slug; });
+      if(match) sel.value=slug;
+    });
+  }
+
+  cards.forEach(function(card){
+    card.addEventListener('click',function(e){
+      e.preventDefault();
+      selectSuite(card.getAttribute('data-suite'));
+      var band=document.getElementById('book-stay');
+      if(band) band.scrollIntoView({behavior:'smooth',block:'start'});
+      var first=document.getElementById('bk-in');
+      // Wait out the smooth scroll before focusing, or the browser jumps twice.
+      if(first) setTimeout(function(){ first.focus({preventScroll:true}); },520);
     });
   });
 })();
