@@ -37,6 +37,11 @@
  */
 
 const PROBE_OFFSETS_DAYS = [7, 14, 30, 60];
+// Extended-stay probe: Sentral's differentiator is that rates drop past 30
+// nights, so we ask Mews what a 30-night stay actually costs per night rather
+// than asserting a discount the page cannot back up.
+const EXTENDED_STAY_NIGHTS = 30;
+const EXTENDED_STAY_OFFSET_DAYS = 14;
 const DEFAULT_CLIENT = 'Sentral Website 1.0.0';
 const DEFAULT_BASE = 'https://api.mews.com';
 
@@ -78,7 +83,7 @@ function nightlyAmount(pricing, currencyCode) {
     : null;
 }
 
-async function probe({ base, client, configurationId, hotelId, currencyCode, offset }) {
+async function probe({ base, client, configurationId, hotelId, currencyCode, offset, nights = 1 }) {
   const res = await fetch(`${base}/api/distributor/v1/hotels/getAvailability`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -87,15 +92,30 @@ async function probe({ base, client, configurationId, hotelId, currencyCode, off
       ConfigurationId: configurationId,
       HotelId: hotelId,
       StartUtc: isoDay(offset),
-      EndUtc: isoDay(offset + 1),
+      EndUtc: isoDay(offset + nights),
       ...(currencyCode ? { CurrencyCode: currencyCode } : {}),
     }),
   });
 
   if (!res.ok) {
-    throw new Error(`mews ${res.status} on +${offset}d`);
+    throw new Error(`mews ${res.status} on +${offset}d/${nights}n`);
   }
   return res.json();
+}
+
+/** Lowest per-night amount across every category in one getAvailability payload. */
+function lowestNightly(payload, currencyCode) {
+  let low = null;
+  for (const cat of payload?.RoomCategoryAvailabilities || []) {
+    if (!(cat?.AvailableRoomCount > 0)) continue;
+    for (const occ of cat.RoomOccupancyAvailabilities || []) {
+      for (const pricing of occ?.Pricing || []) {
+        const n = nightlyAmount(pricing, currencyCode);
+        if (n && (!low || n.amount < low.amount)) low = n;
+      }
+    }
+  }
+  return low;
 }
 
 export default async function handler(req, res) {
@@ -114,7 +134,7 @@ export default async function handler(req, res) {
   // rate badges rather than showing a stale or invented price.
   if (!config?.configurationId || !config?.hotelId) {
     res.setHeader('Cache-Control', 'public, s-maxage=60');
-    res.status(200).json({ property: slug, configured: false, categories: {} });
+    res.status(200).json({ property: slug, configured: false, categories: {}, extended: null });
     return;
   }
 
@@ -122,11 +142,20 @@ export default async function handler(req, res) {
   const client = process.env.MEWS_CLIENT || DEFAULT_CLIENT;
 
   try {
-    const results = await Promise.allSettled(
-      PROBE_OFFSETS_DAYS.map((offset) =>
-        probe({ base, client, configurationId: config.configurationId, hotelId: config.hotelId, currencyCode, offset })
-      )
-    );
+    const shared = {
+      base,
+      client,
+      configurationId: config.configurationId,
+      hotelId: config.hotelId,
+      currencyCode,
+    };
+
+    const [results, extendedResult] = await Promise.all([
+      Promise.allSettled(PROBE_OFFSETS_DAYS.map((offset) => probe({ ...shared, offset }))),
+      Promise.allSettled([
+        probe({ ...shared, offset: EXTENDED_STAY_OFFSET_DAYS, nights: EXTENDED_STAY_NIGHTS }),
+      ]).then((r) => r[0]),
+    ]);
 
     const ok = results.filter((r) => r.status === 'fulfilled').map((r) => r.value);
     if (!ok.length) {
@@ -154,8 +183,27 @@ export default async function handler(req, res) {
       }
     }
 
+    // Extended stay. Only reported when it genuinely beats the nightly rate —
+    // if Mews returns no discount, the page says nothing rather than claiming one.
+    let extended = null;
+    if (extendedResult?.status === 'fulfilled') {
+      const low = lowestNightly(extendedResult.value, currencyCode);
+      const nightlyFloor = Object.values(categories).reduce(
+        (min, c) => (min === null || c.from < min ? c.from : min),
+        null
+      );
+      if (low && nightlyFloor && low.amount < nightlyFloor) {
+        extended = {
+          nights: EXTENDED_STAY_NIGHTS,
+          from: low.amount,
+          currency: low.currency,
+          savingsPercent: Math.round(((nightlyFloor - low.amount) / nightlyFloor) * 100),
+        };
+      }
+    }
+
     // Rates move slowly enough that an hour of edge cache is invisible to a
-    // guest and saves four upstream calls per request.
+    // guest and saves five upstream calls per request.
     res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
     res.status(200).json({
       property: slug,
@@ -164,6 +212,7 @@ export default async function handler(req, res) {
       partial: ok.length < PROBE_OFFSETS_DAYS.length,
       updatedAt: new Date().toISOString(),
       categories,
+      extended,
     });
   } catch (err) {
     // Never fall back to a hardcoded price — the page hides the badges instead.
@@ -174,6 +223,7 @@ export default async function handler(req, res) {
       error: 'upstream_unavailable',
       detail: String(err.message || err),
       categories: {},
+      extended: null,
     });
   }
 }

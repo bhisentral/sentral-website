@@ -205,6 +205,46 @@ img{max-width:100%;display:block}
 .pt-story.flip .pt-story-img{order:2}
 @media(max-width:900px){.pt-story,.pt-story.flip{grid-template-columns:1fr}.pt-story-img,.pt-story.flip .pt-story-img{order:0;min-height:300px}.pt-story-copy{padding:48px 20px 56px}}
 
+/* ══ SUITE CARD ACTIONS ══ */
+/* Two explicit buttons rather than a whole-card link: the card now has two
+   different jobs (book, inspect the plan), and a link inside a link is invalid. */
+/* Both actions clear a 44px touch target. The padding does the work, and the
+   negative margin keeps the card body visually as tight as it was before —
+   overrides.css §6b holds the rest of the site's buttons to 48px. */
+.pt-suite-actions{display:flex;flex-wrap:wrap;align-items:center;gap:0 18px;margin:-11px 0 -12px}
+.pt-suite-book,.pt-suite-plan{background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:.6875rem;letter-spacing:.13em;text-transform:uppercase;display:inline-flex;align-items:center;min-height:44px;padding:11px 0}
+.pt-suite-book{font-weight:600;color:var(--white)}
+.pt-suite-book:hover{color:var(--slate-light)}
+.pt-suite-plan{font-weight:500;color:rgba(255,255,255,.68);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;text-decoration-color:rgba(255,255,255,.4)}
+.pt-suite-plan:hover{color:var(--white);text-decoration-color:var(--white)}
+
+/* ══ GALLERY TRIGGER + LIGHTBOX ══ */
+.pt-gallery-btn{display:inline-flex;align-items:center;min-height:44px;gap:9px;background:rgba(14,12,10,.62);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.4);color:var(--white);font-family:var(--sans);font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:11px 20px;border-radius:2px;cursor:pointer;transition:background .2s,border-color .2s}
+.pt-gallery-btn:hover{background:rgba(14,12,10,.85);border-color:#fff}
+.pt-gallery-btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.5}
+.pt-space{cursor:pointer}
+
+.pt-lb{position:fixed;inset:0;z-index:300;background:rgba(16,16,16,.97);display:none;flex-direction:column}
+.pt-lb.open{display:flex}
+.pt-lb-top{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 28px;border-bottom:1px solid rgba(255,255,255,.1);flex-shrink:0}
+.pt-lb-title{font-family:var(--serif);font-size:1.0625rem;color:#fff}
+.pt-lb-title small{display:block;font-family:var(--sans);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:3px}
+.pt-lb-filters{display:flex;gap:6px;flex-wrap:wrap}
+.pt-lb-filter{background:none;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-family:var(--sans);font-size:.6875rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;min-height:44px;padding:8px 18px;border-radius:100px;cursor:pointer;transition:all .2s}
+.pt-lb-filter:hover{color:#fff;border-color:rgba(255,255,255,.6)}
+.pt-lb-filter[aria-pressed=true]{background:var(--white);border-color:var(--white);color:var(--black)}
+.pt-lb-close{background:none;border:1px solid rgba(255,255,255,.3);color:#fff;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1.25rem;line-height:1;flex-shrink:0}
+.pt-lb-close:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+.pt-lb-body{flex:1;overflow-y:auto;padding:24px 28px 40px}
+.pt-lb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1400px;margin:0 auto}
+.pt-lb-item{position:relative;aspect-ratio:3/2;overflow:hidden;background:#22282c}
+.pt-lb-item img{width:100%;height:100%;object-fit:cover}
+.pt-lb-cap{position:absolute;left:12px;bottom:10px;font-size:.6875rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.85)}
+.pt-lb-plan{max-width:900px;margin:0 auto;text-align:center}
+.pt-lb-plan img{width:100%;height:auto;background:var(--cream-light);padding:24px}
+.pt-lb-empty{max-width:60ch;margin:48px auto;text-align:center;color:rgba(255,255,255,.72);font-size:1rem;line-height:1.7}
+@media(max-width:900px){.pt-lb-grid{grid-template-columns:1fr}.pt-lb-top{flex-wrap:wrap;padding:14px 18px}.pt-lb-body{padding:16px 18px 32px}}
+
 /* ══ 6b. AMENITY SHOWCASE ══ */
 .pt-spaces{background:var(--cream-warm);padding:96px 0}
 .pt-spaces-header{max-width:1400px;margin:0 auto 40px;padding:0 64px;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:end}
@@ -256,6 +296,9 @@ img{max-width:100%;display:block}
 .pt-longer .pt-eyebrow{color:var(--oat)}
 .pt-longer-h{font-family:var(--serif);font-size:clamp(1.5rem,2.4vw,2.1rem);font-weight:300;color:#fff;line-height:1.2}
 .pt-longer-h em{font-style:italic;color:var(--slate-light)}
+.pt-longer-rate{margin-top:14px;font-size:1rem;color:rgba(255,255,255,.92);line-height:1.6}
+.pt-longer-rate strong{font-family:var(--serif);font-weight:400;font-size:1.5rem;color:var(--oat);letter-spacing:.01em}
+.pt-longer-rate[hidden]{display:none}
 .pt-longer-links{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
 .pt-longer-link{display:block;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);padding:22px 24px;text-decoration:none;transition:background .2s,border-color .2s}
 .pt-longer-link:hover{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.5)}
@@ -398,6 +441,12 @@ img{max-width:100%;display:block}
         <span class="pt-hero-addr">50 E. Fillmore Street, Phoenix, AZ 85004</span><!-- [FIELD] address -->
         <a class="pt-dir-btn" href="https://maps.google.com/?q=50+E+Fillmore+St+Phoenix+AZ+85004" target="_blank" rel="noopener">Get Directions</a>
       </div>
+      <!-- One control, not a whole section — keeps the page lean while giving
+           the gallery somewhere real to live. -->
+      <button class="pt-gallery-btn" type="button" id="ptGalleryBtn" style="margin-top:20px">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4" width="15" height="12" rx="1.5"/><circle cx="7" cy="8.5" r="1.3"/><path d="M4 15l4.2-4.2 3 3L14 11l2.5 2.5"/></svg>
+        View gallery
+      </button>
     </div>
 
     <!-- Hero booking card — property is fixed, so the guest picks dates only -->
@@ -509,8 +558,8 @@ img{max-width:100%;display:block}
     <a class="pt-suites-all" href="#book-stay">See rates &amp; availability &nbsp;&rarr;</a>
   </div>
   <div class="pt-suites-grid">
-    <!-- [FIELD] 3–6 suite cards. Photo 1200×1500. -->
-    <a class="pt-suite" href="#book-stay" data-suite="studio">
+    <!-- [FIELD] 3–6 suite cards. Photo 1200×1500, floor plan SVG or PNG. -->
+    <article class="pt-suite" data-suite="studio">
       <div class="pt-suite-img"><img src="/assets/ig-social-1.jpg" alt="Studio suite living area"/></div>
       <span class="pt-suite-badge" hidden
             data-rate-category="[FIELD] mews-room-category-id:studio"
@@ -518,10 +567,16 @@ img{max-width:100%;display:block}
       <div class="pt-suite-body">
         <div class="pt-suite-name">Studio</div>
         <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 2</span><span class="pt-suite-spec">520 sq ft</span><span class="pt-suite-spec">Queen</span></div>
-        <span class="pt-suite-cta">View suite &nbsp;&rarr;</span>
+        <div class="pt-suite-actions">
+          <button class="pt-suite-book" type="button" data-book-suite="studio">Book this suite &nbsp;&rarr;</button>
+          <button class="pt-suite-plan" type="button"
+                  data-plan-src="[FIELD] /assets/floorplans/studio.svg"
+                  data-plan-title="Studio &mdash; floor plan"
+                  data-plan-meta="Sleeps 2 · 520 sq ft · Queen">Floor plan</button>
+        </div>
       </div>
-    </a>
-    <a class="pt-suite" href="#book-stay" data-suite="one-bedroom">
+    </article>
+    <article class="pt-suite" data-suite="one-bedroom">
       <div class="pt-suite-img"><img src="/assets/ig-social-2.jpg" alt="One bedroom suite"/></div>
       <span class="pt-suite-badge" hidden
             data-rate-category="[FIELD] mews-room-category-id:one-bedroom"
@@ -529,10 +584,16 @@ img{max-width:100%;display:block}
       <div class="pt-suite-body">
         <div class="pt-suite-name">One Bedroom</div>
         <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 3</span><span class="pt-suite-spec">710 sq ft</span><span class="pt-suite-spec">King</span></div>
-        <span class="pt-suite-cta">View suite &nbsp;&rarr;</span>
+        <div class="pt-suite-actions">
+          <button class="pt-suite-book" type="button" data-book-suite="one-bedroom">Book this suite &nbsp;&rarr;</button>
+          <button class="pt-suite-plan" type="button"
+                  data-plan-src="[FIELD] /assets/floorplans/one-bedroom.svg"
+                  data-plan-title="One Bedroom &mdash; floor plan"
+                  data-plan-meta="Sleeps 3 · 710 sq ft · King">Floor plan</button>
+        </div>
       </div>
-    </a>
-    <a class="pt-suite" href="#book-stay" data-suite="two-bedroom">
+    </article>
+    <article class="pt-suite" data-suite="two-bedroom">
       <div class="pt-suite-img"><img src="/assets/ig-social-3.jpg" alt="Two bedroom suite"/></div>
       <span class="pt-suite-badge" hidden
             data-rate-category="[FIELD] mews-room-category-id:two-bedroom"
@@ -540,10 +601,16 @@ img{max-width:100%;display:block}
       <div class="pt-suite-body">
         <div class="pt-suite-name">Two Bedroom</div>
         <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 4</span><span class="pt-suite-spec">1,050 sq ft</span><span class="pt-suite-spec">King + Queen</span></div>
-        <span class="pt-suite-cta">View suite &nbsp;&rarr;</span>
+        <div class="pt-suite-actions">
+          <button class="pt-suite-book" type="button" data-book-suite="two-bedroom">Book this suite &nbsp;&rarr;</button>
+          <button class="pt-suite-plan" type="button"
+                  data-plan-src="[FIELD] /assets/floorplans/two-bedroom.svg"
+                  data-plan-title="Two Bedroom &mdash; floor plan"
+                  data-plan-meta="Sleeps 4 · 1,050 sq ft · King + Queen">Floor plan</button>
+        </div>
       </div>
-    </a>
-    <a class="pt-suite" href="#book-stay" data-suite="three-bedroom">
+    </article>
+    <article class="pt-suite" data-suite="three-bedroom">
       <div class="pt-suite-img"><img src="/assets/forme-houston-square-poster.jpg" alt="Three bedroom suite"/></div>
       <span class="pt-suite-badge" hidden
             data-rate-category="[FIELD] mews-room-category-id:three-bedroom"
@@ -551,9 +618,15 @@ img{max-width:100%;display:block}
       <div class="pt-suite-body">
         <div class="pt-suite-name">Three Bedroom</div>
         <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 6</span><span class="pt-suite-spec">1,340 sq ft</span><span class="pt-suite-spec">2 King + Queen</span></div>
-        <span class="pt-suite-cta">View suite &nbsp;&rarr;</span>
+        <div class="pt-suite-actions">
+          <button class="pt-suite-book" type="button" data-book-suite="three-bedroom">Book this suite &nbsp;&rarr;</button>
+          <button class="pt-suite-plan" type="button"
+                  data-plan-src="[FIELD] /assets/floorplans/three-bedroom.svg"
+                  data-plan-title="Three Bedroom &mdash; floor plan"
+                  data-plan-meta="Sleeps 6 · 1,340 sq ft · 2 King + Queen">Floor plan</button>
+        </div>
       </div>
-    </a>
+    </article>
   </div>
 </section>
 
@@ -687,6 +760,10 @@ img{max-width:100%;display:block}
     <div>
       <span class="pt-eyebrow">Staying a while?</span>
       <h2 class="pt-longer-h">Rates drop <em>after 30 nights.</em></h2>
+      <!-- Live from the same Mews plumbing as the suite badges. Hidden unless
+           the 30-night rate genuinely beats the nightly one — the page never
+           claims a discount it cannot show. -->
+      <p class="pt-longer-rate" id="ptExtendedRate" hidden></p>
     </div>
     <div class="pt-longer-links">
       <a class="pt-longer-link" href="business-travel.html">
@@ -777,6 +854,52 @@ img{max-width:100%;display:block}
 </section>
 
 </main>
+
+<!-- ══════════ GALLERY / FLOOR-PLAN LIGHTBOX ══════════ -->
+<!-- One overlay serves both jobs. Gallery mode shows a filterable grid; plan
+     mode shows a single suite floor plan. Both are opened from elsewhere on the
+     page, so neither costs the layout a section. -->
+<div class="pt-lb" id="ptLb" role="dialog" aria-modal="true" aria-labelledby="ptLbTitle" hidden>
+  <div class="pt-lb-top">
+    <div class="pt-lb-title" id="ptLbTitle">Sol Modern<small id="ptLbSub">Gallery</small></div>
+    <div class="pt-lb-filters" id="ptLbFilters">
+      <button class="pt-lb-filter" type="button" data-filter="all" aria-pressed="true">All</button>
+      <button class="pt-lb-filter" type="button" data-filter="suites" aria-pressed="false">Suites</button>
+      <button class="pt-lb-filter" type="button" data-filter="amenities" aria-pressed="false">Amenities</button>
+      <button class="pt-lb-filter" type="button" data-filter="neighborhood" aria-pressed="false">Neighborhood</button>
+    </div>
+    <button class="pt-lb-close" type="button" id="ptLbClose" aria-label="Close">&times;</button>
+  </div>
+  <div class="pt-lb-body" id="ptLbBody"></div>
+</div>
+
+<!--
+  [FIELD] GALLERY MANIFEST — the property's photo set.
+  Aim for 20+ across the three groups. Swap this block per property; at build
+  it comes from the CMS rather than being inlined.
+-->
+<script type="application/json" id="ptGalleryData">
+{
+  "suites": [
+    {"src":"/assets/ig-social-1.jpg","caption":"Studio — living area"},
+    {"src":"/assets/ig-social-2.jpg","caption":"One bedroom — living area"},
+    {"src":"/assets/ig-social-3.jpg","caption":"Two bedroom — kitchen"},
+    {"src":"/assets/forme-houston-square-poster.jpg","caption":"Three bedroom — dining"},
+    {"src":"/assets/stay-hero-poster.jpg","caption":"Suite interior"}
+  ],
+  "amenities": [
+    {"src":"/assets/hero-poster.jpg","caption":"Rooftop pool & cabanas"},
+    {"src":"/assets/ig-social-2.jpg","caption":"Fitness floor"},
+    {"src":"/assets/ig-social-1.jpg","caption":"Coworking lounge"},
+    {"src":"/assets/forme-houston-square-poster.jpg","caption":"Entertainment lounge"},
+    {"src":"/assets/group-hero-poster.jpg","caption":"Grill decks & fire pits"}
+  ],
+  "neighborhood": [
+    {"src":"/assets/group-hero-poster.jpg","caption":"Downtown Phoenix"},
+    {"src":"/assets/live-hero-poster.jpg","caption":"Roosevelt Row"}
+  ]
+}
+</script>
 
 <!-- ══════════ FOOTER — global, unchanged ══════════ -->
 <footer class="site-footer" role="contentinfo">
@@ -909,6 +1032,138 @@ img{max-width:100%;display:block}
   });
 })();
 
+// ── GALLERY / FLOOR-PLAN LIGHTBOX ──
+// One overlay, two modes. Focus is trapped while open, Escape closes, and focus
+// returns to whatever opened it.
+var ptLightbox=(function(){
+  var lb=document.getElementById('ptLb');
+  if(!lb) return {openGallery:function(){},openPlan:function(){}};
+
+  var body=document.getElementById('ptLbBody'),
+      sub=document.getElementById('ptLbSub'),
+      filters=document.getElementById('ptLbFilters'),
+      closeBtn=document.getElementById('ptLbClose'),
+      opener=null, group='all';
+
+  var data={};
+  try{ data=JSON.parse(document.getElementById('ptGalleryData').textContent)||{}; }catch(e){ data={}; }
+
+  function photos(which){
+    if(which==='all') return [].concat(data.suites||[],data.amenities||[],data.neighborhood||[]);
+    return data[which]||[];
+  }
+
+  function renderGallery(){
+    filters.hidden=false;
+    var list=photos(group);
+    if(!list.length){
+      body.innerHTML='<p class="pt-lb-empty">Photography for this property has not been loaded yet.</p>';
+      return;
+    }
+    var grid=document.createElement('div');
+    grid.className='pt-lb-grid';
+    list.forEach(function(p){
+      var fig=document.createElement('div');
+      fig.className='pt-lb-item';
+      var img=document.createElement('img');
+      img.src=p.src; img.alt=p.caption||''; img.loading='lazy';
+      var cap=document.createElement('span');
+      cap.className='pt-lb-cap'; cap.textContent=p.caption||'';
+      fig.appendChild(img); fig.appendChild(cap); grid.appendChild(fig);
+    });
+    body.innerHTML=''; body.appendChild(grid);
+  }
+
+  function trapFocus(e){
+    if(e.key==='Escape'){ close(); return; }
+    if(e.key!=='Tab') return;
+    var f=lb.querySelectorAll('button, [href], img[tabindex]');
+    if(!f.length) return;
+    var first=f[0], last=f[f.length-1];
+    if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+  }
+
+  function open(){
+    lb.hidden=false; lb.classList.add('open');
+    document.body.style.overflow='hidden';
+    document.addEventListener('keydown',trapFocus);
+    closeBtn.focus();
+  }
+
+  function close(){
+    lb.classList.remove('open'); lb.hidden=true;
+    document.body.style.overflow='';
+    document.removeEventListener('keydown',trapFocus);
+    if(opener && opener.focus) opener.focus();
+    opener=null;
+  }
+
+  closeBtn.addEventListener('click',close);
+  lb.addEventListener('click',function(e){ if(e.target===lb) close(); });
+
+  filters.addEventListener('click',function(e){
+    var btn=e.target.closest('.pt-lb-filter');
+    if(!btn) return;
+    group=btn.getAttribute('data-filter');
+    [].forEach.call(filters.querySelectorAll('.pt-lb-filter'),function(b){
+      b.setAttribute('aria-pressed', String(b===btn));
+    });
+    renderGallery();
+  });
+
+  return {
+    openGallery:function(which,from){
+      opener=from||null; group=which||'all';
+      [].forEach.call(filters.querySelectorAll('.pt-lb-filter'),function(b){
+        b.setAttribute('aria-pressed', String(b.getAttribute('data-filter')===group));
+      });
+      sub.textContent='Gallery';
+      renderGallery(); open();
+    },
+    openPlan:function(opts,from){
+      opener=from||null;
+      filters.hidden=true;
+      sub.textContent=opts.meta||'Floor plan';
+      // A [FIELD] placeholder is not a real path — say so rather than 404 an image.
+      if(!opts.src || opts.src.indexOf('[FIELD]')===0){
+        body.innerHTML='<p class="pt-lb-empty">Floor plan for the '+
+          (opts.title||'suite').replace(/ — floor plan$/,'')+
+          ' has not been uploaded yet.</p>';
+      }else{
+        body.innerHTML='<div class="pt-lb-plan"><img src="'+opts.src+'" alt="'+(opts.title||'Floor plan')+'"></div>';
+      }
+      open();
+    }
+  };
+})();
+
+(function(){
+  var btn=document.getElementById('ptGalleryBtn');
+  if(btn) btn.addEventListener('click',function(){ ptLightbox.openGallery('all',btn); });
+
+  // Amenity tiles open the gallery already filtered to amenities.
+  [].forEach.call(document.querySelectorAll('.pt-space'),function(tile){
+    tile.setAttribute('role','button');
+    tile.setAttribute('tabindex','0');
+    function go(){ ptLightbox.openGallery('amenities',tile); }
+    tile.addEventListener('click',go);
+    tile.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); }
+    });
+  });
+
+  [].forEach.call(document.querySelectorAll('.pt-suite-plan'),function(b){
+    b.addEventListener('click',function(){
+      ptLightbox.openPlan({
+        src:b.getAttribute('data-plan-src'),
+        title:b.getAttribute('data-plan-title'),
+        meta:b.getAttribute('data-plan-meta')
+      },b);
+    });
+  });
+})();
+
 // ── SUITE SELECTION CARRIES THROUGH ──
 // Clicking a suite card used to dump the guest on a generic date form, losing
 // the one decision they had just made. Now the card pre-selects that suite in
@@ -927,15 +1182,26 @@ img{max-width:100%;display:block}
     });
   }
 
+  function goBook(slug){
+    selectSuite(slug);
+    var band=document.getElementById('book-stay');
+    if(band) band.scrollIntoView({behavior:'smooth',block:'start'});
+    var first=document.getElementById('bk-in');
+    // Wait out the smooth scroll before focusing, or the browser jumps twice.
+    if(first) setTimeout(function(){ first.focus({preventScroll:true}); },520);
+  }
+
+  // The explicit "Book this suite" button.
+  [].forEach.call(document.querySelectorAll('[data-book-suite]'),function(b){
+    b.addEventListener('click',function(){ goBook(b.getAttribute('data-book-suite')); });
+  });
+
+  // The card photo stays clickable as a shortcut to the same thing, but never
+  // when the click landed on one of the card's own buttons.
   cards.forEach(function(card){
     card.addEventListener('click',function(e){
-      e.preventDefault();
-      selectSuite(card.getAttribute('data-suite'));
-      var band=document.getElementById('book-stay');
-      if(band) band.scrollIntoView({behavior:'smooth',block:'start'});
-      var first=document.getElementById('bk-in');
-      // Wait out the smooth scroll before focusing, or the browser jumps twice.
-      if(first) setTimeout(function(){ first.focus({preventScroll:true}); },520);
+      if(e.target.closest('button')) return;
+      goBook(card.getAttribute('data-suite'));
     });
   });
 })();
@@ -975,16 +1241,31 @@ img{max-width:100%;display:block}
       el.textContent='Sample — from '+money(sample[i]||sample[sample.length-1],'USD')+'/night';
       el.hidden=false;
     });
+    var ex=document.getElementById('ptExtendedRate');
+    if(ex){
+      ex.innerHTML='<strong>Sample — '+money(139,'USD')+'</strong> a night on stays of 30 nights or more — about 26% below the nightly rate.';
+      ex.hidden=false;
+    }
     return;
+  }
+
+  function paintExtended(ext,currency){
+    var el=document.getElementById('ptExtendedRate');
+    if(!el||!ext||!(ext.from>0)) return;      // no verified discount → say nothing
+    el.innerHTML='<strong>'+money(ext.from,ext.currency||currency)+'</strong> a night on stays of '+
+      ext.nights+' nights or more'+
+      (ext.savingsPercent>0 ? ' — about '+ext.savingsPercent+'% below the nightly rate.' : '.');
+    el.hidden=false;
   }
 
   fetch('/api/rates?property='+encodeURIComponent(PROPERTY))
     .then(function(r){ return r.ok?r.json():null; })
     .then(function(d){
-      if(!d||!d.categories) return;
-      paint(d.categories,d.currency,false);
+      if(!d) return;
+      if(d.categories) paint(d.categories,d.currency,false);
+      paintExtended(d.extended,d.currency);
     })
-    .catch(function(){ /* badges stay hidden */ });
+    .catch(function(){ /* badges and the rate line stay hidden */ });
 })();
 
 // ── CHECK RATES ──

@@ -81,14 +81,20 @@ Copy longer than the cap gets cut, not shrunk. If a property "needs" a fourth
 story block, the answer is that one of the three is not earning its place.
 
 ### Suites — 3 to 6 cards
-`photo` · `name` · `sleeps` · `sq_ft` · `bed_config` · `mews_room_category_id` · `link`
+`photo` · `name` · `sleeps` · `sq_ft` · `bed_config` · `mews_room_category_id` · `floor_plan`
 
 There is no `from_rate` field — the rate badge is live. See §5.
 
-Clicking a suite card pre-selects that suite in **both** booking forms, scrolls
-to the booking band, and focuses Check-in. The two forms carry the same `Suite`
-field for exactly this reason — a guest who picks Two Bedroom should not have to
-pick it again.
+Each card carries two explicit actions:
+
+- **BOOK THIS SUITE** pre-selects that suite in *both* booking forms, scrolls to
+  the booking band, and focuses Check-in. The two forms share a `Suite` field for
+  exactly this reason — a guest who picks Two Bedroom should not pick it twice.
+  The card photo is a shortcut to the same thing.
+- **FLOOR PLAN** opens the plan in the lightbox. Until a plan is uploaded it says
+  so plainly rather than rendering a broken image.
+
+Cards are `<article>`, not `<a>` — two jobs, and a link inside a link is invalid.
 
 ### Amenities — shown three ways, deliberately
 - `glance[7]` — the seven that decide a booking. Icon + label, up top.
@@ -115,6 +121,8 @@ Blank is not an option. A property with no parking says so.
 | Suite card | 1200×1500 | 4:5 |
 | Story block | 1600×1200 | 2 per property (01 Stay, 03 Neighborhood) |
 | Amenity tile | 1200×900 | 4–6 per property, §6b showcase |
+| Gallery photo | 1600×1067 | **20+ per property**, split across Suites / Amenities / Neighborhood |
+| Floor plan | SVG preferred, else 1600×1200 PNG | One per suite type |
 | Map | 1200×900 | |
 
 **The demo page uses stand-in photography** from `/assets/` — Sol Modern's
@@ -180,13 +188,41 @@ renders without it. There is no hardcoded fallback anywhere in the path, because
 a stale price on a booking page is worse than no price. Verified against mocked
 Mews responses for all four cases.
 
-**`?demoRates=1`** renders sample numbers labelled `SAMPLE — FROM $189/NIGHT`
-for design review. Opt-in per URL, never on a normal load.
+**Extended stay.** A fifth probe asks Mews what a 30-night stay actually costs
+per night, and the Longer Stays band reports it: *"$139 a night on stays of 30
+nights or more — about 26% below the nightly rate."* If Mews returns no discount,
+the line stays hidden — the page never claims a saving it cannot show. "Rates
+drop after 30 nights" is arguably Sentral's strongest differentiator and it was
+previously an unsupported assertion linking to a generic page.
+
+**`?demoRates=1`** renders sample numbers labelled `SAMPLE — FROM $189/NIGHT`,
+plus a sample extended-stay line, for design review. Opt-in per URL, never on a
+normal load.
 
 Because the Distributor API is the same guest-facing surface the booking widget
 uses, `Client` and `ConfigurationId` are not secrets. The call still runs
 server-side so we own the caching and are not subject to allowed-origin rules
 from the browser.
+
+---
+
+## 5b. Gallery and floor plans
+
+One lightbox serves both, so neither costs the page a section:
+
+- **Gallery** opens from a `View gallery` button in the hero, or from any amenity
+  tile (which opens it pre-filtered to Amenities). Filters are All / Suites /
+  Amenities / Neighborhood, driven by the `#ptGalleryData` JSON manifest — at
+  build that comes from the CMS instead of being inlined.
+- **Floor plans** open from each suite card.
+
+Focus is trapped while open, Escape closes, and focus returns to whatever opened
+it. Missing photography or an un-uploaded plan produces an honest message, never
+a broken image.
+
+**This is the template's biggest remaining dependency.** Twenty-plus photos and a
+plan per suite type, per property. The demo reuses the same handful of `/assets/`
+images across all three groups.
 
 ---
 
@@ -206,12 +242,19 @@ pre-selecting the property in its "Where" field.
 1. ~~Rates.~~ **Resolved** — Mews feeds them live. See §5. Still needed before
    the badges appear anywhere: the `MEWS_PROPERTIES` env var and each suite's
    `mews_room_category_id`.
-2. **Suite detail pages.** `VIEW SUITE →` currently jumps to the booking band.
-   Phase 2b question: does each suite type get its own page?
-3. **URL shape.** Demo is at `/property-template`. Live pages are
+2. **Suite detail pages.** Cards now book directly and show a floor plan, which
+   may be enough. Phase 2b question: does each suite type still need its own page?
+3. **Booking hand-off.** Even wired, Check Rates passes the guest to the Mews
+   widget without ever showing availability or a total. "No hidden fees" is
+   promised but no total is displayed. Worth deciding whether an inline
+   availability/total step is in scope.
+4. **Reviews.** The current Michigan Avenue page has "PEOPLE LIKE IT HERE"; this
+   template has no social proof at all.
+5. **URL shape.** Demo is at `/property-template`. Live pages are
    `/{city}/{property}` today. `vercel.json` adds `/stay/sol-modern` as a
    demonstration of the intended shape — confirm before the build.
-4. **Which properties get this.** All STAY properties, or STAY-only ones
+6. **Which properties get this.** All STAY properties, or STAY-only ones
    first? Mixed-use buildings (Live + Stay) may need a variant.
-5. **Photography.** The template is only as good as the assets. Every property
-   needs a hero, 3 story images, and one image per suite type.
+7. **Photography.** The template is only as good as the assets — see §5b. Per
+   property: a hero, 2 story images, 4–6 amenity tiles, one photo and one floor
+   plan per suite type, and 20+ gallery photos.
