@@ -184,6 +184,13 @@ GDIR_VARIANTS = {
 
 SEG_CSS = """
 .rfp-mini-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.rfp-mini-textarea{min-height:48px;resize:vertical;padding-top:8px;line-height:1.4}
+.seg-hero .hero-rfp-card{padding:18px 22px 14px}
+.seg-hero .hero-rfp-card .hero-rfp-title{margin-bottom:12px}
+.seg-hero .rfp-mini-form{gap:8px}
+.seg-hero .rfp-mini-field{gap:4px}
+.seg-hero .rfp-mini-input{height:34px}
+.seg-hero .rfp-mini-textarea{height:auto}
 .rfp-mini-two .rfp-mini-field{min-width:0}
 .rfp-mini-form .rfp-mini-input{width:100%;box-sizing:border-box;min-width:0}
 .rfp-mini-reach{color:#8DB1C4 !important;text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
@@ -306,11 +313,15 @@ window.dataLayer = window.dataLayer || [];
     /* RFP submissions email Sales@Sentral.com (owner decision 8-17) — composed
        via mailto so the sender's own mail client carries their identity. */
     var segName = SEG==='group-travel' ? 'Group Travel' : 'Business Travel & Corporate Housing';
-    var subject = encodeURIComponent('RFP — '+segName+' — '+form.destination.value);
-    var lines = ['Destination: '+form.destination.value,
+    var subject = encodeURIComponent('RFP — '+segName+' — '+form.fullName.value);
+    var lines = ['Full Name: '+form.fullName.value,
+                 'Email: '+form.email.value,
+                 'Phone: '+(form.phone.value||'—'),
+                 'Destination: '+form.destination.value,
                  'Check-in: '+form.checkin.value,
                  'Number of travelers: '+form.travelers.value,
                  'Number of rooms: '+form.rooms.value,
+                 'Questions: '+(form.questions.value||'—'),
                  'Lead source: '+form.leadSource.value];
     var body = encodeURIComponent(lines.join('\\n'));
     window.location.href = 'mailto:Sales@Sentral.com?subject='+subject+'&body='+body;
@@ -337,7 +348,7 @@ window.dataLayer = window.dataLayer || [];
 })();
 """
 
-DEST_OPTIONS = """<option value="" disabled selected>Select a market&hellip;</option>
+DEST_OPTIONS = """<option value="" disabled selected>Select&hellip;</option>
 <option>Atlanta, GA</option><option>Austin, TX</option><option>Charlotte, NC</option>
 <option>Chicago, IL</option><option>Denver, CO</option><option>Houston, TX</option>
 <option>Las Vegas, NV</option><option>Miami, FL</option><option>Nashville, TN</option>
@@ -448,12 +459,28 @@ def render(seg):
         <form class="rfp-mini-form" id="rfp-form-el">
           <input type="hidden" name="leadSource" value="{rfp['leadSource']}">
           <div class="rfp-mini-field">
-            <label class="rfp-mini-label" for="rfp-dest">Destination</label>
-            <select class="rfp-mini-input rfp-mini-select" id="rfp-dest" name="destination" required>{DEST_OPTIONS}</select>
+            <label class="rfp-mini-label" for="rfp-name">Full Name</label>
+            <input class="rfp-mini-input" id="rfp-name" name="fullName" type="text" autocomplete="name" required>
           </div>
-          <div class="rfp-mini-field">
-            <label class="rfp-mini-label" for="rfp-checkin">Check-in</label>
-            <input class="rfp-mini-input" id="rfp-checkin" name="checkin" type="date" required>
+          <div class="rfp-mini-two">
+            <div class="rfp-mini-field">
+              <label class="rfp-mini-label" for="rfp-email">Email</label>
+              <input class="rfp-mini-input" id="rfp-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="rfp-mini-field">
+              <label class="rfp-mini-label" for="rfp-phone">Phone</label>
+              <input class="rfp-mini-input" id="rfp-phone" name="phone" type="tel" autocomplete="tel">
+            </div>
+          </div>
+          <div class="rfp-mini-two">
+            <div class="rfp-mini-field">
+              <label class="rfp-mini-label" for="rfp-dest">Destination</label>
+              <select class="rfp-mini-input rfp-mini-select" id="rfp-dest" name="destination" required>{DEST_OPTIONS}</select>
+            </div>
+            <div class="rfp-mini-field">
+              <label class="rfp-mini-label" for="rfp-checkin">Check-in</label>
+              <input class="rfp-mini-input" id="rfp-checkin" name="checkin" type="date" required>
+            </div>
           </div>
           <div class="rfp-mini-two">
             <div class="rfp-mini-field">
@@ -464,6 +491,10 @@ def render(seg):
               <label class="rfp-mini-label" for="rfp-rooms">Number of rooms</label>
               <input class="rfp-mini-input" id="rfp-rooms" name="rooms" type="number" min="1" step="1" required placeholder="e.g. 4">
             </div>
+          </div>
+          <div class="rfp-mini-field">
+            <label class="rfp-mini-label" for="rfp-questions">Questions or details</label>
+            <textarea class="rfp-mini-input rfp-mini-textarea" id="rfp-questions" name="questions" rows="2"></textarea>
           </div>
           <button class="rfp-mini-btn" type="submit">Submit RFP &nbsp;&rarr;</button>
           <div class="rfp-mini-note">We respond within 1 business day &middot; or email <a class="rfp-mini-reach" href="mailto:Sales@Sentral.com">Sales@Sentral.com</a></div>
