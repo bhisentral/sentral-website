@@ -83,7 +83,10 @@ function nightlyAmount(pricing, currencyCode) {
     : null;
 }
 
-async function probe({ base, client, configurationId, hotelId, currencyCode, offset, nights = 1 }) {
+async function probe({ base, client, configurationId, hotelId, currencyCode, offset, nights = 1, startUtc, endUtc }) {
+  const start = startUtc || isoDay(offset);
+  const end = endUtc || isoDay(offset + nights);
+
   const res = await fetch(`${base}/api/distributor/v1/hotels/getAvailability`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -91,16 +94,61 @@ async function probe({ base, client, configurationId, hotelId, currencyCode, off
       Client: client,
       ConfigurationId: configurationId,
       HotelId: hotelId,
-      StartUtc: isoDay(offset),
-      EndUtc: isoDay(offset + nights),
+      StartUtc: start,
+      EndUtc: end,
       ...(currencyCode ? { CurrencyCode: currencyCode } : {}),
     }),
   });
 
   if (!res.ok) {
-    throw new Error(`mews ${res.status} on +${offset}d/${nights}n`);
+    throw new Error(`mews ${res.status} for ${start.slice(0, 10)}→${end.slice(0, 10)}`);
   }
   return res.json();
+}
+
+/** Total for the whole stay, not the per-night average. */
+function totalAmount(pricing, currencyCode) {
+  const total = pricing?.Price?.TotalAmount;
+  if (!total) return null;
+  const candidates = Array.isArray(total.Currencies) ? total.Currencies : [total];
+  const match = candidates.find((c) => c && c.Currency === currencyCode) || candidates[0];
+  if (!match) return null;
+  const value = match.GrossValue ?? match.Value ?? match.NetValue;
+  return typeof value === 'number' && value > 0 ? value : null;
+}
+
+/** Parse a YYYY-MM-DD query param into an ISO instant, or null if unusable. */
+function parseDay(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(value || ''))) return null;
+  const d = new Date(`${value}T00:00:00.000Z`);
+  return Number.isNaN(d.getTime()) ? null : d.toISOString();
+}
+
+/**
+ * Cheapest available option across a whole property for one exact date window.
+ * This is what a market comparison needs — a real quote for the guest's dates,
+ * not the indicative "from" heuristic.
+ */
+function quoteForWindow(payload, currencyCode, nights) {
+  let best = null;
+  for (const cat of payload?.RoomCategoryAvailabilities || []) {
+    if (!(cat?.AvailableRoomCount > 0)) continue;
+    for (const occ of cat.RoomOccupancyAvailabilities || []) {
+      for (const pricing of occ?.Pricing || []) {
+        const per = nightlyAmount(pricing, currencyCode);
+        if (!per) continue;
+        if (!best || per.amount < best.from) {
+          best = {
+            from: per.amount,
+            total: totalAmount(pricing, currencyCode) ?? per.amount * nights,
+            currency: per.currency,
+            categoryId: cat.RoomCategoryId,
+          };
+        }
+      }
+    }
+  }
+  return best;
 }
 
 /** Lowest per-night amount across every category in one getAvailability payload. */
@@ -118,9 +166,103 @@ function lowestNightly(payload, currencyCode) {
   return low;
 }
 
+/**
+ * Market mode — /api/rates?properties=a,b,c&checkin=YYYY-MM-DD&checkout=YYYY-MM-DD
+ *
+ * Quotes several properties against one exact date window so the market page can
+ * put them side by side. Falls back to the indicative "from" heuristic when no
+ * dates are supplied, so the page renders something useful before a guest picks
+ * dates. Each property resolves independently: one sold-out or erroring property
+ * never blanks the rest of the comparison.
+ */
+async function handleMarket(req, res, slugs, currencyCode) {
+  const properties = loadProperties();
+  const base = (process.env.MEWS_API_BASE || DEFAULT_BASE).replace(/\/+$/, '');
+  const client = process.env.MEWS_CLIENT || DEFAULT_CLIENT;
+
+  const startUtc = parseDay(req.query?.checkin);
+  const endUtc = parseDay(req.query?.checkout);
+  const dated = Boolean(startUtc && endUtc && endUtc > startUtc);
+  const nights = dated
+    ? Math.round((new Date(endUtc) - new Date(startUtc)) / 86400000)
+    : 0;
+
+  const settled = await Promise.allSettled(
+    slugs.map(async (slug) => {
+      const config = properties?.[slug];
+      if (!config?.configurationId || !config?.hotelId) {
+        return [slug, { configured: false }];
+      }
+      const shared = {
+        base,
+        client,
+        configurationId: config.configurationId,
+        hotelId: config.hotelId,
+        currencyCode,
+      };
+
+      if (dated) {
+        const payload = await probe({ ...shared, startUtc, endUtc });
+        const quote = quoteForWindow(payload, currencyCode, nights);
+        return [
+          slug,
+          quote
+            ? { configured: true, available: true, ...quote, nights }
+            : { configured: true, available: false },
+        ];
+      }
+
+      // Undated: cheapest of the same short probe set the property pages use.
+      const payloads = await Promise.allSettled(
+        PROBE_OFFSETS_DAYS.map((offset) => probe({ ...shared, offset }))
+      );
+      let low = null;
+      for (const p of payloads) {
+        if (p.status !== 'fulfilled') continue;
+        const n = lowestNightly(p.value, currencyCode);
+        if (n && (!low || n.amount < low.amount)) low = n;
+      }
+      return [
+        slug,
+        low
+          ? { configured: true, available: true, from: low.amount, currency: low.currency, indicative: true }
+          : { configured: true, available: false },
+      ];
+    })
+  );
+
+  const out = {};
+  settled.forEach((r, i) => {
+    out[slugs[i]] =
+      r.status === 'fulfilled' ? r.value[1] : { configured: true, error: 'upstream_unavailable' };
+  });
+
+  res.setHeader(
+    'Cache-Control',
+    dated
+      ? 'public, s-maxage=300, stale-while-revalidate=1800'
+      : 'public, s-maxage=3600, stale-while-revalidate=86400'
+  );
+  res.status(200).json({
+    currency: currencyCode,
+    window: dated ? { checkin: req.query.checkin, checkout: req.query.checkout, nights } : null,
+    properties: out,
+  });
+}
+
 export default async function handler(req, res) {
   const slug = String(req.query?.property || '').trim();
   const currencyCode = (req.query?.currency || 'USD').toString().toUpperCase();
+
+  const many = String(req.query?.properties || '')
+    .split(',')
+    .map((x) => x.trim())
+    .filter(Boolean)
+    .slice(0, 8);                       // a market is a handful, not a crawl target
+  if (many.length) {
+    await handleMarket(req, res, many, currencyCode);
+    return;
+  }
 
   if (!slug) {
     res.status(400).json({ error: 'missing_property' });
