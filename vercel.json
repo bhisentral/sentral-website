@@ -3,6 +3,14 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/property-template-demo",
+      "destination": "/property-template"
+    },
+    {
+      "source": "/stay/sol-modern",
+      "destination": "/property-template"
+    },
+    {
       "source": "/stay",
       "destination": "/stay-with-us"
     },
