@@ -3,6 +3,10 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/stay/sol-modern/review",
+      "destination": "/stay-template-review"
+    },
+    {
       "source": "/property-template-demo",
       "destination": "/property-template"
     },
