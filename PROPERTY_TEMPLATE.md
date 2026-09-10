@@ -41,7 +41,7 @@ short, and the guest can book from anywhere on it.
 | 6 | Story block 01 — Stay | cream | Inside the suites. One CTA |
 | 6b | Amenity showcase 02 — Gather | cream-warm | 4–6 photo tiles: pool, fitness, coworking, lounges |
 | 6c | Story block 03 — Neighborhood | cream | One CTA |
-| 7 | Booking band | slate | Mews widget + direct-book perks |
+| 7 | Booking band | slate | StayNTouch booking engine + direct-book perks |
 | 8 | Neighborhood | cream-warm | Map + 5–7 places with walk times |
 | 9 | Longer stays | ink | Business Travel · Group Travel · Live With Us |
 | 10 | Practical info | cream-light | Collapsed accordion + property contact card |
@@ -67,7 +67,7 @@ Every `[FIELD]` marker in the HTML maps to one of these.
 | `address` | 50 E. Fillmore Street, Phoenix, AZ 85004 | Hero, booking band, contact card |
 | `phone` | (833) 370-4161 | Contact card |
 | `maps_url` | Google Maps link | Get Directions |
-| `mews_config_id` | — | Booking widget |
+| `snt_booking_url` | — | StayNTouch booking-engine link for this property |
 
 ### Copy — the hard cap is the point
 | Field | Cap | Where |
@@ -81,7 +81,7 @@ Copy longer than the cap gets cut, not shrunk. If a property "needs" a fourth
 story block, the answer is that one of the three is not earning its place.
 
 ### Suites — 3 to 6 cards
-`photo` · `name` · `sleeps` · `sq_ft` · `bed_config` · `mews_room_category_id` · `floor_plan`
+`photo` · `name` · `sleeps` · `sq_ft` · `bed_config` · `snt_room_type_id` · `floor_plan`
 
 There is no `from_rate` field — the rate badge is live. See §5.
 
@@ -156,44 +156,30 @@ slots. Real property photography replaces all of it.
 
 ## 5. Live rates
 
-Suite-card badges read live from Mews. Nothing about a price is hardcoded.
+**Booking/rates platform decision (2026-09-10): Sentral is staying on its
+current RMS, StayNTouch. The earlier Mews rates adapter (`api/rates.mjs`) has
+been removed** — the Mews integration is not moving forward.
+
+The page-side contract is unchanged and platform-agnostic:
 
 ```
-suite card  →  /api/rates?property=<slug>  →  Mews Booking Engine API
-                                              POST /api/distributor/v1/hotels/getAvailability
+suite card  →  /api/rates?property=<slug>  →  StayNTouch RMS (adapter to build)
 ```
 
-`api/rates.mjs` returns the lowest nightly rate per Mews room category. The page
-fills each `.pt-suite-badge[data-rate-category]` and unhides it.
-
-**Configuration** — Vercel env vars, no code change to add a property:
-
-| Var | Value |
-|---|---|
-| `MEWS_PROPERTIES` | `{"sol-modern":{"configurationId":"…","hotelId":"…"}}` |
-| `MEWS_CLIENT` | optional, defaults to `Sentral Website 1.0.0` |
-| `MEWS_API_BASE` | optional, defaults to `https://api.mews.com` |
-
-Each suite card also needs its `mews_room_category_id` — the badge is keyed on it.
-
-**The "from" price is a heuristic.** Four one-night probes (+7, +14, +30, +60
-days), minimum per category, cached an hour at the edge. That is four upstream
-calls per hour per property instead of one per night in the booking window. The
-badge claims an indicative starting rate, not a quote. If it needs to be exact,
-`PROBE_OFFSETS_DAYS` in `api/rates.mjs` is the only thing to change.
+The adapter should return `{currency, categories:{<snt_room_type_id>:{from}},
+extended:{from,nights,savingsPercent}}`; the page fills each
+`.pt-suite-badge[data-rate-category]` and unhides it. Each suite card carries
+its `snt_room_type_id` — the badge is keyed on it.
 
 **Failure behaviour — deliberate.** No rate, sold out, upstream down, or not yet
-configured all produce the same result: the badge stays hidden and the card
-renders without it. There is no hardcoded fallback anywhere in the path, because
-a stale price on a booking page is worse than no price. Verified against mocked
-Mews responses for all four cases.
+built all produce the same result: the badge stays hidden and the card renders
+without it. There is no hardcoded fallback anywhere in the path, because a stale
+price on a booking page is worse than no price.
 
-**Extended stay.** A fifth probe asks Mews what a 30-night stay actually costs
-per night, and the Longer Stays band reports it: *"$139 a night on stays of 30
-nights or more — about 26% below the nightly rate."* If Mews returns no discount,
-the line stays hidden — the page never claims a saving it cannot show. "Rates
-drop after 30 nights" is arguably Sentral's strongest differentiator and it was
-previously an unsupported assertion linking to a generic page.
+**Extended stay.** The `extended` value drives the Longer Stays band: *"$139 a
+night on stays of 30 nights or more — about 26% below the nightly rate."* If the
+RMS shows no discount, the line stays hidden — the page never claims a saving it
+cannot show.
 
 **`?demoRates=1`** renders sample numbers labelled `SAMPLE — FROM $189/NIGHT`,
 plus a sample extended-stay line, for design review. Opt-in per URL, never on a
@@ -239,13 +225,13 @@ pre-selecting the property in its "Where" field.
 
 ## 7. Open items
 
-1. ~~Rates.~~ **Resolved** — Mews feeds them live. See §5. Still needed before
-   the badges appear anywhere: the `MEWS_PROPERTIES` env var and each suite's
-   `mews_room_category_id`.
+1. **Rates.** StayNTouch adapter for `/api/rates` to build (see §5 — the Mews
+   version was removed 2026-09-10). Until then rate badges stay hidden;
+   `?demoRates=1` shows labelled sample numbers for review.
 2. **Suite detail pages.** Cards now book directly and show a floor plan, which
    may be enough. Phase 2b question: does each suite type still need its own page?
-3. **Booking hand-off.** Even wired, Check Rates passes the guest to the Mews
-   widget without ever showing availability or a total. "No hidden fees" is
+3. **Booking hand-off.** Even wired, Check Rates passes the guest to the
+   StayNTouch booking engine without ever showing availability or a total. "No hidden fees" is
    promised but no total is displayed. Worth deciding whether an inline
    availability/total step is in scope.
 4. **Reviews.** The current Michigan Avenue page has "PEOPLE LIKE IT HERE"; this

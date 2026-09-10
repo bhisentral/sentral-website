@@ -27,7 +27,7 @@
     4  Intro — two paragraphs, three stats. That's it.
     5  Suites — the browse grid sentral.com does not have today
     6  Three story blocks — Stay / Gather / Neighborhood
-    7  Booking band (Mews)
+    7  Booking band (StayNTouch)
     8  Neighborhood — map + curated walk times
     9  Longer stays — 30+ nights, business, group
     10 Practical info — collapsed accordion
@@ -179,7 +179,7 @@ img{max-width:100%;display:block}
 .pt-suite:hover .pt-suite-img img{transform:scale(1.05)}
 .pt-suite-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 42%,rgba(0,0,0,.8) 100%)}
 .pt-suite-badge{position:absolute;top:14px;left:14px;z-index:2;font-size:.6875rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--oat);background:rgba(20,20,20,.6);border:1px solid rgba(242,232,213,.28);padding:5px 11px;border-radius:100px;backdrop-filter:blur(8px)}
-/* Rate badges are live (Mews). Hidden until a real rate arrives — a stale or
+/* Rate badges are live (StayNTouch RMS). Hidden until a real rate arrives — a stale or
    invented price is worse than no price, so there is no hardcoded fallback. */
 .pt-suite-badge[hidden]{display:none}
 .pt-suite-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:20px}
@@ -562,7 +562,7 @@ img{max-width:100%;display:block}
     <article class="pt-suite" data-suite="studio">
       <div class="pt-suite-img"><img src="/assets/ig-social-1.jpg" alt="Studio suite living area"/></div>
       <span class="pt-suite-badge" hidden
-            data-rate-category="[FIELD] mews-room-category-id:studio"
+            data-rate-category="[FIELD] snt-room-type-id:studio"
             data-suite="studio"></span>
       <div class="pt-suite-body">
         <div class="pt-suite-name">Studio</div>
@@ -579,7 +579,7 @@ img{max-width:100%;display:block}
     <article class="pt-suite" data-suite="one-bedroom">
       <div class="pt-suite-img"><img src="/assets/ig-social-2.jpg" alt="One bedroom suite"/></div>
       <span class="pt-suite-badge" hidden
-            data-rate-category="[FIELD] mews-room-category-id:one-bedroom"
+            data-rate-category="[FIELD] snt-room-type-id:one-bedroom"
             data-suite="one-bedroom"></span>
       <div class="pt-suite-body">
         <div class="pt-suite-name">One Bedroom</div>
@@ -596,7 +596,7 @@ img{max-width:100%;display:block}
     <article class="pt-suite" data-suite="two-bedroom">
       <div class="pt-suite-img"><img src="/assets/ig-social-3.jpg" alt="Two bedroom suite"/></div>
       <span class="pt-suite-badge" hidden
-            data-rate-category="[FIELD] mews-room-category-id:two-bedroom"
+            data-rate-category="[FIELD] snt-room-type-id:two-bedroom"
             data-suite="two-bedroom"></span>
       <div class="pt-suite-body">
         <div class="pt-suite-name">Two Bedroom</div>
@@ -613,7 +613,7 @@ img{max-width:100%;display:block}
     <article class="pt-suite" data-suite="three-bedroom">
       <div class="pt-suite-img"><img src="/assets/forme-houston-square-poster.jpg" alt="Three bedroom suite"/></div>
       <span class="pt-suite-badge" hidden
-            data-rate-category="[FIELD] mews-room-category-id:three-bedroom"
+            data-rate-category="[FIELD] snt-room-type-id:three-bedroom"
             data-suite="three-bedroom"></span>
       <div class="pt-suite-body">
         <div class="pt-suite-name">Three Bedroom</div>
@@ -694,9 +694,9 @@ img{max-width:100%;display:block}
       <span class="pt-form-label">Sol Modern</span><!-- [FIELD] property name -->
       <span class="pt-form-note">50 E. Fillmore Street, Phoenix, AZ 85004</span><!-- [FIELD] address -->
       <!--
-        MEWS DISTRIBUTOR — at build, replace this form with:
-        <script src="https://api.mews.com/distributor/distributor.min.js"></script>
-        Mews.Distributor({ configurationIds: ['[FIELD] mews-config-id'], openElements: '.pt-book-btn' });
+        STAYNTOUCH BOOKING ENGINE — at build, point this form at the property's
+        StayNTouch booking-engine URL ([FIELD] snt-booking-url) carrying the
+        chosen dates/guests, or embed the StayNTouch widget if the team prefers.
         The property is fixed on this page, so there is no property selector.
       -->
       <form class="pt-form" onsubmit="return ptCheckRates(event,'band')">
@@ -760,7 +760,7 @@ img{max-width:100%;display:block}
     <div>
       <span class="pt-eyebrow">Staying a while?</span>
       <h2 class="pt-longer-h">Rates drop <em>after 30 nights.</em></h2>
-      <!-- Live from the same Mews plumbing as the suite badges. Hidden unless
+      <!-- Live from the same StayNTouch plumbing as the suite badges. Hidden unless
            the 30-night rate genuinely beats the nightly one — the page never
            claims a discount it cannot show. -->
       <p class="pt-longer-rate" id="ptExtendedRate" hidden></p>
@@ -1207,15 +1207,16 @@ var ptLightbox=(function(){
 })();
 
 // ── LIVE "FROM" RATES ──
-// Fills the suite-card badges from /api/rates, which reads the Mews Booking
-// Engine (Distributor) API server-side. Badges start hidden and stay hidden if
+// Fills the suite-card badges from /api/rates — a server-side adapter that
+// will read rates from the StayNTouch RMS (adapter not yet built; Mews version
+// removed 9-10 per owner — Sentral is staying on StayNTouch). Badges start hidden and stay hidden if
 // anything goes wrong — a stale price is worse than no price, so there is
 // deliberately no hardcoded fallback anywhere in this path.
 //
 // ?demoRates=1 renders visibly-marked sample numbers for design review only.
 // It is opt-in per URL and never fires on a normal page load.
 (function(){
-  var PROPERTY='sol-modern';           // [FIELD] slug, must match MEWS_PROPERTIES
+  var PROPERTY='sol-modern';           // [FIELD] slug, must match the rates adapter's property map
   var badges=[].slice.call(document.querySelectorAll('.pt-suite-badge[data-rate-category]'));
   if(!badges.length) return;
 
@@ -1269,15 +1270,15 @@ var ptLightbox=(function(){
 })();
 
 // ── CHECK RATES ──
-// Placeholder until the Mews Distributor is wired in. At build, this handler
-// is replaced by Mews.Distributor({configurationIds:['[FIELD] mews-config-id']}).
+// Placeholder until the StayNTouch booking engine is wired in. At build, this
+// handler hands the dates/guests to the property's snt-booking-url.
 function ptCheckRates(e,source){
   e.preventDefault();
   var p=source==='hero'?['hero-in','hero-out']:['bk-in','bk-out'];
   var i=document.getElementById(p[0]).value,o=document.getElementById(p[1]).value;
   if(!i||!o){document.getElementById(p[0]).focus();return false;}
   window.location.hash='book-stay';
-  console.log('Mews booking:',{property:'sol-modern',checkin:i,checkout:o,source:source});
+  console.log('Booking (StayNTouch pending):',{property:'sol-modern',checkin:i,checkout:o,source:source});
   return false;
 }
 </script>
