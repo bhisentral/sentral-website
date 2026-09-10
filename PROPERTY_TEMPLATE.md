@@ -223,6 +223,19 @@ pre-selecting the property in its "Where" field.
 
 ---
 
+## 6b. SEO — anchors + structured data (marketing request, 2026-09-10)
+
+Every section carries a stable, human-readable anchor id — `#the-property`,
+`#suites`, `#inside-the-suites`, `#amenity-spaces`, `#roosevelt-row`,
+`#book-stay`, `#amenities`, `#neighborhood`, `#longer-stays`, `#info` — usable
+in campaign links, sitelinks, and on-page search. `section[id]` gets
+`scroll-margin-top` so targets clear the sticky bar. The head carries a
+schema.org **Hotel** JSON-LD block (name, address, phone, check-in/out,
+amenityFeature, HotelRoom entries with real occupancy and sq ft) — facts only,
+no rates. Per property, the JSON-LD is generated from the same §3 fields.
+Copy facts (suite mix/specs, 19-amenity list, PHX Arena naming) reconciled
+against the live sentral.com/phoenix/sol-modern/stay page 2026-09-10.
+
 ## 7. Open items
 
 1. **Rates.** StayNTouch adapter for `/api/rates` to build (see §5 — the Mews

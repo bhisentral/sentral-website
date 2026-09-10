@@ -126,6 +126,7 @@ img{max-width:100%;display:block}
 .pt-sticky-inner{max-width:1400px;margin:0 auto;padding:12px 64px;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .pt-sticky-name{font-family:var(--serif);font-size:1rem;color:#fff;white-space:nowrap}
 .pt-sticky-name small{display:block;font-family:var(--sans);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:2px}
+section[id]{scroll-margin-top:118px}
 .pt-sticky-jump{display:flex;gap:26px}
 .pt-sticky-jump a{font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;transition:color .2s}
 .pt-sticky-jump a:hover{color:#fff}
@@ -362,6 +363,35 @@ img{max-width:100%;display:block}
      §9f  — booking-search CTAs (.pt-book-btn, .pt-sticky-book) render in booking gold
      §all-caps — every interactive label on this page is uppercase */
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Hotel",
+  "name": "Sentral Sol Modern",
+  "brand": {"@type": "Brand", "name": "Sentral"},
+  "description": "Furnished studio to two-bedroom aparthotel suites in Downtown Phoenix with full kitchens, in-unit laundry, and a rooftop pool steps from Roosevelt Row.",
+  "address": {"@type": "PostalAddress", "streetAddress": "50 E. Fillmore Street", "addressLocality": "Phoenix", "addressRegion": "AZ", "postalCode": "85004", "addressCountry": "US"},
+  "telephone": "(833) 370-4161",
+  "url": "https://sentral-website.vercel.app/stay/sol-modern",
+  "checkinTime": "16:00",
+  "checkoutTime": "11:00",
+  "petsAllowed": true,
+  "amenityFeature": [
+    {"@type": "LocationFeatureSpecification", "name": "Rooftop pool", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "Fitness center", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "Full kitchen", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "In-unit washer and dryer", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "Pet friendly", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "EV charging stations", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "Coworking spaces", "value": true}
+  ],
+  "containsPlace": [
+    {"@type": "HotelRoom", "name": "Studio Suite", "occupancy": {"@type": "QuantitativeValue", "maxValue": 2}, "floorSize": {"@type": "QuantitativeValue", "value": 517, "unitCode": "FTK"}},
+    {"@type": "HotelRoom", "name": "One Bedroom Suite", "occupancy": {"@type": "QuantitativeValue", "maxValue": 2}, "floorSize": {"@type": "QuantitativeValue", "value": 673, "unitCode": "FTK"}},
+    {"@type": "HotelRoom", "name": "Two Bedroom Suite", "occupancy": {"@type": "QuantitativeValue", "maxValue": 4}, "floorSize": {"@type": "QuantitativeValue", "value": 1053, "unitCode": "FTK"}}
+  ]
+}
+</script>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -436,7 +466,7 @@ img{max-width:100%;display:block}
       </div>
       <span class="hero-eyebrow">Phoenix, Arizona</span><!-- [FIELD] city, state -->
       <h1 class="hero-h">Sol Modern</h1><!-- [FIELD] property name -->
-      <p class="hero-sub">Furnished studio to three-bedroom suites in Downtown Phoenix &mdash; full kitchens, in-unit laundry, and a rooftop pool two blocks from Roosevelt Row. Stay a night, a month, or a season.</p><!-- [FIELD] one-paragraph positioning, 2 sentences max -->
+      <p class="hero-sub">Furnished studio to two-bedroom suites in Downtown Phoenix &mdash; full kitchens, in-unit laundry, and a rooftop pool steps from Roosevelt Row. Stay a night, a month, or a season.</p><!-- [FIELD] one-paragraph positioning, 2 sentences max -->
       <div class="pt-hero-meta">
         <span class="pt-hero-addr">50 E. Fillmore Street, Phoenix, AZ 85004</span><!-- [FIELD] address -->
         <a class="pt-dir-btn" href="https://maps.google.com/?q=50+E+Fillmore+St+Phoenix+AZ+85004" target="_blank" rel="noopener">Get Directions</a>
@@ -463,7 +493,7 @@ img{max-width:100%;display:block}
             <select id="hero-guests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6+</option></select>
           </div>
           <div class="pt-bf"><label for="hero-suite">Suite</label>
-            <select id="hero-suite"><option value="" selected>Any</option><option value="studio">Studio</option><option value="one-bedroom">One Bedroom</option><option value="two-bedroom">Two Bedroom</option><option value="three-bedroom">Three Bedroom</option></select>
+            <select id="hero-suite"><option value="" selected>Any</option><option value="studio">Studio</option><option value="one-bedroom">One Bedroom</option><option value="two-bedroom">Two Bedroom</option></select>
           </div>
         </div>
         <button class="pt-book-btn" type="submit">Check Rates &nbsp;&rarr;</button>
@@ -486,7 +516,7 @@ img{max-width:100%;display:block}
       <span class="pt-glance-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17.5a3.5 3.5 0 0 1 4 0"/><ellipse cx="6.5" cy="9" rx="2" ry="2.8"/><ellipse cx="17.5" cy="9" rx="2" ry="2.8"/><ellipse cx="10.5" cy="5.5" rx="1.8" ry="2.5"/><ellipse cx="13.5" cy="5.5" rx="1.8" ry="2.5"/></svg>Pet Friendly</span>
       <span class="pt-glance-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M9 15V9h3a2 2 0 0 1 0 4H9"/></svg>Secure Parking</span>
     </div>
-    <button class="pt-glance-all" id="ptAmenBtn" aria-expanded="false" aria-controls="ptAmen">All 18 Amenities &nbsp;+</button><!-- [FIELD] count -->
+    <button class="pt-glance-all" id="ptAmenBtn" aria-expanded="false" aria-controls="ptAmen">All 19 Amenities &nbsp;+</button><!-- [FIELD] count -->
   </div>
 </section>
 
@@ -496,23 +526,24 @@ img{max-width:100%;display:block}
     <div>
       <span class="pt-amen-h">In your suite</span>
       <ul class="pt-amen-list">
-        <li>Fully equipped kitchen &mdash; quartz counters, full-size appliances</li>
-        <li>In-unit washer and dryer</li>
-        <li>Stainless steel refrigerator, dishwasher, microwave</li>
+        <li>Stainless steel appliances</li>
+        <li>Refrigerator, dishwasher, and microwave</li>
+        <li>Quartz countertops</li>
         <li>Vinyl plank wood flooring</li>
         <li>Walk-in showers</li>
         <li>Keyless apartment entry</li>
-        <li>Balconies in select suites</li>
+        <li>Balconies in select apartments</li>
+        <li>All utilities, streaming services, WiFi, and more</li>
       </ul>
     </div>
     <div>
       <span class="pt-amen-h">Around the building</span>
       <ul class="pt-amen-list">
-        <li>Indoor/outdoor fitness center with yoga studio and cold plunge</li>
-        <li>Coworking lounge and private work spaces</li>
-        <li>Entertainment lounge and gathering spaces</li>
+        <li>Entertainment lounge</li>
+        <li>Gathering and networking spaces</li>
         <li>Indoor and outdoor entertaining areas</li>
         <li>WiFi in common areas</li>
+        <li>Work spaces</li>
         <li>On-site pet amenities</li>
       </ul>
     </div>
@@ -531,7 +562,7 @@ img{max-width:100%;display:block}
 
 <!-- ══════════ 4. INTRO ══════════ -->
 <!-- Two paragraphs. Not four amenity essays. -->
-<section class="pt-intro">
+<section class="pt-intro" id="the-property">
   <div class="pt-intro-inner">
     <div>
       <span class="pt-eyebrow">The Property</span>
@@ -540,9 +571,9 @@ img{max-width:100%;display:block}
       <p>Everything downstairs is yours while you are here: the pool deck, the fitness floor, the work lounges, and the people who run them.</p>
     </div>
     <div class="pt-stats">
-      <div class="pt-stat"><span class="pt-stat-n">1&ndash;3</span><span class="pt-stat-l">Bedroom suites<br>plus studios</span></div>
+      <div class="pt-stat"><span class="pt-stat-n">1&ndash;2</span><span class="pt-stat-l">Bedroom suites<br>plus studios</span></div>
       <div class="pt-stat"><span class="pt-stat-n">1</span><span class="pt-stat-l">Night minimum stay</span></div>
-      <div class="pt-stat"><span class="pt-stat-n">6</span><span class="pt-stat-l">Guests, largest suite</span></div>
+      <div class="pt-stat"><span class="pt-stat-n">4</span><span class="pt-stat-l">Guests, largest suite</span></div>
     </div>
   </div>
 </section>
@@ -566,13 +597,13 @@ img{max-width:100%;display:block}
             data-suite="studio"></span>
       <div class="pt-suite-body">
         <div class="pt-suite-name">Studio</div>
-        <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 2</span><span class="pt-suite-spec">520 sq ft</span><span class="pt-suite-spec">Queen</span></div>
+        <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 2</span><span class="pt-suite-spec">517 sq ft</span><span class="pt-suite-spec">Queen</span></div>
         <div class="pt-suite-actions">
           <button class="pt-suite-book" type="button" data-book-suite="studio">Book this suite &nbsp;&rarr;</button>
           <button class="pt-suite-plan" type="button"
                   data-plan-src="[FIELD] /assets/floorplans/studio.svg"
                   data-plan-title="Studio &mdash; floor plan"
-                  data-plan-meta="Sleeps 2 · 520 sq ft · Queen">Floor plan</button>
+                  data-plan-meta="Sleeps 2 · 517 sq ft · Queen">Floor plan</button>
         </div>
       </div>
     </article>
@@ -583,13 +614,13 @@ img{max-width:100%;display:block}
             data-suite="one-bedroom"></span>
       <div class="pt-suite-body">
         <div class="pt-suite-name">One Bedroom</div>
-        <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 3</span><span class="pt-suite-spec">710 sq ft</span><span class="pt-suite-spec">King</span></div>
+        <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 2</span><span class="pt-suite-spec">673 sq ft</span><span class="pt-suite-spec">Queen</span></div>
         <div class="pt-suite-actions">
           <button class="pt-suite-book" type="button" data-book-suite="one-bedroom">Book this suite &nbsp;&rarr;</button>
           <button class="pt-suite-plan" type="button"
                   data-plan-src="[FIELD] /assets/floorplans/one-bedroom.svg"
                   data-plan-title="One Bedroom &mdash; floor plan"
-                  data-plan-meta="Sleeps 3 · 710 sq ft · King">Floor plan</button>
+                  data-plan-meta="Sleeps 2 · 673 sq ft · Queen">Floor plan</button>
         </div>
       </div>
     </article>
@@ -600,30 +631,13 @@ img{max-width:100%;display:block}
             data-suite="two-bedroom"></span>
       <div class="pt-suite-body">
         <div class="pt-suite-name">Two Bedroom</div>
-        <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 4</span><span class="pt-suite-spec">1,050 sq ft</span><span class="pt-suite-spec">King + Queen</span></div>
+        <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 4</span><span class="pt-suite-spec">1,053 sq ft</span><span class="pt-suite-spec">2 Queens</span></div>
         <div class="pt-suite-actions">
           <button class="pt-suite-book" type="button" data-book-suite="two-bedroom">Book this suite &nbsp;&rarr;</button>
           <button class="pt-suite-plan" type="button"
                   data-plan-src="[FIELD] /assets/floorplans/two-bedroom.svg"
                   data-plan-title="Two Bedroom &mdash; floor plan"
-                  data-plan-meta="Sleeps 4 · 1,050 sq ft · King + Queen">Floor plan</button>
-        </div>
-      </div>
-    </article>
-    <article class="pt-suite" data-suite="three-bedroom">
-      <div class="pt-suite-img"><img src="/assets/forme-houston-square-poster.jpg" alt="Three bedroom suite"/></div>
-      <span class="pt-suite-badge" hidden
-            data-rate-category="[FIELD] snt-room-type-id:three-bedroom"
-            data-suite="three-bedroom"></span>
-      <div class="pt-suite-body">
-        <div class="pt-suite-name">Three Bedroom</div>
-        <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 6</span><span class="pt-suite-spec">1,340 sq ft</span><span class="pt-suite-spec">2 King + Queen</span></div>
-        <div class="pt-suite-actions">
-          <button class="pt-suite-book" type="button" data-book-suite="three-bedroom">Book this suite &nbsp;&rarr;</button>
-          <button class="pt-suite-plan" type="button"
-                  data-plan-src="[FIELD] /assets/floorplans/three-bedroom.svg"
-                  data-plan-title="Three Bedroom &mdash; floor plan"
-                  data-plan-meta="Sleeps 6 · 1,340 sq ft · 2 King + Queen">Floor plan</button>
+                  data-plan-meta="Sleeps 4 · 1,053 sq ft · 2 Queens">Floor plan</button>
         </div>
       </div>
     </article>
@@ -631,7 +645,7 @@ img{max-width:100%;display:block}
 </section>
 
 <!-- ══════════ 6. STORY BLOCKS — exactly three ══════════ -->
-<section class="pt-story cream" aria-label="Inside the suites">
+<section class="pt-story cream" id="inside-the-suites" aria-label="Inside the suites">
   <div class="pt-story-img"><img src="/assets/stay-hero-poster.jpg" alt="Furnished suite interior"/></div>
   <div class="pt-story-copy">
     <span class="pt-eyebrow">01 &mdash; Stay</span>
@@ -645,13 +659,13 @@ img{max-width:100%;display:block}
      the pool and the gym are what sell an extended stay, so they get shown, not
      listed. Uses the sitewide .space-tile / .space-chip pattern from
      stay-with-us.html so it reads as the same system. -->
-<section class="pt-spaces" aria-label="Amenity spaces">
+<section class="pt-spaces" id="amenity-spaces" aria-label="Amenity spaces">
   <div class="pt-spaces-header">
     <div>
       <span class="pt-eyebrow">02 &mdash; Gather</span>
       <h2 class="pt-h2">The building is<br><em>part of the stay.</em></h2>
     </div>
-    <p class="pt-spaces-sub">Rooftop pool and cabanas, an indoor-outdoor fitness floor with a yoga studio and cold plunge, work lounges you can take a call in, and grill decks for the nights you would rather stay in. All of it is included &mdash; no day passes, no add-ons.</p>
+    <p class="pt-spaces-sub">Rooftop pool and cabanas, an indoor-outdoor fitness floor with a yoga studio and cold plunge, work lounges you can take a call in, game rooms, and a half-court basketball sport court for the nights you would rather stay in. All of it is included &mdash; no day passes, no add-ons.</p>
   </div>
   <div class="pt-spaces-grid">
     <!-- [FIELD] 4–6 tiles. Photo 1200×900. Lead with pool and fitness. -->
@@ -659,18 +673,18 @@ img{max-width:100%;display:block}
     <div class="pt-space"><img src="/assets/ig-social-2.jpg" alt="Fitness floor with strength and cardio equipment"/><span class="pt-space-chip">Fitness Floor &amp; Yoga Studio</span></div>
     <div class="pt-space"><img src="/assets/ig-social-1.jpg" alt="Coworking lounge with seating and natural light"/><span class="pt-space-chip">Coworking Lounge</span></div>
     <div class="pt-space"><img src="/assets/forme-houston-square-poster.jpg" alt="Entertainment lounge"/><span class="pt-space-chip">Entertainment Lounge</span></div>
-    <div class="pt-space"><img src="/assets/group-hero-poster.jpg" alt="Open-air grilling and fire pit deck"/><span class="pt-space-chip">Grill Decks &amp; Fire Pits</span></div>
+    <div class="pt-space"><img src="/assets/group-hero-poster.jpg" alt="Game room and sport court"/><span class="pt-space-chip">Game Rooms &amp; Sport Court</span></div>
     <div class="pt-space"><img src="/assets/ig-social-3.jpg" alt="On-site pet amenities"/><span class="pt-space-chip">Pet Amenities</span></div>
   </div>
-  <a class="pt-story-cta pt-spaces-cta" href="#ptAmen" id="ptAmenJump">See all 18 amenities</a>
+  <a class="pt-story-cta pt-spaces-cta" href="#ptAmen" id="ptAmenJump">See all 19 amenities</a>
 </section>
 
-<section class="pt-story cream" aria-label="The neighborhood">
+<section class="pt-story cream" id="roosevelt-row" aria-label="The neighborhood">
   <div class="pt-story-img"><img src="/assets/group-hero-poster.jpg" alt="Downtown Phoenix streetscape"/></div>
   <div class="pt-story-copy">
     <span class="pt-eyebrow">03 &mdash; Neighborhood</span>
     <h2 class="pt-h2">Roosevelt Row<br><em>is two blocks north.</em></h2>
-    <p>Galleries, coffee, and the best of the downtown restaurant run are all inside a ten-minute walk. Chase Field, Footprint Center, and the light rail are closer than that.</p>
+    <p>Galleries, coffee, and the best of the downtown restaurant run are all inside a ten-minute walk. Chase Field, PHX Arena, and the Phoenix Convention Center are less than a mile away.</p>
     <a class="pt-story-cta" href="#neighborhood">What&rsquo;s nearby</a>
   </div>
 </section>
@@ -720,7 +734,6 @@ img{max-width:100%;display:block}
             <option value="studio">Studio</option>
             <option value="one-bedroom">One Bedroom</option>
             <option value="two-bedroom">Two Bedroom</option>
-            <option value="three-bedroom">Three Bedroom</option>
           </select>
         </div>
         <div class="pt-bf"><label for="bk-code">Promo or corporate code &mdash; optional</label><input id="bk-code" type="text" placeholder="Enter code"></div>
@@ -745,7 +758,7 @@ img{max-width:100%;display:block}
         <!-- [FIELD] 5–7 points, walk time from the front door -->
         <li><span><span class="pt-poi-name">Roosevelt Row</span><span class="pt-poi-kind">Galleries &amp; nightlife</span></span><span class="pt-poi-dist">4 min walk</span></li>
         <li><span><span class="pt-poi-name">Chase Field</span><span class="pt-poi-kind">Baseball</span></span><span class="pt-poi-dist">9 min walk</span></li>
-        <li><span><span class="pt-poi-name">Footprint Center</span><span class="pt-poi-kind">Basketball &amp; concerts</span></span><span class="pt-poi-dist">11 min walk</span></li>
+        <li><span><span class="pt-poi-name">PHX Arena</span><span class="pt-poi-kind">Basketball &amp; concerts</span></span><span class="pt-poi-dist">11 min walk</span></li>
         <li><span><span class="pt-poi-name">Valley Metro Rail &mdash; Van Buren/1st Ave</span><span class="pt-poi-kind">Light rail</span></span><span class="pt-poi-dist">5 min walk</span></li>
         <li><span><span class="pt-poi-name">Phoenix Sky Harbor (PHX)</span><span class="pt-poi-kind">Airport</span></span><span class="pt-poi-dist">12 min drive</span></li>
         <li><span><span class="pt-poi-name">Arizona State University Downtown</span><span class="pt-poi-kind">Campus</span></span><span class="pt-poi-dist">7 min walk</span></li>
@@ -755,7 +768,7 @@ img{max-width:100%;display:block}
 </section>
 
 <!-- ══════════ 9. LONGER STAYS ══════════ -->
-<section class="pt-longer dark" aria-label="Longer stays">
+<section class="pt-longer dark" id="longer-stays" aria-label="Longer stays">
   <div class="pt-longer-inner">
     <div>
       <span class="pt-eyebrow">Staying a while?</span>
