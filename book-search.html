@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Search Availability — Book a Stay — Sentral</title>
+<link rel="stylesheet" href="/booking-chrome.css">
+<link rel="stylesheet" href="/overrides.css?v=4dark31">
+<link rel="stylesheet" href="/booking.css">
+<script src="/assets/booking-demo.js" defer></script>
+</head>
+<body>
+<a class="skip-to-content" href="#main">Skip to content</a>
+<header>
+<nav class="site-nav" aria-label="Main navigation">
+  <a class="nav-logo" href="index.html"><img src="/assets/sentral-wordmark-white.png" alt="Sentral"/></a>
+  <div class="nav-links">
+    <a class="nav-link active" href="stay-with-us.html">Stay With Us</a>
+    <a class="nav-link" href="live-with-us.html">Live With Us</a>
+    <a class="nav-link" href="partner-with-us.html">Partner With Us</a>
+  </div>
+  <div class="nav-ctas">
+    <a class="btn-sn-ghost" href="https://sentralplus.laasie.ai/login" target="_blank" rel="noopener">Login</a>
+    <!-- On a property page the property is already known, so nav BOOK A STAY scrolls
+         to this property's booking band instead of opening the cross-property strip. -->
+    <a class="btn-sn" href="/book/search">Book a Stay</a>
+    <a class="btn-splus" href="https://sentralplus.laasie.ai/sign-up" target="_blank" rel="noopener" aria-label="Join SentralPlus — Rewards Program"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10 6.2v7.6M6.2 10h7.6" stroke="currentColor" stroke-width="1.3"/></svg><span class="btn-splus-text"><span class="btn-splus-word">Sentral<em>Plus</em></span><span class="btn-splus-tag">Rewards</span></span></a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+    </button>
+  </div>
+  <div class="ham-panel" id="mobileMenu" aria-hidden="true">
+    <div class="ham-panel-inner">
+      <nav class="ham-nav" aria-label="Main menu">
+        <a class="ham-link" href="stay-with-us.html"><span class="ham-link-title">Stay With Us</span><span class="ham-link-sub">Furnished stays, 1 night to a whole summer</span></a>
+        <a class="ham-link" href="live-with-us.html"><span class="ham-link-title">Live With Us</span><span class="ham-link-sub">Apartment living, residentially priced</span></a>
+        <a class="ham-link" href="partner-with-us.html"><span class="ham-link-title">Partner With Us</span><span class="ham-link-sub">Institutional-grade property management</span></a>
+      </nav>
+      <div class="ham-footer">
+        <a class="ham-book" href="/book/search">Book a Stay &nbsp;&rarr;</a>
+        <a class="btn-splus" href="https://sentralplus.laasie.ai/sign-up" target="_blank" rel="noopener" aria-label="Join SentralPlus — Rewards Program"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10 6.2v7.6M6.2 10h7.6" stroke="currentColor" stroke-width="1.3"/></svg><span class="btn-splus-text"><span class="btn-splus-word">Sentral<em>Plus</em></span><span class="btn-splus-tag">Rewards</span></span></a>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main id="main">
+<section class="bkh dark">
+  <div class="bkh-inner">
+    <span class="bkh-eyebrow">Sentral &mdash; Book a Stay</span>
+    <h1>Choose your <em>suite.</em></h1>
+    <p class="bkh-sub" id="bkhContext">Select a property and dates to see availability.</p>
+    <div class="bkh-steps" aria-label="Booking progress">
+      <span class="bkh-step on">1 &middot; Suites &amp; Availability</span>
+      <span class="bkh-step">2 &middot; Checkout</span>
+      <span class="bkh-step">3 &middot; Confirmation</span>
+    </div>
+  </div>
+</section>
+<div class="bk-demo">Design prototype &mdash; sample rates &amp; availability &middot; live data comes from StayNTouch via SentralOS at build</div>
+<div class="bk-wrap">
+  <!-- 1. Home widget hands city/dates/guests here; no PMS call upstream.
+       PRODUCTION (P0): this page pulls live availability + pricing from
+       StayNTouch via SentralOS (data pull method TBC w/ Nathan) and hosts
+       the multi-room booking module below. -->
+  <form class="bk-editbar" id="bkEdit">
+    <div class="bk-f"><label for="bkProp">Property</label>
+      <select id="bkProp"></select></div>
+    <div class="bk-f"><label for="bkIn">Check-in</label><input id="bkIn" type="date"></div>
+    <div class="bk-f"><label for="bkOut">Check-out</label><input id="bkOut" type="date"></div>
+    <div class="bk-f"><label for="bkAd">Adults</label>
+      <select id="bkAd"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
+    <div class="bk-f"><label for="bkCh">Children</label>
+      <select id="bkCh"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+    <button class="bk-btn" type="submit">Update Search &nbsp;&rarr;</button>
+  </form>
+  <div id="bkCityAlert"></div>
+  <div class="bk-grid">
+    <div id="bkResults"></div>
+    <aside class="bk-rail" aria-label="Your stay">
+      <h3 id="railProp">Your stay</h3>
+      <div class="bk-rail-sub" id="railDates"></div>
+      <div id="railLines"></div>
+      <hr>
+      <div class="bk-total"><span>Total</span><span id="railTotal">&mdash;</span></div>
+      <a class="bk-btn wide off" id="railGo" href="#">Continue to Checkout &nbsp;&rarr;</a>
+      <div class="bk-note">Sample rates for design review &mdash; taxes shown at checkout</div>
+    </aside>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var q=BOOK.q(), sel=BOOK.parseRooms(q.rooms);
+  var props=BOOK.PROPERTIES, propSel=document.getElementById('bkProp');
+  props.forEach(function(p){
+    var o=document.createElement('option'); o.value=p.slug;
+    o.textContent=p.city+' — '+p.name+(p.minStay>1?' (30+ nights)':'');
+    propSel.appendChild(o);
+  });
+  var cur=BOOK.prop(q.property) || null;
+  // 1a. City hand-off: multi-property market w/ no property chosen → selector
+  var alertBox=document.getElementById('bkCityAlert');
+  if(!cur && q.city && BOOK.CITIES[q.city]){
+    var c=BOOK.CITIES[q.city];
+    alertBox.innerHTML='<div class="bk-alert">'+c.name+' has '+c.props.length+
+      ' Sentral properties. <a href="/stay/'+q.city+'?'+BOOK.qs({})+'">Choose your '+c.name+' property &rarr;</a></div>';
+    cur=BOOK.prop(c.props[0]);
+  }
+  if(!cur){
+    var cityMatch = q.city && props.filter(function(p){return p.city.toLowerCase().replace(/ /g,'-')===q.city})[0];
+    cur = cityMatch || props[0];
+  }
+  propSel.value=cur.slug;
+  if(q['in']) document.getElementById('bkIn').value=q['in'];
+  if(q.out) document.getElementById('bkOut').value=q.out;
+  if(q.adults) document.getElementById('bkAd').value=q.adults;
+  if(q.children) document.getElementById('bkCh').value=q.children;
+
+  document.getElementById('bkEdit').addEventListener('submit',function(e){
+    e.preventDefault();
+    location.search='?'+BOOK.qs({property:propSel.value,city:null,
+      'in':document.getElementById('bkIn').value,out:document.getElementById('bkOut').value,
+      adults:document.getElementById('bkAd').value,children:document.getElementById('bkCh').value,
+      rooms:BOOK.roomsParam(sel)});
+  });
+
+  var nights=BOOK.nights(q['in'],q.out);
+  document.getElementById('bkhContext').textContent =
+    cur.name+', '+cur.city+(nights? ' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night') : ' — choose dates to see availability');
+
+  // room results — multi-room module (quantity per suite type)
+  var IMGS={'studio':'/assets/ig-social-1.jpg','one-bedroom':'/assets/ig-social-2.jpg','two-bedroom':'/assets/ig-social-3.jpg'};
+  var res=document.getElementById('bkResults');
+  res.innerHTML = cur.rooms.map(function(r){
+    var detail='/book/room?'+BOOK.qs({property:cur.slug,city:null,type:r.slug,rooms:BOOK.roomsParam(sel)});
+    return '<div class="bk-card"><div class="bk-room">'+
+      '<img class="bk-room-img" src="'+IMGS[r.slug]+'" alt="'+r.name+' suite">'+
+      '<div class="bk-room-mid">'+
+        '<div class="bk-room-name">'+r.name+'</div>'+
+        '<div class="bk-specs">Sleeps '+r.sleeps+' &middot; '+r.sqft.toLocaleString()+' sq ft &middot; '+r.bed+'</div>'+
+        '<div class="bk-room-links"><a href="'+detail+'">Rates &amp; suite details &nbsp;&rarr;</a></div>'+
+      '</div>'+
+      '<div class="bk-room-side">'+
+        '<span class="bk-price-n">'+BOOK.money(r.from)+'</span><span class="bk-price-l">Sample &middot; from / night</span>'+
+        '<div class="bk-step-ctl"><span class="lbl">Rooms</span>'+
+          '<button type="button" data-dec="'+r.slug+'" aria-label="Remove a '+r.name+'">&minus;</button>'+
+          '<span class="n" id="n-'+r.slug+'">'+(sel[r.slug]||0)+'</span>'+
+          '<button type="button" data-inc="'+r.slug+'" aria-label="Add a '+r.name+'">+</button>'+
+        '</div>'+
+      '</div>'+
+    '</div></div>';
+  }).join('');
+  if(cur.minStay>1) alertBox.innerHTML+='<div class="bk-alert">'+cur.name+' hosts extended stays only &mdash; 30 nights or more.</div>';
+
+  res.addEventListener('click',function(e){
+    var inc=e.target.getAttribute('data-inc'), dec=e.target.getAttribute('data-dec'), k=inc||dec;
+    if(!k) return;
+    sel[k]=Math.max(0,Math.min(9,(sel[k]||0)+(inc?1:-1)));
+    document.getElementById('n-'+k).textContent=sel[k];
+    rail();
+  });
+
+  function rail(){
+    document.getElementById('railProp').textContent=cur.name+', '+cur.city;
+    document.getElementById('railDates').textContent =
+      nights? BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night') : 'Choose dates above';
+    var lines='',total=0,count=0;
+    cur.rooms.forEach(function(r){
+      var n=sel[r.slug]||0; if(!n) return; count+=n;
+      var amt=r.from*n*(nights||1);
+      total+=amt;
+      lines+='<div class="bk-line"><span>'+n+' × '+r.name+(nights?' <small>('+nights+' nights)</small>':'')+'</span><span>'+BOOK.money(amt)+'</span></div>';
+    });
+    document.getElementById('railLines').innerHTML = lines||'<div class="bk-line"><small>Add rooms to build your stay.</small></div>';
+    document.getElementById('railTotal').textContent = count&&nights? BOOK.money(total):'—';
+    var ok = count>0 && nights && !(cur.minStay>1 && nights<30);
+    var go=document.getElementById('railGo');
+    go.classList.toggle('off',!ok);
+    go.href='/book/checkout?'+BOOK.qs({property:cur.slug,city:null,rooms:BOOK.roomsParam(sel)});
+    if(cur.minStay>1&&nights&&nights<30)
+      document.getElementById('railLines').innerHTML+='<div class="bk-line"><small>This property requires 30+ nights.</small></div>';
+  }
+  rail();
+});
+</script>
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-main">
+    <div class="footer-col">
+      <span class="footer-col-head">Stay With Us</span>
+      <a class="footer-link" href="stay-with-us.html">Book a Stay</a>
+      <a class="footer-link" href="sentralplus.html">SentralPlus</a>
+      <a class="footer-link" href="business-travel.html">Business Travel &amp; Corporate Housing</a>
+      <a class="footer-link" href="group-travel.html">Group Travel</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-head">Partner With Us</span>
+      <a class="footer-link" href="partner-with-us.html">Partner with us</a>
+      <a class="footer-link" href="careers.html">Careers</a>
+      <a class="footer-link" href="press.html">Press</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-head">Live With Us</span>
+      <a class="footer-link" href="live-with-us.html">Find a Home</a>
+      <a class="footer-link" href="the-experience.html">The Experience</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-head">Support</span>
+      <a class="footer-link" href="/contact">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-head">Social</span>
+      <a class="footer-link" href="https://www.instagram.com/sentrallife/" target="_blank" rel="noopener">Instagram</a>
+      <a class="footer-link" href="https://www.facebook.com/sentrallife/" target="_blank" rel="noopener">Facebook</a>
+      <a class="footer-link" href="https://www.linkedin.com/company/sentral-life" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="footer-link" href="https://www.youtube.com/channel/UCvpIGx24v3Be73bThpC5A4A" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-left">
+      <img class="footer-logo" src="/assets/sentral-wordmark-white.png" alt="Sentral"/>
+      <span class="footer-copy">&copy; 2026 BHI Holdings. All rights reserved.</span>
+      <a class="footer-eho" href="fair-housing.html" aria-label="Equal Housing Opportunity — Fair Housing statement"><img src="/assets/eho-white.png" alt="Equal Housing Opportunity logo"/></a>
+    </div>
+    <div class="footer-legal">
+      <a class="footer-legal-link" href="privacy-policy.html">Privacy</a>
+      <a class="footer-legal-link" href="terms-of-use.html">Terms</a>
+      <a class="footer-legal-link" href="fair-housing.html">Fair Housing</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  var btn=document.getElementById('hamburgerBtn'),panel=document.getElementById('mobileMenu');
+  if(!btn||!panel)return;
+  btn.addEventListener('click',function(){
+    var open=panel.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open);
+    panel.setAttribute('aria-hidden',!open);
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&panel.classList.contains('open')){
+      panel.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      panel.setAttribute('aria-hidden','true');
+    }
+  });
+})();
+</script>
+</body>
+</html>

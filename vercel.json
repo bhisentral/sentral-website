@@ -3,6 +3,26 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/book/search",
+      "destination": "/book-search"
+    },
+    {
+      "source": "/book/room",
+      "destination": "/book-room"
+    },
+    {
+      "source": "/book/checkout",
+      "destination": "/book-checkout"
+    },
+    {
+      "source": "/book/confirmation",
+      "destination": "/book-confirm"
+    },
+    {
+      "source": "/stay/:city(austin|charlotte|los-angeles|miami)",
+      "destination": "/city-stay?city=:city"
+    },
+    {
       "source": "/stay/sol-modern/review",
       "destination": "/stay-template-review"
     },

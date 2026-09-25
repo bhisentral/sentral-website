@@ -770,7 +770,21 @@ section.combo-section.dark[class][class][class] .combo-right .combo-btn-g:hover{
         </select></div>
       <div class="bb-field"><label for="bb-in">Check-in</label><input id="bb-in" type="date"></div>
       <div class="bb-field"><label for="bb-out">Check-out</label><input id="bb-out" type="date"></div>
-      <a class="bb-btn" href="stay-with-us.html">Check Rates &nbsp;&rarr;</a>
+      <a class="bb-btn" id="bbStayGo" href="/book/search">Check Rates &nbsp;&rarr;</a>
+      <script>
+      /* Page 1 of the booking flow: the widget hands property/dates to
+         Search & Availability — no PMS call on this page. */
+      document.getElementById('bbStayGo').addEventListener('click',function(e){
+        var label=(document.getElementById('bb-city')||{}).value||'';
+        var map={'Sol Modern':'sol-modern','Sentral Old Town':'sentral-old-town','DTLA 755':'sentral-dtla-755','DTLA 732':'sentral-dtla-732','Figueroa Eight':'figueroa-eight','Union Station':'sentral-union-station','Alea':'alea','Wynwood':'sentral-wynwood','Star Metals':'star-metals','Michigan Avenue':'sentral-michigan-avenue','Otonomus':'otonomus','Inkwell':'inkwell','Joinery North':'joinery-north','Joinery West':'joinery-west','Battery':'the-battery','SoBro':'sentral-sobro','East Austin 1630':'sentral-east-austin-1630','Forme':'forme','First Hill':'sentral-first-hill'};
+        var slug=''; for(var k in map){ if(label.indexOf(k)>-1){ slug=map[k]; break; } }
+        var q=[];
+        if(slug) q.push('property='+slug);
+        var ci=(document.getElementById('bb-in')||{}).value, co=(document.getElementById('bb-out')||{}).value;
+        if(ci) q.push('in='+ci); if(co) q.push('out='+co);
+        this.href='/book/search'+(q.length?'?'+q.join('&'):'');
+      });
+      </script>
     </div>
     <div class="bookbar bb-lease" id="bbLease" role="search" aria-label="Find a home" hidden>
       <div class="bb-field"><label for="bb-state">State</label>

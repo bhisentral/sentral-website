@@ -1260,15 +1260,15 @@ var ptLightbox=(function(){
 })();
 
 // ── CHECK RATES ──
-// Placeholder until the StayNTouch booking engine is wired in. At build, this
-// handler hands the dates/guests to the property's snt-booking-url.
+// Hands the stay to the booking funnel (Search & Availability). At build the
+// funnel pulls live rates from StayNTouch via SentralOS.
 function ptCheckRates(e,source){
   e.preventDefault();
   var p=source==='hero'?['hero-in','hero-out']:['bk-in','bk-out'];
   var i=document.getElementById(p[0]).value,o=document.getElementById(p[1]).value;
   if(!i||!o){document.getElementById(p[0]).focus();return false;}
-  window.location.hash='book-stay';
-  console.log('Booking (StayNTouch pending):',{property:'sol-modern',checkin:i,checkout:o,source:source});
+  var suite=(document.getElementById(source==='hero'?'hero-suite':'bk-suite')||{}).value||'';
+  window.location.href='/book/search?property=sol-modern&in='+i+'&out='+o+(suite?'&rooms='+suite+':1':'');
   return false;
 }
 </script>

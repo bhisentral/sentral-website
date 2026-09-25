@@ -1,0 +1,91 @@
+/* ── SENTRAL BOOKING FUNNEL — shared styles ──
+   Chrome (nav/footer) comes from overrides.css; this file styles only the
+   funnel sections, in the site's editorial language: off-black header band,
+   serif + italic-slate headlines, cream body, hairline cards, gold booking CTAs. */
+:root{--bk-ink:#282828;--bk-offblack:#1F1F1F;--bk-cream:#F5F5F3;--bk-cream-warm:#EFEDE8;--bk-slate:#2D4A5C;--bk-slate-deep:#3D6478;--bk-slate-light:#5C8CA0;--bk-gold:#B8924A;--bk-lt:#6B6560;--bk-serif:Georgia,'Times New Roman',serif;--bk-sans:'Aptos','Segoe UI',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif}
+body{background:var(--bk-cream)}
+/* dark page-header band, sits under the fixed site nav */
+.bkh{background:var(--bk-offblack);color:#fff;padding:118px 24px 34px}
+.bkh-inner{max-width:1080px;margin:0 auto}
+.bkh-eyebrow{font-size:.75rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--bk-slate-light);display:block;margin-bottom:12px}
+.bkh h1{font-family:var(--bk-serif);font-weight:300;font-size:clamp(1.8rem,3.2vw,2.6rem);line-height:1.14;margin-bottom:8px;color:#fff}
+.bkh h1 em{font-style:italic;color:var(--bk-slate-light)}
+.bkh-sub{font-size:.8125rem;color:rgba(255,255,255,.6);letter-spacing:.02em}
+.bkh-steps{display:flex;gap:26px;margin-top:26px;overflow-x:auto}
+.bkh-step{font-size:.6875rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);padding-bottom:9px;border-bottom:2px solid transparent;white-space:nowrap}
+.bkh-step.on{color:#fff;border-bottom-color:var(--bk-gold)}
+.bkh-step.done{color:var(--bk-slate-light)}
+.bk-demo{background:var(--bk-cream-warm);color:var(--bk-lt);font-size:.6563rem;letter-spacing:.16em;text-transform:uppercase;text-align:center;padding:8px 16px;border-bottom:1px solid rgba(40,40,40,.08)}
+.bk-wrap{max-width:1080px;margin:0 auto;padding:34px 24px 96px}
+.bk-grid{display:grid;grid-template-columns:1fr 350px;gap:30px;align-items:start}
+/* edit strip */
+.bk-editbar{background:#fff;border:1px solid rgba(40,40,40,.12);border-radius:2px;padding:18px 20px;display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap;margin-bottom:30px}
+.bk-f{display:flex;flex-direction:column;gap:5px}
+.bk-f label{font-size:.6563rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--bk-lt)}
+.bk-f input,.bk-f select{height:42px;border:1px solid rgba(40,40,40,.22);border-radius:2px;padding:0 12px;font-family:var(--bk-sans);font-size:.875rem;background:#fff;color:var(--bk-ink)}
+.bk-f input:focus,.bk-f select:focus{outline:2px solid var(--bk-slate);outline-offset:-1px}
+/* buttons — gold = booking, per the site token rule */
+.bk-btn{display:inline-block;text-align:center;background:var(--bk-gold);color:#141414;border:1px solid var(--bk-gold);font-family:var(--bk-sans);font-size:.8125rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:14px 28px;border-radius:2px;cursor:pointer;text-decoration:none;transition:background .15s,color .15s}
+.bk-btn:hover{background:transparent;color:var(--bk-ink)}
+.bk-btn.wide{display:block;width:100%;margin-top:16px}
+.bk-btn[disabled],.bk-btn.off{opacity:.4;pointer-events:none}
+.bk-btn-g{display:inline-block;background:transparent;color:var(--bk-ink);border:1px solid rgba(40,40,40,.35);font-size:.8125rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:12px 24px;border-radius:2px;cursor:pointer;text-decoration:none}
+.bk-btn-g:hover{border-color:var(--bk-ink)}
+/* section headers on cream */
+.bk-eyebrow{font-size:.75rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--bk-slate);display:block;margin-bottom:10px}
+.bk-h2{font-family:var(--bk-serif);font-weight:300;font-size:1.5rem;margin-bottom:16px}
+.bk-h2 em{font-style:italic;color:var(--bk-slate)}
+/* room result cards — photo-led, hairline, serif names */
+.bk-card{background:#fff;border:1px solid rgba(40,40,40,.12);border-radius:2px;padding:0;margin-bottom:18px;overflow:hidden}
+.bk-room{display:grid;grid-template-columns:220px 1fr 190px;gap:0;align-items:stretch}
+.bk-room-img{width:100%;height:100%;min-height:168px;object-fit:cover;display:block;background:var(--bk-cream-warm)}
+.bk-room-mid{padding:20px 24px;display:flex;flex-direction:column;justify-content:center}
+.bk-room-name{font-family:var(--bk-serif);font-size:1.375rem;font-weight:400;margin-bottom:4px}
+.bk-specs{font-size:.7188rem;color:var(--bk-lt);letter-spacing:.09em;text-transform:uppercase}
+.bk-room-links{margin-top:12px;font-size:.75rem}
+.bk-room-links a{color:var(--bk-slate);font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+.bk-room-links a:hover{text-decoration:underline;text-underline-offset:3px}
+.bk-room-side{border-left:1px solid rgba(40,40,40,.1);padding:20px 22px;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;gap:2px;background:rgba(239,237,232,.45)}
+.bk-price-n{font-family:var(--bk-serif);font-size:1.5rem}
+.bk-price-l{font-size:.6563rem;color:var(--bk-lt);letter-spacing:.09em;text-transform:uppercase}
+.bk-step-ctl{display:flex;align-items:center;gap:10px;margin-top:12px}
+.bk-step-ctl button{width:36px;height:36px;border:1px solid rgba(40,40,40,.3);background:#fff;border-radius:2px;font-size:1.0625rem;cursor:pointer;color:var(--bk-ink);line-height:1}
+.bk-step-ctl button:hover{border-color:var(--bk-ink)}
+.bk-step-ctl .n{min-width:22px;text-align:center;font-weight:600;font-size:.9375rem}
+.bk-step-ctl .lbl{font-size:.6563rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bk-lt)}
+/* summary rail */
+.bk-rail{background:#fff;border:1px solid rgba(40,40,40,.12);border-radius:2px;padding:24px 26px;position:sticky;top:96px}
+.bk-rail h3{font-family:var(--bk-serif);font-weight:400;font-size:1.1875rem;margin-bottom:2px}
+.bk-rail-sub{font-size:.75rem;color:var(--bk-lt);margin-bottom:14px}
+.bk-line{display:flex;justify-content:space-between;gap:12px;font-size:.8438rem;padding:5px 0;color:#4a4643}
+.bk-line.strong{font-weight:600;color:var(--bk-ink)}
+.bk-line small{color:var(--bk-lt)}
+.bk-rail hr{border:none;border-top:1px solid rgba(40,40,40,.12);margin:10px 0}
+.bk-total{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--bk-serif);font-size:1.3125rem;padding-top:4px}
+.bk-note{font-size:.75rem;color:var(--bk-lt);margin-top:12px;text-align:center}
+/* rate plans */
+.bk-plan{display:flex;justify-content:space-between;gap:18px;align-items:center;padding:18px 24px;border-top:1px solid rgba(40,40,40,.1)}
+.bk-plan-name{font-family:var(--bk-serif);font-size:1.0625rem}
+.bk-plan-note{font-size:.8125rem;color:var(--bk-lt);max-width:46ch}
+.bk-plan .bk-btn{white-space:nowrap;padding:11px 22px}
+.bk-plan-price{font-family:var(--bk-serif);font-size:1.25rem;white-space:nowrap}
+/* forms */
+.bk-pad{padding:22px 24px}
+.bk-field-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bk-field-grid .full{grid-column:1/-1}
+.bk-embed{border:1px dashed rgba(45,74,92,.55);border-radius:2px;background:rgba(45,74,92,.05);padding:30px 24px;text-align:center;margin-top:16px}
+.bk-embed strong{display:block;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bk-slate);margin-bottom:6px}
+.bk-embed p{font-size:.8125rem;color:var(--bk-lt);max-width:52ch;margin:0 auto}
+/* property cards (city selector) */
+.bk-props{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.bk-prop{background:#fff;border:1px solid rgba(40,40,40,.12);border-radius:2px;overflow:hidden;text-decoration:none;color:var(--bk-ink);display:block;transition:border-color .15s}
+.bk-prop:hover{border-color:var(--bk-slate)}
+.bk-prop-img{height:180px;background:var(--bk-cream-warm);object-fit:cover;width:100%;display:block}
+.bk-prop-body{padding:18px 20px 20px}
+.bk-prop-name{font-family:var(--bk-serif);font-size:1.25rem;margin-bottom:3px}
+.bk-prop-meta{font-size:.7188rem;color:var(--bk-lt);letter-spacing:.09em;text-transform:uppercase}
+.bk-prop-cta{display:inline-block;margin-top:14px;font-size:.75rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--bk-slate)}
+.bk-alert{background:var(--bk-cream-warm);border-left:3px solid var(--bk-slate);padding:14px 18px;border-radius:2px;font-size:.875rem;margin-bottom:24px}
+.bk-alert a{color:var(--bk-slate);font-weight:600}
+.bk-confirm-n{font-family:var(--bk-serif);font-size:2.2rem;letter-spacing:.05em;color:var(--bk-slate);margin:6px 0 2px}
+@media(max-width:900px){.bk-grid{grid-template-columns:1fr}.bk-rail{position:static}.bk-room{grid-template-columns:1fr}.bk-room-img{min-height:150px;max-height:190px}.bk-room-side{border-left:none;border-top:1px solid rgba(40,40,40,.1);align-items:flex-start}.bkh{padding-top:100px}}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Choose Your Property — Book a Stay — Sentral</title>
+<link rel="stylesheet" href="/booking-chrome.css">
+<link rel="stylesheet" href="/overrides.css?v=4dark31">
+<link rel="stylesheet" href="/booking.css">
+<script src="/assets/booking-demo.js" defer></script>
+</head>
+<body>
+<a class="skip-to-content" href="#main">Skip to content</a>
+<header>
+<nav class="site-nav" aria-label="Main navigation">
+  <a class="nav-logo" href="index.html"><img src="/assets/sentral-wordmark-white.png" alt="Sentral"/></a>
+  <div class="nav-links">
+    <a class="nav-link active" href="stay-with-us.html">Stay With Us</a>
+    <a class="nav-link" href="live-with-us.html">Live With Us</a>
+    <a class="nav-link" href="partner-with-us.html">Partner With Us</a>
+  </div>
+  <div class="nav-ctas">
+    <a class="btn-sn-ghost" href="https://sentralplus.laasie.ai/login" target="_blank" rel="noopener">Login</a>
+    <!-- On a property page the property is already known, so nav BOOK A STAY scrolls
+         to this property's booking band instead of opening the cross-property strip. -->
+    <a class="btn-sn" href="/book/search">Book a Stay</a>
+    <a class="btn-splus" href="https://sentralplus.laasie.ai/sign-up" target="_blank" rel="noopener" aria-label="Join SentralPlus — Rewards Program"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10 6.2v7.6M6.2 10h7.6" stroke="currentColor" stroke-width="1.3"/></svg><span class="btn-splus-text"><span class="btn-splus-word">Sentral<em>Plus</em></span><span class="btn-splus-tag">Rewards</span></span></a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+    </button>
+  </div>
+  <div class="ham-panel" id="mobileMenu" aria-hidden="true">
+    <div class="ham-panel-inner">
+      <nav class="ham-nav" aria-label="Main menu">
+        <a class="ham-link" href="stay-with-us.html"><span class="ham-link-title">Stay With Us</span><span class="ham-link-sub">Furnished stays, 1 night to a whole summer</span></a>
+        <a class="ham-link" href="live-with-us.html"><span class="ham-link-title">Live With Us</span><span class="ham-link-sub">Apartment living, residentially priced</span></a>
+        <a class="ham-link" href="partner-with-us.html"><span class="ham-link-title">Partner With Us</span><span class="ham-link-sub">Institutional-grade property management</span></a>
+      </nav>
+      <div class="ham-footer">
+        <a class="ham-book" href="/book/search">Book a Stay &nbsp;&rarr;</a>
+        <a class="btn-splus" href="https://sentralplus.laasie.ai/sign-up" target="_blank" rel="noopener" aria-label="Join SentralPlus — Rewards Program"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10 6.2v7.6M6.2 10h7.6" stroke="currentColor" stroke-width="1.3"/></svg><span class="btn-splus-text"><span class="btn-splus-word">Sentral<em>Plus</em></span><span class="btn-splus-tag">Rewards</span></span></a>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main id="main">
+<section class="bkh dark">
+  <div class="bkh-inner">
+    <span class="bkh-eyebrow">Sentral &mdash; Book a Stay</span>
+    <h1><span id="cityH">Choose your <em>Sentral.</em></span></h1>
+    <p class="bkh-sub" id="ctContext"></p>
+
+  </div>
+</section>
+<div class="bk-demo">Design prototype &mdash; sample rates &amp; availability &middot; live data comes from StayNTouch via SentralOS at build</div>
+<div class="bk-wrap">
+  <!-- 1a. Multi-property markets only (Austin, Charlotte, LA, Miami). Routes
+       the guest to the right property's Search & Availability page, dates
+       passed through untouched. -->
+  <div class="bk-props" id="ctProps"></div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var q=BOOK.q(), c=BOOK.CITIES[q.city];
+  if(!c){ location.replace('/book/search?'+BOOK.qs({})); return; }
+  var nights=BOOK.nights(q['in'],q.out);
+  document.getElementById('cityH').innerHTML=c.name+'. <em>Choose your Sentral.</em>';
+  document.getElementById('ctContext').textContent=c.props.length+' properties'+(nights?' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · dates carry through':'');
+  var IMGS=['/assets/ig-social-1.jpg','/assets/ig-social-2.jpg','/assets/ig-social-3.jpg'];
+  document.getElementById('ctProps').innerHTML=c.props.map(function(slug,i){
+    var p=BOOK.prop(slug);
+    return '<a class="bk-prop" href="/book/search?'+BOOK.qs({property:slug,city:null})+'">'+
+      '<img class="bk-prop-img" src="'+IMGS[i%3]+'" alt="'+p.name+'">'+
+      '<div class="bk-prop-body"><div class="bk-prop-name">'+p.name+'</div>'+
+      '<div class="bk-prop-meta">'+p.city+', '+p.state+(p.minStay>1?' · 30+ nights':'')+'</div>'+
+      '<span class="bk-prop-cta">Check availability &nbsp;&rarr;</span></div></a>';
+  }).join('');
+});
+</script>
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-main">
+    <div class="footer-col">
+      <span class="footer-col-head">Stay With Us</span>
+      <a class="footer-link" href="stay-with-us.html">Book a Stay</a>
+      <a class="footer-link" href="sentralplus.html">SentralPlus</a>
+      <a class="footer-link" href="business-travel.html">Business Travel &amp; Corporate Housing</a>
+      <a class="footer-link" href="group-travel.html">Group Travel</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-head">Partner With Us</span>
+      <a class="footer-link" href="partner-with-us.html">Partner with us</a>
+      <a class="footer-link" href="careers.html">Careers</a>
+      <a class="footer-link" href="press.html">Press</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-head">Live With Us</span>
+      <a class="footer-link" href="live-with-us.html">Find a Home</a>
+      <a class="footer-link" href="the-experience.html">The Experience</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-head">Support</span>
+      <a class="footer-link" href="/contact">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-head">Social</span>
+      <a class="footer-link" href="https://www.instagram.com/sentrallife/" target="_blank" rel="noopener">Instagram</a>
+      <a class="footer-link" href="https://www.facebook.com/sentrallife/" target="_blank" rel="noopener">Facebook</a>
+      <a class="footer-link" href="https://www.linkedin.com/company/sentral-life" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="footer-link" href="https://www.youtube.com/channel/UCvpIGx24v3Be73bThpC5A4A" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-left">
+      <img class="footer-logo" src="/assets/sentral-wordmark-white.png" alt="Sentral"/>
+      <span class="footer-copy">&copy; 2026 BHI Holdings. All rights reserved.</span>
+      <a class="footer-eho" href="fair-housing.html" aria-label="Equal Housing Opportunity — Fair Housing statement"><img src="/assets/eho-white.png" alt="Equal Housing Opportunity logo"/></a>
+    </div>
+    <div class="footer-legal">
+      <a class="footer-legal-link" href="privacy-policy.html">Privacy</a>
+      <a class="footer-legal-link" href="terms-of-use.html">Terms</a>
+      <a class="footer-legal-link" href="fair-housing.html">Fair Housing</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  var btn=document.getElementById('hamburgerBtn'),panel=document.getElementById('mobileMenu');
+  if(!btn||!panel)return;
+  btn.addEventListener('click',function(){
+    var open=panel.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open);
+    panel.setAttribute('aria-hidden',!open);
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&panel.classList.contains('open')){
+      panel.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      panel.setAttribute('aria-hidden','true');
+    }
+  });
+})();
+</script>
+</body>
+</html>

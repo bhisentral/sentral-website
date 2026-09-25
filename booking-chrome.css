@@ -1,0 +1,68 @@
+/* ── SITE CHROME for the booking funnel — lifted verbatim from property-template.html
+   (tokens, reset, skip link, nav, hamburger, footer). One look, one source. ── */
+:root{
+  --black:#282828;--ink:#1F1F1F;--cream:#F5F5F3;--white:#FFFFFF;
+  --cream-light:#FAF8F4;--cream-warm:#EFEDE6;
+  --slate:#2D4A5C;--slate-deep:#3D6478;--slate-light:#5C8CA0;
+  --oat:#F2E8D5;--cloud:#AFAA9B;--metallic:#B8924A;
+  --text-body:#3A3633;--text-muted:#6B6560;--text-accent:#3D6478;
+  --rule:rgba(255,255,255,.08);--ruleD:rgba(0,0,0,.09);
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:Aptos,"Segoe UI",system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--black);font-family:var(--sans);font-weight:400;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+.skip-to-content{position:absolute;left:-9999px;top:0;z-index:400;background:var(--slate);color:#fff;padding:12px 20px;text-decoration:none}
+.skip-to-content:focus{left:12px;top:12px}
+
+/* ══ NAV (global — identical to every other page) ══ */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--black);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;border-bottom:1px solid var(--rule)}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-logo img{height:19px;width:auto}
+.nav-links{display:flex;align-items:stretch;height:64px}
+.nav-link{display:flex;align-items:center;padding:0 18px;font-size:.75rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);text-decoration:none;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap}
+.nav-link:hover{color:#fff}
+.nav-link.active{color:#fff;border-color:#5C8CA0}
+.nav-ctas{display:flex;gap:10px;align-items:center}
+.btn-sn{font-size:.75rem;font-weight:500;padding:8px 18px;border-radius:2px;background:var(--cream);color:#2D4A5C;border:none;cursor:pointer;text-decoration:none;transition:background .15s;white-space:nowrap;letter-spacing:.04em}
+.btn-sn-ghost{font-size:.75rem;font-weight:400;padding:7px 16px;border-radius:2px;background:transparent;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.2);text-decoration:none;transition:all .2s;white-space:nowrap;letter-spacing:.04em}
+.btn-sn-ghost:hover{color:var(--white);border-color:rgba(255,255,255,.5)}
+.hamburger{background:none;border:none;cursor:pointer;padding:8px;display:flex;flex-direction:column;gap:5px;align-items:flex-end}
+.ham-line{display:block;height:1.5px;background:#fff;transition:width .3s,transform .3s,opacity .3s}
+.ham-line:nth-child(1){width:22px}.ham-line:nth-child(2){width:16px}.ham-line:nth-child(3){width:22px}
+.hamburger[aria-expanded=true] .ham-line:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger[aria-expanded=true] .ham-line:nth-child(2){opacity:0;width:0}
+.hamburger[aria-expanded=true] .ham-line:nth-child(3){width:22px;transform:translateY(-6.5px) rotate(-45deg)}
+.ham-panel{position:fixed;top:64px;right:0;width:360px;height:calc(100vh - 64px);background:var(--black);z-index:199;transform:translateX(100%);transition:transform .35s cubic-bezier(.22,.68,0,1.2);border-left:1px solid var(--rule);overflow-y:auto;pointer-events:none}
+.ham-panel.open{transform:translateX(0);pointer-events:auto}
+.ham-panel-inner{padding:40px 36px}
+.ham-nav{display:flex;flex-direction:column;gap:2px;margin-bottom:32px}
+.ham-link{display:block;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.06);text-decoration:none}
+.ham-link-title{display:block;font-family:var(--serif);font-size:1.25rem;color:#fff;margin-bottom:4px}
+.ham-link-sub{display:block;font-size:.75rem;color:rgba(255,255,255,.35);letter-spacing:.03em}
+.ham-footer{display:flex;flex-direction:column;gap:10px}
+.ham-book{display:block;padding:12px 20px;background:#2D4A5C;color:#fff;font-size:.8125rem;font-weight:500;text-decoration:none;border-radius:2px;text-align:center;letter-spacing:.04em}
+@media(max-width:900px){.site-nav{padding:0 20px}.nav-links{display:none}}
+
+
+/* ══ FOOTER (global) ══ */
+.site-footer{background:var(--black);color:rgba(255,255,255,.45);padding:64px 64px 32px;border-top:1px solid var(--rule)}
+.footer-main{max-width:1400px;margin:0 auto 48px;display:grid;grid-template-columns:repeat(5,1fr);gap:48px}
+.footer-col-head{font-family:var(--serif);font-size:.875rem;color:var(--white);display:block;margin-bottom:16px;letter-spacing:.02em}
+.footer-link{display:block;font-size:.75rem;color:rgba(255,255,255,.4);text-decoration:none;margin-bottom:10px;letter-spacing:.04em;transition:color .2s}
+.footer-link:hover{color:var(--white)}
+.footer-bottom{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--rule);gap:24px;flex-wrap:wrap}
+.footer-bottom-left{display:flex;align-items:center;gap:16px}
+.footer-logo{height:15px;width:auto;opacity:.7}
+.footer-eho img{height:22px;width:auto;opacity:.6}
+.footer-copy{font-size:.75rem;color:rgba(255,255,255,.2)}
+.footer-legal{display:flex;gap:20px;align-items:center}
+.footer-legal-link{font-size:.75rem;color:rgba(255,255,255,.2);text-decoration:none;letter-spacing:.04em;transition:color .2s}
+.footer-legal-link:hover{color:rgba(255,255,255,.5)}
+@media(max-width:900px){.site-footer{padding:48px 20px 24px}.footer-main{grid-template-columns:1fr 1fr;gap:32px}}
+@media(max-width:540px){.footer-main{grid-template-columns:1fr}}
+
+
+@media(prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
