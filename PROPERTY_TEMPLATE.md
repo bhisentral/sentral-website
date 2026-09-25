@@ -37,12 +37,15 @@ short, and the guest can book from anywhere on it.
 | 2 | Sticky book bar | ink | Appears past the hero. Name + jump links + CHECK RATES |
 | 3 | At a glance | cream-light | 7 attributes, then `ALL N AMENITIES +` disclosure |
 | 4 | Intro | cream | Two paragraphs and three stats. Nothing else |
-| 5 | Suites | off-black | Full-bleed grid, 3–6 cards |
+| 5 | Suites | off-black | Full-bleed grid, 3–6 cards; per-card photo carousel; specs incl. beds + baths; gold CHECK RATES CTA |
+| 5b | Offers | cream-light | **The CMS promo slot** — 3 offer cards, marketing-owned copy (Laurie 9-25) |
 | 6 | Story block 01 — Stay | cream | Inside the suites. One CTA |
 | 6b | Amenity showcase 02 — Gather | cream-warm | 4–6 photo tiles: pool, fitness, coworking, lounges |
 | 6c | Story block 03 — Neighborhood | cream | One CTA |
 | 7 | Booking band | slate | StayNTouch booking engine + direct-book perks |
 | 8 | Neighborhood | cream-warm | Map + 5–7 places with walk times |
+| 8b | Food + Drink | cream | 3 in-building/nearby venues per property — sells the location, matters to owners (Laurie 9-25) |
+| 8c | Gather | ink | The group/events offer from the current stay pages, verbatim; INQUIRE → Group Travel RFP (Laurie 9-25) |
 | 9 | Longer stays | ink | Business Travel · Group Travel · Live With Us |
 | 10 | Practical info | cream-light | Collapsed accordion + property contact card |
 
@@ -235,6 +238,15 @@ amenityFeature, HotelRoom entries with real occupancy and sq ft) — facts only,
 no rates. Per property, the JSON-LD is generated from the same §3 fields.
 Copy facts (suite mix/specs, 19-amenity list, PHX Arena naming) reconciled
 against the live sentral.com/phoenix/sol-modern/stay page 2026-09-10.
+
+## 6c. Laurie review round (2026-09-25) — applied
+
+Suite-card photo carousels (arrows + dots, [FIELD] photo sets); suite CTA is a
+gold CHECK RATES button; "Pick your footprint" → **"Choose your apartment-sized
+room."**; story block 02 eyebrow → **Notable Amenities**; Offers, Food + Drink,
+and Gather sections restored (copy verbatim from live pages — all
+marketing-editable in Storyblok at build); intro section carries two photos;
+suite specs show beds + baths. Pending from Laurie: one cross-sell comment.
 
 ## 7. Open items
 

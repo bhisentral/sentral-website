@@ -7,10 +7,13 @@
 ──────────────────────────────────────────────────────────────────────────── */
 window.BOOK = (function(){
   var ROOMS_STANDARD = [
-    {slug:'studio',      name:'Studio',      sleeps:2, sqft:517,  bed:'Queen',    from:189},
-    {slug:'one-bedroom', name:'One Bedroom', sleeps:2, sqft:673,  bed:'Queen',    from:229},
-    {slug:'two-bedroom', name:'Two Bedroom', sleeps:4, sqft:1053, bed:'2 Queens', from:319}
+    {slug:'studio',      name:'Studio',      sleeps:2, sqft:517,  beds:'1 queen bed',  baths:1, from:189},
+    {slug:'one-bedroom', name:'One Bedroom', sleeps:2, sqft:673,  beds:'1 queen bed',  baths:1, from:229},
+    {slug:'two-bedroom', name:'Two Bedroom', sleeps:4, sqft:1053, beds:'2 queen beds', baths:2, from:319}
   ];
+  ROOMS_STANDARD.forEach(function(r){
+    r.specs='Sleeps '+r.sleeps+' \u00b7 '+r.beds+' \u00b7 '+r.baths+' bath'+(r.baths>1?'s':'')+' \u00b7 '+r.sqft.toLocaleString('en-US')+' sq ft';
+  });
   function P(slug,name,city,st,extra){
     var o={slug:slug,name:name,city:city,state:st,rooms:ROOMS_STANDARD,minStay:1};
     for(var k in (extra||{})) o[k]=extra[k];

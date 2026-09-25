@@ -213,9 +213,19 @@ section[id]{scroll-margin-top:118px}
    negative margin keeps the card body visually as tight as it was before —
    overrides.css §6b holds the rest of the site's buttons to 48px. */
 .pt-suite-actions{display:flex;flex-wrap:wrap;align-items:center;gap:0 18px;margin:-11px 0 -12px}
-.pt-suite-book{background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:.6875rem;letter-spacing:.13em;text-transform:uppercase;display:inline-flex;align-items:center;min-height:44px;padding:11px 0}
-.pt-suite-book{font-weight:600;color:var(--white)}
-.pt-suite-book:hover{color:var(--slate-light)}
+.pt-suite-cta{background:var(--metallic);border:1px solid var(--metallic);color:#141414;cursor:pointer;font-family:var(--sans);font-size:.75rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;display:inline-flex;align-items:center;min-height:44px;padding:11px 26px;border-radius:2px;transition:background .15s,color .15s;margin-top:4px}
+.pt-suite-cta:hover{background:transparent;color:var(--white)}
+.pt-sc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .3s}
+.pt-sc-img.off{opacity:0;pointer-events:none}
+.pt-sc-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:38px;height:38px;border-radius:50%;border:none;background:rgba(20,20,20,.55);color:#fff;font-size:1.375rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;opacity:0}
+.pt-suite:hover .pt-sc-btn,.pt-sc-btn:focus-visible{opacity:1}
+.pt-sc-btn:hover{background:rgba(20,20,20,.85)}
+.pt-sc-btn.prev{left:10px}.pt-sc-btn.next{right:10px}
+.pt-sc-dots{position:absolute;bottom:64px;left:0;right:0;display:flex;justify-content:center;gap:6px;z-index:3}
+.pt-sc-dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.45)}
+.pt-sc-dots i.on{background:#fff}
+@media(hover:none){.pt-sc-btn{opacity:1}}
+.pt-suite-cta:hover{color:var(--slate-light)}
 
 /* ══ GALLERY TRIGGER + LIGHTBOX ══ */
 .pt-gallery-btn{display:inline-flex;align-items:center;min-height:44px;gap:9px;background:rgba(14,12,10,.62);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.4);color:var(--white);font-family:var(--sans);font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:11px 20px;border-radius:2px;cursor:pointer;transition:background .2s,border-color .2s}
@@ -323,6 +333,31 @@ section[id]{scroll-margin-top:118px}
 .pt-contact-line{display:block;font-size:.9375rem;color:var(--text-body);line-height:1.7}
 .pt-contact-link{display:inline-block;margin-top:16px;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);text-decoration:none;border-bottom:1px solid var(--slate);padding-bottom:3px}
 @media(max-width:960px){.pt-info{padding:64px 20px}.pt-info-inner{grid-template-columns:1fr;gap:36px}}
+
+/* ══ OFFERS / F&B / GATHER (Laurie 9-25) ══ */
+.pt-offers{background:var(--cream-light);padding:96px 64px}
+.pt-fnb{background:var(--cream);padding:96px 64px}
+.pt-offers-inner{max-width:1400px;margin:0 auto}
+.pt-fnb-intro{font-size:.9375rem;color:var(--text-body);max-width:70ch;margin:4px 0 8px}
+.pt-offer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:36px}
+.pt-offer{background:#fff;border:1px solid var(--ruleD);border-radius:2px;overflow:hidden;display:flex;flex-direction:column}
+.pt-fnb .pt-offer{background:var(--cream-light)}
+.pt-offer img{width:100%;height:210px;object-fit:cover}
+.pt-offer-body{padding:22px 24px 26px;display:flex;flex-direction:column;gap:10px;flex:1}
+.pt-offer-body h3{font-family:var(--serif);font-weight:400;font-size:1.1875rem}
+.pt-offer-body p{font-size:.875rem;color:var(--text-body);line-height:1.65;flex:1}
+.pt-offer-body .pt-suite-cta{align-self:flex-start;color:#141414}
+.pt-offer-body .pt-suite-cta:hover{color:var(--black)}
+.pt-gather{background:var(--ink,#1F1F1F);background:#1F1F1F;padding:96px 64px}
+.pt-gather-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.pt-gather-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:2px}
+.pt-gather-lead{font-size:.9375rem;color:rgba(255,255,255,.75);margin:6px 0 10px}
+.pt-gather-list{list-style:none;margin:0;padding:0}
+.pt-gather-list li{font-size:.875rem;color:rgba(255,255,255,.68);padding:4px 0 4px 18px;position:relative}
+.pt-gather-list li::before{content:"";position:absolute;left:0;top:12px;width:6px;height:6px;border-radius:50%;background:var(--slate-light)}
+.pt-gather-fine{font-size:.75rem;color:rgba(255,255,255,.45);margin:14px 0 20px}
+.pt-intro-photo{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:2px;margin-top:26px}
+@media(max-width:960px){.pt-offers,.pt-fnb,.pt-gather{padding:64px 20px}.pt-offer-grid{grid-template-columns:1fr}.pt-gather-inner{grid-template-columns:1fr;gap:32px}}
 
 /* ══ FOOTER (global) ══ */
 .site-footer{background:var(--black);color:rgba(255,255,255,.45);padding:64px 64px 32px;border-top:1px solid var(--rule)}
@@ -433,7 +468,7 @@ section[id]{scroll-margin-top:118px}
     <div class="pt-sticky-name">Sol Modern<small>Phoenix, AZ</small></div><!-- [FIELD] name + city -->
     <nav class="pt-sticky-jump" aria-label="On this page">
       <a href="#suites">Suites</a>
-      <a href="#amenities">Amenities</a>
+      <a href="#amenities">Amenities</a><a href="#offers">Offers</a>
       <a href="#neighborhood">Neighborhood</a>
       <a href="#info">Good to Know</a>
     </nav>
@@ -567,11 +602,13 @@ section[id]{scroll-margin-top:118px}
       <h2 class="pt-h2">Downtown Phoenix,<br><em>with the doors unlocked.</em></h2>
       <p>Sol Modern sits on Fillmore between the arts district and the ballpark &mdash; close enough to walk to dinner, far enough to sleep. Suites are furnished end to end, with kitchens you would actually cook in and laundry you never have to leave for.</p>
       <p>Everything downstairs is yours while you are here: the pool deck, the fitness floor, the work lounges, and the people who run them.</p>
+      <img class="pt-intro-photo" src="/assets/ig-social-2.jpg" alt="Sol Modern amenity space" loading="lazy"><!-- [FIELD] intro photo 1 -->
     </div>
     <div class="pt-stats">
       <div class="pt-stat"><span class="pt-stat-n">1&ndash;2</span><span class="pt-stat-l">Bedroom suites<br>plus studios</span></div>
       <div class="pt-stat"><span class="pt-stat-n">1</span><span class="pt-stat-l">Night minimum stay</span></div>
       <div class="pt-stat"><span class="pt-stat-n">4</span><span class="pt-stat-l">Guests, largest suite</span></div>
+      <img class="pt-intro-photo" src="/assets/ig-social-3.jpg" alt="Sol Modern rooftop pool deck" loading="lazy"><!-- [FIELD] intro photo 2 -->
     </div>
   </div>
 </section>
@@ -582,51 +619,89 @@ section[id]{scroll-margin-top:118px}
   <div class="pt-suites-head">
     <div>
       <span class="pt-eyebrow">Suites</span>
-      <h2 class="pt-h2">Pick your <em>footprint.</em></h2>
+      <h2 class="pt-h2">Choose your <em>apartment-sized room.</em></h2>
     </div>
     <a class="pt-suites-all" href="#book-stay">See rates &amp; availability &nbsp;&rarr;</a>
   </div>
   <div class="pt-suites-grid">
     <!-- [FIELD] 3–6 suite cards. Photo 1200×1500, floor plan SVG or PNG. -->
     <article class="pt-suite" data-suite="studio">
-      <div class="pt-suite-img"><img src="/assets/ig-social-1.jpg" alt="Studio suite living area"/></div>
+      <div class="pt-suite-img"><img src="/assets/ig-social-1.jpg" alt="Studio suite living area" class="pt-sc-img" loading="lazy"/><img src="/assets/stay-hero-poster.jpg" alt="Studio suite living area" class="pt-sc-img off" loading="lazy"/><img src="/assets/hero-poster.jpg" alt="Studio suite living area" class="pt-sc-img off" loading="lazy"/><button class="pt-sc-btn prev" type="button" aria-label="Previous photo">&#8249;</button><button class="pt-sc-btn next" type="button" aria-label="Next photo">&#8250;</button><span class="pt-sc-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
       <span class="pt-suite-badge" hidden
             data-rate-category="[FIELD] snt-room-type-id:studio"
             data-suite="studio"></span>
       <div class="pt-suite-body">
         <div class="pt-suite-name">Studio</div>
-        <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 2</span><span class="pt-suite-spec">517 sq ft</span><span class="pt-suite-spec">Queen</span></div>
+        <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 2</span><span class="pt-suite-spec">1 queen bed</span><span class="pt-suite-spec">1 bath</span><span class="pt-suite-spec">517 sq ft</span></div>
         <div class="pt-suite-actions">
-          <button class="pt-suite-book" type="button" data-book-suite="studio">Book this suite &nbsp;&rarr;</button>
+          <button class="pt-suite-cta" type="button" data-book-suite="studio">Check Rates &nbsp;&rarr;</button>
         </div>
       </div>
     </article>
     <article class="pt-suite" data-suite="one-bedroom">
-      <div class="pt-suite-img"><img src="/assets/ig-social-2.jpg" alt="One bedroom suite"/></div>
+      <div class="pt-suite-img"><img src="/assets/ig-social-2.jpg" alt="One bedroom suite" class="pt-sc-img" loading="lazy"/><img src="/assets/live-hero-poster.jpg" alt="One bedroom suite" class="pt-sc-img off" loading="lazy"/><img src="/assets/ig-social-1.jpg" alt="One bedroom suite" class="pt-sc-img off" loading="lazy"/><button class="pt-sc-btn prev" type="button" aria-label="Previous photo">&#8249;</button><button class="pt-sc-btn next" type="button" aria-label="Next photo">&#8250;</button><span class="pt-sc-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
       <span class="pt-suite-badge" hidden
             data-rate-category="[FIELD] snt-room-type-id:one-bedroom"
             data-suite="one-bedroom"></span>
       <div class="pt-suite-body">
         <div class="pt-suite-name">One Bedroom</div>
-        <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 2</span><span class="pt-suite-spec">673 sq ft</span><span class="pt-suite-spec">Queen</span></div>
+        <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 2</span><span class="pt-suite-spec">1 queen bed</span><span class="pt-suite-spec">1 bath</span><span class="pt-suite-spec">673 sq ft</span></div>
         <div class="pt-suite-actions">
-          <button class="pt-suite-book" type="button" data-book-suite="one-bedroom">Book this suite &nbsp;&rarr;</button>
+          <button class="pt-suite-cta" type="button" data-book-suite="one-bedroom">Check Rates &nbsp;&rarr;</button>
         </div>
       </div>
     </article>
     <article class="pt-suite" data-suite="two-bedroom">
-      <div class="pt-suite-img"><img src="/assets/ig-social-3.jpg" alt="Two bedroom suite"/></div>
+      <div class="pt-suite-img"><img src="/assets/ig-social-3.jpg" alt="Two bedroom suite" class="pt-sc-img" loading="lazy"/><img src="/assets/forme-houston-square-poster.jpg" alt="Two bedroom suite" class="pt-sc-img off" loading="lazy"/><img src="/assets/group-hero-poster.jpg" alt="Two bedroom suite" class="pt-sc-img off" loading="lazy"/><button class="pt-sc-btn prev" type="button" aria-label="Previous photo">&#8249;</button><button class="pt-sc-btn next" type="button" aria-label="Next photo">&#8250;</button><span class="pt-sc-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
       <span class="pt-suite-badge" hidden
             data-rate-category="[FIELD] snt-room-type-id:two-bedroom"
             data-suite="two-bedroom"></span>
       <div class="pt-suite-body">
         <div class="pt-suite-name">Two Bedroom</div>
-        <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 4</span><span class="pt-suite-spec">1,053 sq ft</span><span class="pt-suite-spec">2 Queens</span></div>
+        <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 4</span><span class="pt-suite-spec">2 queen beds</span><span class="pt-suite-spec">2 baths</span><span class="pt-suite-spec">1,053 sq ft</span></div>
         <div class="pt-suite-actions">
-          <button class="pt-suite-book" type="button" data-book-suite="two-bedroom">Book this suite &nbsp;&rarr;</button>
+          <button class="pt-suite-cta" type="button" data-book-suite="two-bedroom">Check Rates &nbsp;&rarr;</button>
         </div>
       </div>
     </article>
+  </div>
+</section>
+
+<!-- ══════════ 5b. OFFERS — CMS promo slot ══════════ -->
+<!-- Laurie 9-25: offers restored for STAY. Every card here is the plan's
+     "promotional slot editable in CMS" — copy verbatim from the live page;
+     marketing owns these in Storyblok. BOOK NOW carries the offer's rate plan
+     into the funnel; Group Stays routes to group sales. -->
+<section class="pt-offers" id="offers" aria-label="Hotel offers">
+  <div class="pt-offers-inner">
+    <span class="pt-eyebrow">Offers</span>
+    <h2 class="pt-h2">Hotel offers &mdash; <em>for stays 1+ nights.</em></h2>
+    <div class="pt-offer-grid">
+      <div class="pt-offer">
+        <img src="/assets/ig-social-3.jpg" alt="Rooftop pool at dusk" loading="lazy">
+        <div class="pt-offer-body">
+          <h3>Stay 2+ Nights &amp; Save 20%</h3>
+          <p>Stay longer, save more this fall. Save 20% off best rates on stays of 2+ nights when you book by 11/18/26 and stay by 1/1/27. Blackout dates and terms apply.</p>
+          <a class="pt-suite-cta" href="/book/search?property=sol-modern&amp;plan=sale">Book Now &nbsp;&rarr;</a>
+        </div>
+      </div>
+      <div class="pt-offer">
+        <img src="/assets/ig-social-1.jpg" alt="Guests relaxing in a suite" loading="lazy">
+        <div class="pt-offer-body">
+          <h3>Save 20% | Advance Purchase</h3>
+          <p>Save even more when you plan ahead. Book 30+ days in advance of your stay, with our pre-paid, nonrefundable rate. Blackout dates and terms apply.</p>
+          <a class="pt-suite-cta" href="/book/search?property=sol-modern&amp;plan=early">Book Now &nbsp;&rarr;</a>
+        </div>
+      </div>
+      <div class="pt-offer">
+        <img src="/assets/group-hero-poster.jpg" alt="Group gathered on a rooftop" loading="lazy">
+        <div class="pt-offer-body">
+          <h3>Group Stays</h3>
+          <p>Looking to book 4 or more suites for your group or multi-generational family getaway? Contact our sales team for special pricing.</p>
+          <a class="pt-suite-cta" href="group-travel.html#rfp-form">Inquire &nbsp;&rarr;</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -648,7 +723,7 @@ section[id]{scroll-margin-top:118px}
 <section class="pt-spaces" id="amenity-spaces" aria-label="Amenity spaces">
   <div class="pt-spaces-header">
     <div>
-      <span class="pt-eyebrow">02 &mdash; Gather</span>
+      <span class="pt-eyebrow">02 &mdash; Notable Amenities</span>
       <h2 class="pt-h2">The building is<br><em>part of the stay.</em></h2>
     </div>
     <p class="pt-spaces-sub">Rooftop pool and cabanas, an indoor-outdoor fitness floor with a yoga studio and cold plunge, work lounges you can take a call in, game rooms, and a half-court basketball sport court for the nights you would rather stay in. All of it is included &mdash; no day passes, no add-ons.</p>
@@ -749,6 +824,71 @@ section[id]{scroll-margin-top:118px}
         <li><span><span class="pt-poi-name">Phoenix Sky Harbor (PHX)</span><span class="pt-poi-kind">Airport</span></span><span class="pt-poi-dist">12 min drive</span></li>
         <li><span><span class="pt-poi-name">Arizona State University Downtown</span><span class="pt-poi-kind">Campus</span></span><span class="pt-poi-dist">7 min walk</span></li>
       </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 8b. FOOD + DRINK ══════════ -->
+<!-- Laurie 9-25: in-building + nearby F&B restored — sells the location and
+     matters to owners. [FIELD] 3 venues per property; Sol Modern copy verbatim
+     from the live page. -->
+<section class="pt-fnb" id="food-drink" aria-label="Food and drink">
+  <div class="pt-offers-inner">
+    <span class="pt-eyebrow">Food + Drink</span>
+    <h2 class="pt-h2">So many reasons <em>to stay.</em></h2>
+    <p class="pt-fnb-intro">Phoenix&rsquo;s dining scene never disappoints. Casual and high-end backdrops are paired with exceptional locally inspired flavors and immersive artistry, so you can step into a new experience. Allow us to introduce our favorites.</p>
+    <div class="pt-offer-grid">
+      <div class="pt-offer">
+        <img src="/assets/stay-hero-poster.jpg" alt="Matt's Big Breakfast" loading="lazy">
+        <div class="pt-offer-body">
+          <h3>Matt&rsquo;s Big Breakfast</h3>
+          <p>Offering breakfast and lunch 7 days a week, serving locally sourced, hearty fare.</p>
+        </div>
+      </div>
+      <div class="pt-offer">
+        <img src="/assets/hero-poster.jpg" alt="Miel de Agave" loading="lazy">
+        <div class="pt-offer-body">
+          <h3>Miel de Agave</h3>
+          <p>Exceptional fare that weaves the timeless traditions of Mexico with a fresh, modern twist.</p>
+        </div>
+      </div>
+      <div class="pt-offer">
+        <img src="/assets/live-hero-poster.jpg" alt="Fair Trade coffee" loading="lazy">
+        <div class="pt-offer-body">
+          <h3>Fair Trade</h3>
+          <p>Shade-grown, organic fair-trade coffee, offering an assortment of in-house baked goods, &amp; more.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 8c. GATHER — the group/events offer from the current stay pages ══════════ -->
+<!-- Laurie 9-25: this is how Group is sold on stay pages today; restored
+     verbatim. INQUIRE routes to the Group Travel RFP. Offer terms are
+     marketing-owned ([FIELD] / CMS). -->
+<section class="pt-gather dark" id="gather" aria-label="Gather — events and group stays">
+  <div class="pt-gather-inner">
+    <img class="pt-gather-img" src="/assets/forme-houston-square-poster.jpg" alt="Event space at a Sentral community" loading="lazy">
+    <div>
+      <span class="pt-eyebrow">Gather</span>
+      <h2 class="pt-h2" style="color:#fff">Plan your next <em>gathering with us.</em></h2>
+      <p class="pt-gather-lead">Host your event in the heart of the city. Convenience and flexibility await.</p>
+      <ul class="pt-gather-list">
+        <li>Bring in your own catering</li>
+        <li>No corkage fees or F&amp;B minimums</li>
+        <li>Outside audio visual permitted</li>
+      </ul>
+      <p class="pt-gather-lead" style="margin-top:16px">Group perks:</p>
+      <ul class="pt-gather-list">
+        <li>15% commission on guest rooms</li>
+        <li>1 comped room per 40 booked</li>
+        <li>Two bottles of water per room</li>
+        <li>Noon check-out*</li>
+        <li>Waived resort fees</li>
+      </ul>
+      <p class="pt-gather-fine">Offer valid through 12/31/2026. Terms and conditions apply. Blackout dates apply.</p>
+      <a class="pt-suite-cta" href="group-travel.html#rfp-form">Inquire &nbsp;&rarr;</a>
     </div>
   </div>
 </section>
@@ -1152,6 +1292,23 @@ var ptLightbox=(function(){
     });
   });
 
+})();
+
+// ── SUITE-CARD PHOTO CAROUSELS ── (Laurie 9-25: click through multiple images)
+(function(){
+  [].forEach.call(document.querySelectorAll('.pt-suite'),function(card){
+    var imgs=[].slice.call(card.querySelectorAll('.pt-sc-img'));
+    if(imgs.length<2) return;
+    var dots=[].slice.call(card.querySelectorAll('.pt-sc-dots i')),i=0;
+    if(dots[0]) dots[0].classList.add('on');
+    function show(n){
+      i=(n+imgs.length)%imgs.length;
+      imgs.forEach(function(im,k){ im.classList.toggle('off',k!==i); });
+      dots.forEach(function(d,k){ d.classList.toggle('on',k===i); });
+    }
+    card.querySelector('.pt-sc-btn.prev').addEventListener('click',function(e){e.stopPropagation();show(i-1);});
+    card.querySelector('.pt-sc-btn.next').addEventListener('click',function(e){e.stopPropagation();show(i+1);});
+  });
 })();
 
 // ── SUITE SELECTION CARRIES THROUGH ──

@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded',function(){
   var IMGS={'studio':'/assets/ig-social-1.jpg','one-bedroom':'/assets/ig-social-2.jpg','two-bedroom':'/assets/ig-social-3.jpg'};
   document.getElementById('rmImg').src=IMGS[r.slug]||IMGS.studio;
   document.getElementById('rmName').textContent=r.name;
-  document.getElementById('rmSpecs').textContent='Sleeps '+r.sleeps+' · '+r.sqft.toLocaleString()+' sq ft · '+r.bed;
+  document.getElementById('rmSpecs').textContent=r.specs;
   document.getElementById('rmDesc').textContent='Furnished end to end — full kitchen, in-unit washer and dryer, dedicated workspace, and a real bedroom door. Sample copy; per-suite copy is a [FIELD].';
   document.getElementById('rmContext').textContent=cur.name+', '+cur.city+(nights? ' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night'):'');
   document.getElementById('rmBack').href='/book/search?'+BOOK.qs({type:null,plan:null});
