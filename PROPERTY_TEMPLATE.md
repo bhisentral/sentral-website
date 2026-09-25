@@ -19,7 +19,7 @@ Measured against `sentral.com/chicago/michigan-avenue` and
 | Amenity dump | 28 items listed inline, flat, unranked | 7 icons in a glance strip; all 28 behind one disclosure |
 | Amenity essays | 4 paragraph blocks before anything actionable | 3 story blocks, one CTA each, further down |
 | Booking | No booking widget on the page at all | Booking card in the hero + a booking band + a sticky bar |
-| Room types | Not shown anywhere | 4-card suite grid with sleeps / sq ft / bed |
+| Room types | Not shown anywhere | Suite grid with sleeps / sq ft / bed |
 | Practical info | Missing (check-in, parking, pets, fees, accessibility) | Collapsed accordion at the bottom |
 | Neighborhood | Generic city-guide paragraph | 6 named places with walk times |
 | Page identity | Reads like a leasing page | Reads like an aparthotel — which is what STAY sells |
@@ -81,7 +81,7 @@ Copy longer than the cap gets cut, not shrunk. If a property "needs" a fourth
 story block, the answer is that one of the three is not earning its place.
 
 ### Suites — 3 to 6 cards
-`photo` · `name` · `sleeps` · `sq_ft` · `bed_config` · `snt_room_type_id` · `floor_plan`
+`photo` · `name` · `sleeps` · `sq_ft` · `bed_config` · `snt_room_type_id`
 
 There is no `from_rate` field — the rate badge is live. See §5.
 
@@ -241,8 +241,9 @@ against the live sentral.com/phoenix/sol-modern/stay page 2026-09-10.
 1. **Rates.** StayNTouch adapter for `/api/rates` to build (see §5 — the Mews
    version was removed 2026-09-10). Until then rate badges stay hidden;
    `?demoRates=1` shows labelled sample numbers for review.
-2. **Suite detail pages.** Cards now book directly and show a floor plan, which
-   may be enough. Phase 2b question: does each suite type still need its own page?
+2. **Suite detail pages.** Cards book directly; floor-plan buttons were removed
+   2026-09-25 (several plans per suite type — a single drawing set a false
+   expectation). Spec-only cards may be enough. Phase 2b question: does each suite type still need its own page?
 3. **Booking hand-off.** Even wired, Check Rates passes the guest to the
    StayNTouch booking engine without ever showing availability or a total. "No hidden fees" is
    promised but no total is displayed. Worth deciding whether an inline
