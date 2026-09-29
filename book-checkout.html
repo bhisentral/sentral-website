@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded',function(){
       if(t.note) tl+='<div class="bk-line"><small>'+t.note+'</small></div>';
     }
   });
+  if(q.promo) tl+='<div class="bk-line"><span>Discount code <small>'+q.promo.toUpperCase()+'</small></span><span><small>validated by StayNTouch at build</small></span></div>';
   document.getElementById('railTaxes').innerHTML=tl;
   document.getElementById('railTotal').textContent=sub?BOOK.money(sub+taxes):'—';
   var go=document.getElementById('ckGo');

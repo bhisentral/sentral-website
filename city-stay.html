@@ -59,6 +59,12 @@
   <!-- 1a. Multi-property markets only (Austin, Charlotte, LA, Miami). Routes
        the guest to the right property's Search & Availability page, dates
        passed through untouched. -->
+  <form class="bk-editbar" id="ctEdit">
+    <div class="bk-f"><label for="ctIn">Check-in</label><input id="ctIn" type="date"></div>
+    <div class="bk-f"><label for="ctOut">Check-out</label><input id="ctOut" type="date"></div>
+    <div class="bk-f"><label for="ctPromo">Discount code <span style="text-transform:none;letter-spacing:.02em">&mdash; optional</span></label><input id="ctPromo" type="text" placeholder="e.g. FALL20" style="width:150px"></div>
+    <button class="bk-btn" type="submit">Apply &nbsp;&rarr;</button>
+  </form>
   <div class="bk-props" id="ctProps"></div>
 </div>
 <script>
@@ -66,8 +72,17 @@ document.addEventListener('DOMContentLoaded',function(){
   var q=BOOK.q(), c=BOOK.CITIES[q.city];
   if(!c){ location.replace('/book/search?'+BOOK.qs({})); return; }
   var nights=BOOK.nights(q['in'],q.out);
+  if(q['in']) document.getElementById('ctIn').value=q['in'];
+  if(q.out) document.getElementById('ctOut').value=q.out;
+  if(q.promo) document.getElementById('ctPromo').value=q.promo;
+  document.getElementById('ctEdit').addEventListener('submit',function(e){
+    e.preventDefault();
+    location.search='?'+BOOK.qs({city:q.city,
+      'in':document.getElementById('ctIn').value, out:document.getElementById('ctOut').value,
+      promo:document.getElementById('ctPromo').value.trim()||null});
+  });
   document.getElementById('cityH').innerHTML=c.name+'. <em>Choose your Sentral.</em>';
-  document.getElementById('ctContext').textContent=c.props.length+' properties'+(nights?' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · dates carry through':'');
+  document.getElementById('ctContext').textContent=c.props.length+' properties'+(nights?' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out):'')+(q.promo?' · code '+q.promo.toUpperCase()+' will apply at checkout':'');
   var IMGS=['/assets/ig-social-1.jpg','/assets/ig-social-2.jpg','/assets/ig-social-3.jpg'];
   document.getElementById('ctProps').innerHTML=c.props.map(function(slug,i){
     var p=BOOK.prop(slug);
