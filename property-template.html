@@ -339,7 +339,8 @@ section.pt-longer.dark[class] .pt-longer-h em{color:#F2E8D5 !important} /* cream
 
 /* Property pages: hide the nav-level CTAs — CHECK RATES in the sticky bar is
    the booking entry here; logo + hamburger remain (Laurie 10-1). */
-.site-nav .nav-ctas > a{display:none !important} /* incl. SentralPlus lockup — overrides gives it display:flex */
+.site-nav .nav-ctas > a{display:none !important}
+.site-nav .nav-ctas > a.btn-splus{display:flex !important} /* SentralPlus lockup stays (owner 10-1); only BOOK A STAY + login hidden */
 
 /* ══ OFFERS / F&B / GATHER (Laurie 9-25) ══ */
 .pt-offers{background:var(--cream-light);padding:96px 64px}
