@@ -46,7 +46,7 @@
 </nav>
 </header>
 <main id="main">
-<section class="bkh">
+<section class="bkh dark">
   <div class="bkh-inner">
     <span class="bkh-eyebrow">Sentral &mdash; Book a Stay</span>
     <h1>Choose your <em>suite.</em></h1>
@@ -65,7 +65,7 @@
        StayNTouch via SentralOS (data pull method TBC w/ Nathan) and hosts
        the multi-room booking module below. -->
   <form class="bk-editbar" id="bkEdit">
-    <div class="bk-f"><label for="bkProp">Property</label>
+    <div class="bk-f bk-f-grow"><label for="bkProp">Property</label>
       <select id="bkProp"></select></div>
     <div class="bk-f"><label for="bkIn">Check-in</label><input id="bkIn" type="date"></div>
     <div class="bk-f"><label for="bkOut">Check-out</label><input id="bkOut" type="date"></div>
@@ -73,7 +73,7 @@
       <select id="bkAd"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
     <div class="bk-f"><label for="bkCh">Children</label>
       <select id="bkCh"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
-    <div class="bk-f"><label for="bkPromo">Discount code <span style="text-transform:none;letter-spacing:.02em">&mdash; optional</span></label><input id="bkPromo" type="text" placeholder="e.g. FALL20" style="width:150px"></div>
+    <div class="bk-f"><label for="bkPromo">Discount code</label><input id="bkPromo" type="text" placeholder="e.g. FALL20"></div>
     <button class="bk-btn slate" type="submit">Update Search &nbsp;&rarr;</button>
   </form>
   <div id="bkCityAlert"></div>
