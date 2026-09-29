@@ -529,6 +529,7 @@ section[id]{scroll-margin-top:118px}
             <select id="hero-suite"><option value="" selected>Any</option><option value="studio">Studio</option><option value="one-bedroom">One Bedroom</option><option value="two-bedroom">Two Bedroom</option></select>
           </div>
         </div>
+        <div class="pt-bf"><label for="hero-promo">Discount code &mdash; optional</label><input id="hero-promo" type="text" placeholder="Enter code" autocomplete="off"></div>
         <button class="pt-book-btn" type="submit">Check Rates &nbsp;&rarr;</button>
       </form>
       <span class="pt-bookcard-fine">Flexible cancellation on most stays</span>
@@ -1425,7 +1426,8 @@ function ptCheckRates(e,source){
   var i=document.getElementById(p[0]).value,o=document.getElementById(p[1]).value;
   if(!i||!o){document.getElementById(p[0]).focus();return false;}
   var suite=(document.getElementById(source==='hero'?'hero-suite':'bk-suite')||{}).value||'';
-  window.location.href='/book/search?property=sol-modern&in='+i+'&out='+o+(suite?'&rooms='+suite+':1':'');
+  var promo=((document.getElementById(source==='hero'?'hero-promo':'bk-code')||{}).value||'').trim();
+  window.location.href='/book/search?property=sol-modern&in='+i+'&out='+o+(suite?'&rooms='+suite+':1':'')+(promo?'&promo='+encodeURIComponent(promo):'');
   return false;
 }
 </script>
