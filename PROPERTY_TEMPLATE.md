@@ -229,8 +229,11 @@ pre-selecting the property in its "Where" field.
 ## 6b. SEO — anchors + structured data (marketing request, 2026-09-10)
 
 Every section carries a stable, human-readable anchor id — `#the-property`,
-`#suites`, `#inside-the-suites`, `#amenity-spaces`, `#roosevelt-row`,
-`#book-stay`, `#amenities`, `#neighborhood`, `#longer-stays`, `#info` — usable
+`#suites`, `#extended-stays`, `#offers`, `#inside-the-suites`, `#gallery`,
+`#roosevelt-row`, `#book-stay`, `#amenities`, `#neighborhood`, `#food-drink`,
+`#gather`, `#info` — PPC site-link critical (Laurie 10-1: ads cannot duplicate
+links, so per-section hashes are ad extensions; mirror on sentral.com today,
+e.g. /houston/forme/stay#offers) — usable
 in campaign links, sitelinks, and on-page search. `section[id]` gets
 `scroll-margin-top` so targets clear the sticky bar. The head carries a
 schema.org **Hotel** JSON-LD block (name, address, phone, check-in/out,
@@ -248,7 +251,20 @@ and Gather sections restored (copy verbatim from live pages — all
 marketing-editable in Storyblok at build); intro section carries two photos;
 suite specs show beds + baths. Pending from Laurie: one cross-sell comment.
 
-## 7. Open items
+## 6d. Laurie round 2 (2026-10-01) — applied
+
+Extended Stays band: renamed from "Staying a while?", moved directly under
+Suites, recolored slate so it separates from the ink Gather band; card headers
+gold with right arrows (they read as buttons now); LIVE HERE card + sticky-bar
+LEASE APARTMENT link cross-sell to the property's own leasing site ([FIELD],
+solphx.com on the demo) — guest already chose city + property. Sticky-bar
+order: Suites · Offers · Amenities · Neighborhood · Good to Know · Lease
+Apartment. Nav-level BOOK A STAY hidden on property pages (sticky CHECK RATES
+owns booking; logo + hamburger remain). Offers/F&B body copy smaller + muted;
+no underlines on gold buttons; suite-card CHECK RATES stays black-on-gold on
+hover.
+
+## 7. Open items## 7. Open items
 
 1. **Rates.** StayNTouch adapter for `/api/rates` to build (see §5 — the Mews
    version was removed 2026-09-10). Until then rate badges stay hidden;

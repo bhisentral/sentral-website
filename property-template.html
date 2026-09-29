@@ -214,7 +214,7 @@ section[id]{scroll-margin-top:118px}
    overrides.css §6b holds the rest of the site's buttons to 48px. */
 .pt-suite-actions{display:flex;flex-wrap:wrap;align-items:center;gap:0 18px;margin:-11px 0 -12px}
 .pt-suite-cta{background:var(--metallic);border:1px solid var(--metallic);color:#141414;cursor:pointer;font-family:var(--sans);font-size:.75rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;display:inline-flex;align-items:center;min-height:44px;padding:11px 26px;border-radius:2px;transition:background .15s,color .15s;margin-top:4px}
-.pt-suite-cta:hover{background:transparent;color:var(--white)}
+.pt-suite-cta:hover{background:var(--metallic) !important;color:#141414 !important;filter:brightness(1.07)}
 .pt-sc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .3s}
 .pt-sc-img.off{opacity:0;pointer-events:none}
 .pt-sc-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:38px;height:38px;border-radius:50%;border:none;background:rgba(20,20,20,.55);color:#fff;font-size:1.375rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;opacity:0}
@@ -300,7 +300,8 @@ section[id]{scroll-margin-top:118px}
 @media(max-width:960px){.pt-hood{padding:64px 20px}.pt-hood-inner{grid-template-columns:1fr;gap:36px}}
 
 /* ══ 9. LONGER STAYS ══ */
-.pt-longer{background:var(--ink);padding:72px 64px}
+.pt-longer{background:var(--slate);padding:72px 64px}
+section.pt-longer.dark[class] .pt-longer-h em{color:#F2E8D5 !important} /* cream italics on slate; out-specifies overrides dark-em rule */
 .pt-longer-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:.9fr 1.4fr;gap:56px;align-items:center}
 .pt-longer .pt-eyebrow{color:var(--oat)}
 .pt-longer-h{font-family:var(--serif);font-size:clamp(1.5rem,2.4vw,2.1rem);font-weight:300;color:#fff;line-height:1.2}
@@ -311,7 +312,9 @@ section[id]{scroll-margin-top:118px}
 .pt-longer-links{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
 .pt-longer-link{display:block;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);padding:22px 24px;text-decoration:none;transition:background .2s,border-color .2s}
 .pt-longer-link:hover{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.5)}
-.pt-longer-name{display:block;font-size:.8125rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-bottom:6px}
+.pt-longer-name{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.8125rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--metallic);margin-bottom:6px}
+.pt-longer-arrow{transition:transform .2s}
+.pt-longer-link:hover .pt-longer-arrow{transform:translateX(4px)}
 .pt-longer-desc{display:block;font-size:.875rem;color:rgba(255,255,255,.72);line-height:1.55}
 @media(max-width:960px){.pt-longer{padding:56px 20px}.pt-longer-inner{grid-template-columns:1fr;gap:28px}.pt-longer-links{grid-template-columns:1fr}}
 
@@ -334,6 +337,10 @@ section[id]{scroll-margin-top:118px}
 .pt-contact-link{display:inline-block;margin-top:16px;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);text-decoration:none;border-bottom:1px solid var(--slate);padding-bottom:3px}
 @media(max-width:960px){.pt-info{padding:64px 20px}.pt-info-inner{grid-template-columns:1fr;gap:36px}}
 
+/* Property pages: hide the nav-level CTAs — CHECK RATES in the sticky bar is
+   the booking entry here; logo + hamburger remain (Laurie 10-1). */
+.site-nav .nav-ctas > a{display:none !important} /* incl. SentralPlus lockup — overrides gives it display:flex */
+
 /* ══ OFFERS / F&B / GATHER (Laurie 9-25) ══ */
 .pt-offers{background:var(--cream-light);padding:96px 64px}
 .pt-fnb{background:var(--cream);padding:96px 64px}
@@ -345,7 +352,9 @@ section[id]{scroll-margin-top:118px}
 .pt-offer img{width:100%;height:210px;object-fit:cover}
 .pt-offer-body{padding:22px 24px 26px;display:flex;flex-direction:column;gap:10px;flex:1}
 .pt-offer-body h3{font-family:var(--serif);font-weight:400;font-size:1.1875rem}
-.pt-offer-body p{font-size:.875rem;color:var(--text-body);line-height:1.65;flex:1}
+.pt-offer-body p{font-size:.8125rem;color:var(--text-muted);line-height:1.65;flex:1}
+a.pt-suite-cta{text-decoration:none !important}
+#main .pt-offer-body p{font-size:.9375rem !important;color:var(--text-muted) !important}
 .pt-offer-body .pt-suite-cta{align-self:flex-start;color:#141414}
 .pt-offer-body .pt-suite-cta:hover{color:var(--black)}
 .pt-gather{background:var(--ink,#1F1F1F);background:#1F1F1F;padding:96px 64px}
@@ -468,9 +477,12 @@ section[id]{scroll-margin-top:118px}
     <div class="pt-sticky-name">Sol Modern<small>Phoenix, AZ</small></div><!-- [FIELD] name + city -->
     <nav class="pt-sticky-jump" aria-label="On this page">
       <a href="#suites">Suites</a>
-      <a href="#amenities">Amenities</a><a href="#offers">Offers</a>
+      <a href="#offers">Offers</a>
+      <a href="#amenities">Amenities</a>
       <a href="#neighborhood">Neighborhood</a>
       <a href="#info">Good to Know</a>
+      <!-- [FIELD] per-property leasing site (Laurie 10-1: stay↔live cross-sell for paid media) -->
+      <a href="https://www.solphx.com/" target="_blank" rel="noopener">Lease Apartment</a>
     </nav>
     <a class="pt-sticky-book" href="#book-stay">Check Rates</a>
   </div>
@@ -668,6 +680,36 @@ section[id]{scroll-margin-top:118px}
   </div>
 </section>
 
+<!-- ══════════ 9. LONGER STAYS ══════════ -->
+<section class="pt-longer dark" id="extended-stays" aria-label="Longer stays">
+  <div class="pt-longer-inner">
+    <div>
+      <span class="pt-eyebrow">Extended Stays</span>
+      <h2 class="pt-longer-h">Rates drop for stays of <em>30 nights or more.</em></h2>
+      <!-- Live from the same StayNTouch plumbing as the suite badges. Hidden unless
+           the 30-night rate genuinely beats the nightly one — the page never
+           claims a discount it cannot show. -->
+      <p class="pt-longer-rate" id="ptExtendedRate" hidden></p>
+    </div>
+    <div class="pt-longer-links">
+      <a class="pt-longer-link" href="business-travel.html">
+        <span class="pt-longer-name">Business Travel<span class="pt-longer-arrow" aria-hidden="true">&rarr;</span></span>
+        <span class="pt-longer-desc">Corporate housing, per-diem friendly, invoiced monthly.</span>
+      </a>
+      <a class="pt-longer-link" href="group-travel.html">
+        <span class="pt-longer-name">Group Travel<span class="pt-longer-arrow" aria-hidden="true">&rarr;</span></span>
+        <span class="pt-longer-desc">Five suites or more, one contact, one contract.</span>
+      </a>
+      <!-- [FIELD] per-property leasing site — guest already chose city+property,
+           so cross-sell straight to it (Laurie 10-1) -->
+      <a class="pt-longer-link" href="https://solphx.com" target="_blank" rel="noopener">
+        <span class="pt-longer-name">Live Here<span class="pt-longer-arrow" aria-hidden="true">&rarr;</span></span>
+        <span class="pt-longer-desc">Staying past a season? Look at a lease instead.</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ══════════ 5b. OFFERS — CMS promo slot ══════════ -->
 <!-- Laurie 9-25: offers restored for STAY. Every card here is the plan's
      "promotional slot editable in CMS" — copy verbatim from the live page;
@@ -721,7 +763,7 @@ section[id]{scroll-margin-top:118px}
      the pool and the gym are what sell an extended stay, so they get shown, not
      listed. Uses the sitewide .space-tile / .space-chip pattern from
      stay-with-us.html so it reads as the same system. -->
-<section class="pt-spaces" id="amenity-spaces" aria-label="Amenity spaces">
+<section class="pt-spaces" id="gallery" aria-label="Amenity spaces">
   <div class="pt-spaces-header">
     <div>
       <span class="pt-eyebrow">02 &mdash; Notable Amenities</span>
@@ -894,33 +936,7 @@ section[id]{scroll-margin-top:118px}
   </div>
 </section>
 
-<!-- ══════════ 9. LONGER STAYS ══════════ -->
-<section class="pt-longer dark" id="longer-stays" aria-label="Longer stays">
-  <div class="pt-longer-inner">
-    <div>
-      <span class="pt-eyebrow">Staying a while?</span>
-      <h2 class="pt-longer-h">Rates drop <em>after 30 nights.</em></h2>
-      <!-- Live from the same StayNTouch plumbing as the suite badges. Hidden unless
-           the 30-night rate genuinely beats the nightly one — the page never
-           claims a discount it cannot show. -->
-      <p class="pt-longer-rate" id="ptExtendedRate" hidden></p>
-    </div>
-    <div class="pt-longer-links">
-      <a class="pt-longer-link" href="business-travel.html">
-        <span class="pt-longer-name">Business Travel</span>
-        <span class="pt-longer-desc">Corporate housing, per-diem friendly, invoiced monthly.</span>
-      </a>
-      <a class="pt-longer-link" href="group-travel.html">
-        <span class="pt-longer-name">Group Travel</span>
-        <span class="pt-longer-desc">Five suites or more, one contact, one contract.</span>
-      </a>
-      <a class="pt-longer-link" href="live-with-us.html">
-        <span class="pt-longer-name">Live With Us</span>
-        <span class="pt-longer-desc">Staying past a season? Look at a lease instead.</span>
-      </a>
-    </div>
-  </div>
-</section>
+
 
 <!-- ══════════ 10. PRACTICAL INFO ══════════ -->
 <!-- Collapsed by default. This is where the old page's clutter earns its keep. -->
