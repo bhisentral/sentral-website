@@ -8,14 +8,14 @@ html,body{background:var(--bk-cream) !important} /* beat overrides.css off-black
    sits under the fixed site nav */
 .bkh{background:var(--bk-slate);color:#fff;padding:118px 24px 34px}
 .bkh-inner{max-width:1080px;margin:0 auto}
-.bkh-eyebrow{font-size:.75rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:#AFCBD9;display:block;margin-bottom:12px}
+.bkh-eyebrow{font-size:.75rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:#AFAA9B;display:block;margin-bottom:12px}
 .bkh h1{font-family:var(--bk-serif);font-weight:300;font-size:clamp(1.8rem,3.2vw,2.6rem);line-height:1.14;margin-bottom:8px;color:#fff}
-.bkh h1 em{font-style:italic;color:#AFCBD9}
+.bkh h1 em{font-style:italic;color:#AFAA9B}
 .bkh-sub{font-size:.8125rem;color:rgba(255,255,255,.75);letter-spacing:.02em}
 .bkh-steps{display:flex;gap:26px;margin-top:26px;overflow-x:auto}
 .bkh-step{font-size:.6875rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.5);padding-bottom:9px;border-bottom:2px solid transparent;white-space:nowrap}
 .bkh-step.on{color:#fff;border-bottom-color:var(--bk-gold)}
-.bkh-step.done{color:#AFCBD9}
+.bkh-step.done{color:#AFAA9B}
 .bk-demo{background:#fff;color:var(--bk-lt);font-size:.6563rem;letter-spacing:.16em;text-transform:uppercase;text-align:center;padding:8px 16px;border-bottom:1px solid rgba(40,40,40,.08)}
 .bk-wrap{max-width:1080px;margin:0 auto;padding:34px 24px 96px}
 .bk-grid{display:grid;grid-template-columns:1fr 350px;gap:30px;align-items:start}
