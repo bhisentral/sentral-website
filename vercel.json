@@ -3,6 +3,22 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/stay/charlotte",
+      "destination": "/city-charlotte"
+    },
+    {
+      "source": "/stay/austin",
+      "destination": "/city-austin"
+    },
+    {
+      "source": "/stay/los-angeles",
+      "destination": "/city-los-angeles"
+    },
+    {
+      "source": "/stay/miami",
+      "destination": "/city-miami"
+    },
+    {
       "source": "/book/review",
       "destination": "/book-flow-review"
     },
@@ -21,10 +37,6 @@
     {
       "source": "/book/confirmation",
       "destination": "/book-confirm"
-    },
-    {
-      "source": "/stay/:city(austin|charlotte|los-angeles|miami)",
-      "destination": "/city-stay?city=:city"
     },
     {
       "source": "/stay/sol-modern/review",

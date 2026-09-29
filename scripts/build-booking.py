@@ -299,3 +299,67 @@ document.addEventListener('DOMContentLoaded',function(){
 for fname,(title,body) in PAGES.items():
     open(os.path.join(ROOT,fname),'w').write(page(title,body))
     print('wrote',fname)
+
+# ═══ 1a-static. PER-CITY STATIC PAGES ═══
+# Owner 9-30: shareable static markup for the build team — property cards are
+# baked into the HTML (no JS needed to see content); JS only carries dates +
+# discount code into the card links. KEEP IN SYNC with assets/booking-demo.js
+# CITIES/PROPERTIES (single source once the CMS drives both).
+CITY_DATA={
+ 'charlotte':   ('Charlotte',   [('inkwell','Inkwell','Charlotte, NC',''),
+                                 ('joinery-north','Joinery North','Charlotte, NC',''),
+                                 ('joinery-west','Joinery West','Charlotte, NC','')]),
+ 'austin':      ('Austin',      [('sentral-east-austin-1630','Sentral East Austin 1630','Austin, TX',''),
+                                 ('sentral-east-austin-1614','Sentral East Austin 1614','Austin, TX','')]),
+ 'los-angeles': ('Los Angeles', [('sentral-dtla-755','Sentral DTLA 755','Los Angeles, CA',' · 30+ nights'),
+                                 ('sentral-dtla-732','Sentral DTLA 732','Los Angeles, CA',' · 30+ nights'),
+                                 ('figueroa-eight','Figueroa Eight','Los Angeles, CA',' · 30+ nights')]),
+ 'miami':       ('Miami',       [('alea','Alea','Miami, FL',''),
+                                 ('sentral-wynwood','Sentral Wynwood','Miami, FL','')]),
+}
+IMGS=['/assets/ig-social-1.jpg','/assets/ig-social-2.jpg','/assets/ig-social-3.jpg']
+for cslug,(cname,props) in CITY_DATA.items():
+    cards='\n'.join(
+        '    <a class="bk-prop" data-prop="'+ps+'" href="/book/search?property='+ps+'">\n'
+        '      <img class="bk-prop-img" src="'+IMGS[i%3]+'" alt="'+pn+'">\n'
+        '      <div class="bk-prop-body"><div class="bk-prop-name">'+pn+'</div>\n'
+        '      <div class="bk-prop-meta">'+meta+note+'</div>\n'
+        '      <span class="bk-prop-cta">Check availability &nbsp;&rarr;</span></div>\n'
+        '    </a>' for i,(ps,pn,meta,note) in enumerate(props))
+    body=(header('Sentral &mdash; Book a Stay',cname+'. <em>Choose your Sentral.</em>','ctContext')
+      +'\n'+RIBBON+'''
+<div class="bk-wrap">
+  <form class="bk-editbar" id="ctEdit">
+    <div class="bk-f"><label for="ctIn">Check-in</label><input id="ctIn" type="date"></div>
+    <div class="bk-f"><label for="ctOut">Check-out</label><input id="ctOut" type="date"></div>
+    <div class="bk-f"><label for="ctPromo">Discount code</label><input id="ctPromo" type="text" placeholder="e.g. FALL20"></div>
+    <button class="bk-btn" type="submit">Apply &nbsp;&rarr;</button>
+  </form>
+  <div class="bk-props">
+'''+cards+'''
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var q=BOOK.q(), nights=BOOK.nights(q['in'],q.out);
+  document.getElementById('ctContext').textContent='''+repr(str(len(props)))+'''+' properties'+(nights?' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out):'')+(q.promo?' · code '+q.promo.toUpperCase()+' will apply at checkout':'');
+  if(q['in']) document.getElementById('ctIn').value=q['in'];
+  if(q.out) document.getElementById('ctOut').value=q.out;
+  if(q.promo) document.getElementById('ctPromo').value=q.promo;
+  function decorate(){
+    [].forEach.call(document.querySelectorAll('.bk-prop'),function(a){
+      a.href='/book/search?'+BOOK.qs({property:a.getAttribute('data-prop'),city:null});
+    });
+  }
+  decorate();
+  document.getElementById('ctEdit').addEventListener('submit',function(e){
+    e.preventDefault();
+    location.search='?'+BOOK.qs({
+      'in':document.getElementById('ctIn').value, out:document.getElementById('ctOut').value,
+      promo:document.getElementById('ctPromo').value.trim()||null});
+  });
+});
+</script>''')
+    fname='city-'+cslug+'.html'
+    open(os.path.join(ROOT,fname),'w').write(page(cname+' — Book a Stay — Sentral',body))
+    print('wrote',fname)
