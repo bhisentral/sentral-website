@@ -29,6 +29,9 @@ html,body{background:var(--bk-cream) !important} /* beat overrides.css off-black
 .bk-btn{display:inline-block;text-align:center;background:var(--bk-gold);color:#141414;border:1px solid var(--bk-gold);font-family:var(--bk-sans);font-size:.8125rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:14px 28px;border-radius:2px;cursor:pointer;text-decoration:none;transition:background .15s,color .15s}
 .bk-btn:hover{background:transparent;color:var(--bk-ink)}
 .bk-btn.wide{display:block;width:100%;margin-top:16px}
+/* slate variant — progression/utility actions (owner 9-29); gold stays on booking CTAs */
+.bk-btn.slate{background:var(--bk-slate);border-color:var(--bk-slate);color:#fff}
+.bk-btn.slate:hover{background:var(--bk-slate-deep);border-color:var(--bk-slate-deep);color:#fff}
 .bk-btn[disabled],.bk-btn.off{opacity:.4;pointer-events:none}
 .bk-btn-g{display:inline-block;background:transparent;color:var(--bk-ink);border:1px solid rgba(40,40,40,.35);font-size:.8125rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:12px 24px;border-radius:2px;cursor:pointer;text-decoration:none}
 .bk-btn-g:hover{border-color:var(--bk-ink)}
