@@ -66,7 +66,7 @@
        the multi-room booking module below. -->
   <form class="bk-editbar" id="bkEdit">
     <div class="bk-f bk-f-grow"><label for="bkProp">Property</label>
-      <select id="bkProp"></select></div>
+      <select id="bkProp"><option value="sol-modern">Phoenix — Sol Modern</option><option value="sentral-old-town">Scottsdale — Sentral Old Town</option><option value="sentral-dtla-755">Los Angeles — Sentral DTLA 755 (30+ nights)</option><option value="sentral-dtla-732">Los Angeles — Sentral DTLA 732 (30+ nights)</option><option value="figueroa-eight">Los Angeles — Figueroa Eight (30+ nights)</option><option value="sentral-union-station">Denver — Sentral Union Station</option><option value="alea">Miami — Alea</option><option value="sentral-wynwood">Miami — Sentral Wynwood</option><option value="star-metals">Atlanta — Star Metals West Midtown</option><option value="sentral-michigan-avenue">Chicago — Sentral Michigan Avenue</option><option value="otonomus">Las Vegas — Otonomus</option><option value="inkwell">Charlotte — Inkwell</option><option value="joinery-north">Charlotte — Joinery North</option><option value="joinery-west">Charlotte — Joinery West</option><option value="the-battery">Philadelphia — The Battery (30+ nights)</option><option value="sentral-sobro">Nashville — Sentral SoBro</option><option value="sentral-east-austin-1630">Austin — Sentral East Austin 1630</option><option value="sentral-east-austin-1614">Austin — Sentral East Austin 1614</option><option value="forme">Houston — Forme</option><option value="sentral-first-hill">Seattle — Sentral First Hill (30+ nights)</option></select></div>
     <div class="bk-f"><label for="bkIn">Check-in</label><input id="bkIn" type="date"></div>
     <div class="bk-f"><label for="bkOut">Check-out</label><input id="bkOut" type="date"></div>
     <div class="bk-f"><label for="bkAd">Adults</label>
@@ -78,11 +78,11 @@
   </form>
   <div id="bkCityAlert"></div>
   <div class="bk-grid">
-    <div id="bkResults"></div>
+    <div id="bkResults"><div class="bk-card"><div class="bk-room"><img class="bk-room-img" src="/assets/ig-social-1.jpg" alt="Studio suite"><div class="bk-room-mid"><div class="bk-room-name">Studio</div><div class="bk-specs"><span>Sleeps 2</span> &middot; <span>1 Queen Bed</span> &middot; <span>1 Bath</span> &middot; <span>517 Sq Ft</span></div><div class="bk-room-links"><a href="/book/room?property=sol-modern&type=studio">Rates &amp; suite details &nbsp;&rarr;</a></div></div><div class="bk-room-side"><span class="bk-price-n">$189</span><span class="bk-price-l">Sample &middot; from / night</span><div class="bk-step-ctl"><span class="lbl">Rooms</span><button type="button" data-dec="studio" aria-label="Remove a Studio">&minus;</button><span class="n" id="n-studio">0</span><button type="button" data-inc="studio" aria-label="Add a Studio">+</button></div></div></div></div><div class="bk-card"><div class="bk-room"><img class="bk-room-img" src="/assets/ig-social-2.jpg" alt="One Bedroom suite"><div class="bk-room-mid"><div class="bk-room-name">One Bedroom</div><div class="bk-specs"><span>Sleeps 2</span> &middot; <span>1 Queen Bed</span> &middot; <span>1 Bath</span> &middot; <span>673 Sq Ft</span></div><div class="bk-room-links"><a href="/book/room?property=sol-modern&type=one-bedroom">Rates &amp; suite details &nbsp;&rarr;</a></div></div><div class="bk-room-side"><span class="bk-price-n">$229</span><span class="bk-price-l">Sample &middot; from / night</span><div class="bk-step-ctl"><span class="lbl">Rooms</span><button type="button" data-dec="one-bedroom" aria-label="Remove a One Bedroom">&minus;</button><span class="n" id="n-one-bedroom">0</span><button type="button" data-inc="one-bedroom" aria-label="Add a One Bedroom">+</button></div></div></div></div><div class="bk-card"><div class="bk-room"><img class="bk-room-img" src="/assets/ig-social-3.jpg" alt="Two Bedroom suite"><div class="bk-room-mid"><div class="bk-room-name">Two Bedroom</div><div class="bk-specs"><span>Sleeps 4</span> &middot; <span>2 Queen Beds</span> &middot; <span>2 Baths</span> &middot; <span>1,053 Sq Ft</span></div><div class="bk-room-links"><a href="/book/room?property=sol-modern&type=two-bedroom">Rates &amp; suite details &nbsp;&rarr;</a></div></div><div class="bk-room-side"><span class="bk-price-n">$319</span><span class="bk-price-l">Sample &middot; from / night</span><div class="bk-step-ctl"><span class="lbl">Rooms</span><button type="button" data-dec="two-bedroom" aria-label="Remove a Two Bedroom">&minus;</button><span class="n" id="n-two-bedroom">0</span><button type="button" data-inc="two-bedroom" aria-label="Add a Two Bedroom">+</button></div></div></div></div></div>
     <aside class="bk-rail" aria-label="Your stay">
-      <h3 id="railProp">Your stay</h3>
-      <div class="bk-rail-sub" id="railDates"></div>
-      <div id="railLines"></div>
+      <h3 id="railProp">Sol Modern, Phoenix</h3>
+      <div class="bk-rail-sub" id="railDates">Choose dates above</div>
+      <div id="railLines"><div class="bk-line"><small>Add rooms to build your stay.</small></div></div>
       <hr>
       <div class="bk-total"><span>Total</span><span id="railTotal">&mdash;</span></div>
       <a class="bk-btn slate wide off" id="railGo" href="#">Continue to Checkout &nbsp;&rarr;</a>
@@ -93,12 +93,7 @@
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   var q=BOOK.q(), sel=BOOK.parseRooms(q.rooms);
-  var props=BOOK.PROPERTIES, propSel=document.getElementById('bkProp');
-  props.forEach(function(p){
-    var o=document.createElement('option'); o.value=p.slug;
-    o.textContent=p.city+' — '+p.name+(p.minStay>1?' (30+ nights)':'');
-    propSel.appendChild(o);
-  });
+  var props=BOOK.PROPERTIES, propSel=document.getElementById('bkProp'); // options baked static
   var cur=BOOK.prop(q.property) || null;
   // 1a. City hand-off: multi-property market w/ no property chosen → selector
   var alertBox=document.getElementById('bkCityAlert');

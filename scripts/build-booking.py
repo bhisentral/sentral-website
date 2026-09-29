@@ -363,3 +363,102 @@ document.addEventListener('DOMContentLoaded',function(){
     fname='city-'+cslug+'.html'
     open(os.path.join(ROOT,fname),'w').write(page(cname+' — Book a Stay — Sentral',body))
     print('wrote',fname)
+
+# ═══ STATIC BAKE (owner 9-30): funnel pages carry the Sol Modern demo content
+# in their HTML — visible without JS, view-source-able for the build team.
+# The page JS re-renders the same markup from the query string on load.
+# KEEP IN SYNC with assets/booking-demo.js. ═══
+ROOMS_PY=[('studio','Studio','Sleeps 2 · 1 Queen Bed · 1 Bath · 517 Sq Ft',189),
+          ('one-bedroom','One Bedroom','Sleeps 2 · 1 Queen Bed · 1 Bath · 673 Sq Ft',229),
+          ('two-bedroom','Two Bedroom','Sleeps 4 · 2 Queen Beds · 2 Baths · 1,053 Sq Ft',319)]
+RIMG={'studio':'/assets/ig-social-1.jpg','one-bedroom':'/assets/ig-social-2.jpg','two-bedroom':'/assets/ig-social-3.jpg'}
+PLANS_PY=[('direct','Direct Rate','Best flexible rate. Free cancellation to 48 hours before arrival.',1.00),
+          ('early','Advance Purchase &mdash; save 20%','Book 30+ days ahead. Pre-paid, non-refundable.',0.80),
+          ('sale','Seasonal Sale &mdash; save 15%','Limited dates. Blackout dates and terms apply.',0.85)]
+PROPS_PY=[('sol-modern','Phoenix — Sol Modern'),('sentral-old-town','Scottsdale — Sentral Old Town'),
+ ('sentral-dtla-755','Los Angeles — Sentral DTLA 755 (30+ nights)'),('sentral-dtla-732','Los Angeles — Sentral DTLA 732 (30+ nights)'),
+ ('figueroa-eight','Los Angeles — Figueroa Eight (30+ nights)'),('sentral-union-station','Denver — Sentral Union Station'),
+ ('alea','Miami — Alea'),('sentral-wynwood','Miami — Sentral Wynwood'),('star-metals','Atlanta — Star Metals West Midtown'),
+ ('sentral-michigan-avenue','Chicago — Sentral Michigan Avenue'),('otonomus','Las Vegas — Otonomus'),
+ ('inkwell','Charlotte — Inkwell'),('joinery-north','Charlotte — Joinery North'),('joinery-west','Charlotte — Joinery West'),
+ ('the-battery','Philadelphia — The Battery (30+ nights)'),('sentral-sobro','Nashville — Sentral SoBro'),
+ ('sentral-east-austin-1630','Austin — Sentral East Austin 1630'),('sentral-east-austin-1614','Austin — Sentral East Austin 1614'),
+ ('forme','Houston — Forme'),('sentral-first-hill','Seattle — Sentral First Hill (30+ nights)')]
+def money(n): return '$'+format(round(n),',')
+def spec_spans(spec): return ' &middot; '.join('<span>'+x+'</span>' for x in spec.split(' · '))
+def bake(fname, subs):
+    fp=os.path.join(ROOT,fname); s=open(fp).read()
+    for old,new in subs:
+        assert s.count(old)==1, fname+' MISS '+old[:60]
+        s=s.replace(old,new)
+    open(fp,'w').write(s); print('baked',fname)
+
+# — search: suite cards + property options + rail defaults —
+cards=''.join(
+ '<div class="bk-card"><div class="bk-room">'
+ '<img class="bk-room-img" src="'+RIMG[slug]+'" alt="'+name+' suite">'
+ '<div class="bk-room-mid">'
+ '<div class="bk-room-name">'+name+'</div>'
+ '<div class="bk-specs">'+spec_spans(spec)+'</div>'
+ '<div class="bk-room-links"><a href="/book/room?property=sol-modern&type='+slug+'">Rates &amp; suite details &nbsp;&rarr;</a></div>'
+ '</div>'
+ '<div class="bk-room-side">'
+ '<span class="bk-price-n">'+money(rate)+'</span><span class="bk-price-l">Sample &middot; from / night</span>'
+ '<div class="bk-step-ctl"><span class="lbl">Rooms</span>'
+ '<button type="button" data-dec="'+slug+'" aria-label="Remove a '+name+'">&minus;</button>'
+ '<span class="n" id="n-'+slug+'">0</span>'
+ '<button type="button" data-inc="'+slug+'" aria-label="Add a '+name+'">+</button>'
+ '</div></div>'
+ '</div></div>' for slug,name,spec,rate in ROOMS_PY)
+options=''.join('<option value="'+s+'">'+l+'</option>' for s,l in PROPS_PY)
+bake('book-search.html',[
+ ('<div id="bkResults"></div>','<div id="bkResults">'+cards+'</div>'),
+ ('<select id="bkProp"></select>','<select id="bkProp">'+options+'</select>'),
+ ('''  var props=BOOK.PROPERTIES, propSel=document.getElementById('bkProp');
+  props.forEach(function(p){
+    var o=document.createElement('option'); o.value=p.slug;
+    o.textContent=p.city+' — '+p.name+(p.minStay>1?' (30+ nights)':'');
+    propSel.appendChild(o);
+  });''','''  var props=BOOK.PROPERTIES, propSel=document.getElementById('bkProp'); // options baked static'''),
+ ('<h3 id="railProp">Your stay</h3>','<h3 id="railProp">Sol Modern, Phoenix</h3>'),
+ ('<div class="bk-rail-sub" id="railDates"></div>','<div class="bk-rail-sub" id="railDates">Choose dates above</div>'),
+ ('<div id="railLines"></div>','<div id="railLines"><div class="bk-line"><small>Add rooms to build your stay.</small></div></div>'),
+])
+
+# — room: studio detail + plan rows —
+plan_rows=''.join(
+ '<div class="bk-plan"><div>'
+ '<div class="bk-plan-name">'+pname+'</div>'
+ '<div class="bk-plan-note">'+note+'</div></div>'
+ '<div style="display:flex;align-items:center;gap:18px">'
+ '<span class="bk-plan-price">'+money(189*mult)+'<span class="bk-price-l" style="display:block;text-align:right">sample / night</span></span>'
+ '<a class="bk-btn" href="/book/checkout?property=sol-modern&rooms=studio:1&plan='+pslug+'">Select &nbsp;&rarr;</a>'
+ '</div></div>' for pslug,pname,note,mult in PLANS_PY)
+bake('book-room.html',[
+ ('<div class="bk-room-name" id="rmName" style="font-size:1.6rem"></div>','<div class="bk-room-name" id="rmName" style="font-size:1.6rem">Studio</div>'),
+ ('<div class="bk-specs" id="rmSpecs"></div>','<div class="bk-specs" id="rmSpecs">'+ROOMS_PY[0][2]+'</div>'),
+ ('id="rmDesc"></p>','id="rmDesc">Furnished end to end &mdash; full kitchen, in-unit washer and dryer, dedicated workspace, and a real bedroom door. Sample copy; per-suite copy is a [FIELD].</p>'),
+ ('<div id="rmPlans"></div>','<div id="rmPlans">'+plan_rows+'</div>'),
+ ('<h3 id="railProp"></h3>','<h3 id="railProp">Sol Modern, Phoenix</h3>'),
+ ('<div class="bk-rail-sub" id="railDates"></div>','<div class="bk-rail-sub" id="railDates">Choose dates on the previous step</div>'),
+])
+
+# — checkout: representative sample stay (1 × One Bedroom, 3 nights) —
+sub=229*3; tax=round(sub*0.125)
+bake('book-checkout.html',[
+ ('<h3 id="railProp"></h3>','<h3 id="railProp">Sol Modern, Phoenix</h3>'),
+ ('<div class="bk-rail-sub" id="railDates"></div>','<div class="bk-rail-sub" id="railDates">Sample stay &middot; 3 nights &middot; Direct Rate</div>'),
+ ('<div id="railLines"></div>','<div id="railLines"><div class="bk-line"><span>1 &times; One Bedroom <small>(3 &times; $229)</small></span><span>'+money(sub)+'</span></div><div class="bk-line strong"><span>Subtotal</span><span>'+money(sub)+'</span></div></div>'),
+ ('<div id="railTaxes"></div>','<div id="railTaxes"><div class="bk-line"><span>State &amp; local occupancy tax <small>(sample 12.5%)</small></span><span>'+money(tax)+'</span></div><div class="bk-line"><span>Resort fee</span><span>$0</span></div><div class="bk-line"><small>None &mdash; the rate you see is the rate you pay</small></div></div>'),
+ ('<div class="bk-total"><span>Total</span><span id="railTotal">&mdash;</span></div>','<div class="bk-total"><span>Total</span><span id="railTotal">'+money(sub+tax)+'</span></div>'),
+])
+
+# — confirmation: sample number + summary —
+bake('book-confirm.html',[
+ ('<div class="bk-confirm-n" id="cfNum">SENTRAL-DEMO</div>','<div class="bk-confirm-n" id="cfNum">SENT-SAMPLE</div>'),
+ ('<p style="font-size:.9375rem;color:#4a4643;max-width:60ch" id="cfMsg"></p>','<p style="font-size:.9375rem;color:#4a4643;max-width:60ch" id="cfMsg">Your suite at Sol Modern is set. Check-in opens at 4:00 PM with keyless entry &mdash; your code arrives the morning of arrival.</p>'),
+ ('<strong id="cfPhone"></strong>','<strong id="cfPhone">(833) 370-4161</strong>'),
+ ('<h3 id="railProp"></h3>','<h3 id="railProp">Sol Modern, Phoenix</h3>'),
+ ('<div class="bk-rail-sub" id="railDates"></div>','<div class="bk-rail-sub" id="railDates">Sample stay &middot; 3 nights &middot; Direct Rate</div>'),
+ ('<div id="railLines"></div>','<div id="railLines"><div class="bk-line"><span>1 &times; One Bedroom</span><span>'+money(229*3)+'</span></div></div>'),
+])
