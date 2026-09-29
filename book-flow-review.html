@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Booking Funnel — Phase 3 Review — Sentral</title>
+<style>
+:root{--ink:#282828;--cream:#F5F5F3;--cream-warm:#EFEDE8;--slate:#2D4A5C;--slate-deep:#3D6478;--lt:#6B6560;--white:#fff;--serif:Georgia,'Times New Roman',serif;--sans:'Aptos','Segoe UI',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+.eyebrow{font-size:.75rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--slate);display:block;margin-bottom:14px}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(1.9rem,3.2vw,2.8rem);line-height:1.15;margin-bottom:10px}
+h1 em{font-style:italic;color:var(--slate)}
+.meta{font-size:.8125rem;color:var(--lt);margin-bottom:28px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:56px}
+.btn{display:inline-block;font-size:.8125rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:14px 30px;border-radius:2px;text-decoration:none;transition:background .15s,color .15s,border-color .15s}
+.btn-p{background:var(--slate);color:var(--white);border:1px solid var(--slate)}
+.btn-p:hover{background:var(--slate-deep);border-color:var(--slate-deep)}
+.btn-g{background:transparent;color:var(--ink);border:1px solid rgba(40,40,40,.35)}
+.btn-g:hover{border-color:var(--ink)}
+h2{font-family:var(--serif);font-weight:300;font-size:1.375rem;margin:44px 0 12px}
+p{font-size:.9375rem;color:#4a4643;margin-bottom:12px;max-width:66ch}
+ul{margin:0 0 12px 20px}
+li{font-size:.9375rem;color:#4a4643;margin-bottom:7px;max-width:64ch}
+li strong,p strong{color:var(--ink);font-weight:600}
+table{width:100%;border-collapse:collapse;margin:16px 0 8px;font-size:.875rem}
+th{text-align:left;font-size:.6875rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--lt);padding:0 14px 8px 0;border-bottom:1px solid rgba(40,40,40,.18)}
+td{padding:9px 14px 9px 0;border-bottom:1px solid rgba(40,40,40,.08);color:#4a4643;vertical-align:top}
+td a{color:var(--slate);font-weight:600;text-decoration:none}
+td a:hover{text-decoration:underline;text-underline-offset:2px}
+.band{background:var(--cream-warm);border-left:3px solid var(--slate);padding:18px 22px;border-radius:2px;margin:20px 0}
+.band p{margin-bottom:0}
+.foot{margin-top:64px;padding-top:20px;border-top:1px solid rgba(40,40,40,.14);font-size:.8125rem;color:var(--lt)}
+a.inline{color:var(--slate);text-decoration:underline;text-underline-offset:2px}
+.tag{display:inline-block;font-size:.6563rem;font-weight:700;letter-spacing:.1em;padding:2px 8px;border-radius:2px;background:var(--slate);color:#fff;vertical-align:2px}
+@media(max-width:640px){.wrap{padding:40px 20px 64px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <span class="eyebrow">Sentral — Website Phase 3 · For Internal Review</span>
+  <h1>The booking funnel, <em>end to end.</em></h1>
+  <p class="meta">Six pages, one continuous walk-through · Sol Modern is the demo property · September 28, 2026</p>
+  <div class="cta-row">
+    <a class="btn btn-p" href="/book/search?property=sol-modern&in=2026-10-09&out=2026-10-12">Walk the Funnel &nbsp;&rarr;</a>
+    <a class="btn btn-g" href="/stay/charlotte?in=2026-10-09&out=2026-10-12">Try a Multi-Property City</a>
+    <a class="btn btn-g" href="/stay/sol-modern">Property Page</a>
+  </div>
+
+  <h2>What this is</h2>
+  <p>A working prototype of the full STAY booking journey — search, room selection, checkout, confirmation — plus the city selector for multi-property markets. Everything is clickable and every hand-off carries real state (property, dates, rooms, rate plan), so you can walk a booking start to finish exactly the way a guest would. It wears the same chrome and design language as the rest of the site.</p>
+
+  <h2>The six pages</h2>
+  <table>
+    <tr><th>#</th><th>Page</th><th>Try it</th><th>At build</th></tr>
+    <tr><td>1</td><td>Home &amp; Location Selector</td><td><a href="/">Homepage widget</a></td><td>Hands property + dates to search; no PMS call</td></tr>
+    <tr><td>1a</td><td>City STAY Selector</td><td><a href="/stay/austin">Austin</a> · <a href="/stay/charlotte">Charlotte</a> · <a href="/stay/los-angeles">LA</a> · <a href="/stay/miami">Miami</a></td><td>Routes to the right property, dates pass through</td></tr>
+    <tr><td>2 <span class="tag">P0</span></td><td>Search &amp; Availability</td><td><a href="/book/search?property=sol-modern&in=2026-10-09&out=2026-10-12">/book/search</a></td><td>Live StayNTouch via SentralOS; hosts the multi-room module</td></tr>
+    <tr><td>3</td><td>Property Page</td><td><a href="/stay/sol-modern">/stay/sol-modern</a></td><td>Static + CMS promo slot (the Offers section)</td></tr>
+    <tr><td>4</td><td>Room List &amp; Detail</td><td><a href="/book/room?property=sol-modern&type=one-bedroom&in=2026-10-09&out=2026-10-12">/book/room</a></td><td>Live rate plans — direct, advance purchase, sale</td></tr>
+    <tr><td>5</td><td>Checkout</td><td><a href="/book/checkout?property=sol-modern&in=2026-10-09&out=2026-10-12&rooms=one-bedroom:1">/book/checkout</a></td><td>Native guest form; Shift4 embed unchanged; property tax lines</td></tr>
+    <tr><td>6</td><td>Confirmation</td><td><a href="/book/confirmation?property=sol-modern&in=2026-10-09&out=2026-10-12&rooms=one-bedroom:1">/book/confirmation</a></td><td>Confirmation # from StayNTouch; triggers email + SMS</td></tr>
+  </table>
+
+  <h2>Decisions already made</h2>
+  <ul>
+    <li><strong>All live data comes from StayNTouch via SentralOS</strong> (our current RMS — Mews is dead). Pages 2, 4, and 6 are marked with every pull point; the pull method is being confirmed with Nathan.</li>
+    <li><strong>Payment stays on Shift4, embedded unchanged.</strong> The prototype deliberately renders no card fields — the dashed panel on checkout marks exactly where the embed drops in.</li>
+    <li><strong>Search &amp; Availability is the P0 page.</strong> Today's funnel converts 5% at this step — the largest single drop-off in the journey — so it gets the most scrutiny.</li>
+    <li><strong>Multi-room is native to search:</strong> quantity steppers per suite type with a running total, rather than a separate group flow.</li>
+    <li><strong>Rate plans mirror the live offers</strong> — Direct, Advance Purchase (−20%), Seasonal Sale — and the property page's Offers cards carry their plan into the funnel.</li>
+  </ul>
+
+  <h2>What we want your input on</h2>
+  <ul>
+    <li>The search results page — does the suite-card + stepper + summary-rail layout earn its P0 status? What would make you book?</li>
+    <li>Room detail — is the three-plan rate list clear? Is a separate room page even needed, or should plans live on search results?</li>
+    <li>Checkout — anything missing before the payment step? (Loyalty/SentralPlus capture? Arrival time?)</li>
+    <li>City selector — right way to handle Austin, Charlotte, LA, and Miami?</li>
+    <li>Confirmation — what should it push next? (App download, SentralPlus enrollment, upsells?)</li>
+  </ul>
+
+  <div class="band">
+    <p><strong>Every rate, availability flag, and tax line is sample data,</strong> and every funnel page carries a ribbon saying so. Photography is placeholder. Judge the flow, the layout, and the copy structure — not the numbers or the photos.</p>
+  </div>
+
+  <h2>Open dependencies (not page work)</h2>
+  <ul>
+    <li>StayNTouch data-pull method — with Nathan; feeds pages 2, 4, 6.</li>
+    <li>Per-property content: real room sets (every property currently borrows Sol Modern's), photography, tax line items.</li>
+    <li>Highsprings: whether the city selector and checkout count inside the 5-page non-template cap.</li>
+  </ul>
+
+  <p class="foot">Send input to Jessica Cheshire. Build docs: BOOKING_FLOW.md in the site repo. This page is not linked from the site and is excluded from search indexing.</p>
+</main>
+</body>
+</html>

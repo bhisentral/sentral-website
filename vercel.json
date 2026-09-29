@@ -3,6 +3,10 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/book/review",
+      "destination": "/book-flow-review"
+    },
+    {
       "source": "/book/search",
       "destination": "/book-search"
     },
