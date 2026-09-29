@@ -73,6 +73,7 @@
       <select id="bkAd"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
     <div class="bk-f"><label for="bkCh">Children</label>
       <select id="bkCh"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+    <div class="bk-f"><label for="bkPromo">Discount code <span style="text-transform:none;letter-spacing:.02em">&mdash; optional</span></label><input id="bkPromo" type="text" placeholder="e.g. FALL20" style="width:150px"></div>
     <button class="bk-btn slate" type="submit">Update Search &nbsp;&rarr;</button>
   </form>
   <div id="bkCityAlert"></div>
@@ -116,18 +117,21 @@ document.addEventListener('DOMContentLoaded',function(){
   if(q.out) document.getElementById('bkOut').value=q.out;
   if(q.adults) document.getElementById('bkAd').value=q.adults;
   if(q.children) document.getElementById('bkCh').value=q.children;
+  if(q.promo) document.getElementById('bkPromo').value=q.promo;
 
   document.getElementById('bkEdit').addEventListener('submit',function(e){
     e.preventDefault();
     location.search='?'+BOOK.qs({property:propSel.value,city:null,
       'in':document.getElementById('bkIn').value,out:document.getElementById('bkOut').value,
       adults:document.getElementById('bkAd').value,children:document.getElementById('bkCh').value,
+      promo:document.getElementById('bkPromo').value.trim()||null,
       rooms:BOOK.roomsParam(sel)});
   });
 
   var nights=BOOK.nights(q['in'],q.out);
   document.getElementById('bkhContext').textContent =
     cur.name+', '+cur.city+(nights? ' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night') : ' — choose dates to see availability');
+  if(q.promo) document.getElementById('bkhContext').textContent += ' · code '+q.promo.toUpperCase()+' applies at checkout';
 
   // room results — multi-room module (quantity per suite type)
   var IMGS={'studio':'/assets/ig-social-1.jpg','one-bedroom':'/assets/ig-social-2.jpg','two-bedroom':'/assets/ig-social-3.jpg'};
