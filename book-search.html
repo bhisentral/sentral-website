@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/booking-chrome.css">
 <link rel="stylesheet" href="/overrides.css?v=4dark31">
 <link rel="stylesheet" href="/booking.css">
-<script src="/assets/booking-demo.js" defer></script>
+<script src="/assets/booking-demo.js?v=2" defer></script>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded',function(){
       '<img class="bk-room-img" src="'+IMGS[r.slug]+'" alt="'+r.name+' suite">'+
       '<div class="bk-room-mid">'+
         '<div class="bk-room-name">'+r.name+'</div>'+
-        '<div class="bk-specs">'+r.specs+'</div>'+
+        '<div class="bk-specs">'+r.specs.split(' · ').map(function(x){return '<span>'+x+'</span>'}).join(' · ')+'</div>'+
         '<div class="bk-room-links"><a href="'+detail+'">Rates &amp; suite details &nbsp;&rarr;</a></div>'+
       '</div>'+
       '<div class="bk-room-side">'+
