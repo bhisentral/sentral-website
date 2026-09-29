@@ -44,9 +44,9 @@ def page(title,body):
       '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
       '<meta name="robots" content="noindex">\n'
       '<title>'+title+'</title>\n'
-      '<link rel="stylesheet" href="/booking-chrome.css">\n'
+      '<link rel="stylesheet" href="/booking-chrome.css?v=2">\n'
       '<link rel="stylesheet" href="/overrides.css?v=4dark31">\n'
-      '<link rel="stylesheet" href="/booking.css">\n'
+      '<link rel="stylesheet" href="/booking.css?v=2">\n'
       '<script src="/assets/booking-demo.js?v=2" defer></script>\n'
       '</head>\n<body>\n<a class="skip-to-content" href="#main">Skip to content</a>\n<header>\n'
       +NAV+'\n</header>\n<main id="main">\n'+body+'\n</main>\n\n'+FOOT+'\n'+HAM_JS+'\n</body>\n</html>\n')
