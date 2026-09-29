@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded',function(){
   });
   document.getElementById('cityH').innerHTML=c.name+'. <em>Choose your Sentral.</em>';
   document.getElementById('ctContext').textContent=c.props.length+' properties'+(nights?' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out):'')+(q.promo?' · code '+q.promo.toUpperCase()+' will apply at checkout':'');
-  var IMGS=['/assets/ig-social-1.jpg','/assets/ig-social-2.jpg','/assets/ig-social-3.jpg'];
+  var IMGS=['/assets/bk-city-1.jpg','/assets/bk-city-2.jpg','/assets/bk-city-3.jpg'];
   document.getElementById('ctProps').innerHTML=c.props.map(function(slug,i){
     var p=BOOK.prop(slug);
     return '<a class="bk-prop" href="/book/search?'+BOOK.qs({property:slug,city:null})+'">'+

@@ -62,7 +62,7 @@
   <div class="bk-grid">
     <div>
       <div class="bk-card">
-        <img class="bk-room-img" id="rmImg" style="height:320px;width:100%" src="/assets/ig-social-1.jpg" alt="Suite living area">
+        <img class="bk-room-img" id="rmImg" style="height:320px;width:100%" src="/assets/bk-room-studio.jpg" alt="Suite living area">
         <div class="bk-pad">
           <div class="bk-room-name" id="rmName" style="font-size:1.6rem">Studio</div>
           <div class="bk-specs" id="rmSpecs">Sleeps 2 · 1 Queen Bed · 1 Bath · 517 Sq Ft</div>
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded',function(){
   var q=BOOK.q(), cur=BOOK.prop(q.property)||BOOK.PROPERTIES[0];
   var r=cur.rooms.filter(function(x){return x.slug===q.type})[0]||cur.rooms[0];
   var nights=BOOK.nights(q['in'],q.out);
-  var IMGS={'studio':'/assets/ig-social-1.jpg','one-bedroom':'/assets/ig-social-2.jpg','two-bedroom':'/assets/ig-social-3.jpg'};
+  var IMGS={'studio':'/assets/bk-room-studio.jpg','one-bedroom':'/assets/bk-room-1br.jpg','two-bedroom':'/assets/bk-room-2br.jpg'};
   document.getElementById('rmImg').src=IMGS[r.slug]||IMGS.studio;
   document.getElementById('rmName').textContent=r.name;
   document.getElementById('rmSpecs').textContent=r.specs;
