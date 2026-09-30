@@ -46,8 +46,8 @@ def page(title,body):
       '<title>'+title+'</title>\n'
       '<link rel="stylesheet" href="/booking-chrome.css?v=2">\n'
       '<link rel="stylesheet" href="/overrides.css?v=4dark31">\n'
-      '<link rel="stylesheet" href="/booking.css?v=3">\n'
-      '<script src="/assets/booking-demo.js?v=2" defer></script>\n'
+      '<link rel="stylesheet" href="/booking.css?v=5">\n'
+      '<script src="/assets/booking-demo.js?v=3" defer></script>\n'
       '</head>\n<body>\n<a class="skip-to-content" href="#main">Skip to content</a>\n<header>\n'
       +NAV+'\n</header>\n<main id="main">\n'+body+'\n</main>\n\n'+FOOT+'\n'+HAM_JS+'\n</body>\n</html>\n')
 
@@ -69,7 +69,203 @@ def header(eyebrow,h1,sub_id,step_on=None):
       +(steps(step_on) if step_on is not None else '')+'\n  </div>\n</section>')
 
 PAGES={}
-PAGES['book-search.html']=('Search Availability — Book a Stay — Sentral','<section class="bkh dark">\n  <div class="bkh-inner">\n    <span class="bkh-eyebrow">Sentral &mdash; Book a Stay</span>\n    <h1>Choose your <em>suite.</em></h1>\n    <p class="bkh-sub" id="bkhContext">Select a property and dates to see availability.</p>\n    <div class="bkh-steps" aria-label="Booking progress">\n      <span class="bkh-step on">1 &middot; Suites &amp; Availability</span>\n      <span class="bkh-step">2 &middot; Checkout</span>\n      <span class="bkh-step">3 &middot; Confirmation</span>\n    </div>\n  </div>\n</section>\n<div class="bk-demo">Design prototype &mdash; sample rates &amp; availability &middot; live data comes from StayNTouch via SentralOS at build</div>\n<div class="bk-wrap">\n  <!-- 1. Home widget hands city/dates/guests here; no PMS call upstream.\n       PRODUCTION (P0): this page pulls live availability + pricing from\n       StayNTouch via SentralOS (data pull method TBC w/ Nathan) and hosts\n       the multi-room booking module below. -->\n  <form class="bk-editbar" id="bkEdit">\n    <div class="bk-f bk-f-grow"><label for="bkProp">Property</label>\n      <select id="bkProp"></select></div>\n    <div class="bk-f"><label for="bkIn">Check-in</label><input id="bkIn" type="date"></div>\n    <div class="bk-f"><label for="bkOut">Check-out</label><input id="bkOut" type="date"></div>\n    <div class="bk-f"><label for="bkAd">Adults</label>\n      <select id="bkAd"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>\n    <div class="bk-f"><label for="bkCh">Children</label>\n      <select id="bkCh"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>\n    <div class="bk-f"><label for="bkPromo">Discount code</label><input id="bkPromo" type="text" placeholder="e.g. FALL20"></div>\n    <button class="bk-btn slate" type="submit">Update Search &nbsp;&rarr;</button>\n  </form>\n  <div id="bkCityAlert"></div>\n  <div class="bk-grid">\n    <div id="bkResults"></div>\n    <aside class="bk-rail" aria-label="Your stay">\n      <h3 id="railProp">Your stay</h3>\n      <div class="bk-rail-sub" id="railDates"></div>\n      <div id="railLines"></div>\n      <hr>\n      <div class="bk-total"><span>Total</span><span id="railTotal">&mdash;</span></div>\n      <a class="bk-btn slate wide off" id="railGo" href="#">Continue to Checkout &nbsp;&rarr;</a>\n      <div class="bk-note">Sample rates for design review &mdash; taxes shown at checkout</div>\n    </aside>\n  </div>\n</div>\n<script>\ndocument.addEventListener(\'DOMContentLoaded\',function(){\n  var q=BOOK.q(), sel=BOOK.parseRooms(q.rooms);\n  var props=BOOK.PROPERTIES, propSel=document.getElementById(\'bkProp\');\n  props.forEach(function(p){\n    var o=document.createElement(\'option\'); o.value=p.slug;\n    o.textContent=p.city+\' — \'+p.name+(p.minStay>1?\' (30+ nights)\':\'\');\n    propSel.appendChild(o);\n  });\n  var cur=BOOK.prop(q.property) || null;\n  // 1a. City hand-off: multi-property market w/ no property chosen → selector\n  var alertBox=document.getElementById(\'bkCityAlert\');\n  if(!cur && q.city && BOOK.CITIES[q.city]){\n    var c=BOOK.CITIES[q.city];\n    alertBox.innerHTML=\'<div class="bk-alert">\'+c.name+\' has \'+c.props.length+\n      \' Sentral properties. <a href="/stay/\'+q.city+\'?\'+BOOK.qs({})+\'">Choose your \'+c.name+\' property &rarr;</a></div>\';\n    cur=BOOK.prop(c.props[0]);\n  }\n  if(!cur){\n    var cityMatch = q.city && props.filter(function(p){return p.city.toLowerCase().replace(/ /g,\'-\')===q.city})[0];\n    cur = cityMatch || props[0];\n  }\n  propSel.value=cur.slug;\n  if(q[\'in\']) document.getElementById(\'bkIn\').value=q[\'in\'];\n  if(q.out) document.getElementById(\'bkOut\').value=q.out;\n  if(q.adults) document.getElementById(\'bkAd\').value=q.adults;\n  if(q.children) document.getElementById(\'bkCh\').value=q.children;\n  if(q.promo) document.getElementById(\'bkPromo\').value=q.promo;\n\n  document.getElementById(\'bkEdit\').addEventListener(\'submit\',function(e){\n    e.preventDefault();\n    location.search=\'?\'+BOOK.qs({property:propSel.value,city:null,\n      \'in\':document.getElementById(\'bkIn\').value,out:document.getElementById(\'bkOut\').value,\n      adults:document.getElementById(\'bkAd\').value,children:document.getElementById(\'bkCh\').value,\n      promo:document.getElementById(\'bkPromo\').value.trim()||null,\n      rooms:BOOK.roomsParam(sel)});\n  });\n\n  var nights=BOOK.nights(q[\'in\'],q.out);\n  document.getElementById(\'bkhContext\').textContent =\n    cur.name+\', \'+cur.city+(nights? \' · \'+BOOK.fmtDate(q[\'in\'])+\' → \'+BOOK.fmtDate(q.out)+\' · \'+nights+(nights>1?\' nights\':\' night\') : \' — choose dates to see availability\');\n  if(q.promo) document.getElementById(\'bkhContext\').textContent += \' \u00b7 code \'+q.promo.toUpperCase()+\' applies at checkout\';\n\n  // room results — multi-room module (quantity per suite type)\n  var IMGS={\'studio\':\'/assets/bk-room-studio.jpg\',\'one-bedroom\':\'/assets/bk-room-1br.jpg\',\'two-bedroom\':\'/assets/bk-room-2br.jpg\'};\n  var res=document.getElementById(\'bkResults\');\n  res.innerHTML = cur.rooms.map(function(r){\n    var detail=\'/book/room?\'+BOOK.qs({property:cur.slug,city:null,type:r.slug,rooms:BOOK.roomsParam(sel)});\n    return \'<div class="bk-card"><div class="bk-room">\'+\n      \'<img class="bk-room-img" src="\'+IMGS[r.slug]+\'" alt="\'+r.name+\' suite">\'+\n      \'<div class="bk-room-mid">\'+\n        \'<div class="bk-room-name">\'+r.name+\'</div>\'+\n        \'<div class="bk-specs">\'+r.specs.split(\' \u00b7 \').map(function(x){return \'<span>\'+x+\'</span>\'}).join(\' \u00b7 \')+\'</div>\'+\n        \'<div class="bk-room-links"><a href="\'+detail+\'">Rates &amp; suite details &nbsp;&rarr;</a></div>\'+\n      \'</div>\'+\n      \'<div class="bk-room-side">\'+\n        \'<span class="bk-price-n">\'+BOOK.money(r.from)+\'</span><span class="bk-price-l">Sample &middot; from / night</span>\'+\n        \'<div class="bk-step-ctl"><span class="lbl">Rooms</span>\'+\n          \'<button type="button" data-dec="\'+r.slug+\'" aria-label="Remove a \'+r.name+\'">&minus;</button>\'+\n          \'<span class="n" id="n-\'+r.slug+\'">\'+(sel[r.slug]||0)+\'</span>\'+\n          \'<button type="button" data-inc="\'+r.slug+\'" aria-label="Add a \'+r.name+\'">+</button>\'+\n        \'</div>\'+\n      \'</div>\'+\n    \'</div></div>\';\n  }).join(\'\');\n  if(cur.minStay>1) alertBox.innerHTML+=\'<div class="bk-alert">\'+cur.name+\' hosts extended stays only &mdash; 30 nights or more.</div>\';\n\n  res.addEventListener(\'click\',function(e){\n    var inc=e.target.getAttribute(\'data-inc\'), dec=e.target.getAttribute(\'data-dec\'), k=inc||dec;\n    if(!k) return;\n    sel[k]=Math.max(0,Math.min(9,(sel[k]||0)+(inc?1:-1)));\n    document.getElementById(\'n-\'+k).textContent=sel[k];\n    rail();\n  });\n\n  function rail(){\n    document.getElementById(\'railProp\').textContent=cur.name+\', \'+cur.city;\n    document.getElementById(\'railDates\').textContent =\n      nights? BOOK.fmtDate(q[\'in\'])+\' → \'+BOOK.fmtDate(q.out)+\' · \'+nights+(nights>1?\' nights\':\' night\') : \'Choose dates above\';\n    var lines=\'\',total=0,count=0;\n    cur.rooms.forEach(function(r){\n      var n=sel[r.slug]||0; if(!n) return; count+=n;\n      var amt=r.from*n*(nights||1);\n      total+=amt;\n      lines+=\'<div class="bk-line"><span>\'+n+\' × \'+r.name+(nights?\' <small>(\'+nights+\' nights)</small>\':\'\')+\'</span><span>\'+BOOK.money(amt)+\'</span></div>\';\n    });\n    document.getElementById(\'railLines\').innerHTML = lines||\'<div class="bk-line"><small>Add rooms to build your stay.</small></div>\';\n    document.getElementById(\'railTotal\').textContent = count&&nights? BOOK.money(total):\'—\';\n    var ok = count>0 && nights && !(cur.minStay>1 && nights<30);\n    var go=document.getElementById(\'railGo\');\n    go.classList.toggle(\'off\',!ok);\n    go.href=\'/book/checkout?\'+BOOK.qs({property:cur.slug,city:null,rooms:BOOK.roomsParam(sel)});\n    if(cur.minStay>1&&nights&&nights<30)\n      document.getElementById(\'railLines\').innerHTML+=\'<div class="bk-line"><small>This property requires 30+ nights.</small></div>\';\n  }\n  rail();\n});\n</script>')
+# ═══ 2. SEARCH AVAILABILITY — Synxis-style cards (Laurie 10-2): rate plans
+# inline (no extra click to see offers), strike-through best-rate pricing,
+# nightly avg vs stay total, thumbnails, rooms-left. Cards + options are baked
+# static from these constants (keep in sync with assets/booking-demo.js).
+SROOMS=[
+ ('studio','Studio','Sleeps 2 · 1 Queen Bed · 1 Bath · 517 Sq Ft',189,4,'/assets/bk-room-studio.jpg',['/assets/bk-room-1br.jpg','/assets/bk-city-1.jpg','/assets/bk-city-2.jpg']),
+ ('one-bedroom','One Bedroom','Sleeps 2 · 1 Queen Bed · 1 Bath · 673 Sq Ft',229,7,'/assets/bk-room-1br.jpg',['/assets/bk-room-studio.jpg','/assets/bk-city-2.jpg','/assets/bk-city-3.jpg']),
+ ('two-bedroom','Two Bedroom','Sleeps 4 · 2 Queen Beds · 2 Baths · 1,053 Sq Ft',319,2,'/assets/bk-room-2br.jpg',['/assets/bk-city-1.jpg','/assets/bk-city-3.jpg','/assets/bk-room-studio.jpg'])]
+SPLANS=[
+ ('fall','Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%','Flexible rate. Blackout dates and terms apply.',0.80),
+ ('campus','Campus Bound','For campus tours, games &amp; parents&rsquo; weekends. Terms apply.',0.86),
+ ('direct','Sentral.com Book Direct Rate | Save up to 10% off Best Rates','Book direct and save.',0.90)]
+SOPTS=[('sol-modern','Phoenix — Sol Modern'),('sentral-old-town','Scottsdale — Sentral Old Town'),
+ ('sentral-dtla-755','Los Angeles — Sentral DTLA 755 (31+ nights)'),('sentral-dtla-732','Los Angeles — Sentral DTLA 732 (31+ nights)'),
+ ('figueroa-eight','Los Angeles — Figueroa Eight (31+ nights)'),('sentral-union-station','Denver — Sentral Union Station'),
+ ('alea','Miami — Alea'),('sentral-wynwood','Miami — Sentral Wynwood'),('star-metals','Atlanta — Star Metals West Midtown'),
+ ('sentral-michigan-avenue','Chicago — Sentral Michigan Avenue'),('otonomus','Las Vegas — Otonomus'),
+ ('inkwell','Charlotte — Inkwell'),('joinery-north','Charlotte — Joinery North'),('joinery-west','Charlotte — Joinery West'),
+ ('the-battery','Philadelphia — The Battery (30+ nights)'),('sentral-sobro','Nashville — Sentral SoBro'),
+ ('sentral-east-austin-1630','Austin — Sentral East Austin 1630 (30+ nights)'),('sentral-east-austin-1614','Austin — Sentral East Austin 1614'),
+ ('forme','Houston — Forme'),('sentral-first-hill','Seattle — Sentral First Hill (30+ nights)')]
+def _money(n): return '$'+format(round(n),',')
+def _specspans(spec): return ' &middot; '.join('<span>'+x+'</span>' for x in spec.split(' · '))
+_SOPTS_HTML=''.join('<option value="'+a+'">'+b+'</option>' for a,b in SOPTS)
+def _card(slug,name,spec,base,left,img,thumbs):
+    plans=''
+    for i,(ps,pn,pnote,mult) in enumerate(SPLANS):
+        price=round(base*mult)
+        plans+=('<label class="bk-plan2"><input type="radio" name="pl-'+slug+'" value="'+ps+'"'+(' checked' if i==0 else '')+'>'
+          '<span class="bk-plan2-mid"><span class="bk-plan2-name">'+pn+'</span>'
+          '<span class="bk-plan2-note">'+pnote+'</span></span>'
+          '<span class="bk-plan2-price"><s>'+_money(base)+'</s> <b>'+_money(price)+'</b><small>sample &middot; avg / night</small></span></label>')
+    first=round(base*SPLANS[0][3])
+    return ('<div class="bk-card" data-room="'+slug+'" data-base="'+str(base)+'"><div class="bk-room2">'
+      '<div class="bk-room2-media"><img class="bk-room2-img" src="'+img+'" alt="'+name+' suite">'
+      '<div class="bk-thumbs">'+''.join('<img src="'+t+'" alt="" loading="lazy">' for t in thumbs)+'</div></div>'
+      '<div class="bk-room2-mid"><div class="bk-room-name">'+name+'</div>'
+      '<div class="bk-specs">'+_specspans(spec)+'</div>'
+      '<div class="bk-room-links"><a href="/book/room?property=sol-modern&type='+slug+'">More details &nbsp;&rarr;</a></div>'
+      '<div class="bk-plans2">'+plans+'</div></div>'
+      '<div class="bk-room2-side"><span class="bk-left">'+str(left)+' rooms left!</span>'
+      '<div class="bk-price-n" data-avg>'+_money(first)+'</div><div class="bk-price-l">Sample &middot; avg per night</div>'
+      '<div class="bk-total-sm" data-tot hidden></div>'
+      '<div class="bk-step-ctl"><span class="lbl">Rooms</span>'
+      '<button type="button" data-dec="'+slug+'" aria-label="Remove a '+name+'">&minus;</button>'
+      '<span class="n" id="n-'+slug+'">0</span>'
+      '<button type="button" data-inc="'+slug+'" aria-label="Add a '+name+'">+</button></div>'
+      '<a class="bk-btn bk-book-one" data-book="'+slug+'" href="/book/checkout">Book &nbsp;&rarr;</a>'
+      '</div></div></div>')
+SEARCH_CARDS=''.join(_card(*r) for r in SROOMS)
+
+PAGES['book-search.html']=('Search Availability — Book a Stay — Sentral',
+header('Sentral &mdash; Book a Stay','Choose your <em>suite.</em>','bkhContext',0)+'\n'+RIBBON+'''
+<div class="bk-wrap">
+  <!-- PRODUCTION (P0): live availability + pricing from StayNTouch via
+       SentralOS (method TBC w/ Nathan); hosts the multi-room module. -->
+  <form class="bk-editbar" id="bkEdit">
+    <div class="bk-f bk-f-grow"><label for="bkProp">Property</label>
+      <select id="bkProp">'''+_SOPTS_HTML+'''</select></div>
+    <div class="bk-f"><label for="bkIn">Check-in</label><input id="bkIn" type="date"></div>
+    <div class="bk-f"><label for="bkOut">Check-out</label><input id="bkOut" type="date"></div>
+    <div class="bk-f"><label for="bkAd">Adults</label>
+      <select id="bkAd"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
+    <div class="bk-f"><label for="bkCh">Children</label>
+      <select id="bkCh"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+    <div class="bk-f"><label for="bkPromo">Discount code</label><input id="bkPromo" type="text" placeholder="e.g. FALL20"></div>
+    <button class="bk-btn slate" type="submit">Update Search &nbsp;&rarr;</button>
+  </form>
+  <div id="bkCityAlert"></div>
+  <div class="bk-results-head">
+    <span id="bkCount">3 room types available for your search</span>
+    <select id="bkSort" aria-label="Sort results">
+      <option value="asc">Sort: Price low &rarr; high</option>
+      <option value="desc">Sort: Price high &rarr; low</option>
+    </select>
+  </div>
+  <div class="bk-grid">
+    <div id="bkResults">'''+SEARCH_CARDS+'''</div>
+    <aside class="bk-rail" aria-label="Your stay">
+      <h3 id="railProp">Sol Modern, Phoenix</h3>
+      <div class="bk-rail-sub" id="railDates">Choose dates above</div>
+      <div id="railLines"><div class="bk-line"><small>Add rooms to build your stay.</small></div></div>
+      <hr>
+      <div class="bk-total"><span>Total</span><span id="railTotal">&mdash;</span></div>
+      <a class="bk-btn wide off slate" id="railGo" href="#">Continue to Checkout &nbsp;&rarr;</a>
+      <div class="bk-note">Sample rates for design review &mdash; excludes taxes, shown at checkout</div>
+    </aside>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var q=BOOK.q(), sel=BOOK.parseRooms(q.rooms);
+  var props=BOOK.PROPERTIES, propSel=document.getElementById('bkProp'); // options baked static
+  var cur=BOOK.prop(q.property)||null;
+  var alertBox=document.getElementById('bkCityAlert');
+  if(!cur && q.city && BOOK.CITIES[q.city]){
+    var c=BOOK.CITIES[q.city];
+    alertBox.innerHTML='<div class="bk-alert">'+c.name+' has '+c.props.length+
+      ' Sentral properties. <a href="/stay/'+q.city+'?'+BOOK.qs({})+'">Choose your '+c.name+' property &rarr;</a></div>';
+    cur=BOOK.prop(c.props[0]);
+  }
+  if(!cur){
+    var cityMatch=q.city && props.filter(function(p){return p.city.toLowerCase().replace(/ /g,'-')===q.city})[0];
+    cur=cityMatch||props[0];
+  }
+  propSel.value=cur.slug;
+  if(q['in']) document.getElementById('bkIn').value=q['in'];
+  if(q.out) document.getElementById('bkOut').value=q.out;
+  if(q.adults) document.getElementById('bkAd').value=q.adults;
+  if(q.children) document.getElementById('bkCh').value=q.children;
+  if(q.promo) document.getElementById('bkPromo').value=q.promo;
+  document.getElementById('bkEdit').addEventListener('submit',function(e){
+    e.preventDefault();
+    location.search='?'+BOOK.qs({property:propSel.value,city:null,
+      'in':document.getElementById('bkIn').value,out:document.getElementById('bkOut').value,
+      adults:document.getElementById('bkAd').value,children:document.getElementById('bkCh').value,
+      promo:document.getElementById('bkPromo').value.trim()||null,
+      rooms:BOOK.roomsParam(sel)});
+  });
+  var nights=BOOK.nights(q['in'],q.out);
+  document.getElementById('bkhContext').textContent=
+    cur.name+', '+cur.city+(nights? ' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night') : ' — choose dates to see availability')
+    +(q.promo?' · code '+q.promo.toUpperCase()+' applies at checkout':'');
+  if(cur.minStay>1) alertBox.innerHTML+='<div class="bk-alert">'+cur.name+' hosts extended stays only — '+cur.minStay+' nights or more.</div>';
+
+  var res=document.getElementById('bkResults');
+  function room(slug){ return cur.rooms.filter(function(r){return r.slug===slug})[0]; }
+  function state(slug){ if(!sel[slug]) sel[slug]={n:0,plan:'fall'}; return sel[slug]; }
+  function card(slug){ return res.querySelector('.bk-card[data-room="'+slug+'"]'); }
+  function paintCard(slug){
+    var r=room(slug), st=state(slug), pl=BOOK.plan(st.plan), c=card(slug);
+    if(!r||!c) return;
+    var avg=BOOK.planPrice(r,pl);
+    c.querySelector('[data-avg]').textContent=BOOK.money(avg);
+    var tot=c.querySelector('[data-tot]');
+    if(nights){
+      tot.hidden=false;
+      tot.innerHTML='<b>'+BOOK.money(avg*nights*Math.max(1,st.n))+'</b> total · '+nights+(nights>1?' nights':' night')+'<br><small>Excludes taxes</small>';
+    } else tot.hidden=true;
+    c.querySelector('#n-'+slug).textContent=st.n;
+  }
+  cur.rooms.forEach(function(r){
+    var st=state(r.slug);
+    var radio=res.querySelector('input[name="pl-'+r.slug+'"][value="'+st.plan+'"]');
+    if(radio) radio.checked=true;
+    paintCard(r.slug);
+  });
+  res.addEventListener('change',function(e){
+    if(e.target.type!=='radio') return;
+    var slug=e.target.name.replace('pl-','');
+    state(slug).plan=e.target.value;
+    paintCard(slug); rail();
+  });
+  res.addEventListener('click',function(e){
+    var inc=e.target.getAttribute&&e.target.getAttribute('data-inc'),
+        dec=e.target.getAttribute&&e.target.getAttribute('data-dec'), k=inc||dec;
+    if(k){
+      var st=state(k); st.n=Math.max(0,Math.min(9,st.n+(inc?1:-1)));
+      paintCard(k); rail(); return;
+    }
+    var bk=e.target.closest&&e.target.closest('.bk-book-one');
+    if(bk){
+      e.preventDefault();
+      var slug=bk.getAttribute('data-book'), st=state(slug);
+      if(st.n<1) st.n=1;
+      location.href='/book/checkout?'+BOOK.qs({property:cur.slug,city:null,rooms:BOOK.roomsParam(sel)});
+    }
+  });
+  document.getElementById('bkSort').addEventListener('change',function(){
+    var dir=this.value==='desc'?-1:1;
+    [].slice.call(res.children)
+      .sort(function(a,b){ return dir*((+a.getAttribute('data-base'))-(+b.getAttribute('data-base'))); })
+      .forEach(function(c){ res.appendChild(c); });
+  });
+  function rail(){
+    document.getElementById('railProp').textContent=cur.name+', '+cur.city;
+    document.getElementById('railDates').textContent=
+      nights? BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night') : 'Choose dates above';
+    var lines='',total=0,count=0;
+    cur.rooms.forEach(function(r){
+      var st=sel[r.slug]; if(!st||!st.n) return;
+      var pl=BOOK.plan(st.plan), amt=BOOK.planPrice(r,pl)*st.n*(nights||1);
+      count+=st.n; total+=amt;
+      lines+='<div class="bk-line"><span>'+st.n+' × '+r.name+' <small>'+(pl.short||pl.name)+(nights?' · '+nights+' nights':'')+'</small></span><span>'+BOOK.money(amt)+'</span></div>';
+    });
+    document.getElementById('railLines').innerHTML=lines||'<div class="bk-line"><small>Add rooms to build your stay.</small></div>';
+    document.getElementById('railTotal').textContent=count&&nights? BOOK.money(total):'—';
+    var ok=count>0&&nights&&!(cur.minStay>1&&nights<cur.minStay);
+    var go=document.getElementById('railGo');
+    go.classList.toggle('off',!ok);
+    go.href='/book/checkout?'+BOOK.qs({property:cur.slug,city:null,rooms:BOOK.roomsParam(sel)});
+    if(cur.minStay>1&&nights&&nights<cur.minStay)
+      document.getElementById('railLines').innerHTML+='<div class="bk-line"><small>This property requires '+cur.minStay+'+ nights.</small></div>';
+  }
+  rail();
+});
+</script>''')
 
 # ═══ 4. ROOM LIST + ROOM DETAIL — live StayNTouch rate plans at build ═══
 PAGES['book-room.html']=('Suite Rates & Details — Book a Stay — Sentral',
@@ -120,14 +316,14 @@ document.addEventListener('DOMContentLoaded',function(){
   document.getElementById('railProp').textContent=cur.name+', '+cur.city;
   document.getElementById('railDates').textContent=nights? BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night'):'Choose dates on the previous step';
   document.getElementById('rmPlans').innerHTML = BOOK.PLANS.map(function(pl){
-    var nightly=r.from*pl.mult;
+    var nightly=BOOK.planPrice(r,pl);
     var total=nights? ' · '+BOOK.money(nightly*nights)+' total' : '';
     return '<div class="bk-plan"><div>'+
       '<div class="bk-plan-name">'+pl.name+'</div>'+
       '<div class="bk-plan-note">'+pl.note+'</div></div>'+
       '<div style="display:flex;align-items:center;gap:18px">'+
-      '<span class="bk-plan-price">'+BOOK.money(nightly)+'<span class="bk-price-l" style="display:block;text-align:right">sample / night'+total+'</span></span>'+
-      '<a class="bk-btn" href="/book/checkout?'+BOOK.qs({property:cur.slug,rooms:r.slug+':1',plan:pl.slug,type:null})+'">Select &nbsp;&rarr;</a>'+
+      '<span class="bk-plan-price"><s style="color:#9a948e;font-size:.9375rem">'+BOOK.money(r.from)+'</s> '+BOOK.money(nightly)+'<span class="bk-price-l" style="display:block;text-align:right">sample · avg / night'+total+'</span></span>'+
+      '<a class="bk-btn" href="/book/checkout?'+BOOK.qs({property:cur.slug,rooms:r.slug+':1:'+pl.slug,type:null,plan:null})+'">Select &nbsp;&rarr;</a>'+
       '</div></div>';
   }).join('');
 });
@@ -173,15 +369,15 @@ header('Sentral &mdash; Book a Stay','Almost <em>home.</em>','ckContext',1)+'''
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   var q=BOOK.q(), cur=BOOK.prop(q.property)||BOOK.PROPERTIES[0];
-  var sel=BOOK.parseRooms(q.rooms), plan=BOOK.plan(q.plan), nights=BOOK.nights(q['in'],q.out)||1;
+  var sel=BOOK.parseRooms(q.rooms), nights=BOOK.nights(q['in'],q.out)||1;
   document.getElementById('ckContext').textContent=cur.name+', '+cur.city+' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out);
   document.getElementById('railProp').textContent=cur.name+', '+cur.city;
-  document.getElementById('railDates').textContent=BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night')+' · '+plan.name;
+  document.getElementById('railDates').textContent=BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night');
   var sub=0,lines='';
   cur.rooms.forEach(function(r){
-    var n=sel[r.slug]||0; if(!n) return;
-    var amt=r.from*plan.mult*n*nights; sub+=amt;
-    lines+='<div class="bk-line"><span>'+n+' × '+r.name+' <small>('+nights+' × '+BOOK.money(r.from*plan.mult)+')</small></span><span>'+BOOK.money(amt)+'</span></div>';
+    var st=sel[r.slug]; if(!st||!st.n) return;
+    var pl=BOOK.plan(st.plan), nightly=BOOK.planPrice(r,pl), amt=nightly*st.n*nights; sub+=amt;
+    lines+='<div class="bk-line"><span>'+st.n+' × '+r.name+' <small>'+(pl.short||pl.name)+' ('+nights+' × '+BOOK.money(nightly)+')</small></span><span>'+BOOK.money(amt)+'</span></div>';
   });
   if(!sub){ lines='<div class="bk-line"><small>No rooms selected — start from Suites &amp; Availability.</small></div>'; }
   document.getElementById('railLines').innerHTML=lines+(sub?'<div class="bk-line strong"><span>Subtotal</span><span>'+BOOK.money(sub)+'</span></div>':'');
@@ -239,15 +435,15 @@ header('Sentral &mdash; Book a Stay','You&rsquo;re <em>booked.</em>','cfContext'
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   var q=BOOK.q(), cur=BOOK.prop(q.property)||BOOK.PROPERTIES[0];
-  var sel=BOOK.parseRooms(q.rooms), plan=BOOK.plan(q.plan), nights=BOOK.nights(q['in'],q.out)||1;
+  var sel=BOOK.parseRooms(q.rooms), nights=BOOK.nights(q['in'],q.out)||1;
   document.getElementById('cfNum').textContent='SENT-'+(Date.now().toString(36).toUpperCase().slice(-6));
   document.getElementById('cfContext').textContent=cur.name+', '+cur.city;
   document.getElementById('cfMsg').textContent=(q.guest?q.guest+', your':'Your')+' suite at '+cur.name+' is set for '+BOOK.fmtDate(q['in'])+'. Check-in opens at 4:00 PM with keyless entry — your code arrives the morning of arrival.';
   document.getElementById('cfPhone').textContent=cur.phone||'(833) 370-4161';
   document.getElementById('railProp').textContent=cur.name+', '+cur.city;
-  document.getElementById('railDates').textContent=BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night')+' · '+plan.name;
+  document.getElementById('railDates').textContent=BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night');
   var lines='';
-  cur.rooms.forEach(function(r){ var n=sel[r.slug]||0; if(n) lines+='<div class="bk-line"><span>'+n+' × '+r.name+'</span><span>'+BOOK.money(r.from*plan.mult*n*nights)+'</span></div>'; });
+  cur.rooms.forEach(function(r){ var st=sel[r.slug]; if(st&&st.n){ var pl=BOOK.plan(st.plan); lines+='<div class="bk-line"><span>'+st.n+' × '+r.name+' <small>'+(pl.short||pl.name)+'</small></span><span>'+BOOK.money(BOOK.planPrice(r,pl)*st.n*nights)+'</span></div>'; } });
   document.getElementById('railLines').innerHTML=lines||'<div class="bk-line"><small>Sample stay</small></div>';
 });
 </script>''')
@@ -372,9 +568,9 @@ ROOMS_PY=[('studio','Studio','Sleeps 2 · 1 Queen Bed · 1 Bath · 517 Sq Ft',18
           ('one-bedroom','One Bedroom','Sleeps 2 · 1 Queen Bed · 1 Bath · 673 Sq Ft',229),
           ('two-bedroom','Two Bedroom','Sleeps 4 · 2 Queen Beds · 2 Baths · 1,053 Sq Ft',319)]
 RIMG={'studio':'/assets/bk-room-studio.jpg','one-bedroom':'/assets/bk-room-1br.jpg','two-bedroom':'/assets/bk-room-2br.jpg'}
-PLANS_PY=[('direct','Direct Rate','Best flexible rate. Free cancellation to 48 hours before arrival.',1.00),
-          ('early','Advance Purchase &mdash; save 20%','Book 30+ days ahead. Pre-paid, non-refundable.',0.80),
-          ('sale','Seasonal Sale &mdash; save 15%','Limited dates. Blackout dates and terms apply.',0.85)]
+PLANS_PY=[('fall','Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%','Flexible rate. Blackout dates and terms apply.',0.80),
+          ('campus','Campus Bound','For campus tours, games &amp; parents&rsquo; weekends. Terms apply.',0.86),
+          ('direct','Sentral.com Book Direct Rate | Save up to 10% off Best Rates','Book direct and save.',0.90)]
 PROPS_PY=[('sol-modern','Phoenix — Sol Modern'),('sentral-old-town','Scottsdale — Sentral Old Town'),
  ('sentral-dtla-755','Los Angeles — Sentral DTLA 755 (30+ nights)'),('sentral-dtla-732','Los Angeles — Sentral DTLA 732 (30+ nights)'),
  ('figueroa-eight','Los Angeles — Figueroa Eight (30+ nights)'),('sentral-union-station','Denver — Sentral Union Station'),
@@ -411,19 +607,7 @@ cards=''.join(
  '</div></div>'
  '</div></div>' for slug,name,spec,rate in ROOMS_PY)
 options=''.join('<option value="'+s+'">'+l+'</option>' for s,l in PROPS_PY)
-bake('book-search.html',[
- ('<div id="bkResults"></div>','<div id="bkResults">'+cards+'</div>'),
- ('<select id="bkProp"></select>','<select id="bkProp">'+options+'</select>'),
- ('''  var props=BOOK.PROPERTIES, propSel=document.getElementById('bkProp');
-  props.forEach(function(p){
-    var o=document.createElement('option'); o.value=p.slug;
-    o.textContent=p.city+' — '+p.name+(p.minStay>1?' (30+ nights)':'');
-    propSel.appendChild(o);
-  });''','''  var props=BOOK.PROPERTIES, propSel=document.getElementById('bkProp'); // options baked static'''),
- ('<h3 id="railProp">Your stay</h3>','<h3 id="railProp">Sol Modern, Phoenix</h3>'),
- ('<div class="bk-rail-sub" id="railDates"></div>','<div class="bk-rail-sub" id="railDates">Choose dates above</div>'),
- ('<div id="railLines"></div>','<div id="railLines"><div class="bk-line"><small>Add rooms to build your stay.</small></div></div>'),
-])
+# book-search: cards/options/rail baked directly in its body (10-2 redesign)
 
 # — room: studio detail + plan rows —
 plan_rows=''.join(
@@ -431,8 +615,8 @@ plan_rows=''.join(
  '<div class="bk-plan-name">'+pname+'</div>'
  '<div class="bk-plan-note">'+note+'</div></div>'
  '<div style="display:flex;align-items:center;gap:18px">'
- '<span class="bk-plan-price">'+money(189*mult)+'<span class="bk-price-l" style="display:block;text-align:right">sample / night</span></span>'
- '<a class="bk-btn" href="/book/checkout?property=sol-modern&rooms=studio:1&plan='+pslug+'">Select &nbsp;&rarr;</a>'
+ '<span class="bk-plan-price"><s style="color:#9a948e;font-size:.9375rem">'+money(189)+'</s> '+money(round(189*mult))+'<span class="bk-price-l" style="display:block;text-align:right">sample &middot; avg / night</span></span>'
+ '<a class="bk-btn" href="/book/checkout?property=sol-modern&rooms=studio:1:'+pslug+'">Select &nbsp;&rarr;</a>'
  '</div></div>' for pslug,pname,note,mult in PLANS_PY)
 bake('book-room.html',[
  ('<div class="bk-room-name" id="rmName" style="font-size:1.6rem"></div>','<div class="bk-room-name" id="rmName" style="font-size:1.6rem">Studio</div>'),
@@ -444,11 +628,11 @@ bake('book-room.html',[
 ])
 
 # — checkout: representative sample stay (1 × One Bedroom, 3 nights) —
-sub=229*3; tax=round(sub*0.125)
+sub=183*3; tax=round(sub*0.125)
 bake('book-checkout.html',[
  ('<h3 id="railProp"></h3>','<h3 id="railProp">Sol Modern, Phoenix</h3>'),
- ('<div class="bk-rail-sub" id="railDates"></div>','<div class="bk-rail-sub" id="railDates">Sample stay &middot; 3 nights &middot; Direct Rate</div>'),
- ('<div id="railLines"></div>','<div id="railLines"><div class="bk-line"><span>1 &times; One Bedroom <small>(3 &times; $229)</small></span><span>'+money(sub)+'</span></div><div class="bk-line strong"><span>Subtotal</span><span>'+money(sub)+'</span></div></div>'),
+ ('<div class="bk-rail-sub" id="railDates"></div>','<div class="bk-rail-sub" id="railDates">Sample stay &middot; 3 nights</div>'),
+ ('<div id="railLines"></div>','<div id="railLines"><div class="bk-line"><span>1 &times; One Bedroom <small>Fall Sale (3 &times; $183)</small></span><span>'+money(sub)+'</span></div><div class="bk-line strong"><span>Subtotal</span><span>'+money(sub)+'</span></div></div>'),
  ('<div id="railTaxes"></div>','<div id="railTaxes"><div class="bk-line"><span>State &amp; local occupancy tax <small>(sample 12.5%)</small></span><span>'+money(tax)+'</span></div><div class="bk-line"><span>Resort fee</span><span>$0</span></div><div class="bk-line"><small>None &mdash; the rate you see is the rate you pay</small></div></div>'),
  ('<div class="bk-total"><span>Total</span><span id="railTotal">&mdash;</span></div>','<div class="bk-total"><span>Total</span><span id="railTotal">'+money(sub+tax)+'</span></div>'),
 ])
@@ -459,6 +643,6 @@ bake('book-confirm.html',[
  ('<p style="font-size:.9375rem;color:#4a4643;max-width:60ch" id="cfMsg"></p>','<p style="font-size:.9375rem;color:#4a4643;max-width:60ch" id="cfMsg">Your suite at Sol Modern is set. Check-in opens at 4:00 PM with keyless entry &mdash; your code arrives the morning of arrival.</p>'),
  ('<strong id="cfPhone"></strong>','<strong id="cfPhone">(833) 370-4161</strong>'),
  ('<h3 id="railProp"></h3>','<h3 id="railProp">Sol Modern, Phoenix</h3>'),
- ('<div class="bk-rail-sub" id="railDates"></div>','<div class="bk-rail-sub" id="railDates">Sample stay &middot; 3 nights &middot; Direct Rate</div>'),
- ('<div id="railLines"></div>','<div id="railLines"><div class="bk-line"><span>1 &times; One Bedroom</span><span>'+money(229*3)+'</span></div></div>'),
+ ('<div class="bk-rail-sub" id="railDates"></div>','<div class="bk-rail-sub" id="railDates">Sample stay &middot; 3 nights</div>'),
+ ('<div id="railLines"></div>','<div id="railLines"><div class="bk-line"><span>1 &times; One Bedroom <small>Fall Sale</small></span><span>'+money(183*3)+'</span></div></div>'),
 ])

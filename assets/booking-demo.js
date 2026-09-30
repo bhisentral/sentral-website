@@ -7,9 +7,9 @@
 ──────────────────────────────────────────────────────────────────────────── */
 window.BOOK = (function(){
   var ROOMS_STANDARD = [
-    {slug:'studio',      name:'Studio',      sleeps:2, sqft:517,  beds:'1 Queen Bed',  baths:1, from:189},
-    {slug:'one-bedroom', name:'One Bedroom', sleeps:2, sqft:673,  beds:'1 Queen Bed',  baths:1, from:229},
-    {slug:'two-bedroom', name:'Two Bedroom', sleeps:4, sqft:1053, beds:'2 Queen Beds', baths:2, from:319}
+    {slug:'studio',      name:'Studio',      sleeps:2, sqft:517,  beds:'1 Queen Bed',  baths:1, from:189, left:4, img:'/assets/bk-room-studio.jpg', thumbs:['/assets/bk-room-1br.jpg','/assets/bk-city-1.jpg','/assets/bk-city-2.jpg']},
+    {slug:'one-bedroom', name:'One Bedroom', sleeps:2, sqft:673,  beds:'1 Queen Bed',  baths:1, from:229, left:7, img:'/assets/bk-room-1br.jpg', thumbs:['/assets/bk-room-studio.jpg','/assets/bk-city-2.jpg','/assets/bk-city-3.jpg']},
+    {slug:'two-bedroom', name:'Two Bedroom', sleeps:4, sqft:1053, beds:'2 Queen Beds', baths:2, from:319, left:2, img:'/assets/bk-room-2br.jpg', thumbs:['/assets/bk-city-1.jpg','/assets/bk-city-3.jpg','/assets/bk-room-studio.jpg']}
   ];
   ROOMS_STANDARD.forEach(function(r){
     r.specs='Sleeps '+r.sleeps+' \u00b7 '+r.beds+' \u00b7 '+r.baths+' Bath'+(r.baths>1?'s':'')+' \u00b7 '+r.sqft.toLocaleString('en-US')+' Sq Ft';
@@ -24,9 +24,9 @@ window.BOOK = (function(){
   var PROPERTIES=[
     P('sol-modern','Sol Modern','Phoenix','AZ',{address:'50 E. Fillmore Street, Phoenix, AZ 85004',phone:'(833) 370-4161'}),
     P('sentral-old-town','Sentral Old Town','Scottsdale','AZ'),
-    P('sentral-dtla-755','Sentral DTLA 755','Los Angeles','CA',{minStay:30}),
-    P('sentral-dtla-732','Sentral DTLA 732','Los Angeles','CA',{minStay:30}),
-    P('figueroa-eight','Figueroa Eight','Los Angeles','CA',{minStay:30}),
+    P('sentral-dtla-755','Sentral DTLA 755','Los Angeles','CA',{minStay:31}),
+    P('sentral-dtla-732','Sentral DTLA 732','Los Angeles','CA',{minStay:31}),
+    P('figueroa-eight','Figueroa Eight','Los Angeles','CA',{minStay:31}),
     P('sentral-union-station','Sentral Union Station','Denver','CO'),
     P('alea','Alea','Miami','FL'),
     P('sentral-wynwood','Sentral Wynwood','Miami','FL'),
@@ -38,7 +38,7 @@ window.BOOK = (function(){
     P('joinery-west','Joinery West','Charlotte','NC'),
     P('the-battery','The Battery','Philadelphia','PA',{minStay:30}),
     P('sentral-sobro','Sentral SoBro','Nashville','TN'),
-    P('sentral-east-austin-1630','Sentral East Austin 1630','Austin','TX'),
+    P('sentral-east-austin-1630','Sentral East Austin 1630','Austin','TX',{minStay:30}),
     P('sentral-east-austin-1614','Sentral East Austin 1614','Austin','TX'),
     P('forme','Forme','Houston','TX'),
     P('sentral-first-hill','Sentral First Hill','Seattle','WA',{minStay:30})
@@ -53,9 +53,9 @@ window.BOOK = (function(){
   /* Rate plans mirror the offers on the live property pages.
      PRODUCTION: replace with live StayNTouch rate plans (sale / early booking / direct). */
   var PLANS=[
-    {slug:'direct', name:'Direct Rate',                 mult:1.00, note:'Best flexible rate. Free cancellation to 48 hours before arrival.'},
-    {slug:'early',  name:'Advance Purchase — save 20%', mult:0.80, note:'Book 30+ days ahead. Pre-paid, non-refundable.'},
-    {slug:'sale',   name:'Seasonal Sale — save 15%',    mult:0.85, note:'Limited dates. Blackout dates and terms apply.'}
+    {slug:'fall',   short:'Fall Sale',    name:'Limited Time Fall Sale | Stay 2+ Nights & Save up to 20%', mult:0.80, note:'Flexible rate. Blackout dates and terms apply.'},
+    {slug:'campus', short:'Campus Bound', name:'Campus Bound',                                             mult:0.86, note:'For campus tours, games & parents\u2019 weekends. Terms apply.'},
+    {slug:'direct', short:'Book Direct',  name:'Sentral.com Book Direct Rate | Save up to 10% off Best Rates', mult:0.90, note:'Book direct and save.'}
   ];
   /* Property-specific tax line items — SAMPLE percentages, [FIELD] per property.
      PRODUCTION: driven by property data. */
@@ -78,19 +78,21 @@ window.BOOK = (function(){
   function money(n){ return '$'+Math.round(n).toLocaleString('en-US'); }
   function parseRooms(str){
     var out={}; (str||'').split(',').forEach(function(pair){
-      var kv=pair.split(':'); if(kv[0]&&+kv[1]>0) out[kv[0]]=Math.min(9,+kv[1]);
+      var kv=pair.split(':');
+      if(kv[0]&&+kv[1]>0) out[kv[0]]={n:Math.min(9,+kv[1]), plan:kv[2]||'fall'};
     }); return out;
   }
   function roomsParam(sel){
-    return Object.keys(sel).filter(function(k){return sel[k]>0})
-      .map(function(k){return k+':'+sel[k]}).join(',');
+    return Object.keys(sel).filter(function(k){return sel[k]&&sel[k].n>0})
+      .map(function(k){return k+':'+sel[k].n+':'+(sel[k].plan||'fall')}).join(',');
   }
+  function planPrice(r,pl){ return Math.round(r.from*pl.mult); }
   function fmtDate(d){
     if(!d) return '';
     var dt=new Date(d+'T12:00:00');
     return dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
   }
   return {PROPERTIES:PROPERTIES,CITIES:CITIES,PLANS:PLANS,TAXES:TAXES,
-          q:q,qs:qs,prop:prop,plan:plan,nights:nights,money:money,
+          q:q,qs:qs,prop:prop,plan:plan,nights:nights,money:money,planPrice:planPrice,
           parseRooms:parseRooms,roomsParam:roomsParam,fmtDate:fmtDate};
 })();

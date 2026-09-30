@@ -102,3 +102,34 @@ section.bkh.dark[class] h1 em,.bkh h1 em{font-style:italic;color:#F2E8D5 !import
 .bk-alert a{color:var(--bk-slate);font-weight:600}
 .bk-confirm-n{font-family:var(--bk-serif);font-size:2.2rem;letter-spacing:.05em;color:var(--bk-slate);margin:6px 0 2px}
 @media(max-width:900px){.bk-grid{grid-template-columns:1fr}.bk-rail{position:static}.bk-room{grid-template-columns:1fr}.bk-room-img{min-height:150px;max-height:190px}.bk-room-side{border-left:none;border-top:1px solid rgba(40,40,40,.1);align-items:flex-start}.bkh{padding-top:100px}}
+
+/* ── Synxis-style search cards (Laurie 10-2): inline rate plans, strike-through
+   best rate, avg/night + stay total, thumbnails, rooms-left ── */
+.bk-results-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:-8px 0 18px}
+.bk-results-head span{font-size:.8438rem;color:var(--bk-lt)}
+.bk-results-head select{height:38px;border:1px solid rgba(40,40,40,.22);border-radius:2px;padding:0 10px;font-family:var(--bk-sans);font-size:.8125rem;background:#fff;color:var(--bk-ink)}
+.bk-room2{display:grid;grid-template-columns:250px 1fr 190px;align-items:stretch}
+.bk-room2-media{display:flex;flex-direction:column}
+.bk-room2-img{width:100%;flex:1;min-height:200px;object-fit:cover;display:block;background:var(--bk-cream-warm)}
+.bk-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:2px 0 0}
+.bk-thumbs img{width:100%;height:56px;object-fit:cover;display:block;cursor:pointer;opacity:.9}
+.bk-thumbs img:hover{opacity:1}
+.bk-room2-mid{padding:18px 22px 16px;display:flex;flex-direction:column}
+.bk-plans2{margin-top:14px;border-top:1px solid rgba(40,40,40,.1)}
+.bk-plan2{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid rgba(40,40,40,.07);cursor:pointer}
+.bk-plan2:last-child{border-bottom:none}
+.bk-plan2 input{margin-top:4px;accent-color:var(--bk-slate);flex-shrink:0}
+.bk-plan2-mid{flex:1;min-width:0}
+.bk-plan2-name{display:block;font-size:.8438rem;font-weight:600;color:var(--bk-ink);line-height:1.4}
+.bk-plan2-note{display:block;font-size:.75rem;color:var(--bk-lt);margin-top:2px}
+.bk-plan2-price{text-align:right;white-space:nowrap;flex-shrink:0}
+.bk-plan2-price s{color:#9a948e;font-size:.8125rem;margin-right:4px}
+.bk-plan2-price b{font-family:var(--bk-serif);font-weight:400;font-size:1.125rem}
+.bk-plan2-price small{display:block;font-size:.6563rem;color:var(--bk-lt);letter-spacing:.06em;text-transform:uppercase}
+.bk-room2-side{border-left:1px solid rgba(40,40,40,.1);padding:18px;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;gap:6px;background:rgba(239,237,232,.45);text-align:right}
+.bk-left{font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8C6A2E;background:#F2E8D5;padding:4px 10px;border-radius:2px}
+.bk-total-sm{font-size:.8125rem;color:#4a4643}
+.bk-total-sm b{font-family:var(--bk-serif);font-size:1.0625rem;font-weight:400}
+.bk-total-sm small{color:var(--bk-lt)}
+.bk-book-one{padding:11px 22px;margin-top:6px}
+@media(max-width:900px){.bk-room2{grid-template-columns:1fr}.bk-room2-side{border-left:none;border-top:1px solid rgba(40,40,40,.1);align-items:flex-start;text-align:left}.bk-results-head{flex-direction:column;align-items:flex-start}}

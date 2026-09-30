@@ -7,8 +7,8 @@
 <title>Suite Rates & Details — Book a Stay — Sentral</title>
 <link rel="stylesheet" href="/booking-chrome.css?v=2">
 <link rel="stylesheet" href="/overrides.css?v=4dark31">
-<link rel="stylesheet" href="/booking.css?v=3">
-<script src="/assets/booking-demo.js?v=2" defer></script>
+<link rel="stylesheet" href="/booking.css?v=5">
+<script src="/assets/booking-demo.js?v=3" defer></script>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -71,7 +71,7 @@
       </div>
       <div class="bk-card">
         <div class="bk-pad" style="padding-bottom:8px"><span class="bk-eyebrow">Choose your rate</span></div>
-        <div id="rmPlans"><div class="bk-plan"><div><div class="bk-plan-name">Direct Rate</div><div class="bk-plan-note">Best flexible rate. Free cancellation to 48 hours before arrival.</div></div><div style="display:flex;align-items:center;gap:18px"><span class="bk-plan-price">$189<span class="bk-price-l" style="display:block;text-align:right">sample / night</span></span><a class="bk-btn" href="/book/checkout?property=sol-modern&rooms=studio:1&plan=direct">Select &nbsp;&rarr;</a></div></div><div class="bk-plan"><div><div class="bk-plan-name">Advance Purchase &mdash; save 20%</div><div class="bk-plan-note">Book 30+ days ahead. Pre-paid, non-refundable.</div></div><div style="display:flex;align-items:center;gap:18px"><span class="bk-plan-price">$151<span class="bk-price-l" style="display:block;text-align:right">sample / night</span></span><a class="bk-btn" href="/book/checkout?property=sol-modern&rooms=studio:1&plan=early">Select &nbsp;&rarr;</a></div></div><div class="bk-plan"><div><div class="bk-plan-name">Seasonal Sale &mdash; save 15%</div><div class="bk-plan-note">Limited dates. Blackout dates and terms apply.</div></div><div style="display:flex;align-items:center;gap:18px"><span class="bk-plan-price">$161<span class="bk-price-l" style="display:block;text-align:right">sample / night</span></span><a class="bk-btn" href="/book/checkout?property=sol-modern&rooms=studio:1&plan=sale">Select &nbsp;&rarr;</a></div></div></div>
+        <div id="rmPlans"><div class="bk-plan"><div><div class="bk-plan-name">Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%</div><div class="bk-plan-note">Flexible rate. Blackout dates and terms apply.</div></div><div style="display:flex;align-items:center;gap:18px"><span class="bk-plan-price"><s style="color:#9a948e;font-size:.9375rem">$189</s> $151<span class="bk-price-l" style="display:block;text-align:right">sample &middot; avg / night</span></span><a class="bk-btn" href="/book/checkout?property=sol-modern&rooms=studio:1:fall">Select &nbsp;&rarr;</a></div></div><div class="bk-plan"><div><div class="bk-plan-name">Campus Bound</div><div class="bk-plan-note">For campus tours, games &amp; parents&rsquo; weekends. Terms apply.</div></div><div style="display:flex;align-items:center;gap:18px"><span class="bk-plan-price"><s style="color:#9a948e;font-size:.9375rem">$189</s> $163<span class="bk-price-l" style="display:block;text-align:right">sample &middot; avg / night</span></span><a class="bk-btn" href="/book/checkout?property=sol-modern&rooms=studio:1:campus">Select &nbsp;&rarr;</a></div></div><div class="bk-plan"><div><div class="bk-plan-name">Sentral.com Book Direct Rate | Save up to 10% off Best Rates</div><div class="bk-plan-note">Book direct and save.</div></div><div style="display:flex;align-items:center;gap:18px"><span class="bk-plan-price"><s style="color:#9a948e;font-size:.9375rem">$189</s> $170<span class="bk-price-l" style="display:block;text-align:right">sample &middot; avg / night</span></span><a class="bk-btn" href="/book/checkout?property=sol-modern&rooms=studio:1:direct">Select &nbsp;&rarr;</a></div></div></div>
       </div>
       <!-- Map view carried forward from the current room list (plan §4) -->
       <div class="bk-embed"><strong>Property map &mdash; carried forward</strong>
@@ -100,14 +100,14 @@ document.addEventListener('DOMContentLoaded',function(){
   document.getElementById('railProp').textContent=cur.name+', '+cur.city;
   document.getElementById('railDates').textContent=nights? BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night'):'Choose dates on the previous step';
   document.getElementById('rmPlans').innerHTML = BOOK.PLANS.map(function(pl){
-    var nightly=r.from*pl.mult;
+    var nightly=BOOK.planPrice(r,pl);
     var total=nights? ' · '+BOOK.money(nightly*nights)+' total' : '';
     return '<div class="bk-plan"><div>'+
       '<div class="bk-plan-name">'+pl.name+'</div>'+
       '<div class="bk-plan-note">'+pl.note+'</div></div>'+
       '<div style="display:flex;align-items:center;gap:18px">'+
-      '<span class="bk-plan-price">'+BOOK.money(nightly)+'<span class="bk-price-l" style="display:block;text-align:right">sample / night'+total+'</span></span>'+
-      '<a class="bk-btn" href="/book/checkout?'+BOOK.qs({property:cur.slug,rooms:r.slug+':1',plan:pl.slug,type:null})+'">Select &nbsp;&rarr;</a>'+
+      '<span class="bk-plan-price"><s style="color:#9a948e;font-size:.9375rem">'+BOOK.money(r.from)+'</s> '+BOOK.money(nightly)+'<span class="bk-price-l" style="display:block;text-align:right">sample · avg / night'+total+'</span></span>'+
+      '<a class="bk-btn" href="/book/checkout?'+BOOK.qs({property:cur.slug,rooms:r.slug+':1:'+pl.slug,type:null,plan:null})+'">Select &nbsp;&rarr;</a>'+
       '</div></div>';
   }).join('');
 });

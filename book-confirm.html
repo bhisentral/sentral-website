@@ -7,8 +7,8 @@
 <title>Booking Confirmed — Sentral</title>
 <link rel="stylesheet" href="/booking-chrome.css?v=2">
 <link rel="stylesheet" href="/overrides.css?v=4dark31">
-<link rel="stylesheet" href="/booking.css?v=3">
-<script src="/assets/booking-demo.js?v=2" defer></script>
+<link rel="stylesheet" href="/booking.css?v=5">
+<script src="/assets/booking-demo.js?v=3" defer></script>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -73,8 +73,8 @@
     </div>
     <aside class="bk-rail" aria-label="Stay summary">
       <h3 id="railProp">Sol Modern, Phoenix</h3>
-      <div class="bk-rail-sub" id="railDates">Sample stay &middot; 3 nights &middot; Direct Rate</div>
-      <div id="railLines"><div class="bk-line"><span>1 &times; One Bedroom</span><span>$687</span></div></div>
+      <div class="bk-rail-sub" id="railDates">Sample stay &middot; 3 nights</div>
+      <div id="railLines"><div class="bk-line"><span>1 &times; One Bedroom <small>Fall Sale</small></span><span>$549</span></div></div>
       <div class="bk-note">Sample stay for design review</div>
     </aside>
   </div>
@@ -82,15 +82,15 @@
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   var q=BOOK.q(), cur=BOOK.prop(q.property)||BOOK.PROPERTIES[0];
-  var sel=BOOK.parseRooms(q.rooms), plan=BOOK.plan(q.plan), nights=BOOK.nights(q['in'],q.out)||1;
+  var sel=BOOK.parseRooms(q.rooms), nights=BOOK.nights(q['in'],q.out)||1;
   document.getElementById('cfNum').textContent='SENT-'+(Date.now().toString(36).toUpperCase().slice(-6));
   document.getElementById('cfContext').textContent=cur.name+', '+cur.city;
   document.getElementById('cfMsg').textContent=(q.guest?q.guest+', your':'Your')+' suite at '+cur.name+' is set for '+BOOK.fmtDate(q['in'])+'. Check-in opens at 4:00 PM with keyless entry — your code arrives the morning of arrival.';
   document.getElementById('cfPhone').textContent=cur.phone||'(833) 370-4161';
   document.getElementById('railProp').textContent=cur.name+', '+cur.city;
-  document.getElementById('railDates').textContent=BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night')+' · '+plan.name;
+  document.getElementById('railDates').textContent=BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night');
   var lines='';
-  cur.rooms.forEach(function(r){ var n=sel[r.slug]||0; if(n) lines+='<div class="bk-line"><span>'+n+' × '+r.name+'</span><span>'+BOOK.money(r.from*plan.mult*n*nights)+'</span></div>'; });
+  cur.rooms.forEach(function(r){ var st=sel[r.slug]; if(st&&st.n){ var pl=BOOK.plan(st.plan); lines+='<div class="bk-line"><span>'+st.n+' × '+r.name+' <small>'+(pl.short||pl.name)+'</small></span><span>'+BOOK.money(BOOK.planPrice(r,pl)*st.n*nights)+'</span></div>'; } });
   document.getElementById('railLines').innerHTML=lines||'<div class="bk-line"><small>Sample stay</small></div>';
 });
 </script>
