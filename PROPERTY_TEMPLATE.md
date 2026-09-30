@@ -229,9 +229,12 @@ pre-selecting the property in its "Where" field.
 ## 6b. SEO — anchors + structured data (marketing request, 2026-09-10)
 
 Every section carries a stable, human-readable anchor id — `#the-property`,
-`#suites`, `#extended-stays`, `#offers`, `#inside-the-suites`, `#gallery`,
-`#roosevelt-row`, `#book-stay`, `#amenities`, `#neighborhood`, `#food-drink`,
-`#gather`, `#info` — PPC site-link critical (Laurie 10-1: ads cannot duplicate
+`#suites` (alias `#accommodations`), `#extended-stays`, `#offers`,
+`#inside-the-suites`, `#gallery`, `#roosevelt-row`, `#book-stay`, `#amenities`,
+`#neighborhood`, `#fooddrink` (alias `#food-drink`), `#gather`, `#info` —
+hash names match the hashes running in today's PPC ads (Laurie 10-2:
+`#fooddrink` and `#accommodations` are live ad extensions; keeping them
+avoids redirects) — PPC site-link critical (Laurie 10-1: ads cannot duplicate
 links, so per-section hashes are ad extensions; mirror on sentral.com today,
 e.g. /houston/forme/stay#offers) — usable
 in campaign links, sitelinks, and on-page search. `section[id]` gets
@@ -263,6 +266,15 @@ Apartment. Nav-level BOOK A STAY hidden on property pages (sticky CHECK RATES
 owns booking; logo + hamburger remain). Offers/F&B body copy smaller + muted;
 no underlines on gold buttons; suite-card CHECK RATES stays black-on-gold on
 hover.
+
+## 6e. Laurie round 3 (2026-10-02) — applied
+
+Sticky bar: CHECK RATES moved next to the property name (stay side; it got
+lost beside Lease Apartment), nav right-aligned, **Gallery** added left of
+Amenities. Suite grid is `auto-fit` so 2- and 3-suite properties spread the
+full page width. Hash compatibility with live ads: section is `#fooddrink`
+(`#food-drink` kept as alias), `#accommodations` lands on Suites alongside
+`#suites`.
 
 ## 7. Open items## 7. Open items
 

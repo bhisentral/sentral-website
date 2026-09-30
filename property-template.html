@@ -126,8 +126,8 @@ img{max-width:100%;display:block}
 .pt-sticky-inner{max-width:1400px;margin:0 auto;padding:12px 64px;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .pt-sticky-name{font-family:var(--serif);font-size:1rem;color:#fff;white-space:nowrap}
 .pt-sticky-name small{display:block;font-family:var(--sans);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:2px}
-section[id]{scroll-margin-top:118px}
-.pt-sticky-jump{display:flex;gap:26px}
+section[id],.pt-anchor-alias{scroll-margin-top:118px}
+.pt-sticky-jump{display:flex;gap:26px;margin-left:auto}
 .pt-sticky-jump a{font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;transition:color .2s}
 .pt-sticky-jump a:hover{color:#fff}
 .pt-sticky-book{background:var(--slate);color:#fff;font-size:.8125rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:12px 26px;border-radius:2px;text-decoration:none;white-space:nowrap;transition:background .2s}
@@ -173,7 +173,7 @@ section[id]{scroll-margin-top:118px}
 .pt-suites-head .pt-h2 em{color:var(--slate-light)}
 .pt-suites-all{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:3px;white-space:nowrap;transition:border-color .2s}
 .pt-suites-all:hover{border-color:#fff}
-.pt-suites-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.pt-suites-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2px}
 .pt-suite{position:relative;background:var(--ink);text-decoration:none;display:block;overflow:hidden}
 .pt-suite-img{position:relative;aspect-ratio:4/5;overflow:hidden;background:#22282c}
 .pt-suite-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.22,.68,0,1)}
@@ -476,16 +476,17 @@ a.pt-suite-cta{text-decoration:none !important}
 <div class="pt-sticky" id="ptSticky">
   <div class="pt-sticky-inner">
     <div class="pt-sticky-name">Sol Modern<small>Phoenix, AZ</small></div><!-- [FIELD] name + city -->
+    <a class="pt-sticky-book" href="#book-stay">Check Rates</a>
     <nav class="pt-sticky-jump" aria-label="On this page">
       <a href="#suites">Suites</a>
       <a href="#offers">Offers</a>
+      <a href="#gallery">Gallery</a>
       <a href="#amenities">Amenities</a>
       <a href="#neighborhood">Neighborhood</a>
       <a href="#info">Good to Know</a>
       <!-- [FIELD] per-property leasing site (Laurie 10-1: stay↔live cross-sell for paid media) -->
       <a href="https://www.solphx.com/" target="_blank" rel="noopener">Lease Apartment</a>
     </nav>
-    <a class="pt-sticky-book" href="#book-stay">Check Rates</a>
   </div>
 </div>
 
@@ -630,6 +631,7 @@ a.pt-suite-cta{text-decoration:none !important}
 <!-- ══════════ 5. SUITES ══════════ -->
 <!-- The browse grid sentral.com property pages do not have today. -->
 <section class="pt-suites dark" id="suites">
+  <span id="accommodations" class="pt-anchor-alias" aria-hidden="true"></span>
   <div class="pt-suites-head">
     <div>
       <span class="pt-eyebrow">Suites</span>
@@ -876,7 +878,8 @@ a.pt-suite-cta{text-decoration:none !important}
 <!-- Laurie 9-25: in-building + nearby F&B restored — sells the location and
      matters to owners. [FIELD] 3 venues per property; Sol Modern copy verbatim
      from the live page. -->
-<section class="pt-fnb" id="food-drink" aria-label="Food and drink">
+<section class="pt-fnb" id="fooddrink" aria-label="Food and drink">
+  <span id="food-drink" class="pt-anchor-alias" aria-hidden="true"></span>
   <div class="pt-offers-inner">
     <span class="pt-eyebrow">Food + Drink</span>
     <h2 class="pt-h2">So many reasons <em>to stay.</em></h2>
