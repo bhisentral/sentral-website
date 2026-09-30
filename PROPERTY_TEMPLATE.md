@@ -276,6 +276,16 @@ full page width. Hash compatibility with live ads: section is `#fooddrink`
 (`#food-drink` kept as alias), `#accommodations` lands on Suites alongside
 `#suites`.
 
+## 6f. Laurie final round (2026-10-02) — applied
+
+Sticky bar: CHECK RATES → **BOOK NOW**; Good to Know nav label → **FAQ**;
+links nowrap so the bar centers on one line. **Gallery in the nav (and the
+`#gallery` ad deep-link) opens the photo gallery lightbox itself** — the
+amenity showcase went back to `#amenity-spaces`. Good-to-Know contact card:
+address and a Get Directions link both open maps ([FIELD] maps_url).
+Suite-card carousel dots moved to the photo's top-right, clear of the
+name/specs; CHECK RATES stays black-on-gold even when hovering the card.
+
 ## 7. Open items## 7. Open items
 
 1. **Rates.** StayNTouch adapter for `/api/rates` to build (see §5 — the Mews

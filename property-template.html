@@ -128,7 +128,7 @@ img{max-width:100%;display:block}
 .pt-sticky-name small{display:block;font-family:var(--sans);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:2px}
 section[id],.pt-anchor-alias{scroll-margin-top:118px}
 .pt-sticky-jump{display:flex;gap:26px;margin-left:auto}
-.pt-sticky-jump a{font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;transition:color .2s}
+.pt-sticky-jump a{font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;transition:color .2s;white-space:nowrap}
 .pt-sticky-jump a:hover{color:#fff}
 .pt-sticky-book{background:var(--slate);color:#fff;font-size:.8125rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:12px 26px;border-radius:2px;text-decoration:none;white-space:nowrap;transition:background .2s}
 .pt-sticky-book:hover{background:var(--slate-deep)}
@@ -214,14 +214,15 @@ section[id],.pt-anchor-alias{scroll-margin-top:118px}
    overrides.css §6b holds the rest of the site's buttons to 48px. */
 .pt-suite-actions{display:flex;flex-wrap:wrap;align-items:center;gap:0 18px;margin:-11px 0 -12px}
 .pt-suite-cta{background:var(--metallic);border:1px solid var(--metallic);color:#141414;cursor:pointer;font-family:var(--sans);font-size:.75rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;display:inline-flex;align-items:center;min-height:44px;padding:11px 26px;border-radius:2px;transition:background .15s,color .15s;margin-top:4px}
-.pt-suite-cta:hover{background:var(--metallic) !important;color:#141414 !important;filter:brightness(1.07)}
+.pt-suite-cta,.pt-suite-cta:hover,.pt-suite:hover .pt-suite-cta{background:var(--metallic) !important;color:#141414 !important}
+.pt-suite-cta:hover{filter:brightness(1.07)}
 .pt-sc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .3s}
 .pt-sc-img.off{opacity:0;pointer-events:none}
 .pt-sc-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:38px;height:38px;border-radius:50%;border:none;background:rgba(20,20,20,.55);color:#fff;font-size:1.375rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;opacity:0}
 .pt-suite:hover .pt-sc-btn,.pt-sc-btn:focus-visible{opacity:1}
 .pt-sc-btn:hover{background:rgba(20,20,20,.85)}
 .pt-sc-btn.prev{left:10px}.pt-sc-btn.next{right:10px}
-.pt-sc-dots{position:absolute;bottom:64px;left:0;right:0;display:flex;justify-content:center;gap:6px;z-index:3}
+.pt-sc-dots{position:absolute;top:14px;right:14px;display:flex;gap:6px;z-index:3}
 .pt-sc-dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.45)}
 .pt-sc-dots i.on{background:#fff}
 @media(hover:none){.pt-sc-btn{opacity:1}}
@@ -476,14 +477,14 @@ a.pt-suite-cta{text-decoration:none !important}
 <div class="pt-sticky" id="ptSticky">
   <div class="pt-sticky-inner">
     <div class="pt-sticky-name">Sol Modern<small>Phoenix, AZ</small></div><!-- [FIELD] name + city -->
-    <a class="pt-sticky-book" href="#book-stay">Check Rates</a>
+    <a class="pt-sticky-book" href="#book-stay">Book Now</a>
     <nav class="pt-sticky-jump" aria-label="On this page">
       <a href="#suites">Suites</a>
       <a href="#offers">Offers</a>
       <a href="#gallery">Gallery</a>
       <a href="#amenities">Amenities</a>
       <a href="#neighborhood">Neighborhood</a>
-      <a href="#info">Good to Know</a>
+      <a href="#info">FAQ</a>
       <!-- [FIELD] per-property leasing site (Laurie 10-1: stay↔live cross-sell for paid media) -->
       <a href="https://www.solphx.com/" target="_blank" rel="noopener">Lease Apartment</a>
     </nav>
@@ -766,7 +767,7 @@ a.pt-suite-cta{text-decoration:none !important}
      the pool and the gym are what sell an extended stay, so they get shown, not
      listed. Uses the sitewide .space-tile / .space-chip pattern from
      stay-with-us.html so it reads as the same system. -->
-<section class="pt-spaces" id="gallery" aria-label="Amenity spaces">
+<section class="pt-spaces" id="amenity-spaces" aria-label="Amenity spaces">
   <div class="pt-spaces-header">
     <div>
       <span class="pt-eyebrow">02 &mdash; Notable Amenities</span>
@@ -951,9 +952,9 @@ a.pt-suite-cta{text-decoration:none !important}
       <h2 class="pt-h2">The <em>practical</em> part.</h2>
       <div class="pt-contact-card">
         <div class="pt-contact-name">Sol Modern</div><!-- [FIELD] -->
-        <span class="pt-contact-line">50 E. Fillmore Street</span>
-        <span class="pt-contact-line">Phoenix, AZ 85004</span>
+        <a class="pt-contact-line" style="display:block;color:inherit;text-decoration:none" href="https://maps.google.com/?q=50+E+Fillmore+St+Phoenix+AZ+85004" target="_blank" rel="noopener">50 E. Fillmore Street<br>Phoenix, AZ 85004</a>
         <span class="pt-contact-line"><a href="tel:+18333704161" style="color:inherit">(833) 370-4161</a></span>
+        <a class="pt-contact-link" href="https://maps.google.com/?q=50+E+Fillmore+St+Phoenix+AZ+85004" target="_blank" rel="noopener">Get Directions</a><!-- [FIELD] maps_url -->
         <a class="pt-contact-link" href="/contact">Contact the property</a>
       </div>
     </div>
@@ -1301,6 +1302,11 @@ var ptLightbox=(function(){
 (function(){
   var btn=document.getElementById('ptGalleryBtn');
   if(btn) btn.addEventListener('click',function(){ ptLightbox.openGallery('all',btn); });
+  // Gallery in the sticky nav + #gallery PPC deep-links open the photo gallery
+  // itself, not the amenity showcase (Laurie 10-2)
+  var galLink=document.querySelector('.pt-sticky-jump a[href="#gallery"]');
+  if(galLink) galLink.addEventListener('click',function(e){ e.preventDefault(); ptLightbox.openGallery('all',galLink); });
+  if(location.hash==='#gallery') setTimeout(function(){ ptLightbox.openGallery('all',btn||document.body); },300);
 
   // Amenity tiles open the gallery already filtered to amenities.
   [].forEach.call(document.querySelectorAll('.pt-space'),function(tile){
