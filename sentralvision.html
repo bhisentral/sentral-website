@@ -3,34 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex"><!-- DRAFT — remove when URL/owner confirmed -->
+<meta name="robots" content="noindex"><!-- DRAFT: remove when URL + owner confirmed -->
 <title>Sentral Vision — The Perfect Building</title>
 <link rel="stylesheet" href="/booking-chrome.css?v=2">
 <link rel="stylesheet" href="/overrides.css?v=4dark31">
 <style>
-/* Sentral Vision — owner/partner-facing. Brief (owner, 10-2): how the perfect
-   Sentral works — The Battery, The Bellevue — more than apartment management:
-   valet, retail, fully activated building; build NOI beyond base management. */
-.sv-hero{position:relative;background:#1F1F1F;color:#fff;padding:0 64px;min-height:86vh;display:flex;align-items:flex-end;overflow:hidden}
-.sv-hero .sv-inner{padding:150px 0 72px;width:100%}
-.sv-hero-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.sv-hero-veil{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.45) 0%,rgba(0,0,0,.18) 40%,rgba(0,0,0,.72) 100%)}
-.sv-inner{max-width:1200px;margin:0 auto}
-.sv-eyebrow{font-size:.75rem;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#5C8CA0;display:block;margin-bottom:14px}
-.sv-hero h1{font-family:Georgia,serif;font-weight:300;font-size:clamp(2.2rem,4.5vw,3.6rem);line-height:1.1;margin:0 0 18px}
+/* Sentral Vision — owner-facing brand film. Brief (owner): how the perfect
+   Sentral works — Battery, Bellevue — valet, retail, programming, fully
+   activated; NOI beyond base management. Photo-forward per owner 10-2. */
+.sv-eyebrow{font-size:.75rem;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:#5C8CA0;display:block;margin-bottom:16px}
+.sv-inner{max-width:1280px;margin:0 auto}
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
+.rv.in{opacity:1;transform:none}
+/* ── hero: full-viewport film ── */
+.sv-hero{position:relative;background:#141414;color:#fff;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;padding:0 64px}
+.sv-hero-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);animation:svDrift 24s ease-in-out infinite alternate}
+@keyframes svDrift{from{transform:scale(1.06) translateY(0)}to{transform:scale(1.12) translateY(-12px)}}
+.sv-hero-veil{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.5) 0%,rgba(0,0,0,.12) 42%,rgba(0,0,0,.78) 100%)}
+.sv-hero .sv-inner{position:relative;z-index:2;width:100%;padding:170px 0 90px}
+.sv-hero h1{font-family:Georgia,serif;font-weight:300;font-size:clamp(2.6rem,5.6vw,4.6rem);line-height:1.06;margin:0 0 22px;max-width:16ch}
 section.sv-hero.dark[class] h1 em,.sv-hero h1 em{font-style:italic;color:#F2E8D5 !important}
-.sv-lead{font-size:1.0625rem;color:rgba(255,255,255,.72);line-height:1.75;max-width:62ch}
-.sv-sec{padding:88px 64px}
-.sv-sec.cream{background:#F5F5F3;color:#282828}
+.sv-lead{font-size:1.0625rem;color:rgba(255,255,255,.78);line-height:1.8;max-width:56ch}
+.sv-scroll{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;font-size:.6563rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+/* ── editorial statement ── */
+.sv-state{background:#F5F5F3;color:#282828;padding:120px 64px;text-align:center}
+.sv-state p{font-family:Georgia,serif;font-weight:300;font-size:clamp(1.8rem,3.6vw,3rem);line-height:1.25;margin:0 auto;max-width:24ch}
+#main .sv-state p em{font-style:italic;color:#2D4A5C !important}
+/* ── NOI stack ── */
+.sv-sec{padding:104px 64px}
+.sv-sec.cream{background:#FAF8F4;color:#282828}
 .sv-sec.ink{background:#1F1F1F;color:#fff}
-.sv-h2{font-family:Georgia,serif;font-weight:300;font-size:clamp(1.6rem,2.8vw,2.2rem);line-height:1.15;margin:0 0 14px}
-.sv-h2 em{font-style:italic;color:#2D4A5C}
-section.sv-sec.ink.dark[class] h2 em,.sv-sec.ink .sv-h2 em{color:#F2E8D5 !important}
-.sv-body{font-size:.9375rem;line-height:1.75;max-width:66ch;color:#4a4643}
-.sv-sec.ink .sv-body{color:rgba(255,255,255,.7)}
-/* NOI stack */
-.sv-stack{max-width:760px;margin:44px 0 0}
-.sv-layer{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:16px 22px;border:1px solid rgba(45,74,92,.3);border-radius:2px;margin-top:8px;background:#fff}
+.sv-h2{font-family:Georgia,serif;font-weight:300;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.14;margin:0 0 14px}
+#main .sv-sec.cream .sv-h2 em{font-style:italic;color:#2D4A5C !important}
+section.sv-sec.ink.dark[class] h2 em,.sv-sec.ink .sv-h2 em{font-style:italic;color:#F2E8D5 !important}
+.sv-body{font-size:.9375rem;line-height:1.8;max-width:62ch;color:#4a4643}
+.sv-split{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.sv-stack{margin-top:8px}
+.sv-layer{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:17px 22px;border:1px solid rgba(45,74,92,.28);border-radius:2px;margin-top:8px;background:#fff;transition:transform .25s ease,box-shadow .25s ease}
+.sv-layer:hover{transform:translateX(6px);box-shadow:0 10px 30px rgba(20,20,20,.08)}
 .sv-layer strong{font-size:.8125rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#282828}
 .sv-layer span{font-size:.8125rem;color:#6B6560;text-align:right}
 .sv-layer.base{background:#2D4A5C;border-color:#2D4A5C}
@@ -38,29 +49,54 @@ section.sv-sec.ink.dark[class] h2 em,.sv-sec.ink .sv-h2 em{color:#F2E8D5 !import
 .sv-layer.sum{background:#F2E8D5;border-color:#B8924A}
 .sv-layer.sum strong{color:#8C6A2E}
 .sv-stack-note{font-size:.75rem;color:#6B6560;margin-top:14px}
-.sv-band{height:54vh;min-height:380px;background:url('/assets/stay-hero-poster.jpg') center/cover;position:relative}
-.sv-band-chip{position:absolute;right:28px;bottom:22px;font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);background:rgba(20,20,20,.55);padding:6px 12px;border-radius:2px}
-/* activation grid — photo tiles */
-.sv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:26px;margin-top:40px}
-.sv-ph{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:2px;overflow:hidden}
-.sv-ph img{width:100%;height:220px;object-fit:cover;display:block;transition:transform .6s ease}
-.sv-ph:hover img{transform:scale(1.05)}
-.sv-ph-body{padding:18px 20px 22px}
-.sv-ph-body h3{font-family:Georgia,serif;font-weight:400;font-size:1.1875rem;margin:0 0 8px}
-.sv-ph-body p{font-size:.8438rem;line-height:1.65;color:rgba(255,255,255,.65);margin:0}
-/* cases */
-.sv-cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;margin-top:40px}
-.sv-case{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);border-radius:2px;overflow:hidden}
-.sv-case img{width:100%;height:330px;object-fit:cover;display:block;transition:transform .6s ease}
-.sv-case:hover img{transform:scale(1.04)}
-.sv-case-body{padding:22px 24px 26px}
-.sv-case-body h3{font-family:Georgia,serif;font-weight:400;font-size:1.3125rem;margin:0 0 4px}
-.sv-case-loc{font-size:.7188rem;letter-spacing:.12em;text-transform:uppercase;color:#5C8CA0;display:block;margin-bottom:10px}
-.sv-case-body p{font-size:.875rem;line-height:1.65;color:rgba(255,255,255,.65);margin:0}
-.sv-case-metric{margin-top:14px;font-size:.75rem;color:#F2E8D5;border-top:1px solid rgba(255,255,255,.12);padding-top:12px}
-.sv-cta{display:inline-block;margin-top:30px;background:#2D4A5C;color:#fff;font-size:.8125rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:15px 32px;border-radius:2px;text-decoration:none;transition:background .15s}
-.sv-cta:hover{background:#3D6478}
-@media(max-width:900px){.sv-hero{padding:120px 20px 56px}.sv-sec{padding:56px 20px}}
+.sv-stack-img{position:relative;border-radius:2px;overflow:hidden;min-height:520px}
+.sv-stack-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* ── full-bleed bands ── */
+.sv-band{height:64vh;min-height:420px;position:relative;background:center/cover no-repeat;background-attachment:fixed}
+.sv-band.b1{background-image:url('/assets/stay-hero-poster.jpg')}
+.sv-band.b2{background-image:url('/assets/hero-poster.jpg')}
+.sv-band-chip{position:absolute;right:28px;bottom:22px;font-size:.6563rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85);background:rgba(20,20,20,.55);padding:6px 12px;border-radius:2px}
+/* ── activation mosaic ── */
+.sv-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:48px}
+.sv-ph{position:relative;border-radius:2px;overflow:hidden;min-height:280px;display:flex;align-items:flex-end}
+.sv-ph.w3{grid-column:span 3;min-height:420px}
+.sv-ph.w2{grid-column:span 2;min-height:320px}
+.sv-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+.sv-ph:hover img{transform:scale(1.06)}
+.sv-ph-veil{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 40%,rgba(0,0,0,.76) 100%)}
+.sv-ph-body{position:relative;z-index:2;padding:22px 24px;color:#fff}
+.sv-ph-body h3{font-family:Georgia,serif;font-weight:400;font-size:1.3125rem;margin:0 0 6px}
+.sv-ph-body p{font-size:.8125rem;line-height:1.6;color:rgba(255,255,255,.78);margin:0;max-width:44ch}
+/* ── pull quote ── */
+.sv-quote{background:#141414;color:#fff;padding:130px 64px;text-align:center}
+#main section.sv-quote.dark[class] p,.sv-quote p{font-family:Georgia,serif;font-weight:300;font-style:italic;font-size:clamp(1.9rem,4vw,3.2rem);line-height:1.3;margin:0 auto;max-width:22ch;color:#F2E8D5 !important}
+/* ── case splits ── */
+.sv-case{display:grid;grid-template-columns:1.15fr 1fr;min-height:76vh;background:#1F1F1F;color:#fff}
+.sv-case.flip{grid-template-columns:1fr 1.15fr}
+.sv-case-img{position:relative;overflow:hidden;min-height:380px}
+.sv-case-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+.sv-case:hover .sv-case-img img{transform:scale(1.04)}
+.sv-case-copy{display:flex;flex-direction:column;justify-content:center;padding:72px 72px}
+.sv-case-copy h3{font-family:Georgia,serif;font-weight:300;font-size:clamp(1.8rem,3vw,2.6rem);margin:0 0 6px}
+.sv-case-loc{font-size:.7188rem;letter-spacing:.16em;text-transform:uppercase;color:#5C8CA0;display:block;margin-bottom:18px}
+.sv-case-copy p{font-size:.9375rem;line-height:1.8;color:rgba(255,255,255,.7);margin:0;max-width:48ch}
+.sv-case-metric{margin-top:26px;font-size:.75rem;letter-spacing:.06em;color:#F2E8D5;border-top:1px solid rgba(255,255,255,.14);padding-top:16px;max-width:48ch}
+/* ── finale ── */
+.sv-final{position:relative;min-height:78vh;display:flex;align-items:center;justify-content:center;text-align:center;background:url('/assets/group-hero-poster.jpg') center/cover;color:#fff}
+.sv-final-veil{position:absolute;inset:0;background:rgba(10,8,6,.58)}
+.sv-final-inner{position:relative;z-index:2;padding:80px 24px;max-width:720px}
+.sv-final h2{font-family:Georgia,serif;font-weight:300;font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.12;margin:0 0 18px}
+section.sv-final.dark[class] h2 em,.sv-final h2 em{font-style:italic;color:#F2E8D5 !important}
+.sv-final p{font-size:.9375rem;color:rgba(255,255,255,.75);max-width:52ch;margin:0 auto 30px;line-height:1.8}
+.sv-cta{display:inline-block;background:#B8924A;border:1px solid #B8924A;color:#141414 !important;font-size:.8125rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;padding:16px 36px;border-radius:2px;text-decoration:none !important;transition:filter .15s}
+.sv-cta:hover{filter:brightness(1.08)}
+@media(max-width:980px){
+  .sv-hero{padding:0 20px}.sv-sec{padding:64px 20px}.sv-state,.sv-quote{padding:80px 20px}
+  .sv-split{grid-template-columns:1fr;gap:36px}.sv-stack-img{min-height:320px}
+  .sv-mosaic{grid-template-columns:1fr 1fr}.sv-ph.w3,.sv-ph.w2{grid-column:span 2;min-height:300px}
+  .sv-case,.sv-case.flip{grid-template-columns:1fr;min-height:0}.sv-case-copy{padding:44px 24px}
+  .sv-band{background-attachment:scroll;height:44vh}
+}
 </style>
 </head>
 <body>
@@ -99,71 +135,95 @@ section.sv-sec.ink.dark[class] h2 em,.sv-sec.ink .sv-h2 em{color:#F2E8D5 !import
 </nav>
 </header>
 <main id="main">
+
 <section class="sv-hero dark">
   <video class="sv-hero-media" autoplay muted loop playsinline poster="/assets/group-hero-poster.jpg">
     <source src="/assets/forme-houston-group-header.mp4" type="video/mp4">
   </video>
   <div class="sv-hero-veil" aria-hidden="true"></div>
-  <div class="sv-inner" style="position:relative;z-index:2">
+  <div class="sv-inner">
     <span class="sv-eyebrow">Sentral Vision &mdash; For Ownership Groups &middot; Draft</span>
     <h1>This is how the perfect <em>building works.</em></h1>
-    <p class="sv-lead">Sentral is more than apartment management. A Sentral building is fully activated and fully programmed &mdash; events on the calendar, valet at the door, retail at the ground floor, flexible stays upstairs. Every square foot and every hour earning. This is how we build your NOI beyond base management.</p>
+    <p class="sv-lead">More than apartment management. A Sentral building is fully activated and fully programmed &mdash; events on the calendar, valet at the door, retail at the ground floor, flexible stays upstairs. Every square foot and every hour, earning.</p>
   </div>
+  <span class="sv-scroll">Scroll</span>
+</section>
+
+<section class="sv-state">
+  <p class="rv">Every square foot. Every hour. <em>Earning.</em></p>
 </section>
 
 <section class="sv-sec cream">
-  <div class="sv-inner">
-    <span class="sv-eyebrow" style="color:#2D4A5C">The NOI Stack</span>
-    <h2 class="sv-h2">Base management is <em>the floor, not the ceiling.</em></h2>
-    <p class="sv-body">Traditional managers stop at rent. Sentral layers activated revenue on top of institutional-grade operations &mdash; each layer compounding the building&rsquo;s income and the resident experience at once.</p>
-    <div class="sv-stack">
-      <div class="sv-layer sum"><strong>Your NOI, fully activated</strong><span>[FIELD] representative uplift &mdash; finance sign-off</span></div>
-      <div class="sv-layer"><strong>+ Retail &amp; F&amp;B activation</strong><span>Curated ground-floor retail, caf&eacute;s, event space</span></div>
-      <div class="sv-layer"><strong>+ Valet &amp; parking</strong><span>Managed valet, EV charging, monetized garage</span></div>
-      <div class="sv-layer"><strong>+ Events &amp; gatherings</strong><span>Amenity spaces that book &mdash; meetings, socials, buyouts</span></div>
-      <div class="sv-layer"><strong>+ Flexible stays (STAY)</strong><span>Furnished suites earning nightly on vacancy</span></div>
-      <div class="sv-layer base"><strong>Base management</strong><span>Leasing, operations, resident experience &mdash; institutional grade</span></div>
+  <div class="sv-inner sv-split">
+    <div class="rv">
+      <span class="sv-eyebrow" style="color:#2D4A5C">The NOI Stack</span>
+      <h2 class="sv-h2">Base management is <em>the floor, not the ceiling.</em></h2>
+      <p class="sv-body">Traditional managers stop at rent. Sentral layers activated revenue on top of institutional-grade operations &mdash; each layer compounding the building&rsquo;s income and its life at once.</p>
+      <div class="sv-stack">
+        <div class="sv-layer sum"><strong>Your NOI, fully activated</strong><span>[FIELD] uplift &mdash; finance sign-off</span></div>
+        <div class="sv-layer"><strong>+ Retail &amp; F&amp;B</strong><span>Curated ground floors</span></div>
+        <div class="sv-layer"><strong>+ Valet &amp; parking</strong><span>Arrival as an asset</span></div>
+        <div class="sv-layer"><strong>+ Events &amp; programming</strong><span>Spaces that book</span></div>
+        <div class="sv-layer"><strong>+ Flexible stays</strong><span>Suites earning nightly</span></div>
+        <div class="sv-layer base"><strong>Base management</strong><span>Institutional-grade operations</span></div>
+      </div>
+      <p class="sv-stack-note">Illustrative &mdash; layers and figures are property-specific. [FIELD] finance-approved metrics.</p>
     </div>
-    <p class="sv-stack-note">Illustrative stack &mdash; revenue layers and figures are property-specific. [FIELD] finance-approved metrics before publication.</p>
+    <div class="sv-stack-img rv"><img src="/assets/bk-room-2br.jpg" alt="Glass-walled Sentral suite"></div>
   </div>
 </section>
 
-<div class="sv-band" role="img" aria-label="Aerial view of a Sentral rooftop pool deck">
+<div class="sv-band b1" role="img" aria-label="Aerial of a Sentral rooftop pool deck">
   <span class="sv-band-chip">Sol Modern &mdash; Phoenix, AZ</span>
 </div>
 
 <section class="sv-sec ink dark">
   <div class="sv-inner">
-    <span class="sv-eyebrow">The Fully Activated Building</span>
-    <h2 class="sv-h2">Every amenity <em>works a shift.</em></h2>
-    <div class="sv-grid">
-      <div class="sv-ph"><img src="/assets/hero-poster.jpg" alt="Sentral building aerial" loading="lazy"><div class="sv-ph-body"><h3>Valet</h3><p>Arrival as hospitality &mdash; and a parking asset that earns around the clock.</p></div></div>
-      <div class="sv-ph"><img src="/assets/ig-social-1.jpg" alt="Activated lounge with billiards" loading="lazy"><div class="sv-ph-body"><h3>Retail</h3><p>Ground floors curated for the building&rsquo;s life &mdash; coffee, dining, services that drive traffic and rent.</p></div></div>
-      <div class="sv-ph"><img src="/assets/bk-room-2br.jpg" alt="Furnished STAY suite" loading="lazy"><div class="sv-ph-body"><h3>Flexible stays</h3><p>Vacant units become furnished STAY suites &mdash; nightly revenue without touching the lease-up.</p></div></div>
-      <div class="sv-ph"><img src="/assets/ig-social-3.jpg" alt="Rooftop pool deck" loading="lazy"><div class="sv-ph-body"><h3>Activated amenities</h3><p>Pools, lounges, and event spaces programmed and bookable &mdash; not just photographed.</p></div></div>
-      <div class="sv-ph"><img src="/assets/forme-houston-square-poster.jpg" alt="Evening event programming" loading="lazy"><div class="sv-ph-body"><h3>Programming</h3><p>A real calendar &mdash; socials, wellness, gatherings &mdash; that keeps residents renewing and spaces earning.</p></div></div>
+    <span class="sv-eyebrow rv">The Fully Activated Building</span>
+    <h2 class="sv-h2 rv">Every amenity <em>works a shift.</em></h2>
+    <div class="sv-mosaic">
+      <div class="sv-ph w3 rv"><img src="/assets/forme-houston-square-poster.jpg" alt="Evening programming on the terrace" loading="lazy"><div class="sv-ph-veil"></div><div class="sv-ph-body"><h3>Programming</h3><p>A real calendar &mdash; socials, wellness, gatherings &mdash; that keeps residents renewing and spaces earning.</p></div></div>
+      <div class="sv-ph w3 rv"><img src="/assets/ig-social-3.jpg" alt="Rooftop pool deck" loading="lazy"><div class="sv-ph-veil"></div><div class="sv-ph-body"><h3>Activated amenities</h3><p>Pools, lounges, and event spaces programmed and bookable &mdash; not just photographed.</p></div></div>
+      <div class="sv-ph w2 rv"><img src="/assets/hero-poster.jpg" alt="Sentral building aerial" loading="lazy"><div class="sv-ph-veil"></div><div class="sv-ph-body"><h3>Valet</h3><p>Arrival as hospitality &mdash; and a parking asset earning around the clock.</p></div></div>
+      <div class="sv-ph w2 rv"><img src="/assets/ig-social-1.jpg" alt="Ground-floor social lounge" loading="lazy"><div class="sv-ph-veil"></div><div class="sv-ph-body"><h3>Retail</h3><p>Coffee, dining, services &mdash; traffic and rent at the ground floor.</p></div></div>
+      <div class="sv-ph w2 rv"><img src="/assets/bk-room-studio.jpg" alt="Furnished STAY suite" loading="lazy"><div class="sv-ph-veil"></div><div class="sv-ph-body"><h3>Flexible stays</h3><p>Vacancy becomes nightly revenue, without touching the lease-up.</p></div></div>
     </div>
   </div>
 </section>
 
-<section class="sv-sec ink dark" style="padding-top:0">
-  <div class="sv-inner">
-    <span class="sv-eyebrow">Proof</span>
-    <h2 class="sv-h2">The perfect Sentral, <em>in the wild.</em></h2>
-    <div class="sv-cases">
-      <!-- [FIELD] case photography + finance-approved metrics -->
-      <div class="sv-case"><img src="/assets/bk-city-3.jpg" alt="The Battery">
-        <div class="sv-case-body"><h3>The Battery</h3><span class="sv-case-loc">Philadelphia, PA</span>
-        <p>A landmark power station, fully activated: extended-stay suites, event spaces, and amenity programming layered over residential operations.</p>
-        <div class="sv-case-metric">[FIELD] NOI uplift &middot; occupancy &middot; ancillary revenue mix</div></div></div>
-      <div class="sv-case"><img src="/assets/bk-city-1.jpg" alt="The Bellevue">
-        <div class="sv-case-body"><h3>The Bellevue</h3><span class="sv-case-loc">Philadelphia, PA</span>
-        <p>A grand hotel heritage reimagined &mdash; valet, retail, and hospitality-grade service as revenue, not overhead.</p>
-        <div class="sv-case-metric">[FIELD] NOI uplift &middot; occupancy &middot; ancillary revenue mix</div></div></div>
-    </div>
+<section class="sv-quote dark">
+  <p class="rv">&ldquo;It&rsquo;s more than management. It&rsquo;s the building, fully alive.&rdquo;</p>
+</section>
+
+<section class="sv-case dark">
+  <div class="sv-case-img"><img src="/assets/bk-city-3.jpg" alt="The Battery, Philadelphia"></div>
+  <div class="sv-case-copy rv">
+    <span class="sv-case-loc">Proof &middot; Philadelphia, PA</span>
+    <h3>The Battery</h3>
+    <p>A landmark power station, fully activated &mdash; extended-stay suites, event spaces, and amenity programming layered over residential operations.</p>
+    <div class="sv-case-metric">[FIELD] NOI uplift &middot; occupancy &middot; ancillary revenue mix</div>
+  </div>
+</section>
+<section class="sv-case flip dark">
+  <div class="sv-case-copy rv">
+    <span class="sv-case-loc">Proof &middot; Philadelphia, PA</span>
+    <h3>The Bellevue</h3>
+    <p>A grand hotel heritage reimagined &mdash; valet, retail, and hospitality-grade service as revenue, not overhead.</p>
+    <div class="sv-case-metric">[FIELD] NOI uplift &middot; occupancy &middot; ancillary revenue mix</div>
+  </div>
+  <div class="sv-case-img"><img src="/assets/bk-city-1.jpg" alt="The Bellevue, Philadelphia"></div>
+</section>
+
+<section class="sv-final dark">
+  <div class="sv-final-veil" aria-hidden="true"></div>
+  <div class="sv-final-inner rv">
+    <span class="sv-eyebrow">Sentral Vision</span>
+    <h2>Let&rsquo;s build the <em>perfect building.</em></h2>
+    <p>Bring us the asset. We&rsquo;ll bring the operating platform, the programming, and the revenue layers that take it beyond base management.</p>
     <a class="sv-cta" href="partner-with-us.html">Partner With Us &nbsp;&rarr;</a>
   </div>
 </section>
+
 </main>
 
 <footer class="site-footer" role="contentinfo">
@@ -214,8 +274,10 @@ section.sv-sec.ink.dark[class] h2 em,.sv-sec.ink .sv-h2 em{color:#F2E8D5 !import
 <script>
 (function(){
   var btn=document.getElementById('hamburgerBtn'),panel=document.getElementById('mobileMenu');
-  if(!btn||!panel)return;
-  btn.addEventListener('click',function(){var o=panel.classList.toggle('open');btn.setAttribute('aria-expanded',o);panel.setAttribute('aria-hidden',!o);});
+  if(btn&&panel){btn.addEventListener('click',function(){var o=panel.classList.toggle('open');btn.setAttribute('aria-expanded',o);panel.setAttribute('aria-hidden',!o);});}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.18});
+  [].forEach.call(document.querySelectorAll('.rv'),function(el){io.observe(el);});
+  var v=document.querySelector('.sv-hero-media'); if(v){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
 })();
 </script>
 </body>
