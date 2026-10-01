@@ -27,9 +27,16 @@ section.sv-hero.dark[class] h1 em,.sv-hero h1 em{font-style:italic;color:#F2E8D5
 .sv-lead{font-size:1.0625rem;color:rgba(255,255,255,.78);line-height:1.8;max-width:56ch}
 .sv-scroll{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;font-size:.6563rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 /* ── editorial statement ── */
-.sv-state{background:#F5F5F3;color:#282828;padding:120px 64px;text-align:center}
+.sv-menu{background:#FAF8F4;color:#282828;padding:110px 64px}
+.sv-menu-list{margin-top:44px;border-top:1px solid rgba(40,40,40,.14)}
+.sv-menu-row{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:baseline;padding:26px 4px;border-bottom:1px solid rgba(40,40,40,.14)}
+.sv-menu-name{font-family:Georgia,serif;font-weight:300;font-size:clamp(1.5rem,2.6vw,2.2rem);line-height:1.15}
+.sv-menu-note{font-size:.875rem;color:#6B6560;line-height:1.7}
+@media(max-width:700px){.sv-menu{padding:72px 20px}.sv-menu-row{grid-template-columns:1fr;gap:6px}}
+.sv-state{background:#141414;color:#fff;padding:120px 64px;text-align:center}
 .sv-state p{font-family:Georgia,serif;font-weight:300;font-size:clamp(1.8rem,3.6vw,3rem);line-height:1.25;margin:0 auto;max-width:24ch}
-#main .sv-state p em{font-style:italic;color:#2D4A5C !important}
+#main section.sv-state.dark[class] p{color:#fff !important}
+#main section.sv-state.dark[class] p em,.sv-state p em{font-style:italic;color:#F2E8D5 !important}
 /* ── NOI stack ── */
 .sv-sec{padding:104px 64px}
 .sv-sec.cream{background:#FAF8F4;color:#282828}
@@ -149,8 +156,26 @@ section.sv-final.dark[class] h2 em,.sv-final h2 em{font-style:italic;color:#F2E8
   <span class="sv-scroll">Scroll</span>
 </section>
 
-<section class="sv-state">
-  <p class="rv">Every square foot. Every hour. <em>Earning.</em></p>
+<section class="sv-menu">
+  <div class="sv-inner">
+    <span class="sv-eyebrow rv" style="color:#2D4A5C">The Service Layer</span>
+    <h2 class="sv-h2 rv" style="max-width:20ch">Live like someone is <em>expecting you.</em></h2>
+    <div class="sv-menu-list">
+      <!-- Service set drawn from current properties + owner brief; items marked
+           [FIELD] need ops confirmation before publication. -->
+      <div class="sv-menu-row rv"><span class="sv-menu-name">Valet at the curb.</span><span class="sv-menu-note">Your car, your bags, your name &mdash; arrival as hospitality.</span></div>
+      <div class="sv-menu-row rv"><span class="sv-menu-name">A team in the lobby.</span><span class="sv-menu-note">24/7 on-site hospitality &mdash; not a call center.</span></div>
+      <div class="sv-menu-row rv"><span class="sv-menu-name">Cabanas by the pool.</span><span class="sv-menu-note">Rooftop decks, cold plunge, yoga at sunrise.</span></div>
+      <div class="sv-menu-row rv"><span class="sv-menu-name">Coffee downstairs.</span><span class="sv-menu-note">Curated ground-floor retail and caf&eacute;s, steps from the elevator.</span></div>
+      <div class="sv-menu-row rv"><span class="sv-menu-name">Housekeeping, on call.</span><span class="sv-menu-note">Suite care on your schedule. [FIELD] confirm program scope</span></div>
+      <div class="sv-menu-row rv"><span class="sv-menu-name">Your dog, a regular.</span><span class="sv-menu-note">Pet amenities and a staff that knows their names.</span></div>
+      <div class="sv-menu-row rv"><span class="sv-menu-name">Tonight, downstairs.</span><span class="sv-menu-note">A programmed calendar &mdash; tastings, socials, wellness &mdash; worth staying in for.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sv-state dark">
+  <p class="rv">And every one of them <em>earns.</em></p>
 </section>
 
 <section class="sv-sec cream">
@@ -165,7 +190,7 @@ section.sv-final.dark[class] h2 em,.sv-final h2 em{font-style:italic;color:#F2E8
         <div class="sv-layer"><strong>+ Valet &amp; parking</strong><span>Arrival as an asset</span></div>
         <div class="sv-layer"><strong>+ Events &amp; programming</strong><span>Spaces that book</span></div>
         <div class="sv-layer"><strong>+ Flexible stays</strong><span>Suites earning nightly</span></div>
-        <div class="sv-layer base"><strong>Base management</strong><span>Institutional-grade operations</span></div>
+        <div class="sv-layer base"><strong>Base management</strong><span>Leasing, operations, care &mdash; institutional grade</span></div>
       </div>
       <p class="sv-stack-note">Illustrative &mdash; layers and figures are property-specific. [FIELD] finance-approved metrics.</p>
     </div>
