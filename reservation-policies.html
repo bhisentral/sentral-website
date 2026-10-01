@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Reservation Policies — Sentral</title>
+<style>
+:root{
+  --black:#282828;--ink:#1F1F1F;--cream:#F5F5F3;--gold:#2D4A5C;--gold-d:#3D6478;
+  --mid:#6b6560;--lt:#9a9490;--white:#ffffff;
+  --rule:rgba(255,255,255,.08);--ruleD:rgba(0,0,0,.09);
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:Aptos,"Segoe UI",system-ui,-apple-system,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--black);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased}
+/* ══ NAV ══ */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--black);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;border-bottom:1px solid var(--rule)}
+.nav-logo{font-family:var(--serif);font-size:1.0625rem;color:var(--white);letter-spacing:.18em;text-decoration:none}
+.nav-links{display:flex;align-items:stretch;height:64px}
+.nav-link{display:flex;align-items:center;padding:0 18px;font-size:.75rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);text-decoration:none;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap}
+.nav-link:hover{color:var(--white)}
+.nav-link.active{color:var(--white);border-color:var(--gold)}
+.nav-ctas{display:flex;gap:10px;align-items:center}
+.btn-sn{font-size:.75rem;font-weight:500;padding:8px 18px;border-radius:2px;background:var(--gold);color:var(--gold-d);border:none;cursor:pointer;text-decoration:none;transition:background .15s;white-space:nowrap;letter-spacing:.04em}
+.btn-sn:hover{background:#3D6478}
+.hamburger{background:none;border:none;cursor:pointer;padding:8px;display:flex;flex-direction:column;gap:5px;align-items:flex-end}
+.ham-line{display:block;height:1.5px;background:var(--white);transition:width .3s,transform .3s,opacity .3s}
+.ham-line:nth-child(1){width:22px}
+.ham-line:nth-child(2){width:16px}
+.ham-line:nth-child(3){width:22px}
+.hamburger[aria-expanded=true] .ham-line:nth-child(1){width:22px;transform:translateY(6.5px) rotate(45deg)}
+.hamburger[aria-expanded=true] .ham-line:nth-child(2){opacity:0;width:0}
+.hamburger[aria-expanded=true] .ham-line:nth-child(3){width:22px;transform:translateY(-6.5px) rotate(-45deg)}
+.ham-panel{position:fixed;top:64px;right:0;width:360px;height:calc(100vh - 64px);background:var(--black);z-index:199;transform:translateX(100%);transition:transform .35s cubic-bezier(.22,.68,0,1.2);border-left:1px solid var(--rule);overflow-y:auto;pointer-events:none}
+.ham-panel.open{transform:translateX(0);pointer-events:auto}
+.ham-panel-inner{padding:40px 36px}
+.ham-nav{display:flex;flex-direction:column;gap:2px;margin-bottom:32px}
+.ham-link{display:block;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.06);text-decoration:none}
+.ham-link-title{display:block;font-family:var(--serif);font-size:1.25rem;color:var(--white);margin-bottom:4px}
+.ham-link-sub{display:block;font-size:.75rem;color:rgba(255,255,255,.35);letter-spacing:.03em}
+.ham-footer{display:flex;flex-direction:column;gap:10px}
+.ham-book{display:block;padding:12px 20px;background:var(--gold);color:var(--gold-d);font-size:.8125rem;font-weight:500;text-decoration:none;border-radius:2px;text-align:center;letter-spacing:.04em}
+@media(max-width:900px){.site-nav{padding:0 20px}.nav-links{display:none}}
+
+
+.page-header{margin-top:64px;background:var(--black);padding:80px 64px 64px}
+.page-header-inner{max-width:860px;margin:0 auto}
+.page-eyebrow{font-size:.75rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;display:block}
+.page-h{font-family:var(--serif);font-size:clamp(2.4rem,4vw,3.8rem);font-weight:300;color:var(--white);line-height:1.06;margin-bottom:16px}
+.page-meta{font-size:.75rem;color:rgba(255,255,255,.3);letter-spacing:.06em}
+
+.policy-layout{max-width:1100px;margin:0 auto;padding:72px 64px 96px;display:grid;grid-template-columns:220px 1fr;gap:72px;align-items:start}
+
+.policy-toc{position:sticky;top:88px}
+.policy-toc-title{font-size:.75rem;font-weight:500;text-transform:uppercase;letter-spacing:.22em;color:var(--lt);margin-bottom:16px;display:block}
+.policy-toc-list{list-style:none;display:flex;flex-direction:column;gap:2px}
+.policy-toc-list li a{display:block;font-size:.75rem;color:var(--lt);text-decoration:none;padding:7px 12px 7px 16px;border-left:2px solid transparent;transition:color .2s,border-color .2s;line-height:1.4}
+.policy-toc-list li a:hover{color:var(--black);border-color:var(--gold)}
+.policy-toc-list li a.active{color:var(--black);border-color:var(--gold);font-weight:400}
+
+.policy-intro{font-size:.875rem;line-height:1.95;color:var(--mid);padding-bottom:40px;margin-bottom:48px;border-bottom:1px solid var(--ruleD)}
+.policy-section{margin-bottom:52px;scroll-margin-top:96px}
+.policy-section-num{font-size:.75rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block}
+.policy-section-title{font-family:var(--serif);font-size:1.5rem;font-weight:400;color:var(--black);margin-bottom:20px;line-height:1.2;padding-bottom:14px;border-bottom:1px solid var(--ruleD)}
+.policy-body{font-size:.8125rem;line-height:1.95;color:var(--mid)}
+.policy-body p{margin-bottom:14px}
+.policy-body p:last-child{margin-bottom:0}
+.policy-body ul{margin:10px 0 14px;display:flex;flex-direction:column;gap:8px;list-style:none}
+.policy-body ul li{padding-left:20px;position:relative;font-size:.8125rem;line-height:1.85;color:var(--mid)}
+.policy-body ul li::before{content:"";position:absolute;left:0;top:10px;width:6px;height:1px;background:var(--gold)}
+.policy-body strong{font-weight:500;color:var(--black)}
+.policy-body a{color:var(--black);text-decoration:underline;text-decoration-color:rgba(200,184,154,.5)}
+.policy-body a:hover{color:var(--gold)}
+.policy-body .caps{font-size:.8125rem;line-height:1.85;text-transform:none;font-weight:400;color:var(--mid)}
+.policy-highlight{background:var(--white);border-left:3px solid var(--gold);padding:20px 24px;margin:18px 0;font-size:.8125rem;line-height:1.85;color:var(--mid)}
+.policy-highlight strong{font-weight:500;color:var(--black)}
+.policy-contact-box{background:var(--black);padding:28px 32px;margin-top:20px;border-radius:2px}
+.policy-contact-box-title{font-family:var(--serif);font-size:1.0625rem;color:var(--white);margin-bottom:10px}
+.policy-contact-box-body{font-size:.8125rem;line-height:1.9;color:rgba(255,255,255,.45)}
+.policy-contact-box-body a{color:var(--gold);text-decoration:none}
+.policy-contact-box-body a:hover{text-decoration:underline}
+
+/* ══ FOOTER ══ */
+.site-footer{background:var(--black);color:rgba(255,255,255,.45);padding:64px 64px 32px;border-top:1px solid var(--rule)}
+.footer-main{max-width:1400px;margin:0 auto 48px;display:grid;grid-template-columns:repeat(4,1fr);gap:48px}
+.footer-col-head{font-family:var(--serif);font-size:.875rem;color:var(--white);display:block;margin-bottom:16px;letter-spacing:.02em}
+.footer-link{display:block;font-size:.75rem;color:rgba(255,255,255,.4);text-decoration:none;margin-bottom:10px;letter-spacing:.04em;transition:color .2s}
+.footer-link:hover{color:var(--white)}
+.footer-bottom{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--rule)}
+.footer-copy{font-size:.75rem;color:rgba(255,255,255,.2)}
+.footer-legal{display:flex;gap:20px}
+.footer-legal-link{font-size:.75rem;color:rgba(255,255,255,.2);text-decoration:none;letter-spacing:.04em;transition:color .2s}
+.footer-legal-link:hover{color:rgba(255,255,255,.5)}
+
+@media(max-width:900px){
+  .site-nav{padding:0 20px}.nav-links{display:none}
+  .page-header{padding:56px 24px 48px}
+  .policy-layout{grid-template-columns:1fr;padding:48px 24px 72px;gap:0}
+  .policy-toc{display:none}
+  .site-footer{padding:48px 24px 24px}.footer-main{grid-template-columns:1fr 1fr;gap:32px}
+}
+@media(max-width:540px){.footer-main{grid-template-columns:1fr}}
+</style>
+<link rel="stylesheet" href="/overrides.css">
+<style>
+/* Page-scoped: legal copy assumes a cream page ground — restore it. */
+html,body{background:var(--cream) !important}
+/* Header photo (owner 2026-07-22) */
+.page-header{position:relative;overflow:hidden}
+.ph-photo{position:absolute;inset:0;background-image:url('/assets/live-hero-poster.jpg');background-size:cover;background-position:center 40%}
+.ph-veil{position:absolute;inset:0;background:rgba(20,20,20,.7)}
+.page-header-inner{position:relative;z-index:1}
+body .page-sub{color:rgba(255,255,255,.85) !important;font-size:1rem !important}
+body .page-meta{color:rgba(255,255,255,.8) !important;font-size:.9375rem !important}
+/* Compliance type scale: legal text materially larger + darker */
+body .policy-body{font-size:1.0625rem !important;line-height:1.9 !important;color:#3A3633 !important}
+body .policy-body li{font-size:1.0625rem !important;color:#3A3633 !important}
+body .policy-section-title{font-size:1.625rem !important}
+#main .policy-section-num{font-size:1.0625rem !important;color:#3D6478 !important;font-weight:600 !important;letter-spacing:.16em !important;margin-bottom:8px !important}
+body .policy-intro ul li{font-size:1rem !important;color:#3A3633 !important}
+body .policy-toc-title{font-size:.75rem !important}
+body .policy-toc-list li a{font-size:.9375rem !important}
+.policy-contact-box a{color:var(--slate-light) !important}
+</style>
+</head>
+<body>
+<a class="skip-to-content" href="#main">Skip to content</a>
+
+<nav class="site-nav" aria-label="Main navigation">
+<div class="nav-book-panel" id="navBookPanel" hidden>
+  <div class="nbp-inner">
+    <div class="nbp-field"><label for="nbp-where">Where</label>
+      <select id="nbp-where"><option selected>All Properties</option>
+          <optgroup label="Arizona">
+            <option>Phoenix — Sol Modern</option>
+            <option>Scottsdale — Sentral Old Town</option>
+          </optgroup>
+          <optgroup label="California">
+            <option>Los Angeles — Sentral DTLA 755 (30+ only)</option>
+            <option>Los Angeles — Sentral DTLA 732 (30+ only)</option>
+            <option>Los Angeles — Figueroa Eight (30+ only)</option>
+          </optgroup>
+          <optgroup label="Colorado">
+            <option>Denver — Sentral Union Station</option>
+          </optgroup>
+          <optgroup label="Florida">
+            <option>Miami — Alea</option>
+            <option>Miami — Sentral Wynwood</option>
+          </optgroup>
+          <optgroup label="Georgia">
+            <option>Atlanta — Star Metals West Midtown</option>
+          </optgroup>
+          <optgroup label="Illinois">
+            <option>Chicago — Sentral Michigan Avenue</option>
+          </optgroup>
+          <optgroup label="Nevada">
+            <option>Las Vegas — Otonomus</option>
+          </optgroup>
+          <optgroup label="North Carolina">
+            <option>Charlotte — Inkwell</option>
+            <option>Charlotte — Joinery North</option>
+            <option>Charlotte — Joinery West</option>
+          </optgroup>
+          <optgroup label="Pennsylvania">
+            <option>Philadelphia — The Battery (30+ only)</option>
+          </optgroup>
+          <optgroup label="Tennessee">
+            <option>Nashville — Sentral SoBro</option>
+          </optgroup>
+          <optgroup label="Texas">
+              <option>Austin — Sentral East Austin 1630</option>
+            <option>Houston — Forme</option>
+          </optgroup>
+          <optgroup label="Washington">
+            <option>Seattle — Sentral First Hill (30+ only)</option>
+          </optgroup></select></div>
+    <div class="nbp-field"><label for="nbp-in">Check-in</label><input id="nbp-in" type="date"></div>
+    <div class="nbp-field"><label for="nbp-out">Check-out</label><input id="nbp-out" type="date"></div>
+    <a class="nbp-btn" href="stay-with-us.html#book-stay">Check Rates &nbsp;&rarr;</a>
+  </div>
+</div>
+    <a class="nav-logo" href="index.html"><img src="/assets/sentral-wordmark-white.png" alt="Sentral" /></a>
+    <div class="nav-links">
+      <a class="nav-link" href="stay-with-us.html">Stay With Us</a>
+      <a class="nav-link" href="live-with-us.html">Live With Us</a>
+      <a class="nav-link" href="partner-with-us.html">Partner With Us</a>
+    </div>
+    <div class="nav-ctas">
+      <a class="btn-sn" href="stay-with-us.html">Book a Stay</a><a class="btn-splus" href="https://sentralplus.laasie.ai/sign-up" target="_blank" rel="noopener" aria-label="Join SentralPlus — Rewards Program"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10 6.2v7.6M6.2 10h7.6" stroke="currentColor" stroke-width="1.3"/></svg><span class="btn-splus-text"><span class="btn-splus-word">Sentral<em>Plus</em></span><span class="btn-splus-tag">Rewards</span></span></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+      </button>
+    </div>
+    <div class="ham-panel" id="mobileMenu" aria-hidden="true">
+      <div class="ham-panel-inner">
+        <nav class="ham-nav" aria-label="Main menu">
+          <a class="ham-link" href="stay-with-us.html"><span class="ham-link-title">Stay With Us</span><span class="ham-link-sub">Furnished stays, 1 night to a whole summer</span></a>
+          <a class="ham-link" href="live-with-us.html"><span class="ham-link-title">Live With Us</span><span class="ham-link-sub">Apartment living, residentially priced</span></a>
+          <a class="ham-link" href="partner-with-us.html"><span class="ham-link-title">Partner With Us</span><span class="ham-link-sub">Institutional-grade property management</span></a>
+        </nav>
+        <div class="ham-footer">
+          <a class="ham-book" href="stay-with-us.html">Book a Stay &nbsp;&rarr;</a>
+          <a class="btn-splus" href="https://sentralplus.laasie.ai/sign-up" target="_blank" rel="noopener" aria-label="Join SentralPlus — Rewards Program"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10 6.2v7.6M6.2 10h7.6" stroke="currentColor" stroke-width="1.3"/></svg><span class="btn-splus-text"><span class="btn-splus-word">Sentral<em>Plus</em></span><span class="btn-splus-tag">Rewards</span></span></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+<main id="main" tabindex="-1">
+<div class="page-header">
+  <div class="ph-photo" aria-hidden="true"></div>
+  <div class="ph-veil" aria-hidden="true"></div>
+  <div class="photo-tag"><span class="photo-tag-name">Mission Rock</span><span class="photo-tag-city">San Francisco, CA</span></div>
+  <div class="page-header-inner">
+    <span class="page-eyebrow">Policies</span>
+    <h1 class="page-h">Reservation Policies</h1>
+    <span class="page-meta">STAY reservations &nbsp;&middot;&nbsp; DRAFT &mdash; copy pending operations &amp; legal review</span>
+  </div>
+</div>
+
+<div class="policy-layout">
+
+  <aside class="policy-toc">
+    <span class="policy-toc-title">Contents</span>
+    <ul class="policy-toc-list">
+      <li><a href="#checkin">Check-In &amp; Check-Out</a></li>
+      <li><a href="#payment">Payment &amp; Deposits</a></li>
+      <li><a href="#cancellation">Cancellation</a></li>
+      <li><a href="#rates">Rates, Taxes &amp; Fees</a></li>
+      <li><a href="#occupancy">Occupancy &amp; Minimum Age</a></li>
+      <li><a href="#pets">Pets</a></li>
+      <li><a href="#smoking">Smoking</a></li>
+      <li><a href="#groups">Group Reservations</a></li>
+      <li><a href="#extended">Extended Stays (30+ Nights)</a></li>
+      <li><a href="#damages">Property Care &amp; Damages</a></li>
+      <li><a href="#accessibility">Accessibility</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </aside>
+
+  <div class="policy-content">
+
+    <div class="policy-intro" id="intro">
+      <p>These Reservation Policies apply to STAY bookings at Sentral properties made through sentral.com or our reservations team. Property-specific terms &mdash; parking rates, pet fees, and local requirements &mdash; are confirmed at booking and in the Good to Know section of each property page.</p>
+      <p style="margin-top:14px"><strong>Draft for review:</strong> items marked [FIELD] require confirmation from operations before this page publishes. Nothing here supersedes the terms presented at booking.</p>
+    </div>
+
+    <section class="policy-section" id="checkin">
+  <span class="policy-section-num">01</span>
+  <h2 class="policy-section-title">Check-In &amp; Check-Out</h2>
+  <div class="policy-body"><p>Check-in begins at 4:00 PM local time with keyless self check-in; your entry code arrives by text and email the morning of arrival. Check-out is by 11:00 AM. Late check-out until 2:00 PM is subject to availability and may carry a fee. <em>[FIELD &mdash; confirm with operations]</em></p><p>A government-issued photo ID matching the reservation name is required for every stay.</p></div>
+</section>
+
+<section class="policy-section" id="payment">
+  <span class="policy-section-num">02</span>
+  <h2 class="policy-section-title">Payment &amp; Deposits</h2>
+  <div class="policy-body"><p>A valid credit or debit card is required to reserve. Flexible rates are charged at check-in; pre-paid rates (including Advance Purchase offers) are charged in full at booking and are non-refundable.</p><p>An incidental hold may be placed at check-in and released after departure, subject to your bank&rsquo;s processing times. <em>[FIELD &mdash; confirm with operations]</em></p></div>
+</section>
+
+<section class="policy-section" id="cancellation">
+  <span class="policy-section-num">03</span>
+  <h2 class="policy-section-title">Cancellation</h2>
+  <div class="policy-body"><p>Most flexible rates cancel free of charge up to 48 hours before arrival; inside 48 hours, one night&rsquo;s room and tax is charged. Rates marked non-refundable cannot be cancelled or refunded.</p><p>Offer and promotional rates carry the cancellation terms shown at booking. Blackout dates and terms apply to promotional rates.</p></div>
+</section>
+
+<section class="policy-section" id="rates">
+  <span class="policy-section-num">04</span>
+  <h2 class="policy-section-title">Rates, Taxes &amp; Fees</h2>
+  <div class="policy-body"><p>The rate you see is the rate you pay, plus applicable state and local taxes. Sentral charges no resort fee and no hidden charges.</p><p>Parking, where offered, is charged per night at the rate posted for the property. <em>[FIELD &mdash; confirm with operations]</em></p></div>
+</section>
+
+<section class="policy-section" id="occupancy">
+  <span class="policy-section-num">05</span>
+  <h2 class="policy-section-title">Occupancy &amp; Minimum Age</h2>
+  <div class="policy-body"><p>Guests must be at least 18 years of age to reserve and check in. <em>[FIELD &mdash; confirm with operations]</em></p><p>Maximum occupancy per suite is stated on each suite type and includes children. Events and parties are not permitted in suites.</p></div>
+</section>
+
+<section class="policy-section" id="pets">
+  <span class="policy-section-num">06</span>
+  <h2 class="policy-section-title">Pets</h2>
+  <div class="policy-body"><p>Pets are welcome at Sentral. Pet fees, weight limits, and breed policies vary by property and are confirmed at booking. <em>[FIELD &mdash; confirm with operations]</em></p><p>Service animals are always welcome and never carry a fee.</p></div>
+</section>
+
+<section class="policy-section" id="smoking">
+  <span class="policy-section-num">07</span>
+  <h2 class="policy-section-title">Smoking</h2>
+  <div class="policy-body"><p>All Sentral suites and interior common areas are smoke-free. A deep-cleaning fee applies to any violation. <em>[FIELD &mdash; confirm with operations]</em></p></div>
+</section>
+
+<section class="policy-section" id="groups">
+  <span class="policy-section-num">08</span>
+  <h2 class="policy-section-title">Group Reservations</h2>
+  <div class="policy-body"><p>Booking four or more suites? Contact our group sales team for special pricing, room blocks, and a single contract &mdash; <a href="group-travel.html">Group Travel &amp; Room Blocks</a>, or email <a href="mailto:Sales@Sentral.com">Sales@Sentral.com</a>.</p></div>
+</section>
+
+<section class="policy-section" id="extended">
+  <span class="policy-section-num">09</span>
+  <h2 class="policy-section-title">Extended Stays (30+ Nights)</h2>
+  <div class="policy-body"><p>Stays of 30 nights or more book at extended-stay rates and may be governed by a short-term occupancy agreement in some jurisdictions. <em>[FIELD &mdash; confirm with operations]</em></p><p>Some properties host extended stays exclusively; minimum-stay requirements are shown at booking (31 nights in Los Angeles).</p></div>
+</section>
+
+<section class="policy-section" id="damages">
+  <span class="policy-section-num">10</span>
+  <h2 class="policy-section-title">Property Care &amp; Damages</h2>
+  <div class="policy-body"><p>Guests are responsible for damage to the suite or its furnishings beyond normal wear. Repair or replacement costs may be charged to the card on file. <em>[FIELD &mdash; confirm with operations]</em></p></div>
+</section>
+
+<section class="policy-section" id="accessibility">
+  <span class="policy-section-num">11</span>
+  <h2 class="policy-section-title">Accessibility</h2>
+  <div class="policy-body"><p>Accessible suites and features vary by property and may be requested at booking. Contact the property directly to confirm specific accommodations before arrival.</p></div>
+</section>
+
+<section class="policy-section" id="contact">
+  <span class="policy-section-num">12</span>
+  <h2 class="policy-section-title">Contact</h2>
+  <div class="policy-body"><p>Questions about a reservation? Reach the property team via the number on your confirmation, or email <a href="mailto:Contact@sentral.com">Contact@sentral.com</a>.</p></div>
+</section>
+
+  </div>
+</div>
+
+</main>
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-main">
+    <div class="footer-connect">
+      <div class="footer-connect-h">Stay Connected.</div>
+      <!-- NEWSLETTER CAPTURE — endpoint TBD; build team wires to the email platform -->
+      <form class="footer-connect-form" onsubmit="this.style.display='none';this.nextElementSibling.style.display='block';return false">
+        <input class="footer-connect-input" type="email" required placeholder="Sign up for news and offers" aria-label="Email address">
+        <button class="footer-connect-btn" type="submit" aria-label="Sign up"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h11M9 4l4 4-4 4"/></svg></button>
+      </form>
+      <div class="footer-connect-done">Thanks &mdash; you&rsquo;re on the list.</div>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-head">Stay With Us</span>
+      <a class="footer-link" href="stay-with-us.html">Book a Stay</a>
+      <a class="footer-link" href="sentralplus.html">SentralPlus</a>
+      <a class="footer-link" href="business-travel.html">Business Travel &amp; Corporate Housing</a>
+      <a class="footer-link" href="group-travel.html">Group Travel</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-head">Partner With Us</span>
+      <a class="footer-link" href="partner-with-us.html">Partner with us</a>
+      <a class="footer-link" href="careers.html">Careers</a>
+      <a class="footer-link" href="press.html">Press</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-head">Live With Us</span>
+      <a class="footer-link" href="live-with-us.html">Find a Home</a>
+      <a class="footer-link" href="the-experience.html">The Experience</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-head">Support</span>
+      <a class="footer-link" href="/contact">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-head">Social</span>
+      <a class="footer-link" href="https://www.instagram.com/sentrallife/" target="_blank" rel="noopener">Instagram</a>
+      <a class="footer-link" href="https://www.facebook.com/sentrallife/" target="_blank" rel="noopener">Facebook</a>
+      <a class="footer-link" href="https://www.linkedin.com/company/sentral-life" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="footer-link" href="https://www.youtube.com/channel/UCvpIGx24v3Be73bThpC5A4A" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-left"><img class="footer-logo" src="/assets/sentral-wordmark-white.png" alt="Sentral"/><span class="footer-copy">&copy; 2026 BHI Holdings. All rights reserved.</span><a class="footer-eho" href="fair-housing.html" aria-label="Equal Housing Opportunity — Fair Housing statement"><img src="/assets/eho-white.png" alt="Equal Housing Opportunity logo"/></a></div>
+    <div class="footer-legal">
+      <a class="footer-legal-link" href="privacy-policy.html">Privacy</a>
+      <a class="footer-legal-link" href="terms-of-use.html">Terms</a>
+      <a class="footer-legal-link" href="fair-housing.html">Fair Housing</a>
+      <span class="footer-social-icons"><a href="https://www.instagram.com/sentrallife/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 2c-3.1 0-3.5 0-4.8.1-1.1.1-1.5.2-1.8.3-.4.2-.7.3-1 .6-.3.3-.5.6-.6 1-.1.3-.3.7-.3 1.8-.1 1.3-.1 1.7-.1 4.8s0 3.5.1 4.8c.1 1.1.2 1.5.3 1.8.2.4.3.7.6 1 .3.3.6.5 1 .6.3.1.7.3 1.8.3 1.3.1 1.7.1 4.8.1s3.5 0 4.8-.1c1.1-.1 1.5-.2 1.8-.3.4-.2.7-.3 1-.6.3-.3.5-.6.6-1 .1-.3.3-.7.3-1.8.1-1.3.1-1.7.1-4.8s0-3.5-.1-4.8c-.1-1.1-.2-1.5-.3-1.8-.2-.4-.3-.7-.6-1-.3-.3-.6-.5-1-.6-.3-.1-.7-.3-1.8-.3-1.3-.1-1.7-.1-4.8-.1zm0 3.3a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5zm5.8-2.2a1 1 0 11-2 0 1 1 0 012 0z"/></svg></a><a href="https://www.facebook.com/sentrallife/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.3-1.5 1.6-1.5h1.6V3.6c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.4H7.8V13h2.7v8h3z"/></svg></a><a href="https://www.linkedin.com/company/sentral-life" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.9H3.6V20h2.9V8.9zM5 7.6a1.7 1.7 0 100-3.4 1.7 1.7 0 000 3.4zM20.4 20h-2.9v-5.4c0-1.3 0-2.9-1.8-2.9s-2 1.4-2 2.8V20h-2.9V8.9h2.8v1.5h.1c.4-.7 1.3-1.5 2.8-1.5 3 0 3.9 2 3.9 4.5V20z"/></svg></a><a href="https://www.youtube.com/channel/UCvpIGx24v3Be73bThpC5A4A" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2a2.5 2.5 0 00-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 002.4 7.2 26 26 0 002 12c0 1.6.1 3.2.4 4.8a2.5 2.5 0 001.8 1.8c1.6.4 7.8.4 7.8.4s6.2 0 7.8-.4a2.5 2.5 0 001.8-1.8c.3-1.6.4-3.2.4-4.8s-.1-3.2-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z"/></svg></a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  const btn = document.getElementById('hamburgerBtn');
+  const panel = document.getElementById('mobileMenu');
+  if (!btn || !panel) return;
+  btn.addEventListener('click', function() {
+    const open = panel.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    panel.setAttribute('aria-hidden', !open);
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && panel.classList.contains('open')) {
+      panel.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      panel.setAttribute('aria-hidden', 'true');
+    }
+  });
+})();
+
+(function() {
+  const links = document.querySelectorAll('.policy-toc-list a');
+  const sections = document.querySelectorAll('.policy-section');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#'+id));
+      }
+    });
+  }, {threshold: 0.3, rootMargin: '-80px 0px -60% 0px'});
+  sections.forEach(s => obs.observe(s));
+})();
+</script>
+<script>
+// Nav BOOK A STAY opens the booking strip instead of navigating (owner 8-4)
+(function(){
+  var btn=document.querySelector('.nav-ctas .btn-sn'), panel=document.getElementById('navBookPanel');
+  if(!btn||!panel) return;
+  btn.addEventListener('click',function(e){ e.preventDefault(); panel.hidden=!panel.hidden; });
+  document.addEventListener('click',function(e){ if(!panel.hidden && !panel.contains(e.target) && !btn.contains(e.target)) panel.hidden=true; });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') panel.hidden=true; });
+})();
+</script>
+</body>
+</html>

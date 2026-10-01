@@ -3,6 +3,14 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/SentralVision",
+      "destination": "/sentralvision"
+    },
+    {
+      "source": "/offers",
+      "destination": "/stay-offers"
+    },
+    {
       "source": "/stay/charlotte",
       "destination": "/city-charlotte"
     },
