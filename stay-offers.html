@@ -8,23 +8,30 @@
 <link rel="stylesheet" href="/overrides.css?v=4dark31">
 <link rel="stylesheet" href="/booking.css?v=5">
 <style>
-.of-head{background:var(--slate,#2D4A5C);background:#2D4A5C;color:#fff;padding:128px 64px 56px}
+.of-head{background:#2D4A5C;color:#fff;padding:128px 64px 56px}
 .of-head-inner{max-width:1400px;margin:0 auto}
 .of-eyebrow{font-size:.75rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:#F2E8D5;display:block;margin-bottom:12px}
 .of-h1{font-family:Georgia,serif;font-weight:300;font-size:clamp(2rem,3.5vw,3rem);line-height:1.12;color:#fff}
-.of-h1 em{font-style:italic;color:#F2E8D5}
+section.of-head.dark[class] h1 em,.of-h1 em{font-style:italic;color:#F2E8D5 !important}
 .of-sub{font-size:.9375rem;color:rgba(255,255,255,.75);margin-top:10px;max-width:60ch}
-.of-wrap{max-width:1400px;margin:0 auto;padding:64px 64px 96px}
+.of-wrap{max-width:1400px;margin:0 auto;padding:40px 64px 96px}
+/* image-forward offer tiles: photo is the card, copy rides a scrim */
+.of-feature{position:relative;border-radius:2px;overflow:hidden;min-height:440px;display:flex;align-items:flex-end;margin-bottom:28px}
 .of-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px}
-.of-card{background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:2px;overflow:hidden;display:flex;flex-direction:column}
-.of-card img{width:100%;height:220px;object-fit:cover}
-.of-body{padding:24px 26px 28px;display:flex;flex-direction:column;gap:12px;flex:1}
-.of-body h2{font-family:Georgia,serif;font-weight:400;font-size:1.3125rem}
-.of-body p{font-size:.875rem;color:#6B6560;line-height:1.65;flex:1}
-.of-cta{align-self:flex-start;background:#B8924A;border:1px solid #B8924A;color:#141414 !important;font-size:.75rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;padding:12px 26px;border-radius:2px;text-decoration:none !important;transition:filter .15s}
-.of-cta:hover{filter:brightness(1.07)}
+.of-tile{position:relative;border-radius:2px;overflow:hidden;min-height:460px;display:flex;align-items:flex-end}
+.of-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.of-feature:hover .of-img,.of-tile:hover .of-img{transform:scale(1.04)}
+.of-veil{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.08) 30%,rgba(0,0,0,.42) 62%,rgba(0,0,0,.82) 100%)}
+.of-copy{position:relative;z-index:2;padding:34px 36px;color:#fff;max-width:60ch}
+.of-save{display:inline-block;font-size:.6875rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:#B8924A;color:#141414;padding:5px 12px;border-radius:2px;margin-bottom:14px}
+.of-copy h2{font-family:Georgia,serif;font-weight:300;font-size:clamp(1.4rem,2.4vw,2rem);line-height:1.18;margin:0 0 10px}
+.of-feature .of-copy h2{font-size:clamp(1.8rem,3vw,2.6rem)}
+.of-copy p{font-size:.875rem;color:rgba(255,255,255,.82);line-height:1.6;margin:0 0 18px;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+.of-cta{display:inline-block;background:#B8924A;border:1px solid #B8924A;color:#141414 !important;font-size:.75rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;padding:13px 28px;border-radius:2px;text-decoration:none !important;transition:filter .15s}
+.of-cta:hover{filter:brightness(1.08)}
 .of-fine{font-size:.75rem;color:#6B6560;margin-top:28px}
-@media(max-width:900px){.of-head{padding:104px 20px 40px}.of-wrap{padding:48px 20px 64px}}
+.of-fine a{color:#2D4A5C}
+@media(max-width:900px){.of-head{padding:104px 20px 40px}.of-wrap{padding:28px 20px 64px}.of-feature{min-height:380px}.of-tile{min-height:400px}.of-copy{padding:24px 22px}}
 </style>
 </head>
 <body>
@@ -74,23 +81,47 @@
   <!-- CMS promo slot, sitewide (plan §STAY Offers, P2). Cards are marketing-
        owned; each carries its rate plan into Search & Availability. OPEN
        QUESTION for Highspring: standalone page vs folds into search results. -->
+  <div class="of-feature">
+    <img class="of-img" src="/assets/stay-hero-poster.jpg" alt="Rooftop pool at golden hour">
+    <div class="of-veil"></div>
+    <div class="of-copy">
+      <span class="of-save">Save up to 20%</span>
+      <h2>Limited Time Fall Sale &mdash; stay 2+ nights.</h2>
+      <p>Stay longer, save more this fall. 20% off best rates on stays of 2+ nights when you book by 11/18/26 and stay by 1/1/27. Blackout dates and terms apply.</p>
+      <a class="of-cta" href="/book/search?plan=fall">Book Now &nbsp;&rarr;</a>
+    </div>
+  </div>
   <div class="of-grid">
-    <div class="of-card"><img src="/assets/bk-city-3.jpg" alt="Suite at dusk">
-      <div class="of-body"><h2>Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%</h2>
-      <p>Stay longer, save more this fall. Save 20% off best rates on stays of 2+ nights when you book by 11/18/26 and stay by 1/1/27. Blackout dates and terms apply.</p>
-      <a class="of-cta" href="/book/search?plan=fall">Book Now &nbsp;&rarr;</a></div></div>
-    <div class="of-card"><img src="/assets/bk-room-1br.jpg" alt="One bedroom suite">
-      <div class="of-body"><h2>Campus Bound</h2>
-      <p>The perfect place to stay for campus tours, parents&rsquo; weekend, and all the games. Blackout dates and terms apply.</p>
-      <a class="of-cta" href="/book/search?plan=campus">Book Now &nbsp;&rarr;</a></div></div>
-    <div class="of-card"><img src="/assets/bk-room-studio.jpg" alt="Studio suite">
-      <div class="of-body"><h2>Book Direct | Save up to 10% off Best Rates</h2>
-      <p>Book direct at Sentral.com and save up to 10% off best rates &mdash; plus SentralPlus rewards on every night booked.</p>
-      <a class="of-cta" href="/book/search?plan=direct">Book Now &nbsp;&rarr;</a></div></div>
-    <div class="of-card"><img src="/assets/group-hero-poster.jpg" alt="Group on a rooftop">
-      <div class="of-body"><h2>Group Stays</h2>
-      <p>Looking to book 4 or more suites for your group or multi-generational family getaway? Contact our sales team for special pricing.</p>
-      <a class="of-cta" href="group-travel.html#rfp-form">Inquire &nbsp;&rarr;</a></div></div>
+    <div class="of-tile">
+      <img class="of-img" src="/assets/bk-room-2br.jpg" alt="Glass-walled suite">
+      <div class="of-veil"></div>
+      <div class="of-copy">
+        <span class="of-save">Save up to 10%</span>
+        <h2>Book direct. Sleep better.</h2>
+        <p>The best rate we offer anywhere &mdash; plus SentralPlus rewards on every night booked.</p>
+        <a class="of-cta" href="/book/search?plan=direct">Book Now &nbsp;&rarr;</a>
+      </div>
+    </div>
+    <div class="of-tile">
+      <img class="of-img" src="/assets/bk-room-1br.jpg" alt="City-view bedroom">
+      <div class="of-veil"></div>
+      <div class="of-copy">
+        <span class="of-save">Game-day ready</span>
+        <h2>Campus bound.</h2>
+        <p>Campus tours, parents&rsquo; weekend, and all the games &mdash; suites that sleep the whole crew. Blackout dates and terms apply.</p>
+        <a class="of-cta" href="/book/search?plan=campus">Book Now &nbsp;&rarr;</a>
+      </div>
+    </div>
+    <div class="of-tile">
+      <img class="of-img" src="/assets/group-hero-poster.jpg" alt="Rooftop gathering at night">
+      <div class="of-veil"></div>
+      <div class="of-copy">
+        <span class="of-save">4+ suites</span>
+        <h2>Bring everyone.</h2>
+        <p>Group or multi-generational getaway? Our sales team builds special pricing around your plans.</p>
+        <a class="of-cta" href="group-travel.html#rfp-form">Inquire &nbsp;&rarr;</a>
+      </div>
+    </div>
   </div>
   <p class="of-fine">Offers are samples of the current programs and are marketing-editable in the CMS at build. Terms, blackout dates, and property participation vary. See <a href="/reservation-policies" style="color:#2D4A5C">Reservation Policies</a>.</p>
 </div>
