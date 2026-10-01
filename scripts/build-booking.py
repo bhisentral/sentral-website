@@ -352,7 +352,7 @@ header('Sentral &mdash; Book a Stay','Almost <em>home.</em>','ckContext',1)+'''
         <div class="bk-embed"><strong>Shift4 payment capture</strong>
           <p>The current Shift4 payment embed drops in here unchanged. No card fields exist in this prototype by design.</p></div>
         <a class="bk-btn wide" id="ckGo" href="/book/confirmation">Complete Booking &nbsp;&rarr;</a>
-        <div class="bk-note">Flexible cancellation on most rates &middot; no hidden fees</div>
+        <div class="bk-note">Flexible cancellation on most rates &middot; no hidden fees &middot; <a href="/reservation-policies" target="_blank" rel="noopener" style="color:var(--bk-slate);text-decoration:underline;text-underline-offset:2px">Reservation Policies</a></div>
       </div></div>
     </div>
     <aside class="bk-rail" aria-label="Stay summary">
