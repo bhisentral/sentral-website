@@ -11,7 +11,10 @@
 /* Sentral Vision — owner/partner-facing. Brief (owner, 10-2): how the perfect
    Sentral works — The Battery, The Bellevue — more than apartment management:
    valet, retail, fully activated building; build NOI beyond base management. */
-.sv-hero{background:#1F1F1F;color:#fff;padding:150px 64px 72px}
+.sv-hero{position:relative;background:#1F1F1F;color:#fff;padding:0 64px;min-height:86vh;display:flex;align-items:flex-end;overflow:hidden}
+.sv-hero .sv-inner{padding:150px 0 72px;width:100%}
+.sv-hero-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sv-hero-veil{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.45) 0%,rgba(0,0,0,.18) 40%,rgba(0,0,0,.72) 100%)}
 .sv-inner{max-width:1200px;margin:0 auto}
 .sv-eyebrow{font-size:.75rem;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#5C8CA0;display:block;margin-bottom:14px}
 .sv-hero h1{font-family:Georgia,serif;font-weight:300;font-size:clamp(2.2rem,4.5vw,3.6rem);line-height:1.1;margin:0 0 18px}
@@ -35,17 +38,21 @@ section.sv-sec.ink.dark[class] h2 em,.sv-sec.ink .sv-h2 em{color:#F2E8D5 !import
 .sv-layer.sum{background:#F2E8D5;border-color:#B8924A}
 .sv-layer.sum strong{color:#8C6A2E}
 .sv-stack-note{font-size:.75rem;color:#6B6560;margin-top:14px}
-/* activation grid */
+.sv-band{height:54vh;min-height:380px;background:url('/assets/stay-hero-poster.jpg') center/cover;position:relative}
+.sv-band-chip{position:absolute;right:28px;bottom:22px;font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);background:rgba(20,20,20,.55);padding:6px 12px;border-radius:2px}
+/* activation grid — photo tiles */
 .sv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:26px;margin-top:40px}
-.sv-cell{border-left:2px solid #2D4A5C;padding-left:18px}
-.sv-sec.ink .sv-cell{border-left-color:#5C8CA0}
-.sv-cell h3{font-family:Georgia,serif;font-weight:400;font-size:1.1875rem;margin:0 0 8px}
-.sv-cell p{font-size:.875rem;line-height:1.65;color:#4a4643;margin:0}
-.sv-sec.ink .sv-cell p{color:rgba(255,255,255,.65)}
+.sv-ph{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:2px;overflow:hidden}
+.sv-ph img{width:100%;height:220px;object-fit:cover;display:block;transition:transform .6s ease}
+.sv-ph:hover img{transform:scale(1.05)}
+.sv-ph-body{padding:18px 20px 22px}
+.sv-ph-body h3{font-family:Georgia,serif;font-weight:400;font-size:1.1875rem;margin:0 0 8px}
+.sv-ph-body p{font-size:.8438rem;line-height:1.65;color:rgba(255,255,255,.65);margin:0}
 /* cases */
 .sv-cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;margin-top:40px}
 .sv-case{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);border-radius:2px;overflow:hidden}
-.sv-case img{width:100%;height:230px;object-fit:cover;display:block}
+.sv-case img{width:100%;height:330px;object-fit:cover;display:block;transition:transform .6s ease}
+.sv-case:hover img{transform:scale(1.04)}
 .sv-case-body{padding:22px 24px 26px}
 .sv-case-body h3{font-family:Georgia,serif;font-weight:400;font-size:1.3125rem;margin:0 0 4px}
 .sv-case-loc{font-size:.7188rem;letter-spacing:.12em;text-transform:uppercase;color:#5C8CA0;display:block;margin-bottom:10px}
@@ -93,10 +100,14 @@ section.sv-sec.ink.dark[class] h2 em,.sv-sec.ink .sv-h2 em{color:#F2E8D5 !import
 </header>
 <main id="main">
 <section class="sv-hero dark">
-  <div class="sv-inner">
+  <video class="sv-hero-media" autoplay muted loop playsinline poster="/assets/group-hero-poster.jpg">
+    <source src="/assets/forme-houston-group-header.mp4" type="video/mp4">
+  </video>
+  <div class="sv-hero-veil" aria-hidden="true"></div>
+  <div class="sv-inner" style="position:relative;z-index:2">
     <span class="sv-eyebrow">Sentral Vision &mdash; For Ownership Groups &middot; Draft</span>
     <h1>This is how the perfect <em>building works.</em></h1>
-    <p class="sv-lead">Sentral is more than apartment management. A Sentral building is fully activated &mdash; valet, retail, flexible stays, programming &mdash; every square foot and every hour earning. This is how we build your NOI beyond base management.</p>
+    <p class="sv-lead">Sentral is more than apartment management. A Sentral building is fully activated and fully programmed &mdash; events on the calendar, valet at the door, retail at the ground floor, flexible stays upstairs. Every square foot and every hour earning. This is how we build your NOI beyond base management.</p>
   </div>
 </section>
 
@@ -117,15 +128,20 @@ section.sv-sec.ink.dark[class] h2 em,.sv-sec.ink .sv-h2 em{color:#F2E8D5 !import
   </div>
 </section>
 
+<div class="sv-band" role="img" aria-label="Aerial view of a Sentral rooftop pool deck">
+  <span class="sv-band-chip">Sol Modern &mdash; Phoenix, AZ</span>
+</div>
+
 <section class="sv-sec ink dark">
   <div class="sv-inner">
     <span class="sv-eyebrow">The Fully Activated Building</span>
     <h2 class="sv-h2">Every amenity <em>works a shift.</em></h2>
     <div class="sv-grid">
-      <div class="sv-cell"><h3>Valet</h3><p>Arrival as hospitality &mdash; and a parking asset that earns around the clock.</p></div>
-      <div class="sv-cell"><h3>Retail</h3><p>Ground floors curated for the building&rsquo;s life &mdash; coffee, dining, services that drive traffic and rent.</p></div>
-      <div class="sv-cell"><h3>Flexible stays</h3><p>Vacant units become furnished STAY suites &mdash; nightly revenue without touching the lease-up.</p></div>
-      <div class="sv-cell"><h3>Activated amenities</h3><p>Pools, lounges, and event spaces programmed and bookable &mdash; not just photographed.</p></div>
+      <div class="sv-ph"><img src="/assets/hero-poster.jpg" alt="Sentral building aerial" loading="lazy"><div class="sv-ph-body"><h3>Valet</h3><p>Arrival as hospitality &mdash; and a parking asset that earns around the clock.</p></div></div>
+      <div class="sv-ph"><img src="/assets/ig-social-1.jpg" alt="Activated lounge with billiards" loading="lazy"><div class="sv-ph-body"><h3>Retail</h3><p>Ground floors curated for the building&rsquo;s life &mdash; coffee, dining, services that drive traffic and rent.</p></div></div>
+      <div class="sv-ph"><img src="/assets/bk-room-2br.jpg" alt="Furnished STAY suite" loading="lazy"><div class="sv-ph-body"><h3>Flexible stays</h3><p>Vacant units become furnished STAY suites &mdash; nightly revenue without touching the lease-up.</p></div></div>
+      <div class="sv-ph"><img src="/assets/ig-social-3.jpg" alt="Rooftop pool deck" loading="lazy"><div class="sv-ph-body"><h3>Activated amenities</h3><p>Pools, lounges, and event spaces programmed and bookable &mdash; not just photographed.</p></div></div>
+      <div class="sv-ph"><img src="/assets/forme-houston-square-poster.jpg" alt="Evening event programming" loading="lazy"><div class="sv-ph-body"><h3>Programming</h3><p>A real calendar &mdash; socials, wellness, gatherings &mdash; that keeps residents renewing and spaces earning.</p></div></div>
     </div>
   </div>
 </section>
