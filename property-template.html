@@ -124,13 +124,15 @@ img{max-width:100%;display:block}
 .pt-sticky{position:fixed;top:64px;left:0;right:0;z-index:190;background:rgba(31,31,31,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule);transform:translateY(-110%);transition:transform .32s cubic-bezier(.22,.68,0,1);will-change:transform}
 .pt-sticky.show{transform:translateY(0)}
 .pt-sticky-inner{max-width:1400px;margin:0 auto;padding:12px 64px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.pt-sticky-name{font-family:var(--serif);font-size:1rem;color:#fff;white-space:nowrap}
+.pt-splus-note{font-size:.8438rem;color:rgba(255,255,255,.65);line-height:1.7;max-width:46ch;margin:26px 0 16px}
+.pt-book .splus-lockup{margin-top:4px}
+.pt-sticky-name{flex:0 0 29%;min-width:170px;font-family:var(--serif);font-size:1rem;color:#fff;white-space:nowrap}
 .pt-sticky-name small{display:block;font-family:var(--sans);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:2px}
 section[id],.pt-anchor-alias{scroll-margin-top:118px}
-.pt-sticky-jump{display:flex;gap:24px}
+.pt-sticky-jump{display:flex;gap:24px;margin-left:34px;margin-right:auto}
 .pt-sticky-jump a{font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;transition:color .2s;white-space:nowrap}
 .pt-sticky-jump a:hover{color:#fff}
-.pt-sticky-book{margin-left:auto;background:var(--slate);color:#fff;font-size:.8125rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:12px 26px;border-radius:2px;text-decoration:none;white-space:nowrap;transition:background .2s}
+.pt-sticky-book{background:var(--slate);color:#fff;font-size:.8125rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:12px 26px;border-radius:2px;text-decoration:none;white-space:nowrap;transition:background .2s}
 .pt-sticky-book:hover{background:var(--slate-deep)}
 @media(max-width:1000px){.pt-sticky-jump{display:none}.pt-sticky-inner{padding:10px 20px}}
 
@@ -154,7 +156,10 @@ section[id],.pt-anchor-alias{scroll-margin-top:118px}
 
 /* ══ 4. INTRO ══ */
 .pt-intro{background:var(--cream);padding:104px 64px}
-.pt-intro-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.15fr 1fr;gap:80px;align-items:start}
+.pt-intro-inner{max-width:1400px;margin:0 auto}
+.pt-intro-copy{max-width:72ch;margin-bottom:44px}
+.pt-intro-photos{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:44px}
+.pt-intro-photos .pt-intro-photo{margin-top:0}
 .pt-eyebrow{display:block;font-size:.75rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--text-accent);margin-bottom:16px}
 .pt-h2{font-family:var(--serif);font-size:clamp(1.9rem,3.4vw,3rem);font-weight:300;color:var(--black);line-height:1.14;letter-spacing:.005em;margin-bottom:24px}
 .pt-h2 em{font-style:italic;color:var(--text-accent)}
@@ -213,6 +218,7 @@ section[id],.pt-anchor-alias{scroll-margin-top:118px}
    negative margin keeps the card body visually as tight as it was before —
    overrides.css §6b holds the rest of the site's buttons to 48px. */
 .pt-suite-actions{display:flex;flex-wrap:wrap;align-items:center;gap:0 18px;margin:-11px 0 -12px}
+.pt-suite-desc{font-size:.8125rem;color:rgba(255,255,255,.68);line-height:1.6;margin:8px 0 2px;max-width:46ch}
 .pt-suite-cta{background:var(--metallic);border:1px solid var(--metallic);color:#141414;cursor:pointer;font-family:var(--sans);font-size:.75rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;display:inline-flex;align-items:center;min-height:44px;padding:11px 26px;border-radius:2px;transition:background .15s,color .15s;margin-top:4px}
 .pt-suite-cta,.pt-suite-cta:hover,.pt-suite:hover .pt-suite-cta{background:var(--metallic) !important;color:#141414 !important}
 .pt-suite-cta:hover{filter:brightness(1.07)}
@@ -256,7 +262,8 @@ section[id],.pt-anchor-alias{scroll-margin-top:118px}
 @media(max-width:900px){.pt-lb-grid{grid-template-columns:1fr}.pt-lb-top{flex-wrap:wrap;padding:14px 18px}.pt-lb-body{padding:16px 18px 32px}}
 
 /* ══ 6b. AMENITY SHOWCASE ══ */
-.pt-spaces{background:var(--cream-warm);padding:96px 0}
+.pt-spaces{background:var(--cream-warm);padding:96px 0 72px}
+.pt-spaces-allwrap{max-width:1400px;margin:36px auto 0;padding:0 64px}
 .pt-spaces-header{max-width:1400px;margin:0 auto 40px;padding:0 64px;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:end}
 .pt-spaces-sub{font-size:1.0625rem;color:var(--text-body);line-height:1.75;max-width:54ch}
 .pt-spaces-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
@@ -554,7 +561,7 @@ a.pt-suite-cta{text-decoration:none !important}
 
 <!-- ══════════ 3. AT A GLANCE ══════════ -->
 <!-- Seven attributes, max. Everything else lives in the disclosure below. -->
-<section class="pt-glance" id="amenities" aria-label="Property at a glance">
+<section class="pt-glance" id="glance" aria-label="Property at a glance">
   <div class="pt-glance-inner">
     <div class="pt-glance-list">
       <span class="pt-glance-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h18M5 12V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5M4 12v6M20 12v6"/></svg>Full Kitchens</span>
@@ -565,65 +572,28 @@ a.pt-suite-cta{text-decoration:none !important}
       <span class="pt-glance-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17.5a3.5 3.5 0 0 1 4 0"/><ellipse cx="6.5" cy="9" rx="2" ry="2.8"/><ellipse cx="17.5" cy="9" rx="2" ry="2.8"/><ellipse cx="10.5" cy="5.5" rx="1.8" ry="2.5"/><ellipse cx="13.5" cy="5.5" rx="1.8" ry="2.5"/></svg>Pet Friendly</span>
       <span class="pt-glance-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M9 15V9h3a2 2 0 0 1 0 4H9"/></svg>Controlled Access Parking</span>
     </div>
-    <button class="pt-glance-all" id="ptAmenBtn" aria-expanded="false" aria-controls="ptAmen">All 19 Amenities &nbsp;+</button><!-- [FIELD] count -->
   </div>
 </section>
 
 <!-- Full amenity list — the 18-item completeness, one click away instead of on the page -->
-<div class="pt-amen" id="ptAmen" hidden>
-  <div class="pt-amen-inner">
-    <div>
-      <span class="pt-amen-h">In your suite</span>
-      <ul class="pt-amen-list">
-        <li>Stainless steel appliances</li>
-        <li>Refrigerator, dishwasher, and microwave</li>
-        <li>Quartz countertops</li>
-        <li>Vinyl plank wood flooring</li>
-        <li>Walk-in showers</li>
-        <li>Keyless apartment entry</li>
-        <li>Balconies in select apartments</li>
-        <li>All utilities, streaming services, WiFi, and more</li>
-      </ul>
-    </div>
-    <div>
-      <span class="pt-amen-h">Around the building</span>
-      <ul class="pt-amen-list">
-        <li>Entertainment lounge</li>
-        <li>Gathering and networking spaces</li>
-        <li>Indoor and outdoor entertaining areas</li>
-        <li>WiFi in common areas</li>
-        <li>Work spaces</li>
-        <li>On-site pet amenities</li>
-      </ul>
-    </div>
-    <div>
-      <span class="pt-amen-h">Building &amp; access</span>
-      <ul class="pt-amen-list">
-        <li>Controlled access building entry</li>
-        <li>Controlled access garage parking</li>
-        <li>EV charging stations</li>
-        <li>On-site management</li>
-        <li>Walkable to shopping, restaurants, and more</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
 <!-- ══════════ 4. INTRO ══════════ -->
 <!-- Two paragraphs. Not four amenity essays. -->
 <section class="pt-intro" id="the-property">
   <div class="pt-intro-inner">
-    <div>
+    <div class="pt-intro-copy">
       <span class="pt-eyebrow">The Property</span>
       <h2 class="pt-h2">Downtown Phoenix,<br><em>with the doors unlocked.</em></h2>
       <p>Sol Modern sits on Fillmore between the arts district and the ballpark &mdash; close enough to walk to dinner, far enough to sleep. Suites are furnished end to end, with kitchens you would actually cook in and laundry you never have to leave for.</p>
       <p>Everything downstairs is yours while you are here: the pool deck, the fitness floor, the work lounges, and the people who run them.</p>
-      <img class="pt-intro-photo" src="/assets/ig-social-2.jpg" alt="Sol Modern amenity space" loading="lazy"><!-- [FIELD] intro photo 1 -->
     </div>
+    <!-- Laurie 10-2: stats span the full width, one line each -->
     <div class="pt-stats">
-      <div class="pt-stat"><span class="pt-stat-n">1&ndash;2</span><span class="pt-stat-l">Bedroom suites<br>plus studios</span></div>
-      <div class="pt-stat"><span class="pt-stat-n">1</span><span class="pt-stat-l">Night minimum stay</span></div>
-      <div class="pt-stat"><span class="pt-stat-n">4</span><span class="pt-stat-l">Guests, largest suite</span></div>
+      <div class="pt-stat"><span class="pt-stat-n">1&ndash;2</span><span class="pt-stat-l">Bedroom suites plus studios</span></div>
+      <div class="pt-stat"><span class="pt-stat-n">1</span><span class="pt-stat-l">Night minimum stay &nbsp;|&nbsp; 30+ night extended stays</span></div>
+      <div class="pt-stat"><span class="pt-stat-n">4</span><span class="pt-stat-l">Up to 4 guests, with the largest suite 1,053 sq ft</span></div>
+    </div>
+    <div class="pt-intro-photos">
+      <img class="pt-intro-photo" src="/assets/ig-social-2.jpg" alt="Sol Modern amenity space" loading="lazy"><!-- [FIELD] intro photo 1 -->
       <img class="pt-intro-photo" src="/assets/ig-social-3.jpg" alt="Sol Modern rooftop pool deck" loading="lazy"><!-- [FIELD] intro photo 2 -->
     </div>
   </div>
@@ -650,6 +620,7 @@ a.pt-suite-cta{text-decoration:none !important}
       <div class="pt-suite-body">
         <div class="pt-suite-name">Studio</div>
         <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 2</span><span class="pt-suite-spec">1 Queen Bed</span><span class="pt-suite-spec">1 Bath</span><span class="pt-suite-spec">517 Sq Ft</span></div>
+        <p class="pt-suite-desc">Studio apartment suite with plush queen-sized bed, open-concept living area with TV, full bathroom, and gourmet full kitchen.</p>
         <div class="pt-suite-actions">
           <button class="pt-suite-cta" type="button" data-book-suite="studio">Check Rates &nbsp;&rarr;</button>
         </div>
@@ -663,6 +634,7 @@ a.pt-suite-cta{text-decoration:none !important}
       <div class="pt-suite-body">
         <div class="pt-suite-name">One Bedroom</div>
         <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 2</span><span class="pt-suite-spec">1 Queen Bed</span><span class="pt-suite-spec">1 Bath</span><span class="pt-suite-spec">673 Sq Ft</span></div>
+        <p class="pt-suite-desc">One bedroom apartment suite featuring plush queen bed, open-concept living area with TV, full bathroom, and gourmet full kitchen with small dining table.</p>
         <div class="pt-suite-actions">
           <button class="pt-suite-cta" type="button" data-book-suite="one-bedroom">Check Rates &nbsp;&rarr;</button>
         </div>
@@ -676,6 +648,7 @@ a.pt-suite-cta{text-decoration:none !important}
       <div class="pt-suite-body">
         <div class="pt-suite-name">Two Bedroom</div>
         <div class="pt-suite-specs"><span class="pt-suite-spec">Sleeps 4</span><span class="pt-suite-spec">2 Queen Beds</span><span class="pt-suite-spec">2 Baths</span><span class="pt-suite-spec">1,053 Sq Ft</span></div>
+        <p class="pt-suite-desc">Two bedroom apartment suite featuring plush queen beds in each bedroom, open-concept living area with TV, two full bathrooms, and gourmet full kitchen.</p>
         <div class="pt-suite-actions">
           <button class="pt-suite-cta" type="button" data-book-suite="two-bedroom">Check Rates &nbsp;&rarr;</button>
         </div>
@@ -759,7 +732,6 @@ a.pt-suite-cta{text-decoration:none !important}
     <span class="pt-eyebrow">01 &mdash; Stay</span>
     <h2 class="pt-h2">A kitchen, a couch,<br><em>a door that closes.</em></h2>
     <p>Every suite is furnished and stocked: full-size appliances, cookware, in-unit washer and dryer, fast WiFi, and a desk that works for a real work day. Bedrooms are separate rooms, not a corner of one.</p>
-    <a class="pt-story-cta" href="#suites">See the suites</a>
   </div>
 </section>
 
@@ -768,6 +740,7 @@ a.pt-suite-cta{text-decoration:none !important}
      listed. Uses the sitewide .space-tile / .space-chip pattern from
      stay-with-us.html so it reads as the same system. -->
 <section class="pt-spaces" id="amenity-spaces" aria-label="Amenity spaces">
+  <span id="amenities" class="pt-anchor-alias" aria-hidden="true"></span>
   <div class="pt-spaces-header">
     <div>
       <span class="pt-eyebrow">02 &mdash; Notable Amenities</span>
@@ -785,6 +758,47 @@ a.pt-suite-cta{text-decoration:none !important}
     <div class="pt-space"><img src="/assets/ig-social-3.jpg" alt="On-site pet amenities"/><span class="pt-space-chip">Pet Amenities</span></div>
   </div>
   <a class="pt-story-cta pt-spaces-cta" href="#ptAmen" id="ptAmenJump">See all 19 amenities</a>
+  <div class="pt-spaces-allwrap">
+    <button class="pt-glance-all" id="ptAmenBtn" aria-expanded="false" aria-controls="ptAmen">See All 19 Amenities &nbsp;+</button><!-- [FIELD] count -->
+  </div>
+<div class="pt-amen" id="ptAmen" hidden>
+  <div class="pt-amen-inner">
+    <div>
+      <span class="pt-amen-h">In your suite</span>
+      <ul class="pt-amen-list">
+        <li>Stainless steel appliances</li>
+        <li>Refrigerator, dishwasher, and microwave</li>
+        <li>Quartz countertops</li>
+        <li>Vinyl plank wood flooring</li>
+        <li>Walk-in showers</li>
+        <li>Keyless apartment entry</li>
+        <li>Balconies in select apartments</li>
+        <li>All utilities, streaming services, WiFi, and more</li>
+      </ul>
+    </div>
+    <div>
+      <span class="pt-amen-h">Around the building</span>
+      <ul class="pt-amen-list">
+        <li>Entertainment lounge</li>
+        <li>Gathering and networking spaces</li>
+        <li>Indoor and outdoor entertaining areas</li>
+        <li>WiFi in common areas</li>
+        <li>Work spaces</li>
+        <li>On-site pet amenities</li>
+      </ul>
+    </div>
+    <div>
+      <span class="pt-amen-h">Building &amp; access</span>
+      <ul class="pt-amen-list">
+        <li>Controlled access building entry</li>
+        <li>Controlled access garage parking</li>
+        <li>EV charging stations</li>
+        <li>On-site management</li>
+        <li>Walkable to shopping, restaurants, and more</li>
+      </ul>
+    </div>
+  </div>
+</div>
 </section>
 
 <section class="pt-story cream" id="roosevelt-row" aria-label="The neighborhood">
@@ -811,6 +825,12 @@ a.pt-suite-cta{text-decoration:none !important}
         <div class="pt-perk"><span class="pt-perk-dot"></span>Transparent pricing &mdash; no hidden fees</div>
         <div class="pt-perk"><span class="pt-perk-dot"></span>SentralPlus rewards on every night booked</div>
       </div>
+      <!-- Laurie 10-2: SentralPlus explained for first-timers, with the lockup -->
+      <p class="pt-splus-note">New to Sentral? <strong>SentralPlus</strong> is our free rewards program &mdash; instant perks on every night booked at a participating property, no points to chase. Join as you book.</p>
+      <a class="splus-lockup" href="https://sentralplus.laasie.ai/sign-up" target="_blank" rel="noopener" aria-label="Join SentralPlus — Rewards Program">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.4" fill="none" stroke="currentColor" stroke-width="1.1"/><path d="M10 6.2v7.6M6.2 10h7.6" stroke="currentColor" stroke-width="1.1"/></svg>
+        <span class="splus-lockup-text"><span class="splus-lockup-word">Sentral<em>Plus</em></span><span class="splus-lockup-tag">Rewards</span></span>
+      </a>
     </div>
     <div class="pt-form-wrap">
       <span class="pt-form-label">Sol Modern</span><!-- [FIELD] property name -->
