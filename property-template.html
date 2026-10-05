@@ -157,7 +157,9 @@ section[id],.pt-anchor-alias{scroll-margin-top:118px}
 /* ══ 4. INTRO ══ */
 .pt-intro{background:var(--cream);padding:104px 64px}
 .pt-intro-inner{max-width:1400px;margin:0 auto}
-.pt-intro-copy{max-width:72ch;margin-bottom:44px}
+.pt-intro-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:72px;align-items:start}
+.pt-intro-copy{max-width:66ch}
+@media(max-width:900px){.pt-intro-grid{grid-template-columns:1fr;gap:36px}}
 .pt-intro-photos{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:44px}
 .pt-intro-photos .pt-intro-photo{margin-top:0}
 .pt-eyebrow{display:block;font-size:.75rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--text-accent);margin-bottom:16px}
@@ -203,7 +205,7 @@ section[id],.pt-anchor-alias{scroll-margin-top:118px}
 .pt-story.cream{background:var(--cream)}
 .pt-story.warm{background:var(--cream-warm)}
 .pt-story-img{position:relative;min-height:520px;overflow:hidden;background:#dcd9d1}
-.pt-story-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.pt-story-img img,.pt-story-img video{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
 .pt-story-copy{display:flex;flex-direction:column;justify-content:center;padding:88px 72px}
 .pt-story-copy p{font-size:1.0625rem;color:var(--text-body);line-height:1.78;max-width:46ch;margin-bottom:26px}
 .pt-story-cta{align-self:flex-start;font-size:.8125rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--black);border:1px solid var(--black);padding:14px 28px;text-decoration:none;border-radius:2px;transition:background .18s,color .18s}
@@ -218,7 +220,7 @@ section[id],.pt-anchor-alias{scroll-margin-top:118px}
    negative margin keeps the card body visually as tight as it was before —
    overrides.css §6b holds the rest of the site's buttons to 48px. */
 .pt-suite-actions{display:flex;flex-wrap:wrap;align-items:center;gap:0 18px;margin:-11px 0 -12px}
-.pt-suite-desc{font-size:.8125rem;color:rgba(255,255,255,.68);line-height:1.6;margin:8px 0 2px;max-width:46ch}
+.pt-suite-desc{font-size:.8125rem;color:rgba(255,255,255,.68);line-height:1.6;margin:10px 0 18px;max-width:46ch}
 .pt-suite-cta{background:var(--metallic);border:1px solid var(--metallic);color:#141414;cursor:pointer;font-family:var(--sans);font-size:.75rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;display:inline-flex;align-items:center;min-height:44px;padding:11px 26px;border-radius:2px;transition:background .15s,color .15s;margin-top:4px}
 .pt-suite-cta,.pt-suite-cta:hover,.pt-suite:hover .pt-suite-cta{background:var(--metallic) !important;color:#141414 !important}
 .pt-suite-cta:hover{filter:brightness(1.07)}
@@ -580,17 +582,20 @@ a.pt-suite-cta{text-decoration:none !important}
 <!-- Two paragraphs. Not four amenity essays. -->
 <section class="pt-intro" id="the-property">
   <div class="pt-intro-inner">
+    <div class="pt-intro-grid">
     <div class="pt-intro-copy">
       <span class="pt-eyebrow">The Property</span>
       <h2 class="pt-h2">Downtown Phoenix,<br><em>with the doors unlocked.</em></h2>
       <p>Sol Modern sits on Fillmore between the arts district and the ballpark &mdash; close enough to walk to dinner, far enough to sleep. Suites are furnished end to end, with kitchens you would actually cook in and laundry you never have to leave for.</p>
       <p>Everything downstairs is yours while you are here: the pool deck, the fitness floor, the work lounges, and the people who run them.</p>
     </div>
-    <!-- Laurie 10-2: stats span the full width, one line each -->
+    <!-- Laurie 10-5: stats sit beside the copy; photos pair below -->
     <div class="pt-stats">
       <div class="pt-stat"><span class="pt-stat-n">1&ndash;2</span><span class="pt-stat-l">Bedroom suites plus studios</span></div>
+    
       <div class="pt-stat"><span class="pt-stat-n">1</span><span class="pt-stat-l">Night minimum stay &nbsp;|&nbsp; 30+ night extended stays</span></div>
       <div class="pt-stat"><span class="pt-stat-n">4</span><span class="pt-stat-l">Up to 4 guests, with the largest suite 1,053 sq ft</span></div>
+    </div>
     </div>
     <div class="pt-intro-photos">
       <img class="pt-intro-photo" src="/assets/ig-social-2.jpg" alt="Sol Modern amenity space" loading="lazy"><!-- [FIELD] intro photo 1 -->
@@ -727,7 +732,8 @@ a.pt-suite-cta{text-decoration:none !important}
 
 <!-- ══════════ 6. STORY BLOCKS — exactly three ══════════ -->
 <section class="pt-story cream" id="inside-the-suites" aria-label="Inside the suites">
-  <div class="pt-story-img"><img src="/assets/stay-hero-poster.jpg" alt="Furnished suite interior"/></div>
+  <!-- [FIELD] media: video OR image (Laurie 10-5 — video option here) -->
+  <div class="pt-story-img"><video autoplay muted loop playsinline poster="/assets/stay-hero-poster.jpg"><source src="/assets/sol-modern-stay-header.mp4" type="video/mp4"></video></div>
   <div class="pt-story-copy">
     <span class="pt-eyebrow">01 &mdash; Stay</span>
     <h2 class="pt-h2">A kitchen, a couch,<br><em>a door that closes.</em></h2>
@@ -757,7 +763,6 @@ a.pt-suite-cta{text-decoration:none !important}
     <div class="pt-space"><img src="/assets/group-hero-poster.jpg" alt="Game room and sport court"/><span class="pt-space-chip">Game Rooms &amp; Sport Court</span></div>
     <div class="pt-space"><img src="/assets/ig-social-3.jpg" alt="On-site pet amenities"/><span class="pt-space-chip">Pet Amenities</span></div>
   </div>
-  <a class="pt-story-cta pt-spaces-cta" href="#ptAmen" id="ptAmenJump">See all 19 amenities</a>
   <div class="pt-spaces-allwrap">
     <button class="pt-glance-all" id="ptAmenBtn" aria-expanded="false" aria-controls="ptAmen">See All 19 Amenities &nbsp;+</button><!-- [FIELD] count -->
   </div>
@@ -802,7 +807,8 @@ a.pt-suite-cta{text-decoration:none !important}
 </section>
 
 <section class="pt-story cream" id="roosevelt-row" aria-label="The neighborhood">
-  <div class="pt-story-img"><img src="/assets/group-hero-poster.jpg" alt="Downtown Phoenix streetscape"/></div>
+  <!-- [FIELD] media: video OR image (Laurie 10-5) -->
+  <div class="pt-story-img"><video autoplay muted loop playsinline poster="/assets/group-hero-poster.jpg"><source src="/assets/mission-rock-live-header.mp4" type="video/mp4"></video></div>
   <div class="pt-story-copy">
     <span class="pt-eyebrow">03 &mdash; Neighborhood</span>
     <h2 class="pt-h2">Roosevelt Row<br><em>is two blocks north.</em></h2>
@@ -937,7 +943,8 @@ a.pt-suite-cta{text-decoration:none !important}
      marketing-owned ([FIELD] / CMS). -->
 <section class="pt-gather dark" id="gather" aria-label="Gather — events and group stays">
   <div class="pt-gather-inner">
-    <img class="pt-gather-img" src="/assets/forme-houston-square-poster.jpg" alt="Event space at a Sentral community" loading="lazy">
+    <!-- [FIELD] media: video OR image (Laurie 10-5) -->
+    <video class="pt-gather-img" autoplay muted loop playsinline poster="/assets/forme-houston-square-poster.jpg"><source src="/assets/forme-houston-live-square.mp4" type="video/mp4"></video>
     <div>
       <span class="pt-eyebrow">Gather</span>
       <h2 class="pt-h2" style="color:#fff">Plan your next <em>gathering with us.</em></h2>
@@ -1132,6 +1139,21 @@ a.pt-suite-cta{text-decoration:none !important}
 <script>
 // ── HAMBURGER ──
 (function(){
+  // Align the sticky BOOK NOW's left edge with STAY WITH US in the top nav (Laurie 10-5)
+  (function(){
+    var name=document.querySelector('.pt-sticky-name'),
+        firstLink=document.querySelector('.nav-links .nav-link'),
+        inner=document.querySelector('.pt-sticky-inner');
+    if(!name||!firstLink||!inner) return;
+    function align(){
+      var r=firstLink.getBoundingClientRect();
+      if(!r.width){ name.style.flex=''; return; } // links collapsed — CSS fallback
+      var start=inner.getBoundingClientRect().left+parseFloat(getComputedStyle(inner).paddingLeft||0),
+          w=Math.max(170,Math.round(r.left-start-24));
+      name.style.flex='0 0 '+w+'px';
+    }
+    align(); window.addEventListener('resize',align);
+  })();
   var btn=document.getElementById('hamburgerBtn'),panel=document.getElementById('mobileMenu');
   if(!btn||!panel)return;
   btn.addEventListener('click',function(){
