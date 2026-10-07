@@ -3,6 +3,14 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/reservations/login",
+      "destination": "/reservation-lookup"
+    },
+    {
+      "source": "/reservations",
+      "destination": "/reservation-lookup"
+    },
+    {
       "source": "/SentralVision",
       "destination": "/sentralvision"
     },
