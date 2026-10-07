@@ -49,6 +49,7 @@
 html{scroll-behavior:smooth}
 body{background:var(--cream);color:var(--black);font-family:var(--sans);font-weight:400;-webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
+.sr-only{position:absolute !important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .skip-to-content{position:absolute;left:-9999px;top:0;z-index:400;background:var(--slate);color:#fff;padding:12px 20px;text-decoration:none}
 .skip-to-content:focus{left:12px;top:12px}
 
@@ -110,7 +111,7 @@ img{max-width:100%;display:block}
 .pt-bookcard-note{display:block;font-size:.75rem;letter-spacing:.06em;color:rgba(255,255,255,.6);margin-bottom:18px}
 .pt-bf{margin-bottom:12px}
 .pt-bf label{display:block;font-size:.6875rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:6px}
-.pt-bf input,.pt-bf select{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(45,74,92,.5);color:#fff;padding:11px 12px;font-family:var(--sans);font-size:.875rem;border-radius:2px;color-scheme:dark}
+.pt-bf input,.pt-bf select{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.55);color:#fff;padding:11px 12px;font-family:var(--sans);font-size:.875rem;border-radius:2px;color-scheme:dark}
 .pt-bf input:focus,.pt-bf select:focus{outline:none;border-color:var(--slate-light);background:rgba(255,255,255,.1)}
 .pt-bf select option,.pt-bf select optgroup{background:var(--ink);color:#fff}
 .pt-bf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -250,10 +251,10 @@ section[id],.pt-anchor-alias{scroll-margin-top:118px}
 .pt-lb-title{font-family:var(--serif);font-size:1.0625rem;color:#fff}
 .pt-lb-title small{display:block;font-family:var(--sans);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:3px}
 .pt-lb-filters{display:flex;gap:6px;flex-wrap:wrap}
-.pt-lb-filter{background:none;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-family:var(--sans);font-size:.6875rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;min-height:44px;padding:8px 18px;border-radius:100px;cursor:pointer;transition:all .2s}
+.pt-lb-filter{background:none;border:1px solid rgba(255,255,255,.55);color:rgba(255,255,255,.7);font-family:var(--sans);font-size:.6875rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;min-height:44px;padding:8px 18px;border-radius:100px;cursor:pointer;transition:all .2s}
 .pt-lb-filter:hover{color:#fff;border-color:rgba(255,255,255,.6)}
 .pt-lb-filter[aria-pressed=true]{background:var(--white);border-color:var(--white);color:var(--black)}
-.pt-lb-close{background:none;border:1px solid rgba(255,255,255,.3);color:#fff;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1.25rem;line-height:1;flex-shrink:0}
+.pt-lb-close{background:none;border:1px solid rgba(255,255,255,.55);color:#fff;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1.25rem;line-height:1;flex-shrink:0}
 .pt-lb-close:hover{border-color:#fff;background:rgba(255,255,255,.1)}
 .pt-lb-body{flex:1;overflow-y:auto;padding:24px 28px 40px}
 .pt-lb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1400px;margin:0 auto}
@@ -295,7 +296,7 @@ section[id],.pt-anchor-alias{scroll-margin-top:118px}
 .pt-form-label{display:block;font-family:var(--serif);font-size:1.25rem;color:#fff;margin-bottom:4px}
 .pt-form-note{display:block;font-size:.75rem;letter-spacing:.06em;color:rgba(255,255,255,.6);margin-bottom:22px}
 .pt-form .pt-bf label{color:rgba(255,255,255,.75)}
-.pt-form .pt-bf input,.pt-form .pt-bf select{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3)}
+.pt-form .pt-bf input,.pt-form .pt-bf select{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6)}
 .pt-form .pt-bf input:focus,.pt-form .pt-bf select:focus{border-color:#fff;background:rgba(255,255,255,.16)}
 @media(max-width:960px){.pt-book{padding:64px 20px}.pt-book-inner{grid-template-columns:1fr;gap:40px}}
 
@@ -322,7 +323,7 @@ section.pt-longer.dark[class] .pt-longer-h em{color:#F2E8D5 !important} /* cream
 .pt-longer-rate strong{font-family:var(--serif);font-weight:400;font-size:1.5rem;color:var(--oat);letter-spacing:.01em}
 .pt-longer-rate[hidden]{display:none}
 .pt-longer-links{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.pt-longer-link{display:block;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);padding:22px 24px;text-decoration:none;transition:background .2s,border-color .2s}
+.pt-longer-link{display:block;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.55);padding:22px 24px;text-decoration:none;transition:background .2s,border-color .2s}
 .pt-longer-link:hover{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.5)}
 .pt-longer-name{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.8125rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--metallic);margin-bottom:6px}
 .pt-longer-arrow{transition:transform .2s}
@@ -380,6 +381,10 @@ a.pt-suite-cta{text-decoration:none !important}
 .pt-gather-fine{font-size:.75rem;color:rgba(255,255,255,.45);margin:14px 0 20px}
 .pt-intro-photo{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:2px;margin-top:26px}
 @media(max-width:960px){.pt-offers,.pt-fnb,.pt-gather{padding:64px 20px}.pt-offer-grid{grid-template-columns:1fr}.pt-gather-inner{grid-template-columns:1fr;gap:32px}}
+
+/* Closed mobile menu leaves the tab order (ADA scan: aria-hidden in focus nav) */
+.ham-panel{visibility:hidden;transition-property:transform,visibility}
+.ham-panel.open{visibility:visible}
 
 /* ══ JUMP BACK TO TOP (CEO 10-6) ══ */
 .pt-top{position:fixed;right:26px;bottom:26px;z-index:185;width:56px;height:56px;padding:0;border:none;border-radius:50%;background:rgba(31,31,31,.88);backdrop-filter:blur(10px);cursor:pointer;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .3s ease,transform .3s ease,background .2s}
@@ -471,11 +476,11 @@ a.pt-suite-cta{text-decoration:none !important}
     <a class="nav-link" href="partner-with-us.html">Partner With Us</a>
   </div>
   <div class="nav-ctas">
-    <a class="btn-sn-ghost" href="https://sentralplus.laasie.ai/login" target="_blank" rel="noopener">Login</a>
+    <a class="btn-sn-ghost" href="https://sentralplus.laasie.ai/login" target="_blank" rel="noopener">Login<span class="sr-only"> (opens in a new tab)</span></a>
     <!-- On a property page the property is already known, so nav BOOK A STAY scrolls
          to this property's booking band instead of opening the cross-property strip. -->
     <a class="btn-sn" href="#book-stay">Book a Stay</a>
-    <a class="btn-splus" href="https://sentralplus.laasie.ai/sign-up" target="_blank" rel="noopener" aria-label="Join SentralPlus — Rewards Program"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10 6.2v7.6M6.2 10h7.6" stroke="currentColor" stroke-width="1.3"/></svg><span class="btn-splus-text"><span class="btn-splus-word">Sentral<em>Plus</em></span><span class="btn-splus-tag">Rewards</span></span></a>
+    <a class="btn-splus" href="https://sentralplus.laasie.ai/sign-up" target="_blank" rel="noopener" aria-label="Join SentralPlus — Rewards Program"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10 6.2v7.6M6.2 10h7.6" stroke="currentColor" stroke-width="1.3"/></svg><span class="btn-splus-text"><span class="btn-splus-word">Sentral<em>Plus</em></span><span class="btn-splus-tag">Rewards</span></span><span class="sr-only"> (opens in a new tab)</span></a>
     <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
       <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
     </button>
@@ -489,7 +494,7 @@ a.pt-suite-cta{text-decoration:none !important}
       </nav>
       <div class="ham-footer">
         <a class="ham-book" href="#book-stay">Book a Stay &nbsp;&rarr;</a>
-        <a class="btn-splus" href="https://sentralplus.laasie.ai/sign-up" target="_blank" rel="noopener" aria-label="Join SentralPlus — Rewards Program"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10 6.2v7.6M6.2 10h7.6" stroke="currentColor" stroke-width="1.3"/></svg><span class="btn-splus-text"><span class="btn-splus-word">Sentral<em>Plus</em></span><span class="btn-splus-tag">Rewards</span></span></a>
+        <a class="btn-splus" href="https://sentralplus.laasie.ai/sign-up" target="_blank" rel="noopener" aria-label="Join SentralPlus — Rewards Program"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10 6.2v7.6M6.2 10h7.6" stroke="currentColor" stroke-width="1.3"/></svg><span class="btn-splus-text"><span class="btn-splus-word">Sentral<em>Plus</em></span><span class="btn-splus-tag">Rewards</span></span><span class="sr-only"> (opens in a new tab)</span></a>
       </div>
     </div>
   </div>
@@ -498,7 +503,7 @@ a.pt-suite-cta{text-decoration:none !important}
 <!-- ══════════ 2. STICKY BOOK BAR ══════════ -->
 <div class="pt-sticky" id="ptSticky">
   <div class="pt-sticky-inner">
-    <a class="pt-sticky-name" href="#" aria-label="Back to top">Sol Modern<small>Phoenix, AZ</small></a><!-- [FIELD] name + city; links to page top (CEO 10-6) -->
+    <a class="pt-sticky-name" href="#" aria-label="Sol Modern, Phoenix, AZ — back to top">Sol Modern<small>Phoenix, AZ</small></a><!-- [FIELD] name + city; links to page top (CEO 10-6) -->
     <a class="pt-sticky-book" href="#book-stay">Book Now</a>
     <nav class="pt-sticky-jump" aria-label="On this page">
       <a href="#suites">Suites</a>
@@ -508,7 +513,7 @@ a.pt-suite-cta{text-decoration:none !important}
       <a href="#neighborhood">Neighborhood</a>
       <a href="#info">Good to Know</a>
       <!-- [FIELD] per-property leasing site (Laurie 10-1: stay↔live cross-sell for paid media) -->
-      <a href="https://www.solphx.com/" target="_blank" rel="noopener">Lease Apartment</a>
+      <a href="https://www.solphx.com/" target="_blank" rel="noopener">Lease Apartment<span class="sr-only"> (opens in a new tab)</span></a>
     </nav>
   </div>
 </div>
@@ -539,7 +544,7 @@ a.pt-suite-cta{text-decoration:none !important}
       <p class="hero-sub">Furnished studio to two-bedroom suites in Downtown Phoenix &mdash; full kitchens, in-unit laundry, and a rooftop pool steps from Roosevelt Row. Stay a night, a month, or a season.</p><!-- [FIELD] one-paragraph positioning, 2 sentences max -->
       <div class="pt-hero-meta">
         <span class="pt-hero-addr">50 E. Fillmore Street, Phoenix, AZ 85004</span><!-- [FIELD] address -->
-        <a class="pt-dir-btn" href="https://maps.google.com/?q=50+E+Fillmore+St+Phoenix+AZ+85004" target="_blank" rel="noopener">Get Directions</a>
+        <a class="pt-dir-btn" href="https://maps.google.com/?q=50+E+Fillmore+St+Phoenix+AZ+85004" target="_blank" rel="noopener">Get Directions<span class="sr-only"> (opens in a new tab)</span></a>
       </div>
       <!-- CEO 10-6: full-gallery popup removed — too many photos/info.
            GALLERY in the page nav scrolls to the Notable Amenities photos. -->
@@ -627,7 +632,7 @@ a.pt-suite-cta{text-decoration:none !important}
   <div class="pt-suites-grid">
     <!-- [FIELD] 3–6 suite cards. Photo 1200×1500, floor plan SVG or PNG. -->
     <article class="pt-suite" data-suite="studio">
-      <div class="pt-suite-img"><img src="/assets/ig-social-1.jpg" alt="Studio suite living area" class="pt-sc-img" loading="lazy"/><img src="/assets/stay-hero-poster.jpg" alt="Studio suite living area" class="pt-sc-img off" loading="lazy"/><img src="/assets/hero-poster.jpg" alt="Studio suite living area" class="pt-sc-img off" loading="lazy"/><button class="pt-sc-btn prev" type="button" aria-label="Previous photo">&#8249;</button><button class="pt-sc-btn next" type="button" aria-label="Next photo">&#8250;</button><span class="pt-sc-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <div class="pt-suite-img"><img src="/assets/ig-social-1.jpg" alt="Studio suite living area" class="pt-sc-img" loading="lazy"/><img src="/assets/stay-hero-poster.jpg" alt="Studio suite living area" class="pt-sc-img off" loading="lazy"/><img src="/assets/hero-poster.jpg" alt="Studio suite living area" class="pt-sc-img off" loading="lazy"/><button class="pt-sc-btn prev" type="button" aria-label="Previous photo"><span aria-hidden="true">&#8249;</span></button><button class="pt-sc-btn next" type="button" aria-label="Next photo"><span aria-hidden="true">&#8250;</span></button><span class="pt-sc-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
       <span class="pt-suite-badge" hidden
             data-rate-category="[FIELD] snt-room-type-id:studio"
             data-suite="studio"></span>
@@ -641,7 +646,7 @@ a.pt-suite-cta{text-decoration:none !important}
       </div>
     </article>
     <article class="pt-suite" data-suite="one-bedroom">
-      <div class="pt-suite-img"><img src="/assets/ig-social-2.jpg" alt="One bedroom suite" class="pt-sc-img" loading="lazy"/><img src="/assets/live-hero-poster.jpg" alt="One bedroom suite" class="pt-sc-img off" loading="lazy"/><img src="/assets/ig-social-1.jpg" alt="One bedroom suite" class="pt-sc-img off" loading="lazy"/><button class="pt-sc-btn prev" type="button" aria-label="Previous photo">&#8249;</button><button class="pt-sc-btn next" type="button" aria-label="Next photo">&#8250;</button><span class="pt-sc-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <div class="pt-suite-img"><img src="/assets/ig-social-2.jpg" alt="One bedroom suite" class="pt-sc-img" loading="lazy"/><img src="/assets/live-hero-poster.jpg" alt="One bedroom suite" class="pt-sc-img off" loading="lazy"/><img src="/assets/ig-social-1.jpg" alt="One bedroom suite" class="pt-sc-img off" loading="lazy"/><button class="pt-sc-btn prev" type="button" aria-label="Previous photo"><span aria-hidden="true">&#8249;</span></button><button class="pt-sc-btn next" type="button" aria-label="Next photo"><span aria-hidden="true">&#8250;</span></button><span class="pt-sc-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
       <span class="pt-suite-badge" hidden
             data-rate-category="[FIELD] snt-room-type-id:one-bedroom"
             data-suite="one-bedroom"></span>
@@ -655,7 +660,7 @@ a.pt-suite-cta{text-decoration:none !important}
       </div>
     </article>
     <article class="pt-suite" data-suite="two-bedroom">
-      <div class="pt-suite-img"><img src="/assets/ig-social-3.jpg" alt="Two bedroom suite" class="pt-sc-img" loading="lazy"/><img src="/assets/forme-houston-square-poster.jpg" alt="Two bedroom suite" class="pt-sc-img off" loading="lazy"/><img src="/assets/group-hero-poster.jpg" alt="Two bedroom suite" class="pt-sc-img off" loading="lazy"/><button class="pt-sc-btn prev" type="button" aria-label="Previous photo">&#8249;</button><button class="pt-sc-btn next" type="button" aria-label="Next photo">&#8250;</button><span class="pt-sc-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <div class="pt-suite-img"><img src="/assets/ig-social-3.jpg" alt="Two bedroom suite" class="pt-sc-img" loading="lazy"/><img src="/assets/forme-houston-square-poster.jpg" alt="Two bedroom suite" class="pt-sc-img off" loading="lazy"/><img src="/assets/group-hero-poster.jpg" alt="Two bedroom suite" class="pt-sc-img off" loading="lazy"/><button class="pt-sc-btn prev" type="button" aria-label="Previous photo"><span aria-hidden="true">&#8249;</span></button><button class="pt-sc-btn next" type="button" aria-label="Next photo"><span aria-hidden="true">&#8250;</span></button><span class="pt-sc-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
       <span class="pt-suite-badge" hidden
             data-rate-category="[FIELD] snt-room-type-id:two-bedroom"
             data-suite="two-bedroom"></span>
@@ -696,7 +701,7 @@ a.pt-suite-cta{text-decoration:none !important}
       <a class="pt-longer-link" href="https://solphx.com" target="_blank" rel="noopener">
         <span class="pt-longer-name">Live Here<span class="pt-longer-arrow" aria-hidden="true">&rarr;</span></span>
         <span class="pt-longer-desc">Staying past a season? Look at a lease instead.</span>
-      </a>
+      <span class="sr-only"> (opens in a new tab)</span></a>
     </div>
   </div>
 </section>
@@ -845,7 +850,7 @@ a.pt-suite-cta{text-decoration:none !important}
       <a class="splus-lockup" href="https://sentralplus.laasie.ai/sign-up" target="_blank" rel="noopener" aria-label="Join SentralPlus — Rewards Program">
         <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.4" fill="none" stroke="currentColor" stroke-width="1.1"/><path d="M10 6.2v7.6M6.2 10h7.6" stroke="currentColor" stroke-width="1.1"/></svg>
         <span class="splus-lockup-text"><span class="splus-lockup-word">Sentral<em>Plus</em></span><span class="splus-lockup-tag">Rewards</span></span>
-      </a>
+      <span class="sr-only"> (opens in a new tab)</span></a>
     </div>
     <div class="pt-form-wrap">
       <span class="pt-form-label">Sol Modern</span><!-- [FIELD] property name -->
@@ -988,9 +993,9 @@ a.pt-suite-cta{text-decoration:none !important}
       <h2 class="pt-h2">The <em>practical</em> part.</h2>
       <div class="pt-contact-card">
         <div class="pt-contact-name">Sol Modern</div><!-- [FIELD] -->
-        <a class="pt-contact-line" style="display:block;color:inherit;text-decoration:none" href="https://maps.google.com/?q=50+E+Fillmore+St+Phoenix+AZ+85004" target="_blank" rel="noopener">50 E. Fillmore Street<br>Phoenix, AZ 85004</a>
+        <a class="pt-contact-line" style="display:block;color:inherit;text-decoration:none" href="https://maps.google.com/?q=50+E+Fillmore+St+Phoenix+AZ+85004" target="_blank" rel="noopener">50 E. Fillmore Street<br>Phoenix, AZ 85004<span class="sr-only"> (opens in a new tab)</span></a>
         <span class="pt-contact-line"><a href="tel:+18333704161" style="color:inherit">(833) 370-4161</a></span>
-        <a class="pt-contact-link" href="https://maps.google.com/?q=50+E+Fillmore+St+Phoenix+AZ+85004" target="_blank" rel="noopener">Get Directions</a><!-- [FIELD] maps_url -->
+        <a class="pt-contact-link" href="https://maps.google.com/?q=50+E+Fillmore+St+Phoenix+AZ+85004" target="_blank" rel="noopener">Get Directions<span class="sr-only"> (opens in a new tab)</span></a><!-- [FIELD] maps_url -->
         <a class="pt-contact-link" href="/contact">Contact the property</a>
       </div>
     </div>
@@ -1133,10 +1138,10 @@ a.pt-suite-cta{text-decoration:none !important}
     </div>
     <div class="footer-col">
       <span class="footer-col-head">Social</span>
-      <a class="footer-link" href="https://www.instagram.com/sentrallife/" target="_blank" rel="noopener">Instagram</a>
-      <a class="footer-link" href="https://www.facebook.com/sentrallife/" target="_blank" rel="noopener">Facebook</a>
-      <a class="footer-link" href="https://www.linkedin.com/company/sentral-life" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="footer-link" href="https://www.youtube.com/channel/UCvpIGx24v3Be73bThpC5A4A" target="_blank" rel="noopener">YouTube</a>
+      <a class="footer-link" href="https://www.instagram.com/sentrallife/" target="_blank" rel="noopener">Instagram<span class="sr-only"> (opens in a new tab)</span></a>
+      <a class="footer-link" href="https://www.facebook.com/sentrallife/" target="_blank" rel="noopener">Facebook<span class="sr-only"> (opens in a new tab)</span></a>
+      <a class="footer-link" href="https://www.linkedin.com/company/sentral-life" target="_blank" rel="noopener">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>
+      <a class="footer-link" href="https://www.youtube.com/channel/UCvpIGx24v3Be73bThpC5A4A" target="_blank" rel="noopener">YouTube<span class="sr-only"> (opens in a new tab)</span></a>
     </div>
   </div>
   <div class="footer-bottom">

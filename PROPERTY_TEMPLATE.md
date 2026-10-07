@@ -286,6 +286,18 @@ address and a Get Directions link both open maps ([FIELD] maps_url).
 Suite-card carousel dots moved to the photo's top-right, clear of the
 name/specs; CHECK RATES stays black-on-gold even when hovering the card.
 
+## 6g. ADA / WCAG pass (AudioEye scan, 2026-10-07)
+
+Fixed on the template: control boundaries raised to ≥3:1 non-text contrast
+(booking inputs, lightbox controls, Extended Stays link cards — WCAG 1.4.11);
+every `target="_blank"` link carries a visually-hidden "(opens in a new tab)"
+note (13 links; `.sr-only` utility added); accessible names contain the
+visible text (sticky property name, carousel arrows — WCAG 2.5.3); the closed
+mobile menu is removed from the tab order (`visibility:hidden` alongside the
+transform). NOT changed: the scan's 9 "non-semantic emphasis" flags are the
+brand's intentional `<em>` italics — `<em>` is valid, semantic HTML and WCAG
+does not prohibit it; revisit only if counsel asks. Re-scan after HS build.
+
 ## 7. Open items## 7. Open items
 
 1. **Rates.** StayNTouch adapter for `/api/rates` to build (see §5 — the Mews
