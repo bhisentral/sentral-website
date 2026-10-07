@@ -381,6 +381,17 @@ a.pt-suite-cta{text-decoration:none !important}
 .pt-intro-photo{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:2px;margin-top:26px}
 @media(max-width:960px){.pt-offers,.pt-fnb,.pt-gather{padding:64px 20px}.pt-offer-grid{grid-template-columns:1fr}.pt-gather-inner{grid-template-columns:1fr;gap:32px}}
 
+/* ══ JUMP BACK TO TOP (CEO 10-6) ══ */
+.pt-top{position:fixed;right:26px;bottom:26px;z-index:185;width:56px;height:56px;padding:0;border:none;border-radius:50%;background:rgba(31,31,31,.88);backdrop-filter:blur(10px);cursor:pointer;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .3s ease,transform .3s ease,background .2s}
+.pt-top.show{opacity:1;pointer-events:auto;transform:none}
+.pt-top:hover{background:rgba(31,31,31,.98)}
+.pt-top svg{width:56px;height:56px;display:block}
+.pt-top-track{fill:none;stroke:rgba(255,255,255,.18);stroke-width:2.5}
+.pt-top-prog{fill:none;stroke:var(--slate-light);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:150.8;stroke-dashoffset:150.8}
+.pt-top-arrow{fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.pt-top:hover .pt-top-arrow{transform:translateY(-1.5px)}
+@media(max-width:900px){.pt-top{right:16px;bottom:16px;width:48px;height:48px}.pt-top svg{width:48px;height:48px}}
+
 /* ══ FOOTER (global) ══ */
 .site-footer{background:var(--black);color:rgba(255,255,255,.45);padding:64px 64px 32px;border-top:1px solid var(--rule)}
 .footer-main{max-width:1400px;margin:0 auto 48px;display:grid;grid-template-columns:repeat(5,1fr);gap:48px}
@@ -1040,6 +1051,14 @@ a.pt-suite-cta{text-decoration:none !important}
 </section>
 
 </main>
+<!-- Jump back to top w/ scroll-progress ring (CEO 10-6, Four Seasons pattern) -->
+<button class="pt-top" id="ptTop" aria-label="Jump back to top" title="Back to top">
+  <svg viewBox="0 0 56 56" aria-hidden="true">
+    <circle class="pt-top-track" cx="28" cy="28" r="24"/>
+    <circle class="pt-top-prog" id="ptTopProg" cx="28" cy="28" r="24" transform="rotate(-90 28 28)"/>
+    <path class="pt-top-arrow" d="M28 35V21M21.5 27.5 28 21l6.5 6.5"/>
+  </svg>
+</button>
 
 <!-- ══════════ GALLERY / FLOOR-PLAN LIGHTBOX ══════════ -->
 <!-- One overlay serves both jobs. Gallery mode shows a filterable grid; plan
@@ -1169,6 +1188,24 @@ a.pt-suite-cta{text-decoration:none !important}
 })();
 
 // Sticky book bar is always visible (CEO 10-6) — no reveal logic.
+
+// ── JUMP BACK TO TOP — circular scroll-progress ring (CEO 10-6) ──
+(function(){
+  var btn=document.getElementById('ptTop'),ring=document.getElementById('ptTopProg');
+  if(!btn||!ring)return;
+  var C=150.8;
+  function onScroll(){
+    var doc=document.documentElement,
+        max=doc.scrollHeight-window.innerHeight,
+        p=max>0?Math.min(1,window.scrollY/max):0;
+    ring.style.strokeDashoffset=(C*(1-p)).toFixed(1);
+    btn.classList.toggle('show',window.scrollY>420);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+  onScroll();
+  btn.addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+})();
 
 // ── AMENITY DISCLOSURE ──
 (function(){
