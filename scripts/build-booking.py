@@ -39,14 +39,20 @@ HAM_JS="""<script>
   });
 })();
 </script>"""
+def _newtab(html):
+    # ADA: announce links that open a new window (visually hidden)
+    return re.sub(r'(<a [^>]*target="_blank".*?)(</a>)',
+                  lambda m: m.group(1)+('' if 'sr-only' in m.group(1) else '<span class="sr-only"> (opens in a new tab)</span>')+m.group(2),
+                  html, flags=re.S)
+
 def page(title,body):
     return ('<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n'
       '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
       '<meta name="robots" content="noindex">\n'
       '<title>'+title+'</title>\n'
-      '<link rel="stylesheet" href="/booking-chrome.css?v=2">\n'
+      '<link rel="stylesheet" href="/booking-chrome.css?v=3">\n'
       '<link rel="stylesheet" href="/overrides.css?v=4dark31">\n'
-      '<link rel="stylesheet" href="/booking.css?v=5">\n'
+      '<link rel="stylesheet" href="/booking.css?v=6">\n'
       '<script src="/assets/booking-demo.js?v=3" defer></script>\n'
       '</head>\n<body>\n<a class="skip-to-content" href="#main">Skip to content</a>\n<header>\n'
       +NAV+'\n</header>\n<main id="main">\n'+body+'\n</main>\n\n'+FOOT+'\n'+HAM_JS+'\n</body>\n</html>\n')
@@ -113,9 +119,9 @@ def _card(slug,name,spec,base,left,img,thumbs):
       '<div class="bk-price-n" data-avg>'+_money(first)+'</div><div class="bk-price-l">Sample &middot; avg per night</div>'
       '<div class="bk-total-sm" data-tot hidden></div>'
       '<div class="bk-step-ctl"><span class="lbl">Rooms</span>'
-      '<button type="button" data-dec="'+slug+'" aria-label="Remove a '+name+'">&minus;</button>'
+      '<button type="button" data-dec="'+slug+'" aria-label="Remove a '+name+'"><span aria-hidden="true">&minus;</span></button>'
       '<span class="n" id="n-'+slug+'">0</span>'
-      '<button type="button" data-inc="'+slug+'" aria-label="Add a '+name+'">+</button></div>'
+      '<button type="button" data-inc="'+slug+'" aria-label="Add a '+name+'"><span aria-hidden="true">+</span></button></div>'
       '<a class="bk-btn bk-book-one" data-book="'+slug+'" href="/book/checkout">Book &nbsp;&rarr;</a>'
       '</div></div></div>')
 SEARCH_CARDS=''.join(_card(*r) for r in SROOMS)
@@ -223,8 +229,9 @@ document.addEventListener('DOMContentLoaded',function(){
     paintCard(slug); rail();
   });
   res.addEventListener('click',function(e){
-    var inc=e.target.getAttribute&&e.target.getAttribute('data-inc'),
-        dec=e.target.getAttribute&&e.target.getAttribute('data-dec'), k=inc||dec;
+    var incB=e.target.closest&&e.target.closest('[data-inc]'),
+        decB=e.target.closest&&e.target.closest('[data-dec]'),
+        inc=incB&&incB.getAttribute('data-inc'), dec=decB&&decB.getAttribute('data-dec'), k=inc||dec;
     if(k){
       var st=state(k); st.n=Math.max(0,Math.min(9,st.n+(inc?1:-1)));
       paintCard(k); rail(); return;
@@ -493,7 +500,7 @@ document.addEventListener('DOMContentLoaded',function(){
 </script>''')
 
 for fname,(title,body) in PAGES.items():
-    open(os.path.join(ROOT,fname),'w').write(page(title,body))
+    open(os.path.join(ROOT,fname),'w').write(_newtab(page(title,body)))
     print('wrote',fname)
 
 # ═══ 1a-static. PER-CITY STATIC PAGES ═══
@@ -557,7 +564,7 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 </script>''')
     fname='city-'+cslug+'.html'
-    open(os.path.join(ROOT,fname),'w').write(page(cname+' — Book a Stay — Sentral',body))
+    open(os.path.join(ROOT,fname),'w').write(_newtab(page(cname+' — Book a Stay — Sentral',body)))
     print('wrote',fname)
 
 # ═══ STATIC BAKE (owner 9-30): funnel pages carry the Sol Modern demo content
@@ -601,9 +608,9 @@ cards=''.join(
  '<div class="bk-room-side">'
  '<span class="bk-price-n">'+money(rate)+'</span><span class="bk-price-l">Sample &middot; from / night</span>'
  '<div class="bk-step-ctl"><span class="lbl">Rooms</span>'
- '<button type="button" data-dec="'+slug+'" aria-label="Remove a '+name+'">&minus;</button>'
+ '<button type="button" data-dec="'+slug+'" aria-label="Remove a '+name+'"><span aria-hidden="true">&minus;</span></button>'
  '<span class="n" id="n-'+slug+'">0</span>'
- '<button type="button" data-inc="'+slug+'" aria-label="Add a '+name+'">+</button>'
+ '<button type="button" data-inc="'+slug+'" aria-label="Add a '+name+'"><span aria-hidden="true">+</span></button>'
  '</div></div>'
  '</div></div>' for slug,name,spec,rate in ROOMS_PY)
 options=''.join('<option value="'+s+'">'+l+'</option>' for s,l in PROPS_PY)

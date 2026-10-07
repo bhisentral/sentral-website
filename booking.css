@@ -31,7 +31,7 @@ section.bkh.dark[class] h1 em,.bkh h1 em{font-style:italic;color:#F2E8D5 !import
 }
 .bk-f{display:flex;flex-direction:column;gap:5px}
 .bk-f label{font-size:.6563rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--bk-lt);white-space:nowrap}
-.bk-f input,.bk-f select{height:42px;border:1px solid rgba(40,40,40,.22);border-radius:2px;padding:0 12px;font-family:var(--bk-sans);font-size:.875rem;background:#fff;color:var(--bk-ink)}
+.bk-f input,.bk-f select{height:42px;border:1px solid rgba(40,40,40,.55);border-radius:2px;padding:0 12px;font-family:var(--bk-sans);font-size:.875rem;background:#fff;color:var(--bk-ink)}
 .bk-f input:focus,.bk-f select:focus{outline:2px solid var(--bk-slate);outline-offset:-1px}
 /* buttons — gold = booking, per the site token rule */
 .bk-btn{display:inline-block;text-align:center;background:var(--bk-gold);color:#141414;border:1px solid var(--bk-gold);font-family:var(--bk-sans);font-size:.8125rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:14px 28px;border-radius:2px;cursor:pointer;text-decoration:none;transition:background .15s,color .15s}
@@ -41,7 +41,7 @@ section.bkh.dark[class] h1 em,.bkh h1 em{font-style:italic;color:#F2E8D5 !import
 .bk-btn.slate{background:var(--bk-slate);border-color:var(--bk-slate);color:#fff}
 .bk-btn.slate:hover{background:var(--bk-slate-deep);border-color:var(--bk-slate-deep);color:#fff}
 .bk-btn[disabled],.bk-btn.off{opacity:.4;pointer-events:none}
-.bk-btn-g{display:inline-block;background:transparent;color:var(--bk-ink);border:1px solid rgba(40,40,40,.35);font-size:.8125rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:12px 24px;border-radius:2px;cursor:pointer;text-decoration:none}
+.bk-btn-g{display:inline-block;background:transparent;color:var(--bk-ink);border:1px solid rgba(40,40,40,.55);font-size:.8125rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:12px 24px;border-radius:2px;cursor:pointer;text-decoration:none}
 .bk-btn-g:hover{border-color:var(--bk-ink)}
 /* section headers on cream */
 .bk-eyebrow{font-size:.75rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--bk-slate);display:block;margin-bottom:10px}
@@ -62,7 +62,7 @@ section.bkh.dark[class] h1 em,.bkh h1 em{font-style:italic;color:#F2E8D5 !import
 .bk-price-n{font-family:var(--bk-serif);font-size:1.5rem}
 .bk-price-l{font-size:.6563rem;color:var(--bk-lt);letter-spacing:.09em;text-transform:uppercase}
 .bk-step-ctl{display:flex;align-items:center;gap:8px;margin-top:12px;white-space:nowrap}
-.bk-step-ctl button{width:32px;height:32px;border:1px solid rgba(40,40,40,.3);background:#fff;border-radius:2px;font-size:1rem;cursor:pointer;color:var(--bk-ink);line-height:1}
+.bk-step-ctl button{width:32px;height:32px;border:1px solid rgba(40,40,40,.55);background:#fff;border-radius:2px;font-size:1rem;cursor:pointer;color:var(--bk-ink);line-height:1}
 .bk-step-ctl button:hover{border-color:var(--bk-ink)}
 .bk-step-ctl .n{min-width:20px;text-align:center;font-weight:600;font-size:.9375rem}
 .bk-step-ctl .lbl{font-size:.6563rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bk-lt);margin-right:2px}
@@ -107,7 +107,7 @@ section.bkh.dark[class] h1 em,.bkh h1 em{font-style:italic;color:#F2E8D5 !import
    best rate, avg/night + stay total, thumbnails, rooms-left ── */
 .bk-results-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:-8px 0 18px}
 .bk-results-head span{font-size:.8438rem;color:var(--bk-lt)}
-.bk-results-head select{height:38px;border:1px solid rgba(40,40,40,.22);border-radius:2px;padding:0 10px;font-family:var(--bk-sans);font-size:.8125rem;background:#fff;color:var(--bk-ink)}
+.bk-results-head select{height:38px;border:1px solid rgba(40,40,40,.55);border-radius:2px;padding:0 10px;font-family:var(--bk-sans);font-size:.8125rem;background:#fff;color:var(--bk-ink)}
 .bk-room2{display:grid;grid-template-columns:250px 1fr 190px;align-items:stretch}
 .bk-room2-media{display:flex;flex-direction:column}
 .bk-room2-img{width:100%;flex:1;min-height:200px;object-fit:cover;display:block;background:var(--bk-cream-warm)}
@@ -133,3 +133,8 @@ section.bkh.dark[class] h1 em,.bkh h1 em{font-style:italic;color:#F2E8D5 !import
 .bk-total-sm small{color:var(--bk-lt)}
 .bk-book-one{padding:11px 22px;margin-top:6px}
 @media(max-width:900px){.bk-room2{grid-template-columns:1fr}.bk-room2-side{border-left:none;border-top:1px solid rgba(40,40,40,.1);align-items:flex-start;text-align:left}.bk-results-head{flex-direction:column;align-items:flex-start}}
+
+/* ── ADA pass (AudioEye patterns, 10-7) ── */
+.sr-only{position:absolute !important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.ham-panel{visibility:hidden;transition-property:transform,visibility}
+.ham-panel.open{visibility:visible}
