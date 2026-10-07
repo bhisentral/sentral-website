@@ -121,12 +121,14 @@ img{max-width:100%;display:block}
 @media(max-width:640px){.pt-hero{min-height:78vh}.pt-hero-inner{padding:0 20px 36px}.photo-tag{display:none}}
 
 /* ══ 2. STICKY BOOK BAR ══ */
-.pt-sticky{position:fixed;top:64px;left:0;right:0;z-index:190;background:rgba(31,31,31,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule);transform:translateY(-110%);transition:transform .32s cubic-bezier(.22,.68,0,1);will-change:transform}
-.pt-sticky.show{transform:translateY(0)}
+/* CEO 10-6: the page nav lives at the top from load (no scroll reveal) */
+.pt-sticky{position:fixed;top:64px;left:0;right:0;z-index:190;background:rgba(31,31,31,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule)}
+
 .pt-sticky-inner{max-width:1400px;margin:0 auto;padding:12px 64px;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .pt-splus-note{font-size:.8438rem;color:rgba(255,255,255,.65);line-height:1.7;max-width:46ch;margin:26px 0 16px}
 .pt-book .splus-lockup{margin-top:4px}
-.pt-sticky-name{flex:0 0 29%;min-width:170px;font-family:var(--serif);font-size:1rem;color:#fff;white-space:nowrap}
+a.pt-sticky-name{text-decoration:none;cursor:pointer}
+.pt-sticky-name{display:block;flex:0 0 29%;min-width:170px;font-family:var(--serif);font-size:1rem;color:#fff;white-space:nowrap}
 .pt-sticky-name small{display:block;font-family:var(--sans);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:2px}
 section[id],.pt-anchor-alias{scroll-margin-top:118px}
 .pt-sticky-jump{display:flex;gap:24px;margin-left:34px;margin-right:auto}
@@ -485,7 +487,7 @@ a.pt-suite-cta{text-decoration:none !important}
 <!-- ══════════ 2. STICKY BOOK BAR ══════════ -->
 <div class="pt-sticky" id="ptSticky">
   <div class="pt-sticky-inner">
-    <div class="pt-sticky-name">Sol Modern<small>Phoenix, AZ</small></div><!-- [FIELD] name + city -->
+    <a class="pt-sticky-name" href="#" aria-label="Back to top">Sol Modern<small>Phoenix, AZ</small></a><!-- [FIELD] name + city; links to page top (CEO 10-6) -->
     <a class="pt-sticky-book" href="#book-stay">Book Now</a>
     <nav class="pt-sticky-jump" aria-label="On this page">
       <a href="#suites">Suites</a>
@@ -528,12 +530,8 @@ a.pt-suite-cta{text-decoration:none !important}
         <span class="pt-hero-addr">50 E. Fillmore Street, Phoenix, AZ 85004</span><!-- [FIELD] address -->
         <a class="pt-dir-btn" href="https://maps.google.com/?q=50+E+Fillmore+St+Phoenix+AZ+85004" target="_blank" rel="noopener">Get Directions</a>
       </div>
-      <!-- One control, not a whole section — keeps the page lean while giving
-           the gallery somewhere real to live. -->
-      <button class="pt-gallery-btn" type="button" id="ptGalleryBtn" style="margin-top:20px">
-        <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4" width="15" height="12" rx="1.5"/><circle cx="7" cy="8.5" r="1.3"/><path d="M4 15l4.2-4.2 3 3L14 11l2.5 2.5"/></svg>
-        View gallery
-      </button>
+      <!-- CEO 10-6: full-gallery popup removed — too many photos/info.
+           GALLERY in the page nav scrolls to the Notable Amenities photos. -->
     </div>
 
     <!-- Hero booking card — property is fixed, so the guest picks dates only -->
@@ -746,7 +744,7 @@ a.pt-suite-cta{text-decoration:none !important}
      listed. Uses the sitewide .space-tile / .space-chip pattern from
      stay-with-us.html so it reads as the same system. -->
 <section class="pt-spaces" id="amenity-spaces" aria-label="Amenity spaces">
-  <span id="amenities" class="pt-anchor-alias" aria-hidden="true"></span>
+  <span id="amenities" class="pt-anchor-alias" aria-hidden="true"></span><span id="gallery" class="pt-anchor-alias" aria-hidden="true"></span>
   <div class="pt-spaces-header">
     <div>
       <span class="pt-eyebrow">02 &mdash; Notable Amenities</span>
@@ -1170,14 +1168,7 @@ a.pt-suite-cta{text-decoration:none !important}
   });
 })();
 
-// ── STICKY BOOK BAR — reveals once the hero is off screen ──
-(function(){
-  var bar=document.getElementById('ptSticky'),hero=document.getElementById('hero');
-  if(!bar||!hero||!('IntersectionObserver' in window))return;
-  new IntersectionObserver(function(entries){
-    bar.classList.toggle('show',!entries[0].isIntersecting);
-  },{rootMargin:'-64px 0px 0px 0px'}).observe(hero);
-})();
+// Sticky book bar is always visible (CEO 10-6) — no reveal logic.
 
 // ── AMENITY DISCLOSURE ──
 (function(){
@@ -1342,14 +1333,7 @@ var ptLightbox=(function(){
 })();
 
 (function(){
-  var btn=document.getElementById('ptGalleryBtn');
-  if(btn) btn.addEventListener('click',function(){ ptLightbox.openGallery('all',btn); });
-  // Gallery in the sticky nav + #gallery PPC deep-links open the photo gallery
-  // itself, not the amenity showcase (Laurie 10-2)
-  var galLink=document.querySelector('.pt-sticky-jump a[href="#gallery"]');
-  if(galLink) galLink.addEventListener('click',function(e){ e.preventDefault(); ptLightbox.openGallery('all',galLink); });
-  if(location.hash==='#gallery') setTimeout(function(){ ptLightbox.openGallery('all',btn||document.body); },300);
-
+  // CEO 10-6: full-gallery popup removed; #gallery scrolls to the photo mosaic.
   // Amenity tiles open the gallery already filtered to amenities.
   [].forEach.call(document.querySelectorAll('.pt-space'),function(tile){
     tile.setAttribute('role','button');
