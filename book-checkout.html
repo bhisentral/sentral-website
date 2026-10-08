@@ -7,8 +7,8 @@
 <title>Checkout — Book a Stay — Sentral</title>
 <link rel="stylesheet" href="/booking-chrome.css?v=3">
 <link rel="stylesheet" href="/overrides.css?v=4dark31">
-<link rel="stylesheet" href="/booking.css?v=6">
-<script src="/assets/booking-demo.js?v=3" defer></script>
+<link rel="stylesheet" href="/booking.css?v=7">
+<script src="/assets/booking-demo.js?v=4" defer></script>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -59,62 +59,115 @@
   <div class="bk-grid">
     <div>
       <div class="bk-card"><div class="bk-pad">
-        <span class="bk-eyebrow">Guest information</span>
-        <!-- Native guest-info form (plan §5). -->
-        <form id="ckForm" class="bk-field-grid" style="margin-top:12px">
-          <div class="bk-f"><label for="ck-fn">First name</label><input id="ck-fn" autocomplete="given-name" required></div>
-          <div class="bk-f"><label for="ck-ln">Last name</label><input id="ck-ln" autocomplete="family-name" required></div>
-          <div class="bk-f"><label for="ck-em">Email</label><input id="ck-em" type="email" autocomplete="email" required></div>
-          <div class="bk-f"><label for="ck-ph">Phone</label><input id="ck-ph" type="tel" autocomplete="tel" required></div>
+        <h2 class="bk-h2">Guest <em>details</em></h2>
+        <!-- Native guest-info form (plan §5) — same fields the live engine
+             captures; * = required, matching today. -->
+        <form id="ckForm" class="bk-field-grid">
+          <div class="bk-f"><label for="ck-fn">First name *</label><input id="ck-fn" autocomplete="given-name" required></div>
+          <div class="bk-f"><label for="ck-ln">Last name *</label><input id="ck-ln" autocomplete="family-name" required></div>
+          <div class="bk-f"><label for="ck-em">Email *</label><input id="ck-em" type="email" autocomplete="email" required></div>
+          <div class="bk-f"><label for="ck-ph">Phone *</label>
+            <div class="bk-phone"><select id="ck-cc" aria-label="Country code" autocomplete="tel-country-code"><option value="+1" selected>+1</option><option value="+44">+44</option><option value="+52">+52</option><option value="+61">+61</option><option value="+33">+33</option><option value="+49">+49</option><option value="+81">+81</option><option value="+91">+91</option></select>
+            <input id="ck-ph" type="tel" autocomplete="tel-national" required></div></div>
+          <div class="bk-f full"><label for="ck-a1">Address</label><input id="ck-a1" autocomplete="address-line1"></div>
+          <div class="bk-f"><label for="ck-co">Country / territory *</label><select id="ck-co" autocomplete="country-name" required><option selected>United States</option><option>Canada</option><option>Mexico</option><option>United Kingdom</option><option>Australia</option><option>Brazil</option><option>China</option><option>France</option><option>Germany</option><option>India</option><option>Ireland</option><option>Israel</option><option>Italy</option><option>Japan</option><option>Netherlands</option><option>South Korea</option><option>Spain</option><option>Switzerland</option><option>Other</option></select></div>
+          <div class="bk-f"><label for="ck-ci">City</label><input id="ck-ci" autocomplete="address-level2"></div>
+          <div class="bk-f"><label for="ck-st">State *</label><select id="ck-st" autocomplete="address-level1" required><option value="">Select</option><option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option><option>CO</option><option>CT</option><option>DE</option><option>DC</option><option>FL</option><option>GA</option><option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option><option>KS</option><option>KY</option><option>LA</option><option>ME</option><option>MD</option><option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option><option>MT</option><option>NE</option><option>NV</option><option>NH</option><option>NJ</option><option>NM</option><option>NY</option><option>NC</option><option>ND</option><option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option><option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option><option>VA</option><option>WA</option><option>WV</option><option>WI</option><option>WY</option></select>
+            <input id="ck-st-x" autocomplete="address-level1" aria-label="State / province" hidden></div>
+          <div class="bk-f"><label for="ck-zp">Zip code *</label><input id="ck-zp" autocomplete="postal-code" required></div>
           <div class="bk-f full"><label for="ck-rq">Special requests <span style="text-transform:none;letter-spacing:.02em">&mdash; optional</span></label><input id="ck-rq"></div>
         </form>
+      </div></div>
+      <div class="bk-card"><div class="bk-pad">
+        <h2 class="bk-h2">Pay <em>with</em></h2>
         <!-- SHIFT4 — the existing payment capture embeds here UNCHANGED (plan §5).
-             The prototype deliberately renders no card fields: never collect
-             payment data outside the Shift4 iframe. -->
-        <div class="bk-embed"><strong>Shift4 payment capture</strong>
-          <p>The current Shift4 payment embed drops in here unchanged. No card fields exist in this prototype by design.</p></div>
-        <a class="bk-btn wide" id="ckGo" href="/book/confirmation">Complete Booking &nbsp;&rarr;</a>
-        <div class="bk-note">Flexible cancellation on most rates &middot; no hidden fees &middot; <a href="/reservation-policies" target="_blank" rel="noopener" style="color:var(--bk-slate);text-decoration:underline;text-underline-offset:2px">Reservation Policies<span class="sr-only"> (opens in a new tab)</span></a></div>
+             It collects card number, expiry, CVV, card zip and cardholder name
+             only; guest address stays in the native form above. The prototype
+             deliberately renders no card fields: never collect payment data
+             outside the Shift4 iframe. -->
+        <div class="bk-embed" style="margin-top:0"><strong>Shift4 payment capture</strong>
+          <p>The current Shift4 embed drops in here unchanged: card number, expiry, CVV, card zip and cardholder name. Guest address is captured above. No card fields exist in this prototype by design.</p></div>
+        <a class="bk-btn wide" id="ckGo" href="/book/confirmation">Book Now &nbsp;&rarr;</a>
+        <div class="bk-note">By booking you agree to the <a href="/terms-of-use" target="_blank" rel="noopener" class="bk-inline">Terms &amp; Conditions<span class="sr-only"> (opens in a new tab)</span></a> and <a href="/reservation-policies" target="_blank" rel="noopener" class="bk-inline">Reservation Policies<span class="sr-only"> (opens in a new tab)</span></a>.</div>
       </div></div>
     </div>
-    <aside class="bk-rail" aria-label="Stay summary">
+    <aside class="bk-rail" aria-label="Booking details">
+      <h2 class="bk-rail-h">Booking details</h2>
       <h3 id="railProp">Sol Modern, Phoenix</h3>
-      <div class="bk-rail-sub" id="railDates">Sample stay &middot; 3 nights</div>
-      <div id="railLines"><div class="bk-line"><span>1 &times; One Bedroom <small>Fall Sale (3 &times; $183)</small></span><span>$549</span></div><div class="bk-line strong"><span>Subtotal</span><span>$549</span></div></div>
+      <div class="bk-rail-sub" id="railAddr">50 E. Fillmore Street, Phoenix, AZ 85004</div>
+      <div id="railRooms"><div class="bk-suite"><div><b>One Bedroom</b><small>Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%</small></div><a href="/book/search">Modify</a></div><a class="bk-addroom" href="/book/search">+ Add another suite</a></div>
+      <dl class="bk-facts" id="railFacts"><div><dt>Check-in</dt><dd>Sample date<small>4:00 PM</small></dd></div><div><dt>Check-out</dt><dd>Sample date<small>11:00 AM</small></dd></div><div><dt>Nights</dt><dd>3</dd></div><div><dt>Guests</dt><dd>2 adults, 0 children</dd></div></dl>
       <hr>
-      <div id="railTaxes"><div class="bk-line"><span>State &amp; local occupancy tax <small>(sample 12.5%)</small></span><span>$69</span></div><div class="bk-line"><span>Resort fee</span><span>$0</span></div><div class="bk-line"><small>None &mdash; the rate you see is the rate you pay</small></div></div>
-      <div class="bk-total"><span>Total</span><span id="railTotal">$618</span></div>
-      <div class="bk-note">Sample rates &amp; tax lines &mdash; property-specific tax items are driven by property data at build</div>
+      <h2 class="bk-rail-h">Total price details</h2>
+      <div id="railLines"><div class="bk-line"><span>Nightly total <small>3 nights</small></span><span>$549</span></div><div class="bk-line"><small>Includes <button type="button" class="bk-fees-link" data-fees>Select Fees</button></small></div><div class="bk-line"><span>City tax <small>(sample 6%)</small></span><span>$33</span></div><div class="bk-line"><span>State tax <small>(sample 6.5%)</small></span><span>$36</span></div></div>
+      <hr>
+      <div class="bk-total"><span>Total for stay</span><span id="railTotal">$618</span></div>
+      <div class="bk-policy-links"><a href="/reservation-policies#payment" target="_blank" rel="noopener">Deposit<span class="sr-only"> (opens in a new tab)</span></a> and <a href="/reservation-policies#cancellation" target="_blank" rel="noopener">Cancellation<span class="sr-only"> (opens in a new tab)</span></a> policy</div>
+      <div class="bk-note">Sample rates &amp; tax lines &mdash; property-specific fee and tax items are driven by property data at build</div>
     </aside>
   </div>
 </div>
+<dialog class="bk-fees" id="bkFees" aria-labelledby="bkFeesH">
+  <button type="button" class="bk-fees-x" data-fees-close aria-label="Close">&times;</button>
+  <h2 id="bkFeesH">Included Fees</h2>
+  <p>Your rate may include one or more of the following:</p>
+  <ul><li>Resort &amp; Destination Fee(s)</li><li>Cleaning Fee(s)</li><li>Residence Fee(s)</li></ul>
+  <h3>Disclaimer</h3>
+  <p>The fees listed above are subject to change based on the length of stay. Additional fees may also be assessed during your stay.</p>
+</dialog>
+<script>
+document.addEventListener('click',function(e){
+  var d=document.getElementById('bkFees'); if(!d) return;
+  if(e.target.closest&&e.target.closest('[data-fees]')){ e.preventDefault(); d.showModal(); }
+  else if(e.target.closest&&e.target.closest('[data-fees-close]')||e.target===d){ d.close(); }
+});
+</script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   var q=BOOK.q(), cur=BOOK.prop(q.property)||BOOK.PROPERTIES[0];
   var sel=BOOK.parseRooms(q.rooms), nights=BOOK.nights(q['in'],q.out)||1;
+  var ad=+q.adults||2, ch=+q.children||0;
   document.getElementById('ckContext').textContent=cur.name+', '+cur.city+' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out);
   document.getElementById('railProp').textContent=cur.name+', '+cur.city;
-  document.getElementById('railDates').textContent=BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night');
-  var sub=0,lines='';
+  document.getElementById('railAddr').textContent=cur.address||(cur.city+', '+cur.state);
+  // Suites — text only (no photo), each with its rate plan + Modify
+  var back='/book/search?'+BOOK.qs({}), rooms='', sub=0, count=0;
   cur.rooms.forEach(function(r){
     var st=sel[r.slug]; if(!st||!st.n) return;
-    var pl=BOOK.plan(st.plan), nightly=BOOK.planPrice(r,pl), amt=nightly*st.n*nights; sub+=amt;
-    lines+='<div class="bk-line"><span>'+st.n+' × '+r.name+' <small>'+(pl.short||pl.name)+' ('+nights+' × '+BOOK.money(nightly)+')</small></span><span>'+BOOK.money(amt)+'</span></div>';
+    var pl=BOOK.plan(st.plan), nightly=BOOK.planPrice(r,pl); sub+=nightly*st.n*nights; count+=st.n;
+    rooms+='<div class="bk-suite"><div><b>'+(st.n>1?st.n+' × ':'')+r.name+'</b><small>'+pl.name+'</small></div>'+
+      '<a href="'+back+'">Modify</a></div>';
   });
-  if(!sub){ lines='<div class="bk-line"><small>No rooms selected — start from Suites &amp; Availability.</small></div>'; }
-  document.getElementById('railLines').innerHTML=lines+(sub?'<div class="bk-line strong"><span>Subtotal</span><span>'+BOOK.money(sub)+'</span></div>':'');
-  var taxes=0,tl='';
-  if(sub) BOOK.TAXES.forEach(function(t){
-    if(t.pct!=null){ var a=sub*t.pct/100; taxes+=a;
-      tl+='<div class="bk-line"><span>'+t.label+' <small>'+(t.sample?'(sample '+t.pct+'%)':'')+'</small></span><span>'+BOOK.money(a)+'</span></div>';
-    } else {
-      tl+='<div class="bk-line"><span>'+t.label+'</span><span>'+(t.flat?BOOK.money(t.flat):'$0')+'</span></div>';
-      if(t.note) tl+='<div class="bk-line"><small>'+t.note+'</small></div>';
-    }
+  if(!count) rooms='<div class="bk-line"><small>No suites selected — start from Suites &amp; Availability.</small></div>';
+  rooms+='<a class="bk-addroom" href="'+back+'">+ Add another suite</a>';
+  document.getElementById('railRooms').innerHTML=rooms;
+  function fact(k,v){ return '<div><dt>'+k+'</dt><dd>'+v+'</dd></div>'; }
+  document.getElementById('railFacts').innerHTML=
+    fact('Check-in',BOOK.fmtDate(q['in'])+'<small>4:00 PM</small>')+
+    fact('Check-out',BOOK.fmtDate(q.out)+'<small>11:00 AM</small>')+
+    fact('Nights',nights)+
+    fact('Guests',ad+(ad>1?' adults':' adult')+', '+ch+(ch===1?' child':' children'))+
+    (count>1?fact('Rooms',count):'');
+  // Price breakdown — rate total (incl. select fees) + property tax lines
+  var lines='', total=sub;
+  if(sub){
+    lines+='<div class="bk-line"><span>Nightly total <small>'+nights+(nights>1?' nights':' night')+'</small></span><span>'+BOOK.money(sub)+'</span></div>';
+    lines+='<div class="bk-line"><small>Includes <button type="button" class="bk-fees-link" data-fees>Select Fees</button></small></div>';
+    BOOK.TAXES.forEach(function(t){
+      var a=t.pct!=null? sub*t.pct/100 : (t.flat||0)*nights*count; total+=a;
+      lines+='<div class="bk-line"><span>'+t.label+(t.sample?' <small>(sample '+(t.pct!=null?t.pct+'%':'')+')</small>':'')+'</span><span>'+BOOK.money(a)+'</span></div>';
+    });
+    if(q.promo) lines+='<div class="bk-line"><span>Discount code <small>'+q.promo.toUpperCase()+'</small></span><span><small>validated by StayNTouch at build</small></span></div>';
+  }
+  document.getElementById('railLines').innerHTML=lines;
+  document.getElementById('railTotal').textContent=sub?BOOK.money(total):'—';
+  // US → state dropdown; elsewhere → free-text region
+  var co=document.getElementById('ck-co'), stS=document.getElementById('ck-st'), stX=document.getElementById('ck-st-x');
+  co.addEventListener('change',function(){
+    var us=co.value==='United States';
+    stS.hidden=!us; stS.required=us; stX.hidden=us;
+    stS.id=us?'ck-st':'ck-st-s'; stX.id=us?'ck-st-x':'ck-st';
   });
-  if(q.promo) tl+='<div class="bk-line"><span>Discount code <small>'+q.promo.toUpperCase()+'</small></span><span><small>validated by StayNTouch at build</small></span></div>';
-  document.getElementById('railTaxes').innerHTML=tl;
-  document.getElementById('railTotal').textContent=sub?BOOK.money(sub+taxes):'—';
   var go=document.getElementById('ckGo');
   go.classList.toggle('off',!sub);
   go.addEventListener('click',function(e){

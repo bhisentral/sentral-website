@@ -18,18 +18,39 @@ Maps to the six-page booking plan (2026-09-25):
 | 6 | Booking Confirmation | `book-confirm.html` | `/book/confirmation` | P2 | Confirmation # + summary from StayNTouch via SentralOS; triggers email + SMS |
 
 **State model:** everything passes in the query string —
-`property, city, in, out, adults, children, rooms (slug:qty,slug:qty), plan, guest`.
+`property, city, in, out, adults, children, promo, rooms (slug:qty:plan,…), guest`.
 No storage, no session; every page is shareable/refreshable mid-funnel.
 
 **Sample data:** every rate, tax line, and availability flag comes from
 `assets/booking-demo.js` and every page carries a "Design prototype — sample rates"
-ribbon. Rate plans mirror the live site's offers (Direct / Advance Purchase −20% /
-Seasonal Sale −15%). Tax lines: sample 12.5% occupancy + the $0 resort-fee line.
+ribbon. Rate plans mirror the live site's offers (Fall Sale −20% / Campus Bound −14% /
+Book Direct −10%). Rates **include select fees** (transparent-pricing disclosure —
+"Includes Select Fees" opens the Included Fees dialog, wording from the live engine);
+tax lines are samples (city 6% + state 6.5%), property-driven at build.
 
 **Known simplifications for review:** one standard room set (Sol Modern's real
 studio/1BR/2BR) stands in for every property until per-property room data loads;
-a rate plan applies to the whole stay; 30+ night properties warn and block
-checkout under 30 nights.
+rate plans are chosen per suite (mixed-plan stays work); 30+/31+ night properties
+warn and block booking under their minimum.
+
+## Laurie round — 2026-10-08
+
+- **Search (step 1):** right-hand stay rail removed. Each suite card carries avg/night,
+  stay total ("Excludes taxes · Includes Select Fees") and its own BOOK — pick a rate
+  radio, click BOOK once, land on checkout. Rate notes collapse behind "Rate details";
+  per-plan avg rates sit at the right edge. Strike-through kept, muted (not red).
+  Multi-room: per-card ROOMS stepper for several of one suite; "+ Add another suite" on
+  checkout returns to search with the stay carried (strip at top), next BOOK adds to it.
+- **Checkout (step 2):** guest form now matches what the live engine captures (name,
+  email, phone + country code, address, country, city, state, zip). Shift4 captures
+  card data only (number, expiry, CVV, card zip, cardholder) — address stays native.
+  Booking details list suite(s) in text (no photo) + rate plan + Modify, check-in 4 PM /
+  check-out 11 AM, nights, guests (adults/children); Total Price Details; **Deposit** and
+  **Cancellation** policy links (→ /reservation-policies#payment / #cancellation).
+- **City selector:** VIEW PROPERTY beside CHECK AVAILABILITY (→ Sol Modern template until
+  each property page exists), neighborhood with pin (Inkwell = NoDa, Joinerys = Optimist
+  Park; others [FIELD]), one-line suites/amenities [FIELD], Amenities expand/collapse.
+
 
 **Entry points wired:** home bookbar CHECK RATES → `/book/search` (property+dates);
 property-page CHECK RATES (hero + booking band) → `/book/search` with suite

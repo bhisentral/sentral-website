@@ -7,8 +7,8 @@
 <title>Charlotte — Book a Stay — Sentral</title>
 <link rel="stylesheet" href="/booking-chrome.css?v=3">
 <link rel="stylesheet" href="/overrides.css?v=4dark31">
-<link rel="stylesheet" href="/booking.css?v=6">
-<script src="/assets/booking-demo.js?v=3" defer></script>
+<link rel="stylesheet" href="/booking.css?v=7">
+<script src="/assets/booking-demo.js?v=4" defer></script>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -63,24 +63,33 @@
     <button class="bk-btn" type="submit">Apply &nbsp;&rarr;</button>
   </form>
   <div class="bk-props">
-    <a class="bk-prop" data-prop="inkwell" href="/book/search?property=inkwell">
+    <div class="bk-prop" data-prop="inkwell">
       <img class="bk-prop-img" src="/assets/bk-city-1.jpg" alt="Inkwell">
       <div class="bk-prop-body"><div class="bk-prop-name">Inkwell</div>
       <div class="bk-prop-meta">Charlotte, NC</div>
-      <span class="bk-prop-cta">Check availability &nbsp;&rarr;</span></div>
-    </a>
-    <a class="bk-prop" data-prop="joinery-north" href="/book/search?property=joinery-north">
+      <div class="bk-prop-hood"><svg class="bk-pin" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 22s7-6.4 7-12a7 7 0 0 0-14 0c0 5.6 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>NoDa</span></div>
+      <p class="bk-prop-line">[FIELD] Studios to two bedrooms &middot; full kitchens &middot; in-unit laundry &middot; fitness center</p>
+      <details class="bk-prop-am"><summary>Amenities</summary><ul><li>Full kitchen</li><li>In-unit washer &amp; dryer</li><li>Fitness center</li><li>Keyless entry</li><li>Dedicated workspace</li><li>Pet friendly</li></ul></details>
+      <div class="bk-prop-ctas"><a class="bk-prop-cta" data-avail href="/book/search?property=inkwell">Check availability &nbsp;&rarr;</a><a class="bk-prop-cta ghost" href="/stay/sol-modern">View property &nbsp;&rarr;</a></div></div>
+    </div>
+    <div class="bk-prop" data-prop="joinery-north">
       <img class="bk-prop-img" src="/assets/bk-city-2.jpg" alt="Joinery North">
       <div class="bk-prop-body"><div class="bk-prop-name">Joinery North</div>
       <div class="bk-prop-meta">Charlotte, NC</div>
-      <span class="bk-prop-cta">Check availability &nbsp;&rarr;</span></div>
-    </a>
-    <a class="bk-prop" data-prop="joinery-west" href="/book/search?property=joinery-west">
+      <div class="bk-prop-hood"><svg class="bk-pin" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 22s7-6.4 7-12a7 7 0 0 0-14 0c0 5.6 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Optimist Park</span></div>
+      <p class="bk-prop-line">[FIELD] Studios to two bedrooms &middot; full kitchens &middot; in-unit laundry &middot; fitness center</p>
+      <details class="bk-prop-am"><summary>Amenities</summary><ul><li>Full kitchen</li><li>In-unit washer &amp; dryer</li><li>Fitness center</li><li>Keyless entry</li><li>Dedicated workspace</li><li>Pet friendly</li></ul></details>
+      <div class="bk-prop-ctas"><a class="bk-prop-cta" data-avail href="/book/search?property=joinery-north">Check availability &nbsp;&rarr;</a><a class="bk-prop-cta ghost" href="/stay/sol-modern">View property &nbsp;&rarr;</a></div></div>
+    </div>
+    <div class="bk-prop" data-prop="joinery-west">
       <img class="bk-prop-img" src="/assets/bk-city-3.jpg" alt="Joinery West">
       <div class="bk-prop-body"><div class="bk-prop-name">Joinery West</div>
       <div class="bk-prop-meta">Charlotte, NC</div>
-      <span class="bk-prop-cta">Check availability &nbsp;&rarr;</span></div>
-    </a>
+      <div class="bk-prop-hood"><svg class="bk-pin" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 22s7-6.4 7-12a7 7 0 0 0-14 0c0 5.6 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Optimist Park</span></div>
+      <p class="bk-prop-line">[FIELD] Studios to two bedrooms &middot; full kitchens &middot; in-unit laundry &middot; fitness center</p>
+      <details class="bk-prop-am"><summary>Amenities</summary><ul><li>Full kitchen</li><li>In-unit washer &amp; dryer</li><li>Fitness center</li><li>Keyless entry</li><li>Dedicated workspace</li><li>Pet friendly</li></ul></details>
+      <div class="bk-prop-ctas"><a class="bk-prop-cta" data-avail href="/book/search?property=joinery-west">Check availability &nbsp;&rarr;</a><a class="bk-prop-cta ghost" href="/stay/sol-modern">View property &nbsp;&rarr;</a></div></div>
+    </div>
   </div>
 </div>
 <script>
@@ -90,12 +99,9 @@ document.addEventListener('DOMContentLoaded',function(){
   if(q['in']) document.getElementById('ctIn').value=q['in'];
   if(q.out) document.getElementById('ctOut').value=q.out;
   if(q.promo) document.getElementById('ctPromo').value=q.promo;
-  function decorate(){
-    [].forEach.call(document.querySelectorAll('.bk-prop'),function(a){
-      a.href='/book/search?'+BOOK.qs({property:a.getAttribute('data-prop'),city:null});
-    });
-  }
-  decorate();
+  [].forEach.call(document.querySelectorAll('.bk-prop'),function(c){
+    c.querySelector('[data-avail]').href='/book/search?'+BOOK.qs({property:c.getAttribute('data-prop'),city:null});
+  });
   document.getElementById('ctEdit').addEventListener('submit',function(e){
     e.preventDefault();
     location.search='?'+BOOK.qs({

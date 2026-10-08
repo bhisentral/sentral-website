@@ -58,10 +58,11 @@ window.BOOK = (function(){
     {slug:'direct', short:'Book Direct',  name:'Sentral.com Book Direct Rate | Save up to 10% off Best Rates', mult:0.90, note:'Book direct and save.'}
   ];
   /* Property-specific tax line items — SAMPLE percentages, [FIELD] per property.
-     PRODUCTION: driven by property data. */
+     Rates INCLUDE select fees (transparent-pricing disclosure, see the
+     "Select Fees" dialog), so no separate fee line. PRODUCTION: property data. */
   var TAXES=[
-    {label:'State & local occupancy tax', pct:12.5, sample:true},
-    {label:'Resort fee', flat:0, note:'None — the rate you see is the rate you pay'}
+    {label:'City tax',  pct:6,   sample:true},
+    {label:'State tax', pct:6.5, sample:true}
   ];
   function q(){ var o={},s=new URLSearchParams(location.search); s.forEach(function(v,k){o[k]=v}); return o; }
   function qs(params){

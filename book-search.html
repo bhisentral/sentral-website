@@ -7,8 +7,8 @@
 <title>Search Availability — Book a Stay — Sentral</title>
 <link rel="stylesheet" href="/booking-chrome.css?v=3">
 <link rel="stylesheet" href="/overrides.css?v=4dark31">
-<link rel="stylesheet" href="/booking.css?v=6">
-<script src="/assets/booking-demo.js?v=3" defer></script>
+<link rel="stylesheet" href="/booking.css?v=7">
+<script src="/assets/booking-demo.js?v=4" defer></script>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -57,7 +57,9 @@
 <div class="bk-demo">Design prototype &mdash; sample rates &amp; availability &middot; live data comes from StayNTouch via SentralOS at build</div>
 <div class="bk-wrap">
   <!-- PRODUCTION (P0): live availability + pricing from StayNTouch via
-       SentralOS (method TBC w/ Nathan); hosts the multi-room module. -->
+       SentralOS (method TBC w/ Nathan). Multi-room: per-card qty stepper for
+       several of one suite; "Add another suite" from checkout returns here
+       with the stay carried in ?rooms= and the strip below. -->
   <form class="bk-editbar" id="bkEdit">
     <div class="bk-f bk-f-grow"><label for="bkProp">Property</label>
       <select id="bkProp"><option value="sol-modern">Phoenix — Sol Modern</option><option value="sentral-old-town">Scottsdale — Sentral Old Town</option><option value="sentral-dtla-755">Los Angeles — Sentral DTLA 755 (31+ nights)</option><option value="sentral-dtla-732">Los Angeles — Sentral DTLA 732 (31+ nights)</option><option value="figueroa-eight">Los Angeles — Figueroa Eight (31+ nights)</option><option value="sentral-union-station">Denver — Sentral Union Station</option><option value="alea">Miami — Alea</option><option value="sentral-wynwood">Miami — Sentral Wynwood</option><option value="star-metals">Atlanta — Star Metals West Midtown</option><option value="sentral-michigan-avenue">Chicago — Sentral Michigan Avenue</option><option value="otonomus">Las Vegas — Otonomus</option><option value="inkwell">Charlotte — Inkwell</option><option value="joinery-north">Charlotte — Joinery North</option><option value="joinery-west">Charlotte — Joinery West</option><option value="the-battery">Philadelphia — The Battery (30+ nights)</option><option value="sentral-sobro">Nashville — Sentral SoBro</option><option value="sentral-east-austin-1630">Austin — Sentral East Austin 1630 (30+ nights)</option><option value="sentral-east-austin-1614">Austin — Sentral East Austin 1614</option><option value="forme">Houston — Forme</option><option value="sentral-first-hill">Seattle — Sentral First Hill (30+ nights)</option></select></div>
@@ -71,6 +73,7 @@
     <button class="bk-btn slate" type="submit">Update Search &nbsp;&rarr;</button>
   </form>
   <div id="bkCityAlert"></div>
+  <div class="bk-staystrip" id="bkStay" hidden></div>
   <div class="bk-results-head">
     <span id="bkCount">3 room types available for your search</span>
     <select id="bkSort" aria-label="Sort results">
@@ -78,22 +81,26 @@
       <option value="desc">Sort: Price high &rarr; low</option>
     </select>
   </div>
-  <div class="bk-grid">
-    <div id="bkResults"><div class="bk-card" data-room="studio" data-base="189"><div class="bk-room2"><div class="bk-room2-media"><img class="bk-room2-img" src="/assets/bk-room-studio.jpg" alt="Studio suite"><div class="bk-thumbs"><img src="/assets/bk-room-1br.jpg" alt="" loading="lazy"><img src="/assets/bk-city-1.jpg" alt="" loading="lazy"><img src="/assets/bk-city-2.jpg" alt="" loading="lazy"></div></div><div class="bk-room2-mid"><div class="bk-room-name">Studio</div><div class="bk-specs"><span>Sleeps 2</span> &middot; <span>1 Queen Bed</span> &middot; <span>1 Bath</span> &middot; <span>517 Sq Ft</span></div><div class="bk-room-links"><a href="/book/room?property=sol-modern&type=studio">More details &nbsp;&rarr;</a></div><div class="bk-plans2"><label class="bk-plan2"><input type="radio" name="pl-studio" value="fall" checked><span class="bk-plan2-mid"><span class="bk-plan2-name">Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%</span><span class="bk-plan2-note">Flexible rate. Blackout dates and terms apply.</span></span><span class="bk-plan2-price"><s>$189</s> <b>$151</b><small>sample &middot; avg / night</small></span></label><label class="bk-plan2"><input type="radio" name="pl-studio" value="campus"><span class="bk-plan2-mid"><span class="bk-plan2-name">Campus Bound</span><span class="bk-plan2-note">For campus tours, games &amp; parents&rsquo; weekends. Terms apply.</span></span><span class="bk-plan2-price"><s>$189</s> <b>$163</b><small>sample &middot; avg / night</small></span></label><label class="bk-plan2"><input type="radio" name="pl-studio" value="direct"><span class="bk-plan2-mid"><span class="bk-plan2-name">Sentral.com Book Direct Rate | Save up to 10% off Best Rates</span><span class="bk-plan2-note">Book direct and save.</span></span><span class="bk-plan2-price"><s>$189</s> <b>$170</b><small>sample &middot; avg / night</small></span></label></div></div><div class="bk-room2-side"><span class="bk-left">4 rooms left!</span><div class="bk-price-n" data-avg>$151</div><div class="bk-price-l">Sample &middot; avg per night</div><div class="bk-total-sm" data-tot hidden></div><div class="bk-step-ctl"><span class="lbl">Rooms</span><button type="button" data-dec="studio" aria-label="Remove a Studio"><span aria-hidden="true">&minus;</span></button><span class="n" id="n-studio">0</span><button type="button" data-inc="studio" aria-label="Add a Studio"><span aria-hidden="true">+</span></button></div><a class="bk-btn bk-book-one" data-book="studio" href="/book/checkout">Book &nbsp;&rarr;</a></div></div></div><div class="bk-card" data-room="one-bedroom" data-base="229"><div class="bk-room2"><div class="bk-room2-media"><img class="bk-room2-img" src="/assets/bk-room-1br.jpg" alt="One Bedroom suite"><div class="bk-thumbs"><img src="/assets/bk-room-studio.jpg" alt="" loading="lazy"><img src="/assets/bk-city-2.jpg" alt="" loading="lazy"><img src="/assets/bk-city-3.jpg" alt="" loading="lazy"></div></div><div class="bk-room2-mid"><div class="bk-room-name">One Bedroom</div><div class="bk-specs"><span>Sleeps 2</span> &middot; <span>1 Queen Bed</span> &middot; <span>1 Bath</span> &middot; <span>673 Sq Ft</span></div><div class="bk-room-links"><a href="/book/room?property=sol-modern&type=one-bedroom">More details &nbsp;&rarr;</a></div><div class="bk-plans2"><label class="bk-plan2"><input type="radio" name="pl-one-bedroom" value="fall" checked><span class="bk-plan2-mid"><span class="bk-plan2-name">Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%</span><span class="bk-plan2-note">Flexible rate. Blackout dates and terms apply.</span></span><span class="bk-plan2-price"><s>$229</s> <b>$183</b><small>sample &middot; avg / night</small></span></label><label class="bk-plan2"><input type="radio" name="pl-one-bedroom" value="campus"><span class="bk-plan2-mid"><span class="bk-plan2-name">Campus Bound</span><span class="bk-plan2-note">For campus tours, games &amp; parents&rsquo; weekends. Terms apply.</span></span><span class="bk-plan2-price"><s>$229</s> <b>$197</b><small>sample &middot; avg / night</small></span></label><label class="bk-plan2"><input type="radio" name="pl-one-bedroom" value="direct"><span class="bk-plan2-mid"><span class="bk-plan2-name">Sentral.com Book Direct Rate | Save up to 10% off Best Rates</span><span class="bk-plan2-note">Book direct and save.</span></span><span class="bk-plan2-price"><s>$229</s> <b>$206</b><small>sample &middot; avg / night</small></span></label></div></div><div class="bk-room2-side"><span class="bk-left">7 rooms left!</span><div class="bk-price-n" data-avg>$183</div><div class="bk-price-l">Sample &middot; avg per night</div><div class="bk-total-sm" data-tot hidden></div><div class="bk-step-ctl"><span class="lbl">Rooms</span><button type="button" data-dec="one-bedroom" aria-label="Remove a One Bedroom"><span aria-hidden="true">&minus;</span></button><span class="n" id="n-one-bedroom">0</span><button type="button" data-inc="one-bedroom" aria-label="Add a One Bedroom"><span aria-hidden="true">+</span></button></div><a class="bk-btn bk-book-one" data-book="one-bedroom" href="/book/checkout">Book &nbsp;&rarr;</a></div></div></div><div class="bk-card" data-room="two-bedroom" data-base="319"><div class="bk-room2"><div class="bk-room2-media"><img class="bk-room2-img" src="/assets/bk-room-2br.jpg" alt="Two Bedroom suite"><div class="bk-thumbs"><img src="/assets/bk-city-1.jpg" alt="" loading="lazy"><img src="/assets/bk-city-3.jpg" alt="" loading="lazy"><img src="/assets/bk-room-studio.jpg" alt="" loading="lazy"></div></div><div class="bk-room2-mid"><div class="bk-room-name">Two Bedroom</div><div class="bk-specs"><span>Sleeps 4</span> &middot; <span>2 Queen Beds</span> &middot; <span>2 Baths</span> &middot; <span>1,053 Sq Ft</span></div><div class="bk-room-links"><a href="/book/room?property=sol-modern&type=two-bedroom">More details &nbsp;&rarr;</a></div><div class="bk-plans2"><label class="bk-plan2"><input type="radio" name="pl-two-bedroom" value="fall" checked><span class="bk-plan2-mid"><span class="bk-plan2-name">Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%</span><span class="bk-plan2-note">Flexible rate. Blackout dates and terms apply.</span></span><span class="bk-plan2-price"><s>$319</s> <b>$255</b><small>sample &middot; avg / night</small></span></label><label class="bk-plan2"><input type="radio" name="pl-two-bedroom" value="campus"><span class="bk-plan2-mid"><span class="bk-plan2-name">Campus Bound</span><span class="bk-plan2-note">For campus tours, games &amp; parents&rsquo; weekends. Terms apply.</span></span><span class="bk-plan2-price"><s>$319</s> <b>$274</b><small>sample &middot; avg / night</small></span></label><label class="bk-plan2"><input type="radio" name="pl-two-bedroom" value="direct"><span class="bk-plan2-mid"><span class="bk-plan2-name">Sentral.com Book Direct Rate | Save up to 10% off Best Rates</span><span class="bk-plan2-note">Book direct and save.</span></span><span class="bk-plan2-price"><s>$319</s> <b>$287</b><small>sample &middot; avg / night</small></span></label></div></div><div class="bk-room2-side"><span class="bk-left">2 rooms left!</span><div class="bk-price-n" data-avg>$255</div><div class="bk-price-l">Sample &middot; avg per night</div><div class="bk-total-sm" data-tot hidden></div><div class="bk-step-ctl"><span class="lbl">Rooms</span><button type="button" data-dec="two-bedroom" aria-label="Remove a Two Bedroom"><span aria-hidden="true">&minus;</span></button><span class="n" id="n-two-bedroom">0</span><button type="button" data-inc="two-bedroom" aria-label="Add a Two Bedroom"><span aria-hidden="true">+</span></button></div><a class="bk-btn bk-book-one" data-book="two-bedroom" href="/book/checkout">Book &nbsp;&rarr;</a></div></div></div></div>
-    <aside class="bk-rail" aria-label="Your stay">
-      <h3 id="railProp">Sol Modern, Phoenix</h3>
-      <div class="bk-rail-sub" id="railDates">Choose dates above</div>
-      <div id="railLines"><div class="bk-line"><small>Add rooms to build your stay.</small></div></div>
-      <hr>
-      <div class="bk-total"><span>Total</span><span id="railTotal">&mdash;</span></div>
-      <a class="bk-btn wide off slate" id="railGo" href="#">Continue to Checkout &nbsp;&rarr;</a>
-      <div class="bk-note">Sample rates for design review &mdash; excludes taxes, shown at checkout</div>
-    </aside>
-  </div>
+  <div id="bkResults"><div class="bk-card" data-room="studio" data-base="189"><div class="bk-room2"><div class="bk-room2-media"><img class="bk-room2-img" src="/assets/bk-room-studio.jpg" alt="Studio suite"><div class="bk-thumbs"><img src="/assets/bk-room-1br.jpg" alt="" loading="lazy"><img src="/assets/bk-city-1.jpg" alt="" loading="lazy"><img src="/assets/bk-city-2.jpg" alt="" loading="lazy"></div></div><div class="bk-room2-mid"><div class="bk-room-name">Studio</div><div class="bk-specs"><span>Sleeps 2</span> &middot; <span>1 Queen Bed</span> &middot; <span>1 Bath</span> &middot; <span>517 Sq Ft</span></div><div class="bk-room-links"><a href="/book/room?property=sol-modern&type=studio">More details &nbsp;&rarr;</a></div><div class="bk-plans2"><div class="bk-plan2"><label class="bk-plan2-pick"><input type="radio" name="pl-studio" value="fall" checked><span class="bk-plan2-name">Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%</span></label><span class="bk-plan2-price"><s>$189</s> <b>$151</b><small>sample &middot; avg / night</small></span><button type="button" class="bk-plan2-more" aria-expanded="false" aria-controls="rn-studio-fall">Rate details</button><span class="bk-plan2-note" id="rn-studio-fall" hidden>Flexible rate. Blackout dates and terms apply.</span></div><div class="bk-plan2"><label class="bk-plan2-pick"><input type="radio" name="pl-studio" value="campus"><span class="bk-plan2-name">Campus Bound</span></label><span class="bk-plan2-price"><s>$189</s> <b>$163</b><small>sample &middot; avg / night</small></span><button type="button" class="bk-plan2-more" aria-expanded="false" aria-controls="rn-studio-campus">Rate details</button><span class="bk-plan2-note" id="rn-studio-campus" hidden>For campus tours, games &amp; parents&rsquo; weekends. Terms apply.</span></div><div class="bk-plan2"><label class="bk-plan2-pick"><input type="radio" name="pl-studio" value="direct"><span class="bk-plan2-name">Sentral.com Book Direct Rate | Save up to 10% off Best Rates</span></label><span class="bk-plan2-price"><s>$189</s> <b>$170</b><small>sample &middot; avg / night</small></span><button type="button" class="bk-plan2-more" aria-expanded="false" aria-controls="rn-studio-direct">Rate details</button><span class="bk-plan2-note" id="rn-studio-direct" hidden>Book direct and save.</span></div></div></div><div class="bk-room2-side"><span class="bk-left">4 rooms left!</span><div class="bk-price-n" data-avg>$151</div><div class="bk-price-l">Sample &middot; avg per night</div><div class="bk-total-sm"><span data-tot><b>$151</b> total &middot; 1 night</span><small>Excludes taxes</small><small>Includes <button type="button" class="bk-fees-link" data-fees>Select Fees</button></small></div><div class="bk-step-ctl"><span class="lbl">Rooms</span><button type="button" data-dec="studio" aria-label="One fewer Studio"><span aria-hidden="true">&minus;</span></button><span class="n" id="n-studio" aria-live="polite">1</span><button type="button" data-inc="studio" aria-label="One more Studio"><span aria-hidden="true">+</span></button></div><a class="bk-btn bk-book-one" data-book="studio" href="/book/checkout?property=sol-modern&rooms=studio:1:fall">Book &nbsp;&rarr;</a></div></div></div><div class="bk-card" data-room="one-bedroom" data-base="229"><div class="bk-room2"><div class="bk-room2-media"><img class="bk-room2-img" src="/assets/bk-room-1br.jpg" alt="One Bedroom suite"><div class="bk-thumbs"><img src="/assets/bk-room-studio.jpg" alt="" loading="lazy"><img src="/assets/bk-city-2.jpg" alt="" loading="lazy"><img src="/assets/bk-city-3.jpg" alt="" loading="lazy"></div></div><div class="bk-room2-mid"><div class="bk-room-name">One Bedroom</div><div class="bk-specs"><span>Sleeps 2</span> &middot; <span>1 Queen Bed</span> &middot; <span>1 Bath</span> &middot; <span>673 Sq Ft</span></div><div class="bk-room-links"><a href="/book/room?property=sol-modern&type=one-bedroom">More details &nbsp;&rarr;</a></div><div class="bk-plans2"><div class="bk-plan2"><label class="bk-plan2-pick"><input type="radio" name="pl-one-bedroom" value="fall" checked><span class="bk-plan2-name">Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%</span></label><span class="bk-plan2-price"><s>$229</s> <b>$183</b><small>sample &middot; avg / night</small></span><button type="button" class="bk-plan2-more" aria-expanded="false" aria-controls="rn-one-bedroom-fall">Rate details</button><span class="bk-plan2-note" id="rn-one-bedroom-fall" hidden>Flexible rate. Blackout dates and terms apply.</span></div><div class="bk-plan2"><label class="bk-plan2-pick"><input type="radio" name="pl-one-bedroom" value="campus"><span class="bk-plan2-name">Campus Bound</span></label><span class="bk-plan2-price"><s>$229</s> <b>$197</b><small>sample &middot; avg / night</small></span><button type="button" class="bk-plan2-more" aria-expanded="false" aria-controls="rn-one-bedroom-campus">Rate details</button><span class="bk-plan2-note" id="rn-one-bedroom-campus" hidden>For campus tours, games &amp; parents&rsquo; weekends. Terms apply.</span></div><div class="bk-plan2"><label class="bk-plan2-pick"><input type="radio" name="pl-one-bedroom" value="direct"><span class="bk-plan2-name">Sentral.com Book Direct Rate | Save up to 10% off Best Rates</span></label><span class="bk-plan2-price"><s>$229</s> <b>$206</b><small>sample &middot; avg / night</small></span><button type="button" class="bk-plan2-more" aria-expanded="false" aria-controls="rn-one-bedroom-direct">Rate details</button><span class="bk-plan2-note" id="rn-one-bedroom-direct" hidden>Book direct and save.</span></div></div></div><div class="bk-room2-side"><span class="bk-left">7 rooms left!</span><div class="bk-price-n" data-avg>$183</div><div class="bk-price-l">Sample &middot; avg per night</div><div class="bk-total-sm"><span data-tot><b>$183</b> total &middot; 1 night</span><small>Excludes taxes</small><small>Includes <button type="button" class="bk-fees-link" data-fees>Select Fees</button></small></div><div class="bk-step-ctl"><span class="lbl">Rooms</span><button type="button" data-dec="one-bedroom" aria-label="One fewer One Bedroom"><span aria-hidden="true">&minus;</span></button><span class="n" id="n-one-bedroom" aria-live="polite">1</span><button type="button" data-inc="one-bedroom" aria-label="One more One Bedroom"><span aria-hidden="true">+</span></button></div><a class="bk-btn bk-book-one" data-book="one-bedroom" href="/book/checkout?property=sol-modern&rooms=one-bedroom:1:fall">Book &nbsp;&rarr;</a></div></div></div><div class="bk-card" data-room="two-bedroom" data-base="319"><div class="bk-room2"><div class="bk-room2-media"><img class="bk-room2-img" src="/assets/bk-room-2br.jpg" alt="Two Bedroom suite"><div class="bk-thumbs"><img src="/assets/bk-city-1.jpg" alt="" loading="lazy"><img src="/assets/bk-city-3.jpg" alt="" loading="lazy"><img src="/assets/bk-room-studio.jpg" alt="" loading="lazy"></div></div><div class="bk-room2-mid"><div class="bk-room-name">Two Bedroom</div><div class="bk-specs"><span>Sleeps 4</span> &middot; <span>2 Queen Beds</span> &middot; <span>2 Baths</span> &middot; <span>1,053 Sq Ft</span></div><div class="bk-room-links"><a href="/book/room?property=sol-modern&type=two-bedroom">More details &nbsp;&rarr;</a></div><div class="bk-plans2"><div class="bk-plan2"><label class="bk-plan2-pick"><input type="radio" name="pl-two-bedroom" value="fall" checked><span class="bk-plan2-name">Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%</span></label><span class="bk-plan2-price"><s>$319</s> <b>$255</b><small>sample &middot; avg / night</small></span><button type="button" class="bk-plan2-more" aria-expanded="false" aria-controls="rn-two-bedroom-fall">Rate details</button><span class="bk-plan2-note" id="rn-two-bedroom-fall" hidden>Flexible rate. Blackout dates and terms apply.</span></div><div class="bk-plan2"><label class="bk-plan2-pick"><input type="radio" name="pl-two-bedroom" value="campus"><span class="bk-plan2-name">Campus Bound</span></label><span class="bk-plan2-price"><s>$319</s> <b>$274</b><small>sample &middot; avg / night</small></span><button type="button" class="bk-plan2-more" aria-expanded="false" aria-controls="rn-two-bedroom-campus">Rate details</button><span class="bk-plan2-note" id="rn-two-bedroom-campus" hidden>For campus tours, games &amp; parents&rsquo; weekends. Terms apply.</span></div><div class="bk-plan2"><label class="bk-plan2-pick"><input type="radio" name="pl-two-bedroom" value="direct"><span class="bk-plan2-name">Sentral.com Book Direct Rate | Save up to 10% off Best Rates</span></label><span class="bk-plan2-price"><s>$319</s> <b>$287</b><small>sample &middot; avg / night</small></span><button type="button" class="bk-plan2-more" aria-expanded="false" aria-controls="rn-two-bedroom-direct">Rate details</button><span class="bk-plan2-note" id="rn-two-bedroom-direct" hidden>Book direct and save.</span></div></div></div><div class="bk-room2-side"><span class="bk-left">2 rooms left!</span><div class="bk-price-n" data-avg>$255</div><div class="bk-price-l">Sample &middot; avg per night</div><div class="bk-total-sm"><span data-tot><b>$255</b> total &middot; 1 night</span><small>Excludes taxes</small><small>Includes <button type="button" class="bk-fees-link" data-fees>Select Fees</button></small></div><div class="bk-step-ctl"><span class="lbl">Rooms</span><button type="button" data-dec="two-bedroom" aria-label="One fewer Two Bedroom"><span aria-hidden="true">&minus;</span></button><span class="n" id="n-two-bedroom" aria-live="polite">1</span><button type="button" data-inc="two-bedroom" aria-label="One more Two Bedroom"><span aria-hidden="true">+</span></button></div><a class="bk-btn bk-book-one" data-book="two-bedroom" href="/book/checkout?property=sol-modern&rooms=two-bedroom:1:fall">Book &nbsp;&rarr;</a></div></div></div></div>
 </div>
+<dialog class="bk-fees" id="bkFees" aria-labelledby="bkFeesH">
+  <button type="button" class="bk-fees-x" data-fees-close aria-label="Close">&times;</button>
+  <h2 id="bkFeesH">Included Fees</h2>
+  <p>Your rate may include one or more of the following:</p>
+  <ul><li>Resort &amp; Destination Fee(s)</li><li>Cleaning Fee(s)</li><li>Residence Fee(s)</li></ul>
+  <h3>Disclaimer</h3>
+  <p>The fees listed above are subject to change based on the length of stay. Additional fees may also be assessed during your stay.</p>
+</dialog>
+<script>
+document.addEventListener('click',function(e){
+  var d=document.getElementById('bkFees'); if(!d) return;
+  if(e.target.closest&&e.target.closest('[data-fees]')){ e.preventDefault(); d.showModal(); }
+  else if(e.target.closest&&e.target.closest('[data-fees-close]')||e.target===d){ d.close(); }
+});
+</script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
-  var q=BOOK.q(), sel=BOOK.parseRooms(q.rooms);
+  var q=BOOK.q(), stay=BOOK.parseRooms(q.rooms);   // suites already in the stay (multi-room)
   var props=BOOK.PROPERTIES, propSel=document.getElementById('bkProp'); // options baked static
   var cur=BOOK.prop(q.property)||null;
   var alertBox=document.getElementById('bkCityAlert');
@@ -115,33 +122,37 @@ document.addEventListener('DOMContentLoaded',function(){
   if(q.promo) document.getElementById('bkPromo').value=q.promo;
   document.getElementById('bkEdit').addEventListener('submit',function(e){
     e.preventDefault();
-    location.search='?'+BOOK.qs({property:propSel.value,city:null,
+    var p=propSel.value;
+    location.search='?'+BOOK.qs({property:p,city:null,
       'in':document.getElementById('bkIn').value,out:document.getElementById('bkOut').value,
       adults:document.getElementById('bkAd').value,children:document.getElementById('bkCh').value,
       promo:document.getElementById('bkPromo').value.trim()||null,
-      rooms:BOOK.roomsParam(sel)});
+      rooms:p===cur.slug?(BOOK.roomsParam(stay)||null):null});
   });
   var nights=BOOK.nights(q['in'],q.out);
+  var short=cur.minStay>1&&nights&&nights<cur.minStay;
   document.getElementById('bkhContext').textContent=
     cur.name+', '+cur.city+(nights? ' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night') : ' — choose dates to see availability')
     +(q.promo?' · code '+q.promo.toUpperCase()+' applies at checkout':'');
-  if(cur.minStay>1) alertBox.innerHTML+='<div class="bk-alert">'+cur.name+' hosts extended stays only — '+cur.minStay+' nights or more.</div>';
+  if(cur.minStay>1) alertBox.innerHTML+='<div class="bk-alert">'+cur.name+' hosts extended stays only — '+cur.minStay+' nights or more.'+(short?' Adjust your dates above to book.':'')+'</div>';
 
-  var res=document.getElementById('bkResults');
+  var res=document.getElementById('bkResults'), pick={};
   function room(slug){ return cur.rooms.filter(function(r){return r.slug===slug})[0]; }
-  function state(slug){ if(!sel[slug]) sel[slug]={n:0,plan:'fall'}; return sel[slug]; }
+  function state(slug){
+    if(!pick[slug]) pick[slug]={n:(stay[slug]&&stay[slug].n)||1, plan:(stay[slug]&&stay[slug].plan)||'fall'};
+    return pick[slug];
+  }
   function card(slug){ return res.querySelector('.bk-card[data-room="'+slug+'"]'); }
   function paintCard(slug){
     var r=room(slug), st=state(slug), pl=BOOK.plan(st.plan), c=card(slug);
     if(!r||!c) return;
-    var avg=BOOK.planPrice(r,pl);
+    var avg=BOOK.planPrice(r,pl), n=nights||1;
     c.querySelector('[data-avg]').textContent=BOOK.money(avg);
-    var tot=c.querySelector('[data-tot]');
-    if(nights){
-      tot.hidden=false;
-      tot.innerHTML='<b>'+BOOK.money(avg*nights*Math.max(1,st.n))+'</b> total · '+nights+(nights>1?' nights':' night')+'<br><small>Excludes taxes</small>';
-    } else tot.hidden=true;
+    c.querySelector('[data-tot]').innerHTML='<b>'+BOOK.money(avg*n*st.n)+'</b> total · '+n+(n>1?' nights':' night')+(st.n>1?' · '+st.n+' rooms':'');
     c.querySelector('#n-'+slug).textContent=st.n;
+    var bk=c.querySelector('.bk-book-one');
+    bk.classList.toggle('off',!!short);
+    if(short) bk.setAttribute('aria-disabled','true'); else bk.removeAttribute('aria-disabled');
   }
   cur.rooms.forEach(function(r){
     var st=state(r.slug);
@@ -153,22 +164,30 @@ document.addEventListener('DOMContentLoaded',function(){
     if(e.target.type!=='radio') return;
     var slug=e.target.name.replace('pl-','');
     state(slug).plan=e.target.value;
-    paintCard(slug); rail();
+    paintCard(slug);
   });
   res.addEventListener('click',function(e){
-    var incB=e.target.closest&&e.target.closest('[data-inc]'),
-        decB=e.target.closest&&e.target.closest('[data-dec]'),
+    var t=e.target.closest?e.target:null; if(!t) return;
+    var more=t.closest('.bk-plan2-more');
+    if(more){
+      var note=document.getElementById(more.getAttribute('aria-controls')), open=note.hidden;
+      note.hidden=!open; more.setAttribute('aria-expanded',open);
+      more.textContent=open?'Hide details':'Rate details'; return;
+    }
+    var incB=t.closest('[data-inc]'), decB=t.closest('[data-dec]'),
         inc=incB&&incB.getAttribute('data-inc'), dec=decB&&decB.getAttribute('data-dec'), k=inc||dec;
     if(k){
-      var st=state(k); st.n=Math.max(0,Math.min(9,st.n+(inc?1:-1)));
-      paintCard(k); rail(); return;
+      var st=state(k); st.n=Math.max(1,Math.min(9,st.n+(inc?1:-1)));
+      paintCard(k); return;
     }
-    var bk=e.target.closest&&e.target.closest('.bk-book-one');
+    var bk=t.closest('.bk-book-one');
     if(bk){
       e.preventDefault();
-      var slug=bk.getAttribute('data-book'), st=state(slug);
-      if(st.n<1) st.n=1;
-      location.href='/book/checkout?'+BOOK.qs({property:cur.slug,city:null,rooms:BOOK.roomsParam(sel)});
+      if(short) return;
+      var slug=bk.getAttribute('data-book'), all={};
+      for(var s in stay) all[s]=stay[s];
+      all[slug]=state(slug);                          // add / replace this suite in the stay
+      location.href='/book/checkout?'+BOOK.qs({property:cur.slug,city:null,rooms:BOOK.roomsParam(all)});
     }
   });
   document.getElementById('bkSort').addEventListener('change',function(){
@@ -177,27 +196,15 @@ document.addEventListener('DOMContentLoaded',function(){
       .sort(function(a,b){ return dir*((+a.getAttribute('data-base'))-(+b.getAttribute('data-base'))); })
       .forEach(function(c){ res.appendChild(c); });
   });
-  function rail(){
-    document.getElementById('railProp').textContent=cur.name+', '+cur.city;
-    document.getElementById('railDates').textContent=
-      nights? BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night') : 'Choose dates above';
-    var lines='',total=0,count=0;
-    cur.rooms.forEach(function(r){
-      var st=sel[r.slug]; if(!st||!st.n) return;
-      var pl=BOOK.plan(st.plan), amt=BOOK.planPrice(r,pl)*st.n*(nights||1);
-      count+=st.n; total+=amt;
-      lines+='<div class="bk-line"><span>'+st.n+' × '+r.name+' <small>'+(pl.short||pl.name)+(nights?' · '+nights+' nights':'')+'</small></span><span>'+BOOK.money(amt)+'</span></div>';
-    });
-    document.getElementById('railLines').innerHTML=lines||'<div class="bk-line"><small>Add rooms to build your stay.</small></div>';
-    document.getElementById('railTotal').textContent=count&&nights? BOOK.money(total):'—';
-    var ok=count>0&&nights&&!(cur.minStay>1&&nights<cur.minStay);
-    var go=document.getElementById('railGo');
-    go.classList.toggle('off',!ok);
-    go.href='/book/checkout?'+BOOK.qs({property:cur.slug,city:null,rooms:BOOK.roomsParam(sel)});
-    if(cur.minStay>1&&nights&&nights<cur.minStay)
-      document.getElementById('railLines').innerHTML+='<div class="bk-line"><small>This property requires '+cur.minStay+'+ nights.</small></div>';
+  // Multi-room strip — only when returning from checkout via "Add another suite"
+  var names=[];
+  cur.rooms.forEach(function(r){ var s=stay[r.slug]; if(s&&s.n) names.push(s.n+' × '+r.name+' ('+(BOOK.plan(s.plan).short)+')'); });
+  if(names.length){
+    var strip=document.getElementById('bkStay');
+    strip.hidden=false;
+    strip.innerHTML='<span><b>In your stay:</b> '+names.join(', ')+'. Book another suite below to add it.</span>'+
+      '<a class="bk-btn slate" href="/book/checkout?'+BOOK.qs({property:cur.slug,city:null})+'">Back to Checkout &nbsp;&rarr;</a>';
   }
-  rail();
 });
 </script>
 </main>
