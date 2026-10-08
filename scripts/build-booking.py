@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Booking-funnel generator — Phase 3 (6-page booking plan, 2026-09-25).
+Booking-funnel generator — Phase 2 (6-page booking plan, 2026-09-25).
 
 Generates: book-search.html (P0), book-room.html, book-checkout.html,
 book-confirm.html, city-stay.html. Chrome (nav/hamburger/footer markup) is
