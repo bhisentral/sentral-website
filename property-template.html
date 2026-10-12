@@ -241,31 +241,7 @@ section[id],.pt-anchor-alias{scroll-margin-top:118px}
 .pt-suite-cta:hover{color:var(--slate-light)}
 
 /* ══ GALLERY TRIGGER + LIGHTBOX ══ */
-.pt-gallery-btn{display:inline-flex;align-items:center;min-height:44px;gap:9px;background:rgba(14,12,10,.62);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.4);color:var(--white);font-family:var(--sans);font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:11px 20px;border-radius:2px;cursor:pointer;transition:background .2s,border-color .2s}
-.pt-gallery-btn:hover{background:rgba(14,12,10,.85);border-color:#fff}
-.pt-gallery-btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.5}
 .pt-space{cursor:pointer}
-
-.pt-lb{position:fixed;inset:0;z-index:300;background:rgba(16,16,16,.97);display:none;flex-direction:column}
-.pt-lb.open{display:flex}
-.pt-lb-top{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 28px;border-bottom:1px solid rgba(255,255,255,.1);flex-shrink:0}
-.pt-lb-title{font-family:var(--serif);font-size:1.0625rem;color:#fff}
-.pt-lb-title small{display:block;font-family:var(--sans);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:3px}
-.pt-lb-filters{display:flex;gap:6px;flex-wrap:wrap}
-.pt-lb-filter{background:none;border:1px solid rgba(255,255,255,.55);color:rgba(255,255,255,.7);font-family:var(--sans);font-size:.6875rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;min-height:44px;padding:8px 18px;border-radius:100px;cursor:pointer;transition:all .2s}
-.pt-lb-filter:hover{color:#fff;border-color:rgba(255,255,255,.6)}
-.pt-lb-filter[aria-pressed=true]{background:var(--white);border-color:var(--white);color:var(--black)}
-.pt-lb-close{background:none;border:1px solid rgba(255,255,255,.55);color:#fff;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1.25rem;line-height:1;flex-shrink:0}
-.pt-lb-close:hover{border-color:#fff;background:rgba(255,255,255,.1)}
-.pt-lb-body{flex:1;overflow-y:auto;padding:24px 28px 40px}
-.pt-lb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1400px;margin:0 auto}
-.pt-lb-item{position:relative;aspect-ratio:3/2;overflow:hidden;background:#22282c}
-.pt-lb-item img{width:100%;height:100%;object-fit:cover}
-.pt-lb-cap{position:absolute;left:12px;bottom:10px;font-size:.6875rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.85)}
-.pt-lb-plan{max-width:900px;margin:0 auto;text-align:center}
-.pt-lb-plan img{width:100%;height:auto;background:var(--cream-light);padding:24px}
-.pt-lb-empty{max-width:60ch;margin:48px auto;text-align:center;color:rgba(255,255,255,.72);font-size:1rem;line-height:1.7}
-@media(max-width:900px){.pt-lb-grid{grid-template-columns:1fr}.pt-lb-top{flex-wrap:wrap;padding:14px 18px}.pt-lb-body{padding:16px 18px 32px}}
 
 /* ══ 6b. AMENITY SHOWCASE ══ */
 .pt-spaces{background:var(--cream-warm);padding:96px 0 72px}
@@ -1069,47 +1045,7 @@ a.pt-suite-cta{text-decoration:none !important}
 <!-- One overlay serves both jobs. Gallery mode shows a filterable grid; plan
      mode shows a single suite floor plan. Both are opened from elsewhere on the
      page, so neither costs the layout a section. -->
-<div class="pt-lb" id="ptLb" role="dialog" aria-modal="true" aria-labelledby="ptLbTitle" hidden>
-  <div class="pt-lb-top">
-    <div class="pt-lb-title" id="ptLbTitle">Sol Modern<small id="ptLbSub">Gallery</small></div>
-    <div class="pt-lb-filters" id="ptLbFilters">
-      <button class="pt-lb-filter" type="button" data-filter="all" aria-pressed="true">All</button>
-      <button class="pt-lb-filter" type="button" data-filter="suites" aria-pressed="false">Suites</button>
-      <button class="pt-lb-filter" type="button" data-filter="amenities" aria-pressed="false">Amenities</button>
-      <button class="pt-lb-filter" type="button" data-filter="neighborhood" aria-pressed="false">Neighborhood</button>
-    </div>
-    <button class="pt-lb-close" type="button" id="ptLbClose" aria-label="Close">&times;</button>
-  </div>
-  <div class="pt-lb-body" id="ptLbBody"></div>
-</div>
 
-<!--
-  [FIELD] GALLERY MANIFEST — the property's photo set.
-  Aim for 20+ across the three groups. Swap this block per property; at build
-  it comes from the CMS rather than being inlined.
--->
-<script type="application/json" id="ptGalleryData">
-{
-  "suites": [
-    {"src":"/assets/ig-social-1.jpg","caption":"Studio — living area"},
-    {"src":"/assets/ig-social-2.jpg","caption":"One bedroom — living area"},
-    {"src":"/assets/ig-social-3.jpg","caption":"Two bedroom — kitchen"},
-    {"src":"/assets/forme-houston-square-poster.jpg","caption":"Three bedroom — dining"},
-    {"src":"/assets/stay-hero-poster.jpg","caption":"Suite interior"}
-  ],
-  "amenities": [
-    {"src":"/assets/hero-poster.jpg","caption":"Rooftop pool & cabanas"},
-    {"src":"/assets/ig-social-2.jpg","caption":"Fitness floor"},
-    {"src":"/assets/ig-social-1.jpg","caption":"Coworking lounge"},
-    {"src":"/assets/forme-houston-square-poster.jpg","caption":"Entertainment lounge"},
-    {"src":"/assets/group-hero-poster.jpg","caption":"Grill decks & fire pits"}
-  ],
-  "neighborhood": [
-    {"src":"/assets/group-hero-poster.jpg","caption":"Downtown Phoenix"},
-    {"src":"/assets/live-hero-poster.jpg","caption":"Roosevelt Row"}
-  ]
-}
-</script>
 
 <!-- ══════════ FOOTER — global, unchanged ══════════ -->
 <footer class="site-footer" role="contentinfo">
@@ -1271,123 +1207,8 @@ a.pt-suite-cta{text-decoration:none !important}
 // ── GALLERY / FLOOR-PLAN LIGHTBOX ──
 // One overlay, two modes. Focus is trapped while open, Escape closes, and focus
 // returns to whatever opened it.
-var ptLightbox=(function(){
-  var lb=document.getElementById('ptLb');
-  if(!lb) return {openGallery:function(){},openPlan:function(){}};
+// Lightbox removed entirely (CEO 10-6 + 10-12: no photo popups).
 
-  var body=document.getElementById('ptLbBody'),
-      sub=document.getElementById('ptLbSub'),
-      filters=document.getElementById('ptLbFilters'),
-      closeBtn=document.getElementById('ptLbClose'),
-      opener=null, group='all';
-
-  var data={};
-  try{ data=JSON.parse(document.getElementById('ptGalleryData').textContent)||{}; }catch(e){ data={}; }
-
-  function photos(which){
-    if(which==='all') return [].concat(data.suites||[],data.amenities||[],data.neighborhood||[]);
-    return data[which]||[];
-  }
-
-  function renderGallery(){
-    filters.hidden=false;
-    var list=photos(group);
-    if(!list.length){
-      body.innerHTML='<p class="pt-lb-empty">Photography for this property has not been loaded yet.</p>';
-      return;
-    }
-    var grid=document.createElement('div');
-    grid.className='pt-lb-grid';
-    list.forEach(function(p){
-      var fig=document.createElement('div');
-      fig.className='pt-lb-item';
-      var img=document.createElement('img');
-      img.src=p.src; img.alt=p.caption||''; img.loading='lazy';
-      var cap=document.createElement('span');
-      cap.className='pt-lb-cap'; cap.textContent=p.caption||'';
-      fig.appendChild(img); fig.appendChild(cap); grid.appendChild(fig);
-    });
-    body.innerHTML=''; body.appendChild(grid);
-  }
-
-  function trapFocus(e){
-    if(e.key==='Escape'){ close(); return; }
-    if(e.key!=='Tab') return;
-    var f=lb.querySelectorAll('button, [href], img[tabindex]');
-    if(!f.length) return;
-    var first=f[0], last=f[f.length-1];
-    if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
-    else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
-  }
-
-  function open(){
-    lb.hidden=false; lb.classList.add('open');
-    document.body.style.overflow='hidden';
-    document.addEventListener('keydown',trapFocus);
-    closeBtn.focus();
-  }
-
-  function close(){
-    lb.classList.remove('open'); lb.hidden=true;
-    document.body.style.overflow='';
-    document.removeEventListener('keydown',trapFocus);
-    if(opener && opener.focus) opener.focus();
-    opener=null;
-  }
-
-  closeBtn.addEventListener('click',close);
-  lb.addEventListener('click',function(e){ if(e.target===lb) close(); });
-
-  filters.addEventListener('click',function(e){
-    var btn=e.target.closest('.pt-lb-filter');
-    if(!btn) return;
-    group=btn.getAttribute('data-filter');
-    [].forEach.call(filters.querySelectorAll('.pt-lb-filter'),function(b){
-      b.setAttribute('aria-pressed', String(b===btn));
-    });
-    renderGallery();
-  });
-
-  return {
-    openGallery:function(which,from){
-      opener=from||null; group=which||'all';
-      [].forEach.call(filters.querySelectorAll('.pt-lb-filter'),function(b){
-        b.setAttribute('aria-pressed', String(b.getAttribute('data-filter')===group));
-      });
-      sub.textContent='Gallery';
-      renderGallery(); open();
-    },
-    openPlan:function(opts,from){
-      opener=from||null;
-      filters.hidden=true;
-      sub.textContent=opts.meta||'Floor plan';
-      // A [FIELD] placeholder is not a real path — say so rather than 404 an image.
-      if(!opts.src || opts.src.indexOf('[FIELD]')===0){
-        body.innerHTML='<p class="pt-lb-empty">Floor plan for the '+
-          (opts.title||'suite').replace(/ — floor plan$/,'')+
-          ' has not been uploaded yet.</p>';
-      }else{
-        body.innerHTML='<div class="pt-lb-plan"><img src="'+opts.src+'" alt="'+(opts.title||'Floor plan')+'"></div>';
-      }
-      open();
-    }
-  };
-})();
-
-(function(){
-  // CEO 10-6: full-gallery popup removed; #gallery scrolls to the photo mosaic.
-  // Amenity tiles open the gallery already filtered to amenities.
-  [].forEach.call(document.querySelectorAll('.pt-space'),function(tile){
-    tile.setAttribute('role','button');
-    tile.setAttribute('tabindex','0');
-    function go(){ ptLightbox.openGallery('amenities',tile); }
-    tile.addEventListener('click',go);
-    tile.addEventListener('keydown',function(e){
-      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); }
-    });
-  });
-
-})();
 
 // ── SUITE-CARD PHOTO CAROUSELS ── (Laurie 9-25: click through multiple images)
 (function(){
