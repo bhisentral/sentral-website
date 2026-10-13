@@ -307,8 +307,9 @@ does not prohibit it; revisit only if counsel asks. Re-scan after HS build.
    2026-09-25 (several plans per suite type — a single drawing set a false
    expectation). Spec-only cards may be enough. Phase 2b question: does each suite type still need its own page?
 3. **Booking hand-off.** Even wired, Check Rates passes the guest to the
-   StayNTouch booking engine without ever showing availability or a total. "No hidden fees" is
-   promised but no total is displayed. Worth deciding whether an inline
+   StayNTouch booking engine without ever showing availability or a total. Fee language (2026-10-13): every
+   community has fees, so pages promise fees *shown before you book* (never "no resort fee");
+   the booking funnel itemizes them at checkout. Worth deciding whether an inline
    availability/total step is in scope.
 4. **Reviews.** The current Michigan Avenue page has "PEOPLE LIKE IT HERE"; this
    template has no social proof at all.
