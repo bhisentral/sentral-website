@@ -517,6 +517,10 @@ header('Sentral &mdash; Book a Stay','<span id="cityH">Choose your <em>Sentral.<
   <form class="bk-editbar" id="ctEdit">
     <div class="bk-f"><label for="ctIn">Check-in</label><input id="ctIn" type="date"></div>
     <div class="bk-f"><label for="ctOut">Check-out</label><input id="ctOut" type="date"></div>
+    <div class="bk-f"><label for="ctAd">Adults</label>
+      <select id="ctAd"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
+    <div class="bk-f"><label for="ctCh">Children</label>
+      <select id="ctCh"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
     <div class="bk-f"><label for="ctPromo">Discount code <span style="text-transform:none;letter-spacing:.02em">&mdash; optional</span></label><input id="ctPromo" type="text" placeholder="e.g. FALL20" style="width:150px"></div>
     <button class="bk-btn" type="submit">Apply &nbsp;&rarr;</button>
   </form>
@@ -530,10 +534,13 @@ document.addEventListener('DOMContentLoaded',function(){
   if(q['in']) document.getElementById('ctIn').value=q['in'];
   if(q.out) document.getElementById('ctOut').value=q.out;
   if(q.promo) document.getElementById('ctPromo').value=q.promo;
+  if(q.adults) document.getElementById('ctAd').value=q.adults;
+  if(q.children) document.getElementById('ctCh').value=q.children;
   document.getElementById('ctEdit').addEventListener('submit',function(e){
     e.preventDefault();
     location.search='?'+BOOK.qs({city:q.city,
       'in':document.getElementById('ctIn').value, out:document.getElementById('ctOut').value,
+      adults:document.getElementById('ctAd').value, children:document.getElementById('ctCh').value,
       promo:document.getElementById('ctPromo').value.trim()||null});
   });
   document.getElementById('cityH').innerHTML=c.name+'. <em>Choose your Sentral.</em>';
@@ -601,6 +608,10 @@ for cslug,(cname,props) in CITY_DATA.items():
   <form class="bk-editbar" id="ctEdit">
     <div class="bk-f"><label for="ctIn">Check-in</label><input id="ctIn" type="date"></div>
     <div class="bk-f"><label for="ctOut">Check-out</label><input id="ctOut" type="date"></div>
+    <div class="bk-f"><label for="ctAd">Adults</label>
+      <select id="ctAd"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
+    <div class="bk-f"><label for="ctCh">Children</label>
+      <select id="ctCh"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
     <div class="bk-f"><label for="ctPromo">Discount code</label><input id="ctPromo" type="text" placeholder="e.g. FALL20"></div>
     <button class="bk-btn" type="submit">Apply &nbsp;&rarr;</button>
   </form>
@@ -615,6 +626,8 @@ document.addEventListener('DOMContentLoaded',function(){
   if(q['in']) document.getElementById('ctIn').value=q['in'];
   if(q.out) document.getElementById('ctOut').value=q.out;
   if(q.promo) document.getElementById('ctPromo').value=q.promo;
+  if(q.adults) document.getElementById('ctAd').value=q.adults;
+  if(q.children) document.getElementById('ctCh').value=q.children;
   [].forEach.call(document.querySelectorAll('.bk-prop'),function(c){
     c.querySelector('[data-avail]').href='/book/search?'+BOOK.qs({property:c.getAttribute('data-prop'),city:null});
   });
@@ -622,6 +635,7 @@ document.addEventListener('DOMContentLoaded',function(){
     e.preventDefault();
     location.search='?'+BOOK.qs({
       'in':document.getElementById('ctIn').value, out:document.getElementById('ctOut').value,
+      adults:document.getElementById('ctAd').value, children:document.getElementById('ctCh').value,
       promo:document.getElementById('ctPromo').value.trim()||null});
   });
 });
