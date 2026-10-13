@@ -53,7 +53,7 @@ def page(title,body):
       '<title>'+title+'</title>\n'
       '<link rel="stylesheet" href="/booking-chrome.css?v=3">\n'
       '<link rel="stylesheet" href="/overrides.css?v=4dark31">\n'
-      '<link rel="stylesheet" href="/booking.css?v=10">\n'
+      '<link rel="stylesheet" href="/booking.css?v=11">\n'
       '<script src="/assets/booking-demo.js?v=7" defer></script>\n'
       '</head>\n<body>\n<a class="skip-to-content" href="#main">Skip to content</a>\n<header>\n'
       +NAV+'\n</header>\n<main id="main">\n'+body+'\n</main>\n\n'+FOOT+'\n'+HAM_JS+'\n</body>\n</html>\n')
@@ -80,10 +80,22 @@ PAGES={}
 # inline (no extra click to see offers), strike-through best-rate pricing,
 # nightly avg vs stay total, thumbnails, rooms-left. Cards + options are baked
 # static from these constants (keep in sync with assets/booking-demo.js).
+# Suite photos: (image, TAG). The tag is the only label a guest ever sees —
+# caption + alt text — never the file name. PRODUCTION: CMS/StayNTouch media
+# per suite with an editable tag field (Living room, Bedroom 1, Kitchen…).
+# Images here are placeholders; tags are sample [FIELD]s.
+_P=lambda f:'/assets/'+f+'.jpg'
+SPHOTOS={
+ 'studio':[(_P('bk-room-studio'),'Living area'),(_P('bk-city-3'),'Sleeping area'),(_P('bk-city-2'),'Lounge'),
+           (_P('bk-room-1br'),'Bedroom'),(_P('bk-city-1'),'Living room'),(_P('bk-room-2br'),'Bedroom detail')],
+ 'one-bedroom':[(_P('bk-room-1br'),'Living room'),(_P('bk-city-3'),'Bedroom 1'),(_P('bk-room-studio'),'Dining area'),
+           (_P('bk-city-2'),'Lounge'),(_P('bk-city-1'),'Living area'),(_P('bk-room-2br'),'Bedroom detail')],
+ 'two-bedroom':[(_P('bk-room-2br'),'Bedroom 1'),(_P('bk-city-1'),'Living room'),(_P('bk-city-3'),'Bedroom 2'),
+           (_P('bk-room-studio'),'Dining area'),(_P('bk-city-2'),'Lounge'),(_P('bk-room-1br'),'Living area')]}
 SROOMS=[
- ('studio','Studio','Sleeps 2 · 1 Queen Bed · 1 Bath · 517 Sq Ft',189,4,'/assets/bk-room-studio.jpg',['/assets/bk-room-1br.jpg','/assets/bk-city-1.jpg','/assets/bk-city-2.jpg']),
- ('one-bedroom','One Bedroom','Sleeps 2 · 1 Queen Bed · 1 Bath · 673 Sq Ft',229,7,'/assets/bk-room-1br.jpg',['/assets/bk-room-studio.jpg','/assets/bk-city-2.jpg','/assets/bk-city-3.jpg']),
- ('two-bedroom','Two Bedroom','Sleeps 4 · 2 Queen Beds · 2 Baths · 1,053 Sq Ft',319,2,'/assets/bk-room-2br.jpg',['/assets/bk-city-1.jpg','/assets/bk-city-3.jpg','/assets/bk-room-studio.jpg'])]
+ ('studio','Studio','Sleeps 2 · 1 Queen Bed · 1 Bath · 517 Sq Ft',189,4),
+ ('one-bedroom','One Bedroom','Sleeps 2 · 1 Queen Bed · 1 Bath · 673 Sq Ft',229,7),
+ ('two-bedroom','Two Bedroom','Sleeps 4 · 2 Queen Beds · 2 Baths · 1,053 Sq Ft',319,2)]
 SPLANS=[
  ('fall','Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%','Flexible rate. Blackout dates and terms apply.',0.80),
  ('campus','Campus Bound','For campus tours, games &amp; parents&rsquo; weekends. Terms apply.',0.86),
@@ -100,7 +112,8 @@ SOPTS=[('sol-modern','Phoenix — Sol Modern'),('sentral-old-town','Scottsdale �
 def _money(n): return '$'+format(round(n),',')
 def _specspans(spec): return ' &middot; '.join('<span>'+x+'</span>' for x in spec.split(' · '))
 _SOPTS_HTML=''.join('<option value="'+a+'">'+b+'</option>' for a,b in SOPTS)
-def _card(slug,name,spec,base,left,img,thumbs):
+def _card(slug,name,spec,base,left):
+    ph=SPHOTOS[slug]
     # Laurie 10-8: no rail — each card carries its own avg/night, stay total
     # (excl. taxes, incl. select fees) and BOOK, so one radio + one click books.
     # Rate notes collapse behind "Rate details"; avg rate pushed to the right edge.
@@ -116,8 +129,16 @@ def _card(slug,name,spec,base,left,img,thumbs):
           '<span class="bk-plan2-note" id="'+nid+'" hidden>'+pnote+'</span></div>')
     first=round(base*SPLANS[0][3])
     return ('<div class="bk-card" data-room="'+slug+'" data-base="'+str(base)+'"><div class="bk-room2">'
-      '<div class="bk-room2-media"><img class="bk-room2-img" src="'+img+'" alt="'+name+' suite">'
-      '<div class="bk-thumbs">'+''.join('<img src="'+t+'" alt="" loading="lazy">' for t in thumbs)+'</div></div>'
+      '<div class="bk-room2-media bk-gal" data-name="'+name+'">'
+      '<div class="bk-gal-stage">'
+      '<button type="button" class="bk-gal-open" aria-label="View '+name+' photos full screen">'
+      '<img class="bk-room2-img" src="'+ph[0][0]+'" alt="'+name+' &mdash; '+ph[0][1]+'"></button>'
+      '<button type="button" class="bk-gal-nav prev" data-gal="-1" aria-label="Previous photo"><span aria-hidden="true">&lsaquo;</span></button>'
+      '<button type="button" class="bk-gal-nav next" data-gal="1" aria-label="Next photo"><span aria-hidden="true">&rsaquo;</span></button>'
+      '<span class="bk-gal-tag" aria-live="polite">'+ph[0][1]+' &middot; 1 / '+str(len(ph))+'</span></div>'
+      '<div class="bk-thumbs" role="list">'+''.join(
+        '<button type="button" role="listitem" class="bk-thumb'+(' on' if n==0 else '')+'" data-i="'+str(n)+'" data-src="'+src+'" data-tag="'+tag+'" aria-label="Show '+tag+'">'
+        '<img src="'+src+'" alt="" loading="lazy"></button>' for n,(src,tag) in enumerate(ph))+'</div></div>'
       '<div class="bk-room2-mid"><div class="bk-room-name">'+name+'</div>'
       '<div class="bk-specs">'+_specspans(spec)+'</div>'
       '<div class="bk-room-links"><button type="button" class="bk-suite-link" data-suite="'+slug+'" aria-haspopup="dialog">Suite details</button></div>'
@@ -193,6 +214,63 @@ header('Sentral &mdash; Book a Stay','Choose your <em>suite.</em>','bkhContext',
   <p id="bkSuiteDesc"></p>
   <p class="bk-suite-src">Sample text &mdash; pulls from StayNTouch at build</p>
 </dialog>
+<!-- Full-screen suite gallery (Laurie 10-13): click a photo to open, arrows /
+     keys / swipe to step through. Caption = the photo's editable TAG only
+     (Living room, Bedroom 1, Kitchen…) — never a file name. -->
+<dialog class="bk-light" id="bkLight" aria-labelledby="bkLightTitle">
+  <h2 class="sr-only" id="bkLightTitle">Suite photos</h2>
+  <button type="button" class="bk-light-x" data-light-close aria-label="Close photos">&times;</button>
+  <button type="button" class="bk-light-nav prev" data-light="-1" aria-label="Previous photo"><span aria-hidden="true">&lsaquo;</span></button>
+  <figure class="bk-light-fig"><img id="bkLightImg" src="" alt="">
+    <figcaption><span class="bk-light-suite" id="bkLightSuite"></span><span id="bkLightTag"></span><span class="bk-light-n" id="bkLightN"></span></figcaption></figure>
+  <button type="button" class="bk-light-nav next" data-light="1" aria-label="Next photo"><span aria-hidden="true">&rsaquo;</span></button>
+</dialog>
+<script>
+(function(){
+  var lb=document.getElementById('bkLight'), cur=null, idx=0;
+  function thumbs(g){ return [].slice.call(g.querySelectorAll('.bk-thumb')); }
+  function show(g,i){
+    var t=thumbs(g), n=t.length; i=(i+n)%n; g.setAttribute('data-cur',i);
+    var th=t[i], img=g.querySelector('.bk-room2-img');
+    img.src=th.getAttribute('data-src'); img.alt=g.getAttribute('data-name')+' — '+th.getAttribute('data-tag');
+    g.querySelector('.bk-gal-tag').textContent=th.getAttribute('data-tag')+' · '+(i+1)+' / '+n;
+    t.forEach(function(x,k){ x.classList.toggle('on',k===i); x.setAttribute('aria-current',k===i?'true':'false'); });
+    var strip=th.parentNode; strip.scrollLeft=th.offsetLeft-strip.clientWidth/2+th.clientWidth/2;
+    return i;
+  }
+  function paint(){
+    var t=thumbs(cur), th=t[idx];
+    var im=document.getElementById('bkLightImg');
+    im.src=th.getAttribute('data-src'); im.alt=cur.getAttribute('data-name')+' — '+th.getAttribute('data-tag');
+    document.getElementById('bkLightSuite').textContent=cur.getAttribute('data-name');
+    document.getElementById('bkLightTag').textContent=th.getAttribute('data-tag');
+    document.getElementById('bkLightN').textContent=(idx+1)+' / '+t.length;
+  }
+  function step(d){ idx=show(cur,idx+d); paint(); }
+  document.addEventListener('click',function(e){
+    var t=e.target.closest?e.target:null; if(!t) return;
+    var g=t.closest('.bk-gal');
+    if(g){
+      var nav=t.closest('.bk-gal-nav'), th=t.closest('.bk-thumb');
+      if(nav){ show(g,(+g.getAttribute('data-cur')||0)+(+nav.getAttribute('data-gal'))); return; }
+      if(th){ show(g,+th.getAttribute('data-i')); return; }
+      if(t.closest('.bk-gal-open')){ cur=g; idx=+g.getAttribute('data-cur')||0; paint(); lb.showModal(); return; }
+    }
+    if(t.closest('[data-light]')) step(+t.closest('[data-light]').getAttribute('data-light'));
+    else if(t.closest('[data-light-close]')||t===lb) lb.close();
+  });
+  lb.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'){ e.preventDefault(); step(1); }
+    if(e.key==='ArrowLeft'){ e.preventDefault(); step(-1); }
+  });
+  var x0=null;
+  lb.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+  lb.addEventListener('touchend',function(e){
+    if(x0===null) return; var dx=e.changedTouches[0].clientX-x0; x0=null;
+    if(Math.abs(dx)>40) step(dx<0?1:-1);
+  });
+})();
+</script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   var q=BOOK.q(), stay=BOOK.parseRooms(q.rooms);   // suites already in the stay (multi-room)
