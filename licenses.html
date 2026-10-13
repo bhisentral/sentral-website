@@ -123,6 +123,17 @@ body .policy-intro ul li{font-size:1rem !important;color:#3A3633 !important}
 body .policy-toc-title{font-size:.75rem !important}
 body .policy-toc-list li a{font-size:.9375rem !important}
 .policy-contact-box a{color:var(--slate-light) !important}
+.lic-doc{margin-top:14px;border-top:1px solid rgba(40,40,40,.14);border-bottom:1px solid rgba(40,40,40,.14)}
+.lic-doc+.lic-doc{margin-top:0;border-top:none}
+.lic-doc summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 2px;font-size:.9375rem;font-weight:500;color:#282828}
+.lic-doc summary::-webkit-details-marker{display:none}
+.lic-doc summary::after{content:'+';font-size:1.25rem;font-weight:300;color:#2D4A5C;line-height:1}
+.lic-doc[open] summary::after{content:'\2212'}
+.lic-doc summary:hover{color:#2D4A5C}
+.lic-doc summary:focus-visible{outline:2px solid #2D4A5C;outline-offset:2px}
+.lic-doc-body{padding:2px 2px 18px}
+.lic-doc-body p{margin-top:10px}
+.lic-field{color:#6B6560;font-style:italic}
 </style>
 </head>
 <body>
@@ -239,7 +250,7 @@ body .policy-toc-list li a{font-size:.9375rem !important}
   <div class="policy-content">
 
     <div class="policy-intro" id="intro">
-      <p>Broker license information for Sentral&rsquo;s operating entities. Content mirrors sentral.com/licenses verbatim. Disclosure PDFs are linked on the live site &mdash; [FIELD] Highspring: carry the PDF assets over from the current CMS.</p>
+      <p>Broker license information for Sentral&rsquo;s operating entities. Content mirrors sentral.com/licenses verbatim. Each disclosure opens in place below its state &mdash; no PDFs or attachments. [FIELD] Paste each disclosure&rsquo;s full text into its panel (CMS rich-text field).</p>
     </div>
 
     <section class="policy-section" id="brokerage">
@@ -257,13 +268,13 @@ body .policy-toc-list li a{font-size:.9375rem !important}
 <section class="policy-section" id="colorado">
   <span class="policy-section-num">03</span>
   <h2 class="policy-section-title">Colorado</h2>
-  <div class="policy-body"><p>The prospective tenant has the right to provide to the landlord a portable screening report, as defined in Section 38-12-902(2.5), Colorado Revised Statutes; and 2. If the prospective tenant provides the landlord with a portable tenant screening report, the landlord is prohibited from: charging the prospective tenant a rental application fee or charging the prospective tenant a fee for the landlord to access or use the portable screening report.</p><p style="margin-top:10px"><em>PDF:</em> Colorado Brokerage Disclosure to Prospective Tenants <span style="color:#9a9490">&mdash; [FIELD] attach disclosure PDF</span></p></div>
+  <div class="policy-body"><p>The prospective tenant has the right to provide to the landlord a portable screening report, as defined in Section 38-12-902(2.5), Colorado Revised Statutes; and 2. If the prospective tenant provides the landlord with a portable tenant screening report, the landlord is prohibited from: charging the prospective tenant a rental application fee or charging the prospective tenant a fee for the landlord to access or use the portable screening report.</p><details class="lic-doc"><summary>Colorado Brokerage Disclosure to Prospective Tenants</summary><div class="lic-doc-body"><p class="lic-field">[FIELD] Paste the full text of the Colorado Brokerage Disclosure to Prospective Tenants here.</p></div></details></div>
 </section>
 
 <section class="policy-section" id="illinois">
   <span class="policy-section-num">04</span>
   <h2 class="policy-section-title">Illinois</h2>
-  <div class="policy-body"><p>Main Office located in Austin, TX</p><p style="margin-top:10px"><em>PDF:</em> Illinois Brokerage Disclosure to Prospective Tenants <span style="color:#9a9490">&mdash; [FIELD] attach disclosure PDF</span></p></div>
+  <div class="policy-body"><p>Main Office located in Austin, TX</p><details class="lic-doc"><summary>Illinois Brokerage Disclosure to Prospective Tenants</summary><div class="lic-doc-body"><p class="lic-field">[FIELD] Paste the full text of the Illinois Brokerage Disclosure to Prospective Tenants here.</p></div></details></div>
 </section>
 
 <section class="policy-section" id="nevada">
@@ -275,19 +286,19 @@ body .policy-toc-list li a{font-size:.9375rem !important}
 <section class="policy-section" id="pennsylvania">
   <span class="policy-section-num">06</span>
   <h2 class="policy-section-title">Pennsylvania</h2>
-  <div class="policy-body"><p>Broker License # RB069953</p><p style="margin-top:10px">Main Office located in Tampa, FL</p><p style="margin-top:10px"><em>PDF:</em> Pennsylvania Consumer Notice of Representation <span style="color:#9a9490">&mdash; [FIELD] attach disclosure PDF</span></p></div>
+  <div class="policy-body"><p>Broker License # RB069953</p><p style="margin-top:10px">Main Office located in Tampa, FL</p><details class="lic-doc"><summary>Pennsylvania Consumer Notice of Representation</summary><div class="lic-doc-body"><p class="lic-field">[FIELD] Paste the full text of the Pennsylvania Consumer Notice of Representation here.</p></div></details></div>
 </section>
 
 <section class="policy-section" id="texas">
   <span class="policy-section-num">07</span>
   <h2 class="policy-section-title">Texas</h2>
-  <div class="policy-body"><p style="margin-top:10px"><em>PDF:</em> Texas Information About Brokerage Services <span style="color:#9a9490">&mdash; [FIELD] attach disclosure PDF</span></p><p style="margin-top:10px"><em>PDF:</em> Texas Consumer Protection Notice <span style="color:#9a9490">&mdash; [FIELD] attach disclosure PDF</span></p></div>
+  <div class="policy-body"><details class="lic-doc"><summary>Texas Information About Brokerage Services</summary><div class="lic-doc-body"><p class="lic-field">[FIELD] Paste the full text of the Texas Information About Brokerage Services here.</p></div></details><details class="lic-doc"><summary>Texas Consumer Protection Notice</summary><div class="lic-doc-body"><p class="lic-field">[FIELD] Paste the full text of the Texas Consumer Protection Notice here.</p></div></details></div>
 </section>
 
 <section class="policy-section" id="washington">
   <span class="policy-section-num">08</span>
   <h2 class="policy-section-title">Washington</h2>
-  <div class="policy-body"><p>Designated Broker: William Garrett</p><p style="margin-top:10px">We obtain a credit report on each applicant. Our credit reporting agency evaluates credit (which may include rent payment history) as an indicator of future rent payment performance. An unsatisfactory or insufficient finding will result in the requirement of an additional deposit, guarantor, or denial. Applicants are responsible for ensuring their credit history is accurate.</p><p style="margin-top:10px"><em>PDF:</em> Washington Real Estate Brokerage Disclosure <span style="color:#9a9490">&mdash; [FIELD] attach disclosure PDF</span></p></div>
+  <div class="policy-body"><p>Designated Broker: William Garrett</p><p style="margin-top:10px">We obtain a credit report on each applicant. Our credit reporting agency evaluates credit (which may include rent payment history) as an indicator of future rent payment performance. An unsatisfactory or insufficient finding will result in the requirement of an additional deposit, guarantor, or denial. Applicants are responsible for ensuring their credit history is accurate.</p><details class="lic-doc"><summary>Washington Real Estate Brokerage Disclosure</summary><div class="lic-doc-body"><p class="lic-field">[FIELD] Paste the full text of the Washington Real Estate Brokerage Disclosure here.</p></div></details></div>
 </section>
 
   </div>
