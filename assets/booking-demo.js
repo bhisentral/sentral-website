@@ -104,7 +104,41 @@ window.BOOK = (function(){
     var dt=new Date(d+'T12:00:00');
     return dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
   }
-  return {PROPERTIES:PROPERTIES,CITIES:CITIES,PLANS:PLANS,TAXES:TAXES,FEES:FEES,
+  /* Stay summary shared by Checkout + Confirmation: suites (text only, rate
+     plan), stay facts, and Total Price Details itemized like the live engine
+     (nightly total → included select fees → taxes on the full amount). */
+  function summary(qq, opts){
+    opts=opts||{};
+    var cur=prop(qq.property)||PROPERTIES[0], sel=parseRooms(qq.rooms), n=nights(qq['in'],qq.out)||1;
+    var ad=+qq.adults||2, ch=+qq.children||0, rooms='', sub=0, count=0;
+    cur.rooms.forEach(function(r){
+      var st=sel[r.slug]; if(!st||!st.n) return;
+      var pl=plan(st.plan), amt=planPrice(r,pl)*st.n*n; sub+=amt; count+=st.n;
+      rooms+='<div class="bk-suite"><div><b>'+(st.n>1?st.n+' × ':'')+r.name+'</b><small>'+pl.name+'</small></div>'+
+        (opts.modify?'<a href="'+opts.modify+'">Modify</a>':'')+'</div>';
+    });
+    function fact(k,v){ return '<div><dt>'+k+'</dt><dd>'+v+'</dd></div>'; }
+    var facts=fact('Check-in',fmtDate(qq['in'])+'<small>4:00 PM</small>')+
+      fact('Check-out',fmtDate(qq.out)+'<small>11:00 AM</small>')+
+      fact('Nights',n)+fact('Guests',ad+(ad>1?' adults':' adult')+', '+ch+(ch===1?' child':' children'))+
+      (count>1?fact('Rooms',count):'');
+    var lines='', total=sub;
+    if(sub){
+      var fl='', fees=0;
+      FEES.forEach(function(f){
+        var a=((f.perNight||0)*n+(f.perStay||0))*count; if(!a) return; fees+=a;
+        fl+='<div class="bk-line"><span>'+f.label+(f.sample?' <small>(sample)</small>':'')+'</span><span>'+cents(a)+'</span></div>';
+      });
+      lines+='<div class="bk-line"><span>Nightly total <small>'+n+(n>1?' nights':' night')+'</small></span><span>'+cents(sub-fees)+'</span></div>'+fl;
+      TAXES.forEach(function(t){
+        var a=Math.round(sub*t.pct)/100; total+=a;
+        lines+='<div class="bk-line"><span>'+t.label+(t.sample?' <small>(sample '+t.pct+'%)</small>':'')+'</span><span>'+cents(a)+'</span></div>';
+      });
+      if(qq.promo) lines+='<div class="bk-line"><span>Discount code <small>'+qq.promo.toUpperCase()+'</small></span><span><small>validated by StayNTouch at build</small></span></div>';
+    }
+    return {cur:cur,nights:n,count:count,sub:sub,total:total,rooms:rooms,facts:facts,lines:lines};
+  }
+  return {summary:summary,PROPERTIES:PROPERTIES,CITIES:CITIES,PLANS:PLANS,TAXES:TAXES,FEES:FEES,
           q:q,qs:qs,prop:prop,plan:plan,nights:nights,money:money,cents:cents,planPrice:planPrice,
           parseRooms:parseRooms,roomsParam:roomsParam,fmtDate:fmtDate};
 })();

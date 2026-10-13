@@ -202,3 +202,6 @@ section.bkh.dark[class] h1 em,.bkh h1 em{font-style:italic;color:#F2E8D5 !import
 .bk-field-grid .bk-phone input{width:auto}
 .bk-rail h2.bk-rail-h{font-family:var(--bk-sans) !important;font-size:.6875rem !important}
 .bk-suite small,.bk-facts dd{letter-spacing:normal}
+/* confirmation (Laurie 10-13): Back to Sentral.com = slate, flips to white on hover/press */
+.bk-cf-ctas{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap}
+.bk-btn.slate.bk-btn-flip:hover,.bk-btn.slate.bk-btn-flip:focus-visible,.bk-btn.slate.bk-btn-flip:active{background:#fff;color:var(--bk-slate);border-color:var(--bk-slate)}

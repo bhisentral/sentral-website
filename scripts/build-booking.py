@@ -52,8 +52,8 @@ def page(title,body):
       '<title>'+title+'</title>\n'
       '<link rel="stylesheet" href="/booking-chrome.css?v=3">\n'
       '<link rel="stylesheet" href="/overrides.css?v=4dark31">\n'
-      '<link rel="stylesheet" href="/booking.css?v=7">\n'
-      '<script src="/assets/booking-demo.js?v=5" defer></script>\n'
+      '<link rel="stylesheet" href="/booking.css?v=8">\n'
+      '<script src="/assets/booking-demo.js?v=6" defer></script>\n'
       '</head>\n<body>\n<a class="skip-to-content" href="#main">Skip to content</a>\n<header>\n'
       +NAV+'\n</header>\n<main id="main">\n'+body+'\n</main>\n\n'+FOOT+'\n'+HAM_JS+'\n</body>\n</html>\n')
 
@@ -424,48 +424,15 @@ header('Sentral &mdash; Book a Stay','Almost <em>booked.</em>','ckContext',1)+''
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   var q=BOOK.q(), cur=BOOK.prop(q.property)||BOOK.PROPERTIES[0];
-  var sel=BOOK.parseRooms(q.rooms), nights=BOOK.nights(q['in'],q.out)||1;
-  var ad=+q.adults||2, ch=+q.children||0;
   document.getElementById('ckContext').textContent=cur.name+', '+cur.city+' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out);
+  var back='/book/search?'+BOOK.qs({}), S=BOOK.summary(q,{modify:back}), sub=S.sub;
   document.getElementById('railProp').textContent=cur.name+', '+cur.city;
   document.getElementById('railAddr').textContent=cur.address||(cur.city+', '+cur.state);
-  // Suites — text only (no photo), each with its rate plan + Modify
-  var back='/book/search?'+BOOK.qs({}), rooms='', sub=0, count=0;
-  cur.rooms.forEach(function(r){
-    var st=sel[r.slug]; if(!st||!st.n) return;
-    var pl=BOOK.plan(st.plan), nightly=BOOK.planPrice(r,pl); sub+=nightly*st.n*nights; count+=st.n;
-    rooms+='<div class="bk-suite"><div><b>'+(st.n>1?st.n+' × ':'')+r.name+'</b><small>'+pl.name+'</small></div>'+
-      '<a href="'+back+'">Modify</a></div>';
-  });
-  if(!count) rooms='<div class="bk-line"><small>No suites selected — start from Suites &amp; Availability.</small></div>';
-  rooms+='<a class="bk-addroom" href="'+back+'">+ Add another suite</a>';
-  document.getElementById('railRooms').innerHTML=rooms;
-  function fact(k,v){ return '<div><dt>'+k+'</dt><dd>'+v+'</dd></div>'; }
-  document.getElementById('railFacts').innerHTML=
-    fact('Check-in',BOOK.fmtDate(q['in'])+'<small>4:00 PM</small>')+
-    fact('Check-out',BOOK.fmtDate(q.out)+'<small>11:00 AM</small>')+
-    fact('Nights',nights)+
-    fact('Guests',ad+(ad>1?' adults':' adult')+', '+ch+(ch===1?' child':' children'))+
-    (count>1?fact('Rooms',count):'');
-  // Price breakdown (Laurie 10-13, pending Mirt): itemize the select fees that
-  // the advertised rate includes — room rate + each fee line sum to the same
-  // stay total shown on Suites & Availability; taxes on the full amount.
-  var lines='', total=sub;
-  if(sub){
-    var fl='', fees=0;
-    BOOK.FEES.forEach(function(f){
-      var a=((f.perNight||0)*nights+(f.perStay||0))*count; if(!a) return; fees+=a;
-      fl+='<div class="bk-line"><span>'+f.label+(f.sample?' <small>(sample)</small>':'')+'</span><span>'+BOOK.cents(a)+'</span></div>';
-    });
-    lines+='<div class="bk-line"><span>Nightly total <small>'+nights+(nights>1?' nights':' night')+'</small></span><span>'+BOOK.cents(sub-fees)+'</span></div>'+fl;
-    BOOK.TAXES.forEach(function(t){
-      var a=t.pct!=null? Math.round(sub*t.pct)/100 : (t.flat||0)*nights*count; total+=a;
-      lines+='<div class="bk-line"><span>'+t.label+(t.sample?' <small>(sample '+(t.pct!=null?t.pct+'%':'')+')</small>':'')+'</span><span>'+BOOK.cents(a)+'</span></div>';
-    });
-    if(q.promo) lines+='<div class="bk-line"><span>Discount code <small>'+q.promo.toUpperCase()+'</small></span><span><small>validated by StayNTouch at build</small></span></div>';
-  }
-  document.getElementById('railLines').innerHTML=lines;
-  document.getElementById('railTotal').textContent=sub?BOOK.cents(total):'—';
+  document.getElementById('railRooms').innerHTML=(S.count?S.rooms:'<div class="bk-line"><small>No suites selected — start from Suites &amp; Availability.</small></div>')+
+    '<a class="bk-addroom" href="'+back+'">+ Add another suite</a>';
+  document.getElementById('railFacts').innerHTML=S.facts;
+  document.getElementById('railLines').innerHTML=S.lines;
+  document.getElementById('railTotal').textContent=sub?BOOK.cents(S.total):'—';
   // US → state dropdown; elsewhere → free-text region
   var co=document.getElementById('ck-co'), stS=document.getElementById('ck-st'), stX=document.getElementById('ck-st-x');
   co.addEventListener('change',function(){
@@ -485,6 +452,9 @@ document.addEventListener('DOMContentLoaded',function(){
 </script>''')
 
 # ═══ 6. BOOKING CONFIRMATION — StayNTouch via SentralOS at build ═══
+# Laurie 10-13: summary broken out like checkout (property, suites + rate,
+# dates/times, guests, itemized price details, total) so the guest can see
+# exactly what they booked and paid. Back to Sentral.com = slate button.
 PAGES['book-confirm.html']=('Booking Confirmed — Sentral',
 header('Sentral &mdash; Book a Stay','You&rsquo;re <em>booked.</em>','cfContext',2)+'''
 '''+RIBBON+'''
@@ -500,31 +470,39 @@ header('Sentral &mdash; Book a Stay','You&rsquo;re <em>booked.</em>','cfContext'
         <div class="bk-specs" style="margin-bottom:14px">Sample number &mdash; issued by StayNTouch at build</div>
         <p style="font-size:.9375rem;color:#4a4643;max-width:60ch" id="cfMsg"></p>
         <p style="font-size:.8125rem;color:#6B6560;margin-top:10px">A confirmation email and text follow at build (triggered from this step). Need a hand? <strong id="cfPhone"></strong></p>
-        <p style="margin-top:20px"><a class="bk-btn" href="/stay/sol-modern">See your property &nbsp;&rarr;</a>
-        <a class="bk-btn-g" href="/" style="margin-left:10px">Back to Sentral.com</a></p>
+        <p class="bk-cf-ctas"><a class="bk-btn" href="/stay/sol-modern">See your property &nbsp;&rarr;</a>
+        <a class="bk-btn slate bk-btn-flip" href="/">Back to Sentral.com</a></p>
       </div></div>
     </div>
-    <aside class="bk-rail" aria-label="Stay summary">
+    <aside class="bk-rail" aria-label="Your booking">
+      <h2 class="bk-rail-h">Your booking</h2>
       <h3 id="railProp"></h3>
-      <div class="bk-rail-sub" id="railDates"></div>
+      <div class="bk-rail-sub" id="railAddr"></div>
+      <div id="railRooms"></div>
+      <dl class="bk-facts" id="railFacts"></dl>
+      <hr>
+      <h2 class="bk-rail-h">Total price details</h2>
       <div id="railLines"></div>
-      <div class="bk-note">Sample stay for design review</div>
+      <hr>
+      <div class="bk-total"><span>Total for stay</span><span id="railTotal">&mdash;</span></div>
+      <div class="bk-policy-links"><a href="/reservation-policies#payment" target="_blank" rel="noopener">Deposit</a> and <a href="/reservation-policies#cancellation" target="_blank" rel="noopener">Cancellation</a> policy</div>
+      <div class="bk-note">Sample rates &amp; tax lines for design review</div>
     </aside>
   </div>
 </div>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
-  var q=BOOK.q(), cur=BOOK.prop(q.property)||BOOK.PROPERTIES[0];
-  var sel=BOOK.parseRooms(q.rooms), nights=BOOK.nights(q['in'],q.out)||1;
+  var q=BOOK.q(), S=BOOK.summary(q), cur=S.cur;
   document.getElementById('cfNum').textContent='SENT-'+(Date.now().toString(36).toUpperCase().slice(-6));
-  document.getElementById('cfContext').textContent=cur.name+', '+cur.city;
+  document.getElementById('cfContext').textContent=cur.name+', '+cur.city+' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out);
   document.getElementById('cfMsg').textContent=(q.guest?q.guest+', your':'Your')+' suite at '+cur.name+' is set for '+BOOK.fmtDate(q['in'])+'. Check-in opens at 4:00 PM with keyless entry — your code arrives the morning of arrival.';
   document.getElementById('cfPhone').textContent=cur.phone||'(833) 370-4161';
   document.getElementById('railProp').textContent=cur.name+', '+cur.city;
-  document.getElementById('railDates').textContent=BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night');
-  var lines='';
-  cur.rooms.forEach(function(r){ var st=sel[r.slug]; if(st&&st.n){ var pl=BOOK.plan(st.plan); lines+='<div class="bk-line"><span>'+st.n+' × '+r.name+' <small>'+(pl.short||pl.name)+'</small></span><span>'+BOOK.money(BOOK.planPrice(r,pl)*st.n*nights)+'</span></div>'; } });
-  document.getElementById('railLines').innerHTML=lines||'<div class="bk-line"><small>Sample stay</small></div>';
+  document.getElementById('railAddr').textContent=cur.address||(cur.city+', '+cur.state);
+  document.getElementById('railRooms').innerHTML=S.rooms||'<div class="bk-line"><small>Sample stay</small></div>';
+  document.getElementById('railFacts').innerHTML=S.facts;
+  document.getElementById('railLines').innerHTML=S.lines;
+  document.getElementById('railTotal').textContent=S.sub?BOOK.cents(S.total):'—';
 });
 </script>''')
 
@@ -736,12 +714,15 @@ bake('book-checkout.html',[
  ('<span id="railTotal">&mdash;</span>','<span id="railTotal">'+cents(sub+sum(a for _,a in tl))+'</span>'),
 ])
 
-# — confirmation: sample number + summary —
+# — confirmation: sample number + same itemized summary as checkout —
 bake('book-confirm.html',[
  ('<div class="bk-confirm-n" id="cfNum">SENTRAL-DEMO</div>','<div class="bk-confirm-n" id="cfNum">SENT-SAMPLE</div>'),
  ('<p style="font-size:.9375rem;color:#4a4643;max-width:60ch" id="cfMsg"></p>','<p style="font-size:.9375rem;color:#4a4643;max-width:60ch" id="cfMsg">Your suite at Sol Modern is set. Check-in opens at 4:00 PM with keyless entry &mdash; your code arrives the morning of arrival.</p>'),
  ('<strong id="cfPhone"></strong>','<strong id="cfPhone">(833) 370-4161</strong>'),
  ('<h3 id="railProp"></h3>','<h3 id="railProp">Sol Modern, Phoenix</h3>'),
- ('<div class="bk-rail-sub" id="railDates"></div>','<div class="bk-rail-sub" id="railDates">Sample stay &middot; 3 nights</div>'),
- ('<div id="railLines"></div>','<div id="railLines"><div class="bk-line"><span>1 &times; One Bedroom <small>Fall Sale</small></span><span>'+money(183*3)+'</span></div></div>'),
+ ('<div class="bk-rail-sub" id="railAddr"></div>','<div class="bk-rail-sub" id="railAddr">50 E. Fillmore Street, Phoenix, AZ 85004</div>'),
+ ('<div id="railRooms"></div>','<div id="railRooms"><div class="bk-suite"><div><b>One Bedroom</b><small>Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%</small></div></div></div>'),
+ ('<dl class="bk-facts" id="railFacts"></dl>','<dl class="bk-facts" id="railFacts"><div><dt>Check-in</dt><dd>Sample date<small>4:00 PM</small></dd></div><div><dt>Check-out</dt><dd>Sample date<small>11:00 AM</small></dd></div><div><dt>Nights</dt><dd>3</dd></div><div><dt>Guests</dt><dd>2 adults, 0 children</dd></div></dl>'),
+ ('<div id="railLines"></div>','<div id="railLines">'+lines+'</div>'),
+ ('<span id="railTotal">&mdash;</span>','<span id="railTotal">'+cents(sub+sum(a for _,a in tl))+'</span>'),
 ])
