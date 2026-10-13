@@ -59,14 +59,14 @@ a.inline{color:var(--slate);text-decoration:underline;text-underline-offset:2px}
     <tr><td>1a</td><td>City STAY Selector</td><td><a href="/stay/austin">Austin</a> · <a href="/stay/charlotte">Charlotte</a> · <a href="/stay/los-angeles">LA</a> · <a href="/stay/miami">Miami</a></td><td>Routes to the right property, dates pass through</td></tr>
     <tr><td>2 <span class="tag">P0</span></td><td>Search &amp; Availability</td><td><a href="/book/search?property=sol-modern&in=2026-10-09&out=2026-10-12">/book/search</a></td><td>Live StayNTouch via SentralOS; hosts the multi-room module</td></tr>
     <tr><td>3</td><td>Property Page</td><td><a href="/stay/sol-modern">/stay/sol-modern</a></td><td>Static + CMS promo slot (the Offers section)</td></tr>
-    <tr><td>4</td><td>Room List &amp; Detail</td><td><a href="/book/room?property=sol-modern&type=one-bedroom&in=2026-10-09&out=2026-10-12">/book/room</a></td><td>Live rate plans — direct, advance purchase, sale</td></tr>
+    <tr><td>4</td><td>Room List &amp; Detail</td><td><em>Removed 10-13</em></td><td>Folded into search: &ldquo;Suite details&rdquo; opens a pop-up with the StayNTouch suite description; rates already sit on each search card</td></tr>
     <tr><td>5</td><td>Checkout</td><td><a href="/book/checkout?property=sol-modern&in=2026-10-09&out=2026-10-12&rooms=one-bedroom:1">/book/checkout</a></td><td>Native guest form; Shift4 embed unchanged; property tax lines</td></tr>
     <tr><td>6</td><td>Confirmation</td><td><a href="/book/confirmation?property=sol-modern&in=2026-10-09&out=2026-10-12&rooms=one-bedroom:1">/book/confirmation</a></td><td>Confirmation # from StayNTouch; triggers email + SMS</td></tr>
   </table>
 
   <h2>Decisions already made</h2>
   <ul>
-    <li><strong>All live data comes from StayNTouch via SentralOS</strong> (our current RMS — Mews is dead). Pages 2, 4, and 6 are marked with every pull point; the pull method is being confirmed with Nathan.</li>
+    <li><strong>All live data comes from StayNTouch via SentralOS</strong> (our current RMS — Mews is dead). Pages 2 and 6 are marked with every pull point; the pull method is being confirmed with Nathan.</li>
     <li><strong>Payment stays on Shift4, embedded unchanged.</strong> The prototype deliberately renders no card fields — the dashed panel on checkout marks exactly where the embed drops in.</li>
     <li><strong>Search &amp; Availability is the P0 page.</strong> Today's funnel converts 5% at this step — the largest single drop-off in the journey — so it gets the most scrutiny.</li>
     <li><strong>Multi-room is native to search:</strong> quantity steppers per suite type with a running total, rather than a separate group flow.</li>

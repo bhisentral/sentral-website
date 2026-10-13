@@ -13,7 +13,7 @@ Maps to the six-page booking plan (2026-09-25):
 | 1a | City STAY Selector | `city-stay.html` | `/stay/austin` · `/stay/charlotte` · `/stay/los-angeles` · `/stay/miami` | P1 | Routes to the right property's search, dates passed through |
 | 2 | Search Availability Results | `book-search.html` | `/book/search` | **P0** | **Live StayNTouch via SentralOS** (pull method TBC w/ Nathan); hosts the multi-room module |
 | 3 | Property Page | `property-template.html` (property template) | `/stay/sol-modern` | P2 | Static + CMS promo slot; no live PMS call |
-| 4 | Room List & Room Detail | `book-room.html` | `/book/room` | P1 | Live StayNTouch rate plans (direct / advance / sale); map view seam |
+| 4 | Room List & Room Detail | **removed 2026-10-13** | `/book/room` → redirects to `/book/search` | — | Folded into search: "Suite details" pop-up shows the StayNTouch suite description; rate plans already on each card |
 | 5 | Booking Details (Checkout) | `book-checkout.html` | `/book/checkout` | P1 | Native guest form; **Shift4 embed unchanged** (prototype renders no card fields by design); property-driven tax lines |
 | 6 | Booking Confirmation | `book-confirm.html` | `/book/confirmation` | P2 | Confirmation # + summary from StayNTouch via SentralOS; triggers email + SMS |
 

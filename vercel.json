@@ -43,10 +43,6 @@
       "destination": "/book-search"
     },
     {
-      "source": "/book/room",
-      "destination": "/book-room"
-    },
-    {
       "source": "/book/checkout",
       "destination": "/book-checkout"
     },
@@ -146,6 +142,11 @@
       "source": "/family-travel",
       "destination": "/group-travel",
       "permanent": true
+    },
+    {
+      "source": "/book/room",
+      "destination": "/book/search",
+      "permanent": false
     }
   ]
 }

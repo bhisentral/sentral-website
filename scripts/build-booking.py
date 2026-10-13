@@ -2,13 +2,14 @@
 """
 Booking-funnel generator — Phase 2 (6-page booking plan, 2026-09-25).
 
-Generates: book-search.html (P0), book-room.html, book-checkout.html,
+Generates: book-search.html (P0), book-checkout.html,
 book-confirm.html, city-stay.html. Chrome (nav/hamburger/footer markup) is
 extracted from property-template.html AT BUILD TIME so the funnel always
 matches the site. Shared styles: booking-chrome.css (lifted chrome CSS) +
 booking.css (funnel components). ALL rates/availability/taxes are SAMPLE
 data from assets/booking-demo.js — production pulls live from StayNTouch
-via SentralOS (pages 2/4/6), Shift4 embed unchanged (page 5).
+via SentralOS (pages 2 + 6; page 4 Room Detail folded into the search
+'Suite details' pop-up 10-13), Shift4 embed unchanged (page 5).
 
 Run from repo root:  python3 scripts/build-booking.py
 """
@@ -52,8 +53,8 @@ def page(title,body):
       '<title>'+title+'</title>\n'
       '<link rel="stylesheet" href="/booking-chrome.css?v=3">\n'
       '<link rel="stylesheet" href="/overrides.css?v=4dark31">\n'
-      '<link rel="stylesheet" href="/booking.css?v=9">\n'
-      '<script src="/assets/booking-demo.js?v=6" defer></script>\n'
+      '<link rel="stylesheet" href="/booking.css?v=10">\n'
+      '<script src="/assets/booking-demo.js?v=7" defer></script>\n'
       '</head>\n<body>\n<a class="skip-to-content" href="#main">Skip to content</a>\n<header>\n'
       +NAV+'\n</header>\n<main id="main">\n'+body+'\n</main>\n\n'+FOOT+'\n'+HAM_JS+'\n</body>\n</html>\n')
 
@@ -119,7 +120,7 @@ def _card(slug,name,spec,base,left,img,thumbs):
       '<div class="bk-thumbs">'+''.join('<img src="'+t+'" alt="" loading="lazy">' for t in thumbs)+'</div></div>'
       '<div class="bk-room2-mid"><div class="bk-room-name">'+name+'</div>'
       '<div class="bk-specs">'+_specspans(spec)+'</div>'
-      '<div class="bk-room-links"><a href="/book/room?property=sol-modern&type='+slug+'">More details &nbsp;&rarr;</a></div>'
+      '<div class="bk-room-links"><button type="button" class="bk-suite-link" data-suite="'+slug+'" aria-haspopup="dialog">Suite details</button></div>'
       '<div class="bk-plans2">'+plans+'</div></div>'
       '<div class="bk-room2-side"><span class="bk-left">'+str(left)+' rooms left!</span>'
       '<div class="bk-price-n" data-avg>'+_money(first)+'</div><div class="bk-price-l">Sample &middot; avg per night</div>'
@@ -183,6 +184,15 @@ header('Sentral &mdash; Book a Stay','Choose your <em>suite.</em>','bkhContext',
   <div id="bkResults">'''+SEARCH_CARDS+'''</div>
 </div>
 '''+FEES_DIALOG+'''
+<!-- Suite details (Laurie 10-13: replaces the Room Detail page). PRODUCTION:
+     description text pulls from StayNTouch (room type description) via SentralOS. -->
+<dialog class="bk-fees" id="bkSuite" aria-labelledby="bkSuiteH">
+  <button type="button" class="bk-fees-x" data-suite-close aria-label="Close">&times;</button>
+  <h2 id="bkSuiteH">Suite</h2>
+  <div class="bk-specs" id="bkSuiteSpecs"></div>
+  <p id="bkSuiteDesc"></p>
+  <p class="bk-suite-src">Sample text &mdash; pulls from StayNTouch at build</p>
+</dialog>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   var q=BOOK.q(), stay=BOOK.parseRooms(q.rooms);   // suites already in the stay (multi-room)
@@ -253,6 +263,14 @@ document.addEventListener('DOMContentLoaded',function(){
   });
   res.addEventListener('click',function(e){
     var t=e.target.closest?e.target:null; if(!t) return;
+    var sd=t.closest('.bk-suite-link');
+    if(sd){
+      var rr=room(sd.getAttribute('data-suite')), dlg=document.getElementById('bkSuite');
+      document.getElementById('bkSuiteH').textContent=rr.name;
+      document.getElementById('bkSuiteSpecs').textContent=rr.specs;
+      document.getElementById('bkSuiteDesc').textContent=rr.desc;
+      dlg.showModal(); return;
+    }
     var more=t.closest('.bk-plan2-more');
     if(more){
       var note=document.getElementById(more.getAttribute('aria-controls')), open=note.hidden;
@@ -275,6 +293,8 @@ document.addEventListener('DOMContentLoaded',function(){
       location.href='/book/checkout?'+BOOK.qs({property:cur.slug,city:null,rooms:BOOK.roomsParam(all)});
     }
   });
+  var sdlg=document.getElementById('bkSuite');
+  sdlg.addEventListener('click',function(e){ if(e.target===sdlg||e.target.closest('[data-suite-close]')) sdlg.close(); });
   document.getElementById('bkSort').addEventListener('change',function(){
     var dir=this.value==='desc'?-1:1;
     [].slice.call(res.children)
@@ -290,68 +310,6 @@ document.addEventListener('DOMContentLoaded',function(){
     strip.innerHTML='<span><b>In your stay:</b> '+names.join(', ')+'. Book another suite below to add it.</span>'+
       '<a class="bk-btn slate" href="/book/checkout?'+BOOK.qs({property:cur.slug,city:null})+'">Back to Checkout &nbsp;&rarr;</a>';
   }
-});
-</script>''')
-
-# ═══ 4. ROOM LIST + ROOM DETAIL — live StayNTouch rate plans at build ═══
-PAGES['book-room.html']=('Suite Rates & Details — Book a Stay — Sentral',
-header('Sentral &mdash; Book a Stay','Every rate for <em>this suite.</em>','rmContext',0)+'''
-'''+RIBBON+'''
-<div class="bk-wrap">
-  <!-- PRODUCTION: rate plans + pricing pull live from StayNTouch (sale, early
-       booking, direct) — same data pull as Search Availability, TBC w/ Nathan. -->
-  <p style="margin:-8px 0 20px"><a class="bk-btn-g" id="rmBack" href="/book/search">&larr; All suites</a></p>
-  <div class="bk-grid">
-    <div>
-      <div class="bk-card">
-        <img class="bk-room-img" id="rmImg" style="height:320px;width:100%" src="/assets/bk-room-studio.jpg" alt="Suite living area">
-        <div class="bk-pad">
-          <div class="bk-room-name" id="rmName" style="font-size:1.6rem"></div>
-          <div class="bk-specs" id="rmSpecs"></div>
-          <p style="font-size:.9375rem;color:#4a4643;margin-top:12px;max-width:64ch" id="rmDesc"></p>
-        </div>
-      </div>
-      <div class="bk-card">
-        <div class="bk-pad" style="padding-bottom:8px"><span class="bk-eyebrow">Choose your rate</span></div>
-        <div id="rmPlans"></div>
-      </div>
-      <!-- Map view carried forward from the current room list (plan §4) -->
-      <div class="bk-embed"><strong>Property map &mdash; carried forward</strong>
-        <p>The map view from the current room list renders here per property. [FIELD] map embed.</p></div>
-    </div>
-    <aside class="bk-rail" aria-label="Your stay">
-      <h3 id="railProp"></h3>
-      <div class="bk-rail-sub" id="railDates"></div>
-      <div class="bk-line"><small>Rates apply to the whole stay. Multi-room bookings continue from Suites &amp; Availability.</small></div>
-      <div class="bk-note">Sample rates for design review</div>
-    </aside>
-  </div>
-</div>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  var q=BOOK.q(), cur=BOOK.prop(q.property)||BOOK.PROPERTIES[0];
-  var r=cur.rooms.filter(function(x){return x.slug===q.type})[0]||cur.rooms[0];
-  var nights=BOOK.nights(q['in'],q.out);
-  var IMGS={'studio':'/assets/bk-room-studio.jpg','one-bedroom':'/assets/bk-room-1br.jpg','two-bedroom':'/assets/bk-room-2br.jpg'};
-  document.getElementById('rmImg').src=IMGS[r.slug]||IMGS.studio;
-  document.getElementById('rmName').textContent=r.name;
-  document.getElementById('rmSpecs').textContent=r.specs;
-  document.getElementById('rmDesc').textContent='Furnished end to end — full kitchen, in-unit washer and dryer, dedicated workspace, and a real bedroom door. Sample copy; per-suite copy is a [FIELD].';
-  document.getElementById('rmContext').textContent=cur.name+', '+cur.city+(nights? ' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night'):'');
-  document.getElementById('rmBack').href='/book/search?'+BOOK.qs({type:null,plan:null});
-  document.getElementById('railProp').textContent=cur.name+', '+cur.city;
-  document.getElementById('railDates').textContent=nights? BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out)+' · '+nights+(nights>1?' nights':' night'):'Choose dates on the previous step';
-  document.getElementById('rmPlans').innerHTML = BOOK.PLANS.map(function(pl){
-    var nightly=BOOK.planPrice(r,pl);
-    var total=nights? ' · '+BOOK.money(nightly*nights)+' total' : '';
-    return '<div class="bk-plan"><div>'+
-      '<div class="bk-plan-name">'+pl.name+'</div>'+
-      '<div class="bk-plan-note">'+pl.note+'</div></div>'+
-      '<div style="display:flex;align-items:center;gap:18px">'+
-      '<span class="bk-plan-price"><s style="color:#9a948e;font-size:.9375rem">'+BOOK.money(r.from)+'</s> '+BOOK.money(nightly)+'<span class="bk-price-l" style="display:block;text-align:right">sample · avg / night'+total+'</span></span>'+
-      '<a class="bk-btn" href="/book/checkout?'+BOOK.qs({property:cur.slug,rooms:r.slug+':1:'+pl.slug,type:null,plan:null})+'">Select &nbsp;&rarr;</a>'+
-      '</div></div>';
-  }).join('');
 });
 </script>''')
 
@@ -673,44 +631,6 @@ def bake(fname, subs):
         assert s.count(old)==1, fname+' MISS '+old[:60]
         s=s.replace(old,new)
     open(fp,'w').write(s); print('baked',fname)
-
-# — search: suite cards + property options + rail defaults —
-cards=''.join(
- '<div class="bk-card"><div class="bk-room">'
- '<img class="bk-room-img" src="'+RIMG[slug]+'" alt="'+name+' suite">'
- '<div class="bk-room-mid">'
- '<div class="bk-room-name">'+name+'</div>'
- '<div class="bk-specs">'+spec_spans(spec)+'</div>'
- '<div class="bk-room-links"><a href="/book/room?property=sol-modern&type='+slug+'">Rates &amp; suite details &nbsp;&rarr;</a></div>'
- '</div>'
- '<div class="bk-room-side">'
- '<span class="bk-price-n">'+money(rate)+'</span><span class="bk-price-l">Sample &middot; from / night</span>'
- '<div class="bk-step-ctl"><span class="lbl">Rooms</span>'
- '<button type="button" data-dec="'+slug+'" aria-label="Remove a '+name+'"><span aria-hidden="true">&minus;</span></button>'
- '<span class="n" id="n-'+slug+'">0</span>'
- '<button type="button" data-inc="'+slug+'" aria-label="Add a '+name+'"><span aria-hidden="true">+</span></button>'
- '</div></div>'
- '</div></div>' for slug,name,spec,rate in ROOMS_PY)
-options=''.join('<option value="'+s+'">'+l+'</option>' for s,l in PROPS_PY)
-# book-search: cards/options/rail baked directly in its body (10-2 redesign)
-
-# — room: studio detail + plan rows —
-plan_rows=''.join(
- '<div class="bk-plan"><div>'
- '<div class="bk-plan-name">'+pname+'</div>'
- '<div class="bk-plan-note">'+note+'</div></div>'
- '<div style="display:flex;align-items:center;gap:18px">'
- '<span class="bk-plan-price"><s style="color:#9a948e;font-size:.9375rem">'+money(189)+'</s> '+money(round(189*mult))+'<span class="bk-price-l" style="display:block;text-align:right">sample &middot; avg / night</span></span>'
- '<a class="bk-btn" href="/book/checkout?property=sol-modern&rooms=studio:1:'+pslug+'">Select &nbsp;&rarr;</a>'
- '</div></div>' for pslug,pname,note,mult in PLANS_PY)
-bake('book-room.html',[
- ('<div class="bk-room-name" id="rmName" style="font-size:1.6rem"></div>','<div class="bk-room-name" id="rmName" style="font-size:1.6rem">Studio</div>'),
- ('<div class="bk-specs" id="rmSpecs"></div>','<div class="bk-specs" id="rmSpecs">'+ROOMS_PY[0][2]+'</div>'),
- ('id="rmDesc"></p>','id="rmDesc">Furnished end to end &mdash; full kitchen, in-unit washer and dryer, dedicated workspace, and a real bedroom door. Sample copy; per-suite copy is a [FIELD].</p>'),
- ('<div id="rmPlans"></div>','<div id="rmPlans">'+plan_rows+'</div>'),
- ('<h3 id="railProp"></h3>','<h3 id="railProp">Sol Modern, Phoenix</h3>'),
- ('<div class="bk-rail-sub" id="railDates"></div>','<div class="bk-rail-sub" id="railDates">Choose dates on the previous step</div>'),
-])
 
 # — checkout: representative sample stay (1 × One Bedroom, Fall Sale, 3 nights, 2 adults) —
 sub=183*3; rfee=15*3; taxes=[('City Tax',6),('Local Tax',1.5),('State Tax',5)]

@@ -210,3 +210,7 @@ section.bkh.dark[class] h1 em,.bkh h1 em{font-style:italic;color:#F2E8D5 !import
 .bk-btn.bk-prop-book{padding:12px 20px;color:#141414}
 .bk-btn.bk-prop-book:hover{color:var(--bk-ink)}
 .bk-prop-cta.bk-prop-view{color:var(--bk-slate)}
+/* search: Suite details link → pop-up (10-13, replaces Room Detail page) */
+.bk-suite-link{background:none;border:0;padding:0;font:600 .75rem var(--bk-sans);letter-spacing:.11em;text-transform:uppercase;color:var(--bk-slate);text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.bk-suite-src{font-size:.75rem !important;color:var(--bk-lt) !important;margin-top:14px}
+#bkSuite .bk-specs{margin-bottom:12px}

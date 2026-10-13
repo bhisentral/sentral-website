@@ -1,6 +1,6 @@
 /* ── SENTRAL BOOKING FUNNEL — DEMO DATA + STATE ──────────────────────────────
    Design prototype only. Every rate, availability flag, and tax line here is
-   SAMPLE DATA for review. PRODUCTION: pages 2/4/6 pull live from StayNTouch
+   SAMPLE DATA for review. PRODUCTION: pages 2 + 6 pull live from StayNTouch
    via SentralOS (method TBC with Nathan); page 5 embeds Shift4 unchanged.
    State passes page-to-page in the query string:
    ?property=&city=&in=&out=&adults=&children=&rooms=studio:1,one-bedroom:2&plan=
@@ -11,7 +11,16 @@ window.BOOK = (function(){
     {slug:'one-bedroom', name:'One Bedroom', sleeps:2, sqft:673,  beds:'1 Queen Bed',  baths:1, from:229, left:7, img:'/assets/bk-room-1br.jpg', thumbs:['/assets/bk-room-studio.jpg','/assets/bk-city-2.jpg','/assets/bk-city-3.jpg']},
     {slug:'two-bedroom', name:'Two Bedroom', sleeps:4, sqft:1053, beds:'2 Queen Beds', baths:2, from:319, left:2, img:'/assets/bk-room-2br.jpg', thumbs:['/assets/bk-city-1.jpg','/assets/bk-city-3.jpg','/assets/bk-room-studio.jpg']}
   ];
+  /* Suite descriptions for the search "Suite details" pop-up — PRODUCTION:
+     StayNTouch room-type description. One Bedroom = live StayNTouch copy for
+     Sol Modern (10-13); Studio / Two Bedroom are samples in the same voice. */
+  var DESC={
+    'studio':'The studio apartment features a full kitchen, including a refrigerator, microwave, dishwasher, silverware and cooking utensils designed to make you feel at home. All units include a washer/dryer, complimentary wi-fi and flat screen TVs for streaming your favorite shows. This apartment features 1 queen bed in an open living and sleeping layout. Layouts, furnishings, and views may vary by unit.',
+    'one-bedroom':'The one bedroom apartment features a full kitchen, including a refrigerator, microwave, dishwasher, silverware and cooking utensils designed to make you feel at home. All units include a washer/dryer, complimentary wi-fi and flat screen TVs for streaming your favorite shows. This apartment features 1 queen bed inside the bedroom, a walk-in closet and a balcony. Layouts, furnishings, and views may vary by unit.',
+    'two-bedroom':'The two bedroom apartment features a full kitchen, including a refrigerator, microwave, dishwasher, silverware and cooking utensils designed to make you feel at home. All units include a washer/dryer, complimentary wi-fi and flat screen TVs for streaming your favorite shows. This apartment features a queen bed in each of its two bedrooms and two full baths. Layouts, furnishings, and views may vary by unit.'
+  };
   ROOMS_STANDARD.forEach(function(r){
+    r.desc=DESC[r.slug];
     r.specs='Sleeps '+r.sleeps+' \u00b7 '+r.beds+' \u00b7 '+r.baths+' Bath'+(r.baths>1?'s':'')+' \u00b7 '+r.sqft.toLocaleString('en-US')+' Sq Ft';
   });
   function P(slug,name,city,st,extra){
