@@ -205,3 +205,8 @@ section.bkh.dark[class] h1 em,.bkh h1 em{font-style:italic;color:#F2E8D5 !import
 /* confirmation (Laurie 10-13): Back to Sentral.com = slate, flips to white on hover/press */
 .bk-cf-ctas{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap}
 .bk-btn.slate.bk-btn-flip:hover,.bk-btn.slate.bk-btn-flip:focus-visible,.bk-btn.slate.bk-btn-flip:active{background:#fff;color:var(--bk-slate);border-color:var(--bk-slate)}
+/* city cards (10-13): CHECK AVAILABILITY = gold box w/ black text; VIEW PROPERTY = slate text link */
+.bk-prop-ctas{align-items:center;gap:20px}
+.bk-btn.bk-prop-book{padding:12px 20px;color:#141414}
+.bk-btn.bk-prop-book:hover{color:var(--bk-ink)}
+.bk-prop-cta.bk-prop-view{color:var(--bk-slate)}
