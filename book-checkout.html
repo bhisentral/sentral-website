@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/booking-chrome.css?v=3">
 <link rel="stylesheet" href="/overrides.css?v=4dark31">
 <link rel="stylesheet" href="/booking.css?v=7">
-<script src="/assets/booking-demo.js?v=4" defer></script>
+<script src="/assets/booking-demo.js?v=5" defer></script>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -49,7 +49,7 @@
 <section class="bkh dark">
   <div class="bkh-inner">
     <span class="bkh-eyebrow">Sentral &mdash; Book a Stay</span>
-    <h1>Almost <em>home.</em></h1>
+    <h1>Almost <em>booked.</em></h1>
     <p class="bkh-sub" id="ckContext"></p>
 <div class="bkh-steps" aria-label="Booking progress"><span class="bkh-step done">1 &middot; Suites &amp; Availability</span><span class="bkh-step on">2 &middot; Checkout</span><span class="bkh-step ">3 &middot; Confirmation</span></div>
   </div>
@@ -99,9 +99,9 @@
       <dl class="bk-facts" id="railFacts"><div><dt>Check-in</dt><dd>Sample date<small>4:00 PM</small></dd></div><div><dt>Check-out</dt><dd>Sample date<small>11:00 AM</small></dd></div><div><dt>Nights</dt><dd>3</dd></div><div><dt>Guests</dt><dd>2 adults, 0 children</dd></div></dl>
       <hr>
       <h2 class="bk-rail-h">Total price details</h2>
-      <div id="railLines"><div class="bk-line"><span>Nightly total <small>3 nights</small></span><span>$549</span></div><div class="bk-line"><small>Includes <button type="button" class="bk-fees-link" data-fees>Select Fees</button></small></div><div class="bk-line"><span>City tax <small>(sample 6%)</small></span><span>$33</span></div><div class="bk-line"><span>State tax <small>(sample 6.5%)</small></span><span>$36</span></div></div>
+      <div id="railLines"><div class="bk-line"><span>Nightly total <small>3 nights</small></span><span>$504.00</span></div><div class="bk-line"><span>Resort &amp; Destination Fee <small>(sample)</small></span><span>$45.00</span></div><div class="bk-line"><span>City Tax <small>(sample 6%)</small></span><span>$32.94</span></div><div class="bk-line"><span>Local Tax <small>(sample 1.5%)</small></span><span>$8.24</span></div><div class="bk-line"><span>State Tax <small>(sample 5%)</small></span><span>$27.45</span></div></div>
       <hr>
-      <div class="bk-total"><span>Total for stay</span><span id="railTotal">$618</span></div>
+      <div class="bk-total"><span>Total for stay</span><span id="railTotal">$617.63</span></div>
       <div class="bk-policy-links"><a href="/reservation-policies#payment" target="_blank" rel="noopener">Deposit<span class="sr-only"> (opens in a new tab)</span></a> and <a href="/reservation-policies#cancellation" target="_blank" rel="noopener">Cancellation<span class="sr-only"> (opens in a new tab)</span></a> policy</div>
       <div class="bk-note">Sample rates &amp; tax lines &mdash; property-specific fee and tax items are driven by property data at build</div>
     </aside>
@@ -148,19 +148,25 @@ document.addEventListener('DOMContentLoaded',function(){
     fact('Nights',nights)+
     fact('Guests',ad+(ad>1?' adults':' adult')+', '+ch+(ch===1?' child':' children'))+
     (count>1?fact('Rooms',count):'');
-  // Price breakdown — rate total (incl. select fees) + property tax lines
+  // Price breakdown (Laurie 10-13, pending Mirt): itemize the select fees that
+  // the advertised rate includes — room rate + each fee line sum to the same
+  // stay total shown on Suites & Availability; taxes on the full amount.
   var lines='', total=sub;
   if(sub){
-    lines+='<div class="bk-line"><span>Nightly total <small>'+nights+(nights>1?' nights':' night')+'</small></span><span>'+BOOK.money(sub)+'</span></div>';
-    lines+='<div class="bk-line"><small>Includes <button type="button" class="bk-fees-link" data-fees>Select Fees</button></small></div>';
+    var fl='', fees=0;
+    BOOK.FEES.forEach(function(f){
+      var a=((f.perNight||0)*nights+(f.perStay||0))*count; if(!a) return; fees+=a;
+      fl+='<div class="bk-line"><span>'+f.label+(f.sample?' <small>(sample)</small>':'')+'</span><span>'+BOOK.cents(a)+'</span></div>';
+    });
+    lines+='<div class="bk-line"><span>Nightly total <small>'+nights+(nights>1?' nights':' night')+'</small></span><span>'+BOOK.cents(sub-fees)+'</span></div>'+fl;
     BOOK.TAXES.forEach(function(t){
-      var a=t.pct!=null? sub*t.pct/100 : (t.flat||0)*nights*count; total+=a;
-      lines+='<div class="bk-line"><span>'+t.label+(t.sample?' <small>(sample '+(t.pct!=null?t.pct+'%':'')+')</small>':'')+'</span><span>'+BOOK.money(a)+'</span></div>';
+      var a=t.pct!=null? Math.round(sub*t.pct)/100 : (t.flat||0)*nights*count; total+=a;
+      lines+='<div class="bk-line"><span>'+t.label+(t.sample?' <small>(sample '+(t.pct!=null?t.pct+'%':'')+')</small>':'')+'</span><span>'+BOOK.cents(a)+'</span></div>';
     });
     if(q.promo) lines+='<div class="bk-line"><span>Discount code <small>'+q.promo.toUpperCase()+'</small></span><span><small>validated by StayNTouch at build</small></span></div>';
   }
   document.getElementById('railLines').innerHTML=lines;
-  document.getElementById('railTotal').textContent=sub?BOOK.money(total):'—';
+  document.getElementById('railTotal').textContent=sub?BOOK.cents(total):'—';
   // US → state dropdown; elsewhere → free-text region
   var co=document.getElementById('ck-co'), stS=document.getElementById('ck-st'), stX=document.getElementById('ck-st-x');
   co.addEventListener('change',function(){

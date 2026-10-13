@@ -53,7 +53,7 @@ def page(title,body):
       '<link rel="stylesheet" href="/booking-chrome.css?v=3">\n'
       '<link rel="stylesheet" href="/overrides.css?v=4dark31">\n'
       '<link rel="stylesheet" href="/booking.css?v=7">\n'
-      '<script src="/assets/booking-demo.js?v=4" defer></script>\n'
+      '<script src="/assets/booking-demo.js?v=5" defer></script>\n'
       '</head>\n<body>\n<a class="skip-to-content" href="#main">Skip to content</a>\n<header>\n'
       +NAV+'\n</header>\n<main id="main">\n'+body+'\n</main>\n\n'+FOOT+'\n'+HAM_JS+'\n</body>\n</html>\n')
 
@@ -366,7 +366,7 @@ _COUNTRY_OPTS=''.join('<option'+(' selected' if c=='United States' else '')+'>'+
 # booked suite(s) in TEXT (no photo) with rate, dates + times, nights, guests;
 # full price breakdown; Deposit + Cancellation policy links under the total.
 PAGES['book-checkout.html']=('Checkout — Book a Stay — Sentral',
-header('Sentral &mdash; Book a Stay','Almost <em>home.</em>','ckContext',1)+'''
+header('Sentral &mdash; Book a Stay','Almost <em>booked.</em>','ckContext',1)+'''
 '''+RIBBON+'''
 <div class="bk-wrap">
   <div class="bk-grid">
@@ -447,19 +447,25 @@ document.addEventListener('DOMContentLoaded',function(){
     fact('Nights',nights)+
     fact('Guests',ad+(ad>1?' adults':' adult')+', '+ch+(ch===1?' child':' children'))+
     (count>1?fact('Rooms',count):'');
-  // Price breakdown — rate total (incl. select fees) + property tax lines
+  // Price breakdown (Laurie 10-13, pending Mirt): itemize the select fees that
+  // the advertised rate includes — room rate + each fee line sum to the same
+  // stay total shown on Suites & Availability; taxes on the full amount.
   var lines='', total=sub;
   if(sub){
-    lines+='<div class="bk-line"><span>Nightly total <small>'+nights+(nights>1?' nights':' night')+'</small></span><span>'+BOOK.money(sub)+'</span></div>';
-    lines+='<div class="bk-line"><small>Includes <button type="button" class="bk-fees-link" data-fees>Select Fees</button></small></div>';
+    var fl='', fees=0;
+    BOOK.FEES.forEach(function(f){
+      var a=((f.perNight||0)*nights+(f.perStay||0))*count; if(!a) return; fees+=a;
+      fl+='<div class="bk-line"><span>'+f.label+(f.sample?' <small>(sample)</small>':'')+'</span><span>'+BOOK.cents(a)+'</span></div>';
+    });
+    lines+='<div class="bk-line"><span>Nightly total <small>'+nights+(nights>1?' nights':' night')+'</small></span><span>'+BOOK.cents(sub-fees)+'</span></div>'+fl;
     BOOK.TAXES.forEach(function(t){
-      var a=t.pct!=null? sub*t.pct/100 : (t.flat||0)*nights*count; total+=a;
-      lines+='<div class="bk-line"><span>'+t.label+(t.sample?' <small>(sample '+(t.pct!=null?t.pct+'%':'')+')</small>':'')+'</span><span>'+BOOK.money(a)+'</span></div>';
+      var a=t.pct!=null? Math.round(sub*t.pct)/100 : (t.flat||0)*nights*count; total+=a;
+      lines+='<div class="bk-line"><span>'+t.label+(t.sample?' <small>(sample '+(t.pct!=null?t.pct+'%':'')+')</small>':'')+'</span><span>'+BOOK.cents(a)+'</span></div>';
     });
     if(q.promo) lines+='<div class="bk-line"><span>Discount code <small>'+q.promo.toUpperCase()+'</small></span><span><small>validated by StayNTouch at build</small></span></div>';
   }
   document.getElementById('railLines').innerHTML=lines;
-  document.getElementById('railTotal').textContent=sub?BOOK.money(total):'—';
+  document.getElementById('railTotal').textContent=sub?BOOK.cents(total):'—';
   // US → state dropdown; elsewhere → free-text region
   var co=document.getElementById('ck-co'), stS=document.getElementById('ck-st'), stX=document.getElementById('ck-st-x');
   co.addEventListener('change',function(){
@@ -715,14 +721,19 @@ bake('book-room.html',[
 ])
 
 # — checkout: representative sample stay (1 × One Bedroom, Fall Sale, 3 nights, 2 adults) —
-sub=183*3; ctax=round(sub*0.06); stax=round(sub*0.065)
+sub=183*3; rfee=15*3; taxes=[('City Tax',6),('Local Tax',1.5),('State Tax',5)]
+def cents(n): return '$'+format(n,',.2f')
+tl=[(l,round(sub*p)/100) for l,p in taxes]
+lines=('<div class="bk-line"><span>Nightly total <small>3 nights</small></span><span>'+cents(sub-rfee)+'</span></div>'
+  '<div class="bk-line"><span>Resort &amp; Destination Fee <small>(sample)</small></span><span>'+cents(rfee)+'</span></div>'
+  +''.join('<div class="bk-line"><span>'+l+' <small>(sample '+format(p,'g')+'%)</small></span><span>'+cents(a)+'</span></div>' for (l,a),(_,p) in zip(tl,taxes)))
 bake('book-checkout.html',[
  ('<h3 id="railProp"></h3>','<h3 id="railProp">Sol Modern, Phoenix</h3>'),
  ('<div class="bk-rail-sub" id="railAddr"></div>','<div class="bk-rail-sub" id="railAddr">50 E. Fillmore Street, Phoenix, AZ 85004</div>'),
  ('<div id="railRooms"></div>','<div id="railRooms"><div class="bk-suite"><div><b>One Bedroom</b><small>Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%</small></div><a href="/book/search">Modify</a></div><a class="bk-addroom" href="/book/search">+ Add another suite</a></div>'),
  ('<dl class="bk-facts" id="railFacts"></dl>','<dl class="bk-facts" id="railFacts"><div><dt>Check-in</dt><dd>Sample date<small>4:00 PM</small></dd></div><div><dt>Check-out</dt><dd>Sample date<small>11:00 AM</small></dd></div><div><dt>Nights</dt><dd>3</dd></div><div><dt>Guests</dt><dd>2 adults, 0 children</dd></div></dl>'),
- ('<div id="railLines"></div>','<div id="railLines"><div class="bk-line"><span>Nightly total <small>3 nights</small></span><span>'+money(sub)+'</span></div><div class="bk-line"><small>Includes <button type="button" class="bk-fees-link" data-fees>Select Fees</button></small></div><div class="bk-line"><span>City tax <small>(sample 6%)</small></span><span>'+money(ctax)+'</span></div><div class="bk-line"><span>State tax <small>(sample 6.5%)</small></span><span>'+money(stax)+'</span></div></div>'),
- ('<span id="railTotal">&mdash;</span>','<span id="railTotal">'+money(sub+ctax+stax)+'</span>'),
+ ('<div id="railLines"></div>','<div id="railLines">'+lines+'</div>'),
+ ('<span id="railTotal">&mdash;</span>','<span id="railTotal">'+cents(sub+sum(a for _,a in tl))+'</span>'),
 ])
 
 # — confirmation: sample number + summary —

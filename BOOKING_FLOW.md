@@ -55,3 +55,13 @@ warn and block booking under their minimum.
 **Entry points wired:** home bookbar CHECK RATES → `/book/search` (property+dates);
 property-page CHECK RATES (hero + booking band) → `/book/search` with suite
 pre-selected; nav BOOK A STAY on funnel pages → `/book/search`.
+
+## Laurie round — 2026-10-13
+
+- Checkout headline → "Almost *booked.*" Site header + footer stay on every funnel step (Laurie: keep).
+- Total Price Details itemized like the live engine, in cents: Nightly total → Resort &
+  Destination Fee → City / Local / State Tax → Total for Stay. The advertised rate includes
+  the fee (search total = nightly + fees), so the stay total is unchanged. Sample amounts in
+  `BOOK.FEES` / `BOOK.TAXES` — **line-by-line fee display pending Mirt's confirmation**.
+- Suite / room-type pickers removed from every booking widget (property hero card + booking
+  band, STAY page lower widget): search always lists every suite type (upsell).

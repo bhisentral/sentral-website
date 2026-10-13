@@ -61,8 +61,18 @@ window.BOOK = (function(){
      Rates INCLUDE select fees (transparent-pricing disclosure, see the
      "Select Fees" dialog), so no separate fee line. PRODUCTION: property data. */
   var TAXES=[
-    {label:'City tax',  pct:6,   sample:true},
-    {label:'State tax', pct:6.5, sample:true}
+    {label:'City Tax',  pct:6,   sample:true},
+    {label:'Local Tax', pct:1.5, sample:true},
+    {label:'State Tax', pct:5,   sample:true}
+  ];
+  /* Select fees INCLUDED in the advertised rate, itemized at checkout (Laurie
+     10-13, pending Mirt). SAMPLE amounts per room — [FIELD] per property;
+     categories mirror the Included Fees disclosure (resort & destination /
+     cleaning / residence). PRODUCTION: property data via SentralOS. */
+  var FEES=[
+    {label:'Resort & Destination Fee', perNight:15, sample:true},
+    {label:'Cleaning Fee',             perStay:0,   sample:true},
+    {label:'Residence Fee',            perStay:0,   sample:true}
   ];
   function q(){ var o={},s=new URLSearchParams(location.search); s.forEach(function(v,k){o[k]=v}); return o; }
   function qs(params){
@@ -77,6 +87,7 @@ window.BOOK = (function(){
     return (isFinite(n)&&n>0)?n:null;
   }
   function money(n){ return '$'+Math.round(n).toLocaleString('en-US'); }
+  function cents(n){ return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
   function parseRooms(str){
     var out={}; (str||'').split(',').forEach(function(pair){
       var kv=pair.split(':');
@@ -93,7 +104,7 @@ window.BOOK = (function(){
     var dt=new Date(d+'T12:00:00');
     return dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
   }
-  return {PROPERTIES:PROPERTIES,CITIES:CITIES,PLANS:PLANS,TAXES:TAXES,
-          q:q,qs:qs,prop:prop,plan:plan,nights:nights,money:money,planPrice:planPrice,
+  return {PROPERTIES:PROPERTIES,CITIES:CITIES,PLANS:PLANS,TAXES:TAXES,FEES:FEES,
+          q:q,qs:qs,prop:prop,plan:plan,nights:nights,money:money,cents:cents,planPrice:planPrice,
           parseRooms:parseRooms,roomsParam:roomsParam,fmtDate:fmtDate};
 })();

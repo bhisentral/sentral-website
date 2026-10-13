@@ -539,11 +539,10 @@ a.pt-suite-cta{text-decoration:none !important}
           <div class="pt-bf"><label for="hero-guests">Guests</label>
             <select id="hero-guests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6+</option></select>
           </div>
-          <div class="pt-bf"><label for="hero-suite">Suite</label>
-            <select id="hero-suite"><option value="" selected>Any</option><option value="studio">Studio</option><option value="one-bedroom">One Bedroom</option><option value="two-bedroom">Two Bedroom</option></select>
-          </div>
+          <div class="pt-bf"><label for="hero-promo">Discount code</label><input id="hero-promo" type="text" placeholder="Enter code" autocomplete="off"></div>
         </div>
-        <div class="pt-bf"><label for="hero-promo">Discount code &mdash; optional</label><input id="hero-promo" type="text" placeholder="Enter code" autocomplete="off"></div>
+        <!-- No suite picker (Laurie 10-13): search shows every suite type so
+             guests see the upsell; never pre-filter on the front end. -->
         <button class="pt-book-btn" type="submit">Check Rates &nbsp;&rarr;</button>
       </form>
       <span class="pt-bookcard-fine">Flexible cancellation on most stays</span>
@@ -850,16 +849,7 @@ a.pt-suite-cta{text-decoration:none !important}
             <select id="bk-kids"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
           </div>
         </div>
-        <!-- Mirrors the hero card's Suite field. Both forms carry the same
-             selection so a guest who picks a suite upstairs keeps it here. -->
-        <div class="pt-bf"><label for="bk-suite">Suite</label>
-          <select id="bk-suite">
-            <option value="" selected>Any</option>
-            <option value="studio">Studio</option>
-            <option value="one-bedroom">One Bedroom</option>
-            <option value="two-bedroom">Two Bedroom</option>
-          </select>
-        </div>
+        <!-- No suite picker (Laurie 10-13) — search shows all suite types. -->
         <div class="pt-bf"><label for="bk-code">Promo or corporate code &mdash; optional</label><input id="bk-code" type="text" placeholder="Enter code"></div>
         <button class="pt-book-btn" type="submit">Check Rates &nbsp;&rarr;</button>
       </form>
@@ -1227,23 +1217,16 @@ a.pt-suite-cta{text-decoration:none !important}
   });
 })();
 
-// ── SUITE SELECTION CARRIES THROUGH ──
-// Clicking a suite card used to dump the guest on a generic date form, losing
-// the one decision they had just made. Now the card pre-selects that suite in
-// both booking forms, scrolls to the band, and puts the cursor on Check-in —
-// so the only thing left to do is pick dates.
+// ── SUITE CARD → BOOKING BAND ──
+// A suite card scrolls to the booking band and puts the cursor on Check-in.
+// No suite is pre-selected (Laurie 10-13): search lists every suite type.
 (function(){
   var cards=[].slice.call(document.querySelectorAll('.pt-suite[data-suite]'));
   if(!cards.length) return;
 
-  function selectSuite(slug){
-    ['hero-suite','bk-suite'].forEach(function(id){
-      var sel=document.getElementById(id);
-      if(!sel) return;
-      var match=[].slice.call(sel.options).some(function(o){ return o.value===slug; });
-      if(match) sel.value=slug;
-    });
-  }
+  // Suite pickers were removed (Laurie 10-13: show every suite type in search
+  // for the upsell), so a card now just takes the guest to the booking band.
+  function selectSuite(slug){}
 
   function goBook(slug){
     selectSuite(slug);
@@ -1340,9 +1323,8 @@ function ptCheckRates(e,source){
   var p=source==='hero'?['hero-in','hero-out']:['bk-in','bk-out'];
   var i=document.getElementById(p[0]).value,o=document.getElementById(p[1]).value;
   if(!i||!o){document.getElementById(p[0]).focus();return false;}
-  var suite=(document.getElementById(source==='hero'?'hero-suite':'bk-suite')||{}).value||'';
   var promo=((document.getElementById(source==='hero'?'hero-promo':'bk-code')||{}).value||'').trim();
-  window.location.href='/book/search?property=sol-modern&in='+i+'&out='+o+(suite?'&rooms='+suite+':1':'')+(promo?'&promo='+encodeURIComponent(promo):'');
+  window.location.href='/book/search?property=sol-modern&in='+i+'&out='+o+(promo?'&promo='+encodeURIComponent(promo):'');
   return false;
 }
 </script>
