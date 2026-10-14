@@ -72,3 +72,26 @@ pre-selected; nav BOOK A STAY on funnel pages → `/book/search`.
   `BOOK.FEES` / `BOOK.TAXES` — **line-by-line fee display pending Mirt's confirmation**.
 - Suite / room-type pickers removed from every booking widget (property hero card + booking
   band, STAY page lower widget): search always lists every suite type (upsell).
+
+## Reservation portal — 7a–7d + Email Update (2026-10-14)
+
+Replicates reservations.sentral.com on the v4 brand. All copy in the pop-ups is verbatim
+from the live portal; data reads/writes StayNTouch via SentralOS (resend / edit / modify /
+cancel each trigger their own email + SMS). Every state has a static link for Highspring:
+
+| # | Screen | Static link |
+|---|---|---|
+| 7a | Find Reservation | https://sentral-website.vercel.app/reservations/login |
+| 7b | Reservation Details | https://sentral-website.vercel.app/reservations/details?conf=PHXA100000545&last=Love |
+| 7b | Payment breakdown | (click VIEW BREAKDOWN on the details page) |
+| 7b | Resend Confirmation message | https://sentral-website.vercel.app/reservations/details?show=resent |
+| 7b | Edit Email/Phone form | https://sentral-website.vercel.app/reservations/details?show=edit |
+| 7b | Details updated message | https://sentral-website.vercel.app/reservations/details?show=updated |
+| 7d | Cancel Reservation (policy + Yes/No) | https://sentral-website.vercel.app/reservations/cancel |
+| 7d | Cancelled message | https://sentral-website.vercel.app/reservations/details?show=cancelled |
+| 7d | Details after cancel | https://sentral-website.vercel.app/reservations/details?status=cancelled |
+| 7c | Modify — search in modify mode | https://sentral-website.vercel.app/reservations/modify?modify=PHXA100000545&property=sol-modern&in=2026-12-18&out=2026-12-20&adults=1&children=0&promo=SNTFAM&oin=2026-10-24&oout=2026-10-26&orooms=one-bedroom%3A1%3Afall |
+| 7c | New Booking review (existing vs new, difference) | https://sentral-website.vercel.app/reservations/modify?modify=PHXA100000545&property=sol-modern&in=2026-12-18&out=2026-12-20&adults=1&children=0&promo=SNTFAM&oin=2026-10-24&oout=2026-10-26&orooms=one-bedroom%3A1%3Afall&show=review |
+| 7c | Verifying payment | https://sentral-website.vercel.app/reservations/modify?modify=PHXA100000545&property=sol-modern&in=2026-12-18&out=2026-12-20&adults=1&children=0&promo=SNTFAM&oin=2026-10-24&oout=2026-10-26&orooms=one-bedroom%3A1%3Afall&show=verifying |
+| 7c | Modified successfully | https://sentral-website.vercel.app/reservations/modify?modify=PHXA100000545&property=sol-modern&in=2026-12-18&out=2026-12-20&adults=1&children=0&promo=SNTFAM&oin=2026-10-24&oout=2026-10-26&orooms=one-bedroom%3A1%3Afall&show=modified |
+| — | Email Update | https://sentral-website.vercel.app/email-update?token=demo&name=Oscar |

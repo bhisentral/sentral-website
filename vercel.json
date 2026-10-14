@@ -7,6 +7,18 @@
       "destination": "/reservation-lookup"
     },
     {
+      "source": "/reservations/details",
+      "destination": "/reservation-details"
+    },
+    {
+      "source": "/reservations/cancel",
+      "destination": "/reservation-details"
+    },
+    {
+      "source": "/reservations/modify",
+      "destination": "/book-search"
+    },
+    {
       "source": "/reservations",
       "destination": "/reservation-lookup"
     },

@@ -107,6 +107,14 @@ document.addEventListener('click',function(e){
   <p id="bkSuiteDesc"></p>
   <p class="bk-suite-src">Sample text &mdash; pulls from StayNTouch at build</p>
 </dialog>
+<!-- 7c MODIFY (reservations portal): search runs in modify mode when ?modify=CONF.
+     BOOK opens New Booking review (existing vs new, difference) → payment
+     verification → success; written back to StayNTouch, which sends the
+     modification email + SMS. Static review links: ?show=review|verifying|modified -->
+<dialog class="bk-fees rd-dlg" id="bkMod" aria-labelledby="bkModH">
+  <button type="button" class="bk-fees-x" data-mod-close aria-label="Close">&times;</button>
+  <div id="bkModBody"></div>
+</dialog>
 <!-- Full-screen suite gallery (Laurie 10-13): click a photo to open, arrows /
      keys / swipe to step through. Caption = the photo's editable TAG only
      (Living room, Bedroom 1, Kitchen…) — never a file name. -->
@@ -258,6 +266,7 @@ document.addEventListener('DOMContentLoaded',function(){
     if(bk){
       e.preventDefault();
       if(short) return;
+      if(q.modify){ modReview(bk.getAttribute('data-book')); return; }
       var slug=bk.getAttribute('data-book'), all={};
       for(var s in stay) all[s]=stay[s];
       all[slug]=state(slug);                          // add / replace this suite in the stay
@@ -272,6 +281,55 @@ document.addEventListener('DOMContentLoaded',function(){
       .sort(function(a,b){ return dir*((+a.getAttribute('data-base'))-(+b.getAttribute('data-base'))); })
       .forEach(function(c){ res.appendChild(c); });
   });
+  // ── 7c Modify mode ──
+  var modDlg=document.getElementById('bkMod'), modBody=document.getElementById('bkModBody');
+  function backHref(extra){ var o={}; for(var k in extra) o[k]=extra[k];
+    o.conf=q.modify; o.modify=null; o.oin=null; o.oout=null; o.orooms=null; o.show=null; return '/reservations/details?'+BOOK.qs(o); }
+  function modReview(slug){
+    var st=state(slug), r=room(slug), newRooms=slug+':'+st.n+':'+st.plan;
+    var base={property:cur.slug,adults:q.adults,children:q.children,promo:q.promo};
+    var oldS=BOOK.summary(Object.assign({},base,{'in':q.oin||q['in'],out:q.oout||q.out,rooms:q.orooms||newRooms}));
+    var newS=BOOK.summary(Object.assign({},base,{'in':q['in'],out:q.out,rooms:newRooms}));
+    var diff=newS.total-oldS.total, ad=+q.adults||1, ch=+q.children||0;
+    modBody.innerHTML='<h2 class="rd-dlg-h" id="bkModH">New booking</h2><p class="rd-copy">Please review the booking changes</p>'+
+      '<div class="rd-nb"><b>'+cur.name+'</b><span>'+(st.n>1?st.n+' × ':'')+r.name+' · '+BOOK.plan(st.plan).short+'</span>'+
+      '<small>'+ad+(ad>1?' adults':' adult')+(ch?', '+ch+(ch>1?' children':' child'):'')+'</small></div>'+
+      '<dl class="bk-facts"><div><dt>Check-in</dt><dd>'+BOOK.fmtDate(q['in'])+'<small>4:00 PM</small></dd></div>'+
+      '<div><dt>Check-out</dt><dd>'+BOOK.fmtDate(q.out)+'<small>11:00 AM</small></dd></div><div><dt>Nights</dt><dd>'+newS.nights+'</dd></div></dl>'+
+      '<h3 class="bk-rail-h" style="margin-top:14px">Price details</h3>'+
+      '<div class="bk-line"><span>Existing booking</span><span>'+BOOK.cents(oldS.total)+'</span></div>'+
+      '<div class="bk-line"><span>New booking</span><span>'+BOOK.cents(newS.total)+'</span></div>'+
+      '<div class="bk-total"><span>Difference</span><span>'+(diff<0?'−':'')+BOOK.cents(Math.abs(diff))+'</span></div>'+
+      '<p class="rd-src">You may receive a refund or need to make an additional payment based on the difference in pricing.</p>'+
+      '<div class="rd-dlg-btns"><button class="bk-btn" type="button" id="bkModGo">Book</button><button class="bk-btn-g" type="button" data-mod-close>Cancel</button></div>';
+    document.getElementById('bkModGo').addEventListener('click',function(){ modVerify(newRooms); });
+    if(!modDlg.open) modDlg.showModal();
+  }
+  function modVerify(newRooms){
+    modBody.innerHTML='<div class="rd-spin" aria-hidden="true"></div><p class="rd-msg" id="bkModH" role="status">Verifying your payment details, please wait…</p>';
+    if(!modDlg.open) modDlg.showModal();
+    if(newRooms!==null) setTimeout(function(){ modDone(newRooms); },1800);
+  }
+  function modDone(newRooms){
+    modBody.innerHTML='<svg class="rd-check" viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'+'<p class="rd-msg" id="bkModH" role="status">Your booking modified successfully!</p>'+
+      '<div class="rd-dlg-btns" style="justify-content:center"><a class="bk-btn slate" href="'+backHref({rooms:newRooms||q.orooms})+'">Back to booking details</a></div>';
+    if(!modDlg.open) modDlg.showModal();
+  }
+  modDlg.addEventListener('click',function(e){ if(e.target===modDlg||e.target.closest('[data-mod-close]')) modDlg.close(); });
+  if(q.modify){
+    var wrap=document.querySelector('.bk-wrap');
+    var bar=document.createElement('div'); bar.className='rd-modbar';
+    bar.innerHTML='<a class="rd-link" href="'+backHref({rooms:q.orooms,'in':q.oin||q['in'],out:q.oout||q.out})+'">‹ Back to booking details</a>'+
+      '<span>Modifying reservation <b>'+q.modify+'</b> — choose new dates or a different suite. You’ll review any price difference before anything changes.'+(q.promo?' <b>Code applied: '+q.promo.toUpperCase()+'</b>':'')+'</span>';
+    wrap.insertBefore(bar,wrap.firstChild);
+    document.querySelector('.bkh h1').innerHTML='Modify your <em>stay.</em>';
+    document.querySelector('.bkh-eyebrow').textContent='Sentral — Manage Reservation';
+    var stp=document.querySelector('.bkh-steps'); if(stp) stp.hidden=true;   // no checkout in modify
+    document.getElementById('bkhContext').textContent='Reservation '+q.modify+' · '+cur.name+', '+cur.city+(nights?' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out):'');
+    if(q.show==='review') modReview(cur.rooms[1].slug);
+    if(q.show==='verifying') modVerify(null);
+    if(q.show==='modified') modDone(q.orooms);
+  }
   // Multi-room strip — only when returning from checkout via "Add another suite"
   var names=[];
   cur.rooms.forEach(function(r){ var s=stay[r.slug]; if(s&&s.n) names.push(s.n+' × '+r.name+' ('+(BOOK.plan(s.plan).short)+')'); });

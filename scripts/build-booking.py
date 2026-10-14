@@ -156,6 +156,7 @@ def _card(slug,name,spec,base,left):
       '</div></div></div>')
 SEARCH_CARDS=''.join(_card(*r) for r in SROOMS)
 
+CHECK_SVG_INLINE='<svg class="rd-check" viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 # Transparent-pricing disclosure (Amy, live engine) — verbatim wording; shared by
 # search + checkout. PRODUCTION: per-property fee list comes from property data.
 FEES_DIALOG='''<dialog class="bk-fees" id="bkFees" aria-labelledby="bkFeesH">
@@ -213,6 +214,14 @@ header('Sentral &mdash; Book a Stay','Choose your <em>suite.</em>','bkhContext',
   <div class="bk-specs" id="bkSuiteSpecs"></div>
   <p id="bkSuiteDesc"></p>
   <p class="bk-suite-src">Sample text &mdash; pulls from StayNTouch at build</p>
+</dialog>
+<!-- 7c MODIFY (reservations portal): search runs in modify mode when ?modify=CONF.
+     BOOK opens New Booking review (existing vs new, difference) → payment
+     verification → success; written back to StayNTouch, which sends the
+     modification email + SMS. Static review links: ?show=review|verifying|modified -->
+<dialog class="bk-fees rd-dlg" id="bkMod" aria-labelledby="bkModH">
+  <button type="button" class="bk-fees-x" data-mod-close aria-label="Close">&times;</button>
+  <div id="bkModBody"></div>
 </dialog>
 <!-- Full-screen suite gallery (Laurie 10-13): click a photo to open, arrows /
      keys / swipe to step through. Caption = the photo's editable TAG only
@@ -365,6 +374,7 @@ document.addEventListener('DOMContentLoaded',function(){
     if(bk){
       e.preventDefault();
       if(short) return;
+      if(q.modify){ modReview(bk.getAttribute('data-book')); return; }
       var slug=bk.getAttribute('data-book'), all={};
       for(var s in stay) all[s]=stay[s];
       all[slug]=state(slug);                          // add / replace this suite in the stay
@@ -379,6 +389,55 @@ document.addEventListener('DOMContentLoaded',function(){
       .sort(function(a,b){ return dir*((+a.getAttribute('data-base'))-(+b.getAttribute('data-base'))); })
       .forEach(function(c){ res.appendChild(c); });
   });
+  // ── 7c Modify mode ──
+  var modDlg=document.getElementById('bkMod'), modBody=document.getElementById('bkModBody');
+  function backHref(extra){ var o={}; for(var k in extra) o[k]=extra[k];
+    o.conf=q.modify; o.modify=null; o.oin=null; o.oout=null; o.orooms=null; o.show=null; return '/reservations/details?'+BOOK.qs(o); }
+  function modReview(slug){
+    var st=state(slug), r=room(slug), newRooms=slug+':'+st.n+':'+st.plan;
+    var base={property:cur.slug,adults:q.adults,children:q.children,promo:q.promo};
+    var oldS=BOOK.summary(Object.assign({},base,{'in':q.oin||q['in'],out:q.oout||q.out,rooms:q.orooms||newRooms}));
+    var newS=BOOK.summary(Object.assign({},base,{'in':q['in'],out:q.out,rooms:newRooms}));
+    var diff=newS.total-oldS.total, ad=+q.adults||1, ch=+q.children||0;
+    modBody.innerHTML='<h2 class="rd-dlg-h" id="bkModH">New booking</h2><p class="rd-copy">Please review the booking changes</p>'+
+      '<div class="rd-nb"><b>'+cur.name+'</b><span>'+(st.n>1?st.n+' × ':'')+r.name+' · '+BOOK.plan(st.plan).short+'</span>'+
+      '<small>'+ad+(ad>1?' adults':' adult')+(ch?', '+ch+(ch>1?' children':' child'):'')+'</small></div>'+
+      '<dl class="bk-facts"><div><dt>Check-in</dt><dd>'+BOOK.fmtDate(q['in'])+'<small>4:00 PM</small></dd></div>'+
+      '<div><dt>Check-out</dt><dd>'+BOOK.fmtDate(q.out)+'<small>11:00 AM</small></dd></div><div><dt>Nights</dt><dd>'+newS.nights+'</dd></div></dl>'+
+      '<h3 class="bk-rail-h" style="margin-top:14px">Price details</h3>'+
+      '<div class="bk-line"><span>Existing booking</span><span>'+BOOK.cents(oldS.total)+'</span></div>'+
+      '<div class="bk-line"><span>New booking</span><span>'+BOOK.cents(newS.total)+'</span></div>'+
+      '<div class="bk-total"><span>Difference</span><span>'+(diff<0?'−':'')+BOOK.cents(Math.abs(diff))+'</span></div>'+
+      '<p class="rd-src">You may receive a refund or need to make an additional payment based on the difference in pricing.</p>'+
+      '<div class="rd-dlg-btns"><button class="bk-btn" type="button" id="bkModGo">Book</button><button class="bk-btn-g" type="button" data-mod-close>Cancel</button></div>';
+    document.getElementById('bkModGo').addEventListener('click',function(){ modVerify(newRooms); });
+    if(!modDlg.open) modDlg.showModal();
+  }
+  function modVerify(newRooms){
+    modBody.innerHTML='<div class="rd-spin" aria-hidden="true"></div><p class="rd-msg" id="bkModH" role="status">Verifying your payment details, please wait…</p>';
+    if(!modDlg.open) modDlg.showModal();
+    if(newRooms!==null) setTimeout(function(){ modDone(newRooms); },1800);
+  }
+  function modDone(newRooms){
+    modBody.innerHTML='''+repr(CHECK_SVG_INLINE)+'''+'<p class="rd-msg" id="bkModH" role="status">Your booking modified successfully!</p>'+
+      '<div class="rd-dlg-btns" style="justify-content:center"><a class="bk-btn slate" href="'+backHref({rooms:newRooms||q.orooms})+'">Back to booking details</a></div>';
+    if(!modDlg.open) modDlg.showModal();
+  }
+  modDlg.addEventListener('click',function(e){ if(e.target===modDlg||e.target.closest('[data-mod-close]')) modDlg.close(); });
+  if(q.modify){
+    var wrap=document.querySelector('.bk-wrap');
+    var bar=document.createElement('div'); bar.className='rd-modbar';
+    bar.innerHTML='<a class="rd-link" href="'+backHref({rooms:q.orooms,'in':q.oin||q['in'],out:q.oout||q.out})+'">‹ Back to booking details</a>'+
+      '<span>Modifying reservation <b>'+q.modify+'</b> — choose new dates or a different suite. You’ll review any price difference before anything changes.'+(q.promo?' <b>Code applied: '+q.promo.toUpperCase()+'</b>':'')+'</span>';
+    wrap.insertBefore(bar,wrap.firstChild);
+    document.querySelector('.bkh h1').innerHTML='Modify your <em>stay.</em>';
+    document.querySelector('.bkh-eyebrow').textContent='Sentral — Manage Reservation';
+    var stp=document.querySelector('.bkh-steps'); if(stp) stp.hidden=true;   // no checkout in modify
+    document.getElementById('bkhContext').textContent='Reservation '+q.modify+' · '+cur.name+', '+cur.city+(nights?' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out):'');
+    if(q.show==='review') modReview(cur.rooms[1].slug);
+    if(q.show==='verifying') modVerify(null);
+    if(q.show==='modified') modDone(q.orooms);
+  }
   // Multi-room strip — only when returning from checkout via "Add another suite"
   var names=[];
   cur.rooms.forEach(function(r){ var s=stay[r.slug]; if(s&&s.n) names.push(s.n+' × '+r.name+' ('+(BOOK.plan(s.plan).short)+')'); });
@@ -600,6 +659,151 @@ document.addEventListener('DOMContentLoaded',function(){
       '<div class="bk-prop-meta">'+p.city+', '+p.state+(p.minStay>1?' · 30+ nights':'')+'</div>'+
       '<span class="bk-prop-cta">Check availability &nbsp;&rarr;</span></div></a>';
   }).join('');
+});
+</script>''')
+
+
+# ═══ 7b–7d. RESERVATION PORTAL — Details + Manage (modify/cancel entry) ═══
+# Replicates reservations.sentral.com (after Find Reservation) on the v4 brand:
+# booking info, guest details (+ Edit Email/Phone), arrival info, Resend
+# Confirmation, Modify / Cancel, Payment Summary w/ breakdown. Copy for every
+# message is verbatim from the live portal. PRODUCTION: everything reads from
+# and writes back to StayNTouch via SentralOS (resend / edit / cancel each
+# trigger their own email + SMS). Static review links: ?show=resent | edit |
+# updated | cancel | cancelled opens that state on load.
+CANCEL_POLICY=('You may cancel your reservation for no charge before 11:59 PM local hotel time 2 day[s] before arrival. '
+  'Please note that we will assess a fee of 1 night room and tax if you must cancel after this deadline. '
+  'If you have made a prepayment, we will retain all or part of your prepayment. If not, we will charge your credit card.')
+CHECK_SVG='<svg class="rd-check" viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+PAGES['reservation-details.html']=('Reservation Details — Sentral',
+header('Sentral &mdash; Manage Reservation','Reservation <em>details.</em>','rdContext')+'\n'+RIBBON+'''
+<div class="bk-wrap">
+  <div class="rd-top">
+    <span class="rd-status" id="rdStatus" hidden>Cancelled</span>
+    <p class="rd-help">Need help? 24/7 text assistance <a href="sms:+17373733736">737-373-3736</a></p>
+  </div>
+  <div class="bk-card"><div class="bk-pad">
+    <div class="rd-grid">
+      <section aria-labelledby="rdH1">
+        <h2 class="bk-rail-h" id="rdH1">Booking information</h2>
+        <h3 class="rd-prop" id="rdProp">Sol Modern</h3>
+        <div class="rd-addr" id="rdAddr">50 E. Fillmore Street, Phoenix, AZ 85004</div>
+        <a class="rd-link" id="rdMap" href="#" target="_blank" rel="noopener">View on map</a>
+        <dl class="bk-facts rd-facts">
+          <div><dt>Offer code</dt><dd id="rdCode">&mdash;</dd></div>
+          <div><dt>Sentral confirmation number</dt><dd id="rdConf">SENT-SAMPLE</dd></div>
+        </dl>
+        <button type="button" class="bk-btn slate rd-btn" data-open="resent">Resend Confirmation</button>
+        <p class="rd-stay"><span id="rdNights">2 nights</span><b id="rdDates">Sample dates</b></p>
+      </section>
+      <section aria-labelledby="rdH2">
+        <h2 class="bk-rail-h" id="rdH2">Guest details</h2>
+        <dl class="bk-facts rd-facts">
+          <div><dt>First name</dt><dd id="rdFirst">Sample</dd></div>
+          <div><dt>Last name</dt><dd id="rdLast">Guest</dd></div>
+          <div class="full"><dt>Email</dt><dd id="rdEmail">guest@example.com</dd></div>
+          <div class="full"><dt>Phone</dt><dd id="rdPhone">+1 555 010 0142</dd></div>
+        </dl>
+        <button type="button" class="bk-btn slate rd-btn" data-open="edit">Edit Email/Phone</button>
+      </section>
+      <section aria-labelledby="rdH3">
+        <h2 class="bk-rail-h" id="rdH3">Arrival / check-in</h2>
+        <p class="rd-copy">Important step-by-step instructions on how to access the building, check in, get connected to WiFi, and more!</p>
+        <!-- [FIELD] per-property arrival guide URL -->
+        <a class="rd-link" href="#" id="rdArrival">View arrival information</a>
+      </section>
+    </div>
+    <div class="rd-actions" id="rdActions">
+      <a class="bk-btn slate" id="rdModify" href="/reservations/modify">Modify Booking</a>
+      <button type="button" class="bk-btn-g" data-open="cancel">Cancel Booking</button>
+    </div>
+  </div></div>
+  <div class="bk-card"><div class="bk-pad">
+    <h2 class="bk-rail-h">Payment summary</h2>
+    <div class="rd-pay">
+      <span class="rd-cardmark" aria-hidden="true"></span><span class="rd-last4">&bull;&bull;&bull;&bull; 7744</span>
+      <span class="rd-est"><small>Estimated total</small> <b id="rdTotal">&mdash;</b></span>
+      <button type="button" class="rd-link rd-break" id="rdBreakBtn" aria-expanded="false" aria-controls="rdBreak">View breakdown</button>
+    </div>
+    <div class="rd-breakdown" id="rdBreak" hidden>
+      <div class="bk-line strong"><span>Description</span><span>Charges</span></div>
+      <div id="rdLines"></div>
+      <div class="bk-line strong"><span>Estimated total</span><span id="rdTotal2"></span></div>
+    </div>
+    <p class="bk-note" style="text-align:left">Card shown as last four digits only &mdash; payment details stay with Shift4. Sample charges for design review.</p>
+  </div></div>
+</div>
+<dialog class="bk-fees rd-dlg" id="rdDlg" aria-labelledby="rdDlgH">
+  <button type="button" class="bk-fees-x" data-close aria-label="Close">&times;</button>
+  <div id="rdDlgBody"></div>
+</dialog>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var q=BOOK.q();
+  // Sample reservation when opened without a lookup (static review links)
+  var r={property:q.property||'sol-modern','in':q['in']||'2026-10-24',out:q.out||'2026-10-26',
+    rooms:q.rooms||'one-bedroom:1:fall',adults:q.adults||'1',children:q.children||'0',promo:q.promo||''};
+  var S=BOOK.summary(r), cur=S.cur, $=function(id){return document.getElementById(id)};
+  var conf=(q.conf||'PHXA100000545').toUpperCase();
+  $('rdContext').textContent=cur.name+', '+cur.city+' · Confirmation '+conf;
+  $('rdProp').textContent=cur.name;
+  $('rdAddr').textContent=cur.address||(cur.city+', '+cur.state);
+  $('rdMap').href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent((cur.address||cur.name+' '+cur.city));
+  $('rdCode').textContent=r.promo?r.promo.toUpperCase():'—';
+  $('rdConf').textContent=conf;
+  $('rdNights').textContent=S.nights+(S.nights>1?' nights':' night');
+  $('rdDates').textContent=BOOK.fmtDate(r['in'])+' → '+BOOK.fmtDate(r.out);
+  if(q.first) $('rdFirst').textContent=q.first;
+  if(q.last) $('rdLast').textContent=q.last;
+  if(q.email) $('rdEmail').textContent=q.email;
+  if(q.phone) $('rdPhone').textContent=q.phone;
+  $('rdLines').innerHTML=S.lines;
+  $('rdTotal').textContent=$('rdTotal2').textContent=BOOK.cents(S.total);
+  $('rdModify').href='/reservations/modify?'+BOOK.qs({modify:conf,property:r.property,'in':r['in'],out:r.out,
+    adults:r.adults,children:r.children,promo:r.promo||null,oin:r['in'],oout:r.out,orooms:r.rooms,rooms:null});
+  $('rdBreakBtn').addEventListener('click',function(){
+    var o=$('rdBreak').hidden; $('rdBreak').hidden=!o; this.setAttribute('aria-expanded',o);
+    this.textContent=o?'Collapse breakdown':'View breakdown';
+  });
+  var dlg=$('rdDlg'), body=$('rdDlgBody');
+  function msg(text,check){ return (check?'''+repr(CHECK_SVG)+''':'')+'<p class="rd-msg" id="rdDlgH">'+text+'</p>'; }
+  function cancelled(){
+    $('rdStatus').hidden=false; $('rdActions').classList.add('rd-off');
+    [].forEach.call($('rdActions').querySelectorAll('a,button'),function(b){ b.setAttribute('aria-disabled','true'); b.tabIndex=-1; });
+  }
+  var VIEWS={
+    resent:function(){ body.innerHTML=msg('Your confirmation has been resent to the email and phone number on file'); },
+    updated:function(){ body.innerHTML=msg('Details updated successfully!'); },
+    cancelled:function(){ body.innerHTML=msg('Your booking cancelled successfully!',true); cancelled(); },
+    edit:function(){
+      body.innerHTML='<h2 class="rd-dlg-h" id="rdDlgH">Edit email / phone</h2>'+
+        '<form id="rdEdit" class="rd-form"><div class="bk-f"><label for="rdE">Email *</label><input id="rdE" type="email" autocomplete="email" required value="'+$('rdEmail').textContent+'"></div>'+
+        '<div class="bk-f"><label for="rdP">Phone *</label><input id="rdP" type="tel" autocomplete="tel" required value="'+$('rdPhone').textContent+'"></div>'+
+        '<div class="rd-dlg-btns"><button class="bk-btn slate" type="submit">Save</button><button class="bk-btn-g" type="button" data-close>Cancel</button></div></form>';
+      $('rdEdit').addEventListener('submit',function(e){
+        e.preventDefault(); if(!this.reportValidity()) return;
+        $('rdEmail').textContent=$('rdE').value.trim(); $('rdPhone').textContent=$('rdP').value.trim();
+        VIEWS.updated();
+      });
+    },
+    cancel:function(){
+      body.innerHTML='<h2 class="rd-dlg-h" id="rdDlgH">Cancel reservation</h2>'+
+        '<p class="rd-copy">Are you sure you want to cancel this reservation? Review the cancellation policy and select Yes or No to continue</p>'+
+        '<details class="rd-policy" open><summary>Cancellation policy</summary><p>'''+CANCEL_POLICY+'''</p>'+
+        '<p class="rd-src">Policy text pulls from the booked rate in StayNTouch.</p></details>'+
+        '<div class="rd-dlg-btns"><button class="bk-btn slate" type="button" id="rdYes">Yes</button><button class="bk-btn-g" type="button" data-close>No</button></div>';
+      $('rdYes').addEventListener('click',VIEWS.cancelled);
+    }
+  };
+  function open(v){ VIEWS[v](); if(!dlg.open) dlg.showModal(); }
+  document.addEventListener('click',function(e){
+    var t=e.target.closest&&e.target.closest('[data-open]');
+    if(t&&!t.closest('.rd-off')){ open(t.getAttribute('data-open')); return; }
+    if(e.target.closest&&e.target.closest('[data-close]')||e.target===dlg) dlg.close();
+  });
+  if(q.show&&VIEWS[q.show]) open(q.show);
+  else if(/\/reservations\/cancel/.test(location.pathname)) open('cancel');  // 7d entry URL
+  if(q.status==='cancelled') cancelled();
 });
 </script>''')
 
