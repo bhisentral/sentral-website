@@ -7,7 +7,7 @@
 <title>Charlotte — Book a Stay — Sentral</title>
 <link rel="stylesheet" href="/booking-chrome.css?v=3">
 <link rel="stylesheet" href="/overrides.css?v=4dark31">
-<link rel="stylesheet" href="/booking.css?v=14">
+<link rel="stylesheet" href="/booking.css?v=15">
 <script src="/assets/booking-demo.js?v=7" defer></script>
 </head>
 <body>
@@ -68,37 +68,46 @@
   </form>
   <div class="bk-props">
     <div class="bk-prop" data-prop="inkwell">
-      <div class="bk-prop-media"><img class="bk-prop-img" src="/assets/bk-city-1.jpg" alt="Inkwell">
-      <!-- PRODUCTION: lowest available rate per community (StayNTouch via SentralOS); promo w/ no eligible rate falls back to lowest date-rate; hide only when no availability. -->
-      <div class="bk-prop-ratechip"><b>From $139</b>/night<small>Sample &middot; before taxes</small></div></div>
+      <img class="bk-prop-img" src="/assets/bk-city-1.jpg" alt="Inkwell">
       <div class="bk-prop-body"><div class="bk-prop-name">Inkwell</div>
-      <div class="bk-prop-meta">Charlotte, NC</div>
-      <div class="bk-prop-hood"><svg class="bk-pin" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 22s7-6.4 7-12a7 7 0 0 0-14 0c0 5.6 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>NoDa</span></div>
+      <div class="bk-prop-meta">Charlotte, NC &middot; NoDa</div>
       <p class="bk-prop-line">[FIELD] Studios to two bedrooms &middot; full kitchens &middot; in-unit laundry &middot; fitness center</p>
-      <details class="bk-prop-am"><summary>Amenities</summary><ul><li>Full kitchen</li><li>In-unit washer &amp; dryer</li><li>Fitness center</li><li>Keyless entry</li><li>Dedicated workspace</li><li>Pet friendly</li></ul></details>
-      <div class="bk-prop-ctas"><a class="bk-btn bk-prop-book" data-avail href="/book/search?property=inkwell">Check availability &nbsp;&rarr;</a><a class="bk-prop-cta bk-prop-view" href="/stay/sol-modern">View property &nbsp;&rarr;</a></div></div>
+      <!-- Price bar w/ inline button (owner mock, Variation 3). PRODUCTION: lowest
+           available rate per community (StayNTouch via SentralOS); a promo with no
+           eligible rate falls back to the lowest date-rate; row hides the price
+           only at zero availability. -->
+      <div class="bk-prop-foot">
+        <div class="bk-pb"><span class="bk-pb-amt">$139</span> <span class="bk-pb-per">/ night</span><small class="bk-pb-note">Before taxes</small></div>
+        <a class="bk-btn bk-prop-book" data-avail href="/book/search?property=inkwell">Book Now &nbsp;&rarr;</a>
+      </div></div>
     </div>
     <div class="bk-prop" data-prop="joinery-north">
-      <div class="bk-prop-media"><img class="bk-prop-img" src="/assets/bk-city-2.jpg" alt="Joinery North">
-      <!-- PRODUCTION: lowest available rate per community (StayNTouch via SentralOS); promo w/ no eligible rate falls back to lowest date-rate; hide only when no availability. -->
-      <div class="bk-prop-ratechip"><b>From $129</b>/night<small>Sample &middot; before taxes</small></div></div>
+      <img class="bk-prop-img" src="/assets/bk-city-2.jpg" alt="Joinery North">
       <div class="bk-prop-body"><div class="bk-prop-name">Joinery North</div>
-      <div class="bk-prop-meta">Charlotte, NC</div>
-      <div class="bk-prop-hood"><svg class="bk-pin" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 22s7-6.4 7-12a7 7 0 0 0-14 0c0 5.6 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Optimist Park</span></div>
+      <div class="bk-prop-meta">Charlotte, NC &middot; Optimist Park</div>
       <p class="bk-prop-line">[FIELD] Studios to two bedrooms &middot; full kitchens &middot; in-unit laundry &middot; fitness center</p>
-      <details class="bk-prop-am"><summary>Amenities</summary><ul><li>Full kitchen</li><li>In-unit washer &amp; dryer</li><li>Fitness center</li><li>Keyless entry</li><li>Dedicated workspace</li><li>Pet friendly</li></ul></details>
-      <div class="bk-prop-ctas"><a class="bk-btn bk-prop-book" data-avail href="/book/search?property=joinery-north">Check availability &nbsp;&rarr;</a><a class="bk-prop-cta bk-prop-view" href="/stay/sol-modern">View property &nbsp;&rarr;</a></div></div>
+      <!-- Price bar w/ inline button (owner mock, Variation 3). PRODUCTION: lowest
+           available rate per community (StayNTouch via SentralOS); a promo with no
+           eligible rate falls back to the lowest date-rate; row hides the price
+           only at zero availability. -->
+      <div class="bk-prop-foot">
+        <div class="bk-pb"><span class="bk-pb-amt">$129</span> <span class="bk-pb-per">/ night</span><small class="bk-pb-note">Before taxes</small></div>
+        <a class="bk-btn bk-prop-book" data-avail href="/book/search?property=joinery-north">Book Now &nbsp;&rarr;</a>
+      </div></div>
     </div>
     <div class="bk-prop" data-prop="joinery-west">
-      <div class="bk-prop-media"><img class="bk-prop-img" src="/assets/bk-city-3.jpg" alt="Joinery West">
-      <!-- PRODUCTION: lowest available rate per community (StayNTouch via SentralOS); promo w/ no eligible rate falls back to lowest date-rate; hide only when no availability. -->
-      <div class="bk-prop-ratechip"><b>From $135</b>/night<small>Sample &middot; before taxes</small></div></div>
+      <img class="bk-prop-img" src="/assets/bk-city-3.jpg" alt="Joinery West">
       <div class="bk-prop-body"><div class="bk-prop-name">Joinery West</div>
-      <div class="bk-prop-meta">Charlotte, NC</div>
-      <div class="bk-prop-hood"><svg class="bk-pin" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 22s7-6.4 7-12a7 7 0 0 0-14 0c0 5.6 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Optimist Park</span></div>
+      <div class="bk-prop-meta">Charlotte, NC &middot; Optimist Park</div>
       <p class="bk-prop-line">[FIELD] Studios to two bedrooms &middot; full kitchens &middot; in-unit laundry &middot; fitness center</p>
-      <details class="bk-prop-am"><summary>Amenities</summary><ul><li>Full kitchen</li><li>In-unit washer &amp; dryer</li><li>Fitness center</li><li>Keyless entry</li><li>Dedicated workspace</li><li>Pet friendly</li></ul></details>
-      <div class="bk-prop-ctas"><a class="bk-btn bk-prop-book" data-avail href="/book/search?property=joinery-west">Check availability &nbsp;&rarr;</a><a class="bk-prop-cta bk-prop-view" href="/stay/sol-modern">View property &nbsp;&rarr;</a></div></div>
+      <!-- Price bar w/ inline button (owner mock, Variation 3). PRODUCTION: lowest
+           available rate per community (StayNTouch via SentralOS); a promo with no
+           eligible rate falls back to the lowest date-rate; row hides the price
+           only at zero availability. -->
+      <div class="bk-prop-foot">
+        <div class="bk-pb"><span class="bk-pb-amt">$135</span> <span class="bk-pb-per">/ night</span><small class="bk-pb-note">Before taxes</small></div>
+        <a class="bk-btn bk-prop-book" data-avail href="/book/search?property=joinery-west">Book Now &nbsp;&rarr;</a>
+      </div></div>
     </div>
   </div>
 </div>
@@ -115,8 +124,8 @@ document.addEventListener('DOMContentLoaded',function(){
   // availability per community for q.in→q.out; promo pricing where eligible,
   // lowest-date rate as the fallback.
   if(nights){
-    [].forEach.call(document.querySelectorAll('.bk-prop-ratechip small'),function(el){
-      el.textContent='Sample · for your dates'+(q.promo?' · promo-eligible':'');
+    [].forEach.call(document.querySelectorAll('.bk-pb-note'),function(el){
+      el.textContent='For your dates · before taxes'+(q.promo?' · promo-eligible':'');
     });
   }
   if(q.adults) document.getElementById('ctAd').value=q.adults;

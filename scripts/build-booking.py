@@ -53,7 +53,7 @@ def page(title,body):
       '<title>'+title+'</title>\n'
       '<link rel="stylesheet" href="/booking-chrome.css?v=3">\n'
       '<link rel="stylesheet" href="/overrides.css?v=4dark31">\n'
-      '<link rel="stylesheet" href="/booking.css?v=14">\n'
+      '<link rel="stylesheet" href="/booking.css?v=15">\n'
       '<script src="/assets/booking-demo.js?v=7" defer></script>\n'
       '</head>\n<body>\n<a class="skip-to-content" href="#main">Skip to content</a>\n<header>\n'
       +NAV+'\n</header>\n<main id="main">\n'+body+'\n</main>\n\n'+FOOT+'\n'+HAM_JS+'\n</body>\n</html>\n')
@@ -576,8 +576,8 @@ document.addEventListener('DOMContentLoaded',function(){
   // availability per community for q.in→q.out; promo pricing where eligible,
   // lowest-date rate as the fallback.
   if(nights){
-    [].forEach.call(document.querySelectorAll('.bk-prop-ratechip small'),function(el){
-      el.textContent='Sample · for your dates'+(q.promo?' · promo-eligible':'');
+    [].forEach.call(document.querySelectorAll('.bk-pb-note'),function(el){
+      el.textContent='For your dates · before taxes'+(q.promo?' · promo-eligible':'');
     });
   }
   if(q.adults) document.getElementById('ctAd').value=q.adults;
@@ -639,16 +639,18 @@ IMGS=['/assets/bk-city-1.jpg','/assets/bk-city-2.jpg','/assets/bk-city-3.jpg']
 for cslug,(cname,props) in CITY_DATA.items():
     cards='\n'.join(
         '    <div class="bk-prop" data-prop="'+ps+'">\n'
-        '      <div class="bk-prop-media"><img class="bk-prop-img" src="'+IMGS[i%3]+'" alt="'+pn+'">\n'
-        '      <!-- PRODUCTION: lowest available rate per community (StayNTouch via SentralOS); promo w/ no eligible rate falls back to lowest date-rate; hide only when no availability. -->\n'
-        '      <div class="bk-prop-ratechip"><b>From '+_money(low)+'</b>/night<small>Sample &middot; before taxes</small></div></div>\n'
+        '      <img class="bk-prop-img" src="'+IMGS[i%3]+'" alt="'+pn+'">\n'
         '      <div class="bk-prop-body"><div class="bk-prop-name">'+pn+'</div>\n'
-        '      <div class="bk-prop-meta">'+meta+note+'</div>\n'
-        '      <div class="bk-prop-hood">'+PIN+'<span>'+hood+'</span></div>\n'
+        '      <div class="bk-prop-meta">'+meta+' &middot; '+hood+note+'</div>\n'
         '      <p class="bk-prop-line">'+line+'</p>\n'
-        '      <details class="bk-prop-am"><summary>Amenities</summary><ul>'+''.join('<li>'+a+'</li>' for a in am)+'</ul></details>\n'
-        '      <div class="bk-prop-ctas"><a class="bk-btn bk-prop-book" data-avail href="/book/search?property='+ps+'">Check availability &nbsp;&rarr;</a>'
-        '<a class="bk-prop-cta bk-prop-view" href="'+PROP_PAGE.get(ps,'/stay/sol-modern')+'">View property &nbsp;&rarr;</a></div></div>\n'
+        '      <!-- Price bar w/ inline button (owner mock, Variation 3). PRODUCTION: lowest\n'
+        '           available rate per community (StayNTouch via SentralOS); a promo with no\n'
+        '           eligible rate falls back to the lowest date-rate; row hides the price\n'
+        '           only at zero availability. -->\n'
+        '      <div class="bk-prop-foot">\n'
+        '        <div class="bk-pb"><span class="bk-pb-amt">'+_money(low)+'</span> <span class="bk-pb-per">/ night</span><small class="bk-pb-note">Before taxes</small></div>\n'
+        '        <a class="bk-btn bk-prop-book" data-avail href="/book/search?property='+ps+'">Book Now &nbsp;&rarr;</a>\n'
+        '      </div></div>\n'
         '    </div>' for i,(ps,pn,meta,note,hood,line,am,low) in enumerate(props))
     body=(header('Sentral &mdash; Book a Stay',cname+'. <em>Choose your Sentral.</em>','ctContext')
       +'\n'+RIBBON+'''
@@ -680,8 +682,8 @@ document.addEventListener('DOMContentLoaded',function(){
   // availability per community for q.in→q.out; promo pricing where eligible,
   // lowest-date rate as the fallback.
   if(nights){
-    [].forEach.call(document.querySelectorAll('.bk-prop-ratechip small'),function(el){
-      el.textContent='Sample · for your dates'+(q.promo?' · promo-eligible':'');
+    [].forEach.call(document.querySelectorAll('.bk-pb-note'),function(el){
+      el.textContent='For your dates · before taxes'+(q.promo?' · promo-eligible':'');
     });
   }
   if(q.adults) document.getElementById('ctAd').value=q.adults;
