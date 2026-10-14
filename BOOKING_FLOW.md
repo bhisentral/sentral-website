@@ -52,6 +52,13 @@ warn and block booking under their minimum.
   Park; others [FIELD]), one-line suites/amenities [FIELD], Amenities expand/collapse.
 
 
+**City-card rate rule (owner, 2026-10-14):** each community card on a city
+page shows the lowest available rate. With dates requested, it is the lowest
+rate *for those dates*. **If a promo code is applied and yields no eligible
+rate for a community, the card falls back to the lowest date-rate — a card
+never shows a blank or error because of a promo.** All from StayNTouch via
+SentralOS; the line hides only when the community has no availability at all.
+
 **Entry points wired:** home bookbar CHECK RATES → `/book/search` (property+dates);
 property-page CHECK RATES (hero + booking band) → `/book/search` with suite
 pre-selected; nav BOOK A STAY on funnel pages → `/book/search`.

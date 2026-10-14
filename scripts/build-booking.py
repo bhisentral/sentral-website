@@ -53,7 +53,7 @@ def page(title,body):
       '<title>'+title+'</title>\n'
       '<link rel="stylesheet" href="/booking-chrome.css?v=3">\n'
       '<link rel="stylesheet" href="/overrides.css?v=4dark31">\n'
-      '<link rel="stylesheet" href="/booking.css?v=12">\n'
+      '<link rel="stylesheet" href="/booking.css?v=13">\n'
       '<script src="/assets/booking-demo.js?v=7" defer></script>\n'
       '</head>\n<body>\n<a class="skip-to-content" href="#main">Skip to content</a>\n<header>\n'
       +NAV+'\n</header>\n<main id="main">\n'+body+'\n</main>\n\n'+FOOT+'\n'+HAM_JS+'\n</body>\n</html>\n')
@@ -570,6 +570,16 @@ document.addEventListener('DOMContentLoaded',function(){
   if(q['in']) document.getElementById('ctIn').value=q['in'];
   if(q.out) document.getElementById('ctOut').value=q.out;
   if(q.promo) document.getElementById('ctPromo').value=q.promo;
+  // Rate-line rule (owner 10-14): if a promo code applies but yields no rate
+  // for a community, the card still shows the lowest available rate for the
+  // requested dates — never a blank price. PRODUCTION: StayNTouch lowest
+  // availability per community for q.in→q.out; promo pricing where eligible,
+  // lowest-date rate as the fallback.
+  if(nights){
+    [].forEach.call(document.querySelectorAll('.bk-prop-price small'),function(el){
+      el.textContent='Sample · for your dates'+(q.promo?' · promo-eligible':'');
+    });
+  }
   if(q.adults) document.getElementById('ctAd').value=q.adults;
   if(q.children) document.getElementById('ctCh').value=q.children;
   document.getElementById('ctEdit').addEventListener('submit',function(e){
@@ -630,13 +640,13 @@ for cslug,(cname,props) in CITY_DATA.items():
     cards='\n'.join(
         '    <div class="bk-prop" data-prop="'+ps+'">\n'
         '      <img class="bk-prop-img" src="'+IMGS[i%3]+'" alt="'+pn+'">\n'
-        '      <div class="bk-prop-body"><div class="bk-prop-name">'+pn+'</div>\n'
+        '      <div class="bk-prop-body"><div class="bk-prop-head"><div class="bk-prop-name">'+pn+'</div>\n'
+        '      <!-- PRODUCTION: lowest available rate per community (StayNTouch via SentralOS); promo w/ no eligible rate falls back to lowest date-rate; hide only when no availability. -->\n'
+        '      <div class="bk-prop-price"><b>From '+_money(low)+'</b>/night<small>Sample &middot; before taxes</small></div></div>\n'
         '      <div class="bk-prop-meta">'+meta+note+'</div>\n'
         '      <div class="bk-prop-hood">'+PIN+'<span>'+hood+'</span></div>\n'
         '      <p class="bk-prop-line">'+line+'</p>\n'
         '      <details class="bk-prop-am"><summary>Amenities</summary><ul>'+''.join('<li>'+a+'</li>' for a in am)+'</ul></details>\n'
-        '      <!-- PRODUCTION: lowest available rate per community from StayNTouch via SentralOS; hide when no live rate. -->\n'
-        '      <div class="bk-prop-price"><b>From '+_money(low)+'</b> / night <small>Sample &middot; lowest rate across suites &middot; before taxes</small></div>\n'
         '      <div class="bk-prop-ctas"><a class="bk-btn bk-prop-book" data-avail href="/book/search?property='+ps+'">Check availability &nbsp;&rarr;</a>'
         '<a class="bk-prop-cta bk-prop-view" href="'+PROP_PAGE.get(ps,'/stay/sol-modern')+'">View property &nbsp;&rarr;</a></div></div>\n'
         '    </div>' for i,(ps,pn,meta,note,hood,line,am,low) in enumerate(props))
@@ -664,6 +674,16 @@ document.addEventListener('DOMContentLoaded',function(){
   if(q['in']) document.getElementById('ctIn').value=q['in'];
   if(q.out) document.getElementById('ctOut').value=q.out;
   if(q.promo) document.getElementById('ctPromo').value=q.promo;
+  // Rate-line rule (owner 10-14): if a promo code applies but yields no rate
+  // for a community, the card still shows the lowest available rate for the
+  // requested dates — never a blank price. PRODUCTION: StayNTouch lowest
+  // availability per community for q.in→q.out; promo pricing where eligible,
+  // lowest-date rate as the fallback.
+  if(nights){
+    [].forEach.call(document.querySelectorAll('.bk-prop-price small'),function(el){
+      el.textContent='Sample · for your dates'+(q.promo?' · promo-eligible':'');
+    });
+  }
   if(q.adults) document.getElementById('ctAd').value=q.adults;
   if(q.children) document.getElementById('ctCh').value=q.children;
   [].forEach.call(document.querySelectorAll('.bk-prop'),function(c){
