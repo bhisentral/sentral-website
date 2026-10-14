@@ -7,7 +7,7 @@
 <title>Choose Your Property — Book a Stay — Sentral</title>
 <link rel="stylesheet" href="/booking-chrome.css?v=3">
 <link rel="stylesheet" href="/overrides.css?v=4dark31">
-<link rel="stylesheet" href="/booking.css?v=15">
+<link rel="stylesheet" href="/booking.css?v=16">
 <script src="/assets/booking-demo.js?v=7" defer></script>
 </head>
 <body>
@@ -85,8 +85,12 @@ document.addEventListener('DOMContentLoaded',function(){
   // availability per community for q.in→q.out; promo pricing where eligible,
   // lowest-date rate as the fallback.
   if(nights){
-    [].forEach.call(document.querySelectorAll('.bk-pb-note'),function(el){
-      el.textContent='For your dates · before taxes'+(q.promo?' · promo-eligible':'');
+    [].forEach.call(document.querySelectorAll('.bk-prop'),function(card){
+      var note=card.querySelector('.bk-pb-note'), excl=card.querySelector('.bk-pb-excl');
+      if(!note) return;
+      var ok=card.getAttribute('data-promo-ok')!=='0';
+      note.textContent='For your dates · before taxes';
+      if(q.promo){ if(ok){ note.textContent+=' · promo-eligible'; } else if(excl){ excl.hidden=false; } }
     });
   }
   if(q.adults) document.getElementById('ctAd').value=q.adults;

@@ -53,7 +53,7 @@ def page(title,body):
       '<title>'+title+'</title>\n'
       '<link rel="stylesheet" href="/booking-chrome.css?v=3">\n'
       '<link rel="stylesheet" href="/overrides.css?v=4dark31">\n'
-      '<link rel="stylesheet" href="/booking.css?v=15">\n'
+      '<link rel="stylesheet" href="/booking.css?v=16">\n'
       '<script src="/assets/booking-demo.js?v=7" defer></script>\n'
       '</head>\n<body>\n<a class="skip-to-content" href="#main">Skip to content</a>\n<header>\n'
       +NAV+'\n</header>\n<main id="main">\n'+body+'\n</main>\n\n'+FOOT+'\n'+HAM_JS+'\n</body>\n</html>\n')
@@ -635,8 +635,12 @@ document.addEventListener('DOMContentLoaded',function(){
   // availability per community for q.in→q.out; promo pricing where eligible,
   // lowest-date rate as the fallback.
   if(nights){
-    [].forEach.call(document.querySelectorAll('.bk-pb-note'),function(el){
-      el.textContent='For your dates · before taxes'+(q.promo?' · promo-eligible':'');
+    [].forEach.call(document.querySelectorAll('.bk-prop'),function(card){
+      var note=card.querySelector('.bk-pb-note'), excl=card.querySelector('.bk-pb-excl');
+      if(!note) return;
+      var ok=card.getAttribute('data-promo-ok')!=='0';
+      note.textContent='For your dates · before taxes';
+      if(q.promo){ if(ok){ note.textContent+=' · promo-eligible'; } else if(excl){ excl.hidden=false; } }
     });
   }
   if(q.adults) document.getElementById('ctAd').value=q.adults;
@@ -824,16 +828,16 @@ for fname,(title,body) in PAGES.items():
 _AM=['Full kitchen','In-unit washer &amp; dryer','Fitness center','Keyless entry','Dedicated workspace','Pet friendly']
 _LINE='[FIELD] Studios to two bedrooms &middot; full kitchens &middot; in-unit laundry &middot; fitness center'
 CITY_DATA={
- 'charlotte':   ('Charlotte',   [('inkwell','Inkwell','Charlotte, NC','','NoDa',_LINE,_AM,139),
-                                 ('joinery-north','Joinery North','Charlotte, NC','','Optimist Park',_LINE,_AM,129),
-                                 ('joinery-west','Joinery West','Charlotte, NC','','Optimist Park',_LINE,_AM,135)]),
- 'austin':      ('Austin',      [('sentral-east-austin-1630','Sentral East Austin 1630','Austin, TX',' · 30+ nights','East Austin',_LINE,_AM,119),
-                                 ('sentral-east-austin-1614','Sentral East Austin 1614','Austin, TX','','East Austin',_LINE,_AM,149)]),
- 'los-angeles': ('Los Angeles', [('sentral-dtla-755','Sentral DTLA 755','Los Angeles, CA',' · 31+ nights','Downtown LA',_LINE,_AM,159),
-                                 ('sentral-dtla-732','Sentral DTLA 732','Los Angeles, CA',' · 31+ nights','Downtown LA',_LINE,_AM,155),
-                                 ('figueroa-eight','Figueroa Eight','Los Angeles, CA',' · 31+ nights','Downtown LA',_LINE,_AM,169)]),
- 'miami':       ('Miami',       [('alea','Alea','Miami, FL','','[FIELD] Neighborhood',_LINE,_AM,189),
-                                 ('sentral-wynwood','Sentral Wynwood','Miami, FL','','Wynwood',_LINE,_AM,179)]),
+ 'charlotte':   ('Charlotte',   [('inkwell','Inkwell','Charlotte, NC','','NoDa',_LINE,_AM,139,True),
+                                 ('joinery-north','Joinery North','Charlotte, NC','','Optimist Park',_LINE,_AM,129,True),
+                                 ('joinery-west','Joinery West','Charlotte, NC','','Optimist Park',_LINE,_AM,135,True)]),
+ 'austin':      ('Austin',      [('sentral-east-austin-1630','Sentral East Austin 1630','Austin, TX',' · 30+ nights','East Austin',_LINE,_AM,119,True),
+                                 ('sentral-east-austin-1614','Sentral East Austin 1614','Austin, TX','','East Austin',_LINE,_AM,149,False)]),
+ 'los-angeles': ('Los Angeles', [('sentral-dtla-755','Sentral DTLA 755','Los Angeles, CA',' · 31+ nights','Downtown LA',_LINE,_AM,159,True),
+                                 ('sentral-dtla-732','Sentral DTLA 732','Los Angeles, CA',' · 31+ nights','Downtown LA',_LINE,_AM,155,True),
+                                 ('figueroa-eight','Figueroa Eight','Los Angeles, CA',' · 31+ nights','Downtown LA',_LINE,_AM,169,True)]),
+ 'miami':       ('Miami',       [('alea','Alea','Miami, FL','','[FIELD] Neighborhood',_LINE,_AM,189,True),
+                                 ('sentral-wynwood','Sentral Wynwood','Miami, FL','','Wynwood',_LINE,_AM,179,True)]),
 }
 # Property pages: only the Sol Modern template is built so far, so every VIEW
 # PROPERTY lands on it for review. PRODUCTION: /stay/{property-slug}.
@@ -842,22 +846,28 @@ PIN='<svg class="bk-pin" viewBox="0 0 24 24" width="14" height="14" aria-hidden=
 IMGS=['/assets/bk-city-1.jpg','/assets/bk-city-2.jpg','/assets/bk-city-3.jpg']
 for cslug,(cname,props) in CITY_DATA.items():
     cards='\n'.join(
-        '    <div class="bk-prop" data-prop="'+ps+'">\n'
+        '    <div class="bk-prop" data-prop="'+ps+'" data-promo-ok="'+('1' if promo_ok else '0')+'">\n'
+        '      <div class="bk-prop-name bk-prop-name-top">'+pn+'</div>\n'
         '      <img class="bk-prop-img" src="'+IMGS[i%3]+'" alt="'+pn+'">\n'
-        '      <div class="bk-prop-body"><div class="bk-prop-name">'+pn+'</div>\n'
-        '      <div class="bk-prop-meta">'+meta+' &middot; '+hood+note+'</div>\n'
-        '      <p class="bk-prop-line">'+line+'</p>\n'
-        '      <!-- Price bar w/ inline button (owner mock, Variation 3). PRODUCTION: lowest\n'
-        '           available rate per community (StayNTouch via SentralOS); a promo with no\n'
-        '           eligible rate falls back to the lowest date-rate; row hides the price\n'
-        '           only at zero availability. -->\n'
-        '      <div class="bk-prop-foot">\n'
-        '        <div class="bk-pb"><span class="bk-pb-amt">'+_money(low)+'</span> <span class="bk-pb-per">/ night</span><small class="bk-pb-note">Before taxes</small></div>\n'
-        '        <a class="bk-btn bk-prop-book" data-avail href="/book/search?property='+ps+'">Book Now &nbsp;&rarr;</a>\n'
+        '      <div class="bk-prop-body">\n'
+        '      <!-- PRODUCTION: lowest available rate per community for the requested dates\n'
+        '           (StayNTouch via SentralOS). A promo with no eligible rate for this\n'
+        '           community shows *Excluded from Promotion and the lowest date-rate —\n'
+        '           the price never blanks because of a promo. -->\n'
+        '      <div class="bk-prop-mid">\n'
+        '        <div class="bk-prop-meta">'+meta+' &middot; '+hood+('<br>'+note.replace(' &middot; ','') if note else '')+'</div>\n'
+        '        <div class="bk-pb"><span class="bk-pb-excl" hidden>*Excluded from Promotion</span>'
+        '<span class="bk-pb-from">Rates From</span>'
+        '<span class="bk-pb-amt">'+_money(low)+'</span> <span class="bk-pb-per">/ night</span>'
+        '<small class="bk-pb-note">Before taxes</small></div>\n'
         '      </div>\n'
+        '      <p class="bk-prop-line">'+line+'</p>\n'
         '      <details class="bk-prop-am"><summary>Amenities</summary><ul>'+''.join('<li>'+a+'</li>' for a in am)+'</ul></details>\n'
-        '      <a class="bk-prop-cta bk-prop-view" href="'+PROP_PAGE.get(ps,'/stay/sol-modern')+'">View Properties &nbsp;&rarr;</a></div>\n'
-        '    </div>' for i,(ps,pn,meta,note,hood,line,am,low) in enumerate(props))
+        '      <div class="bk-prop-btns">\n'
+        '        <a class="bk-btn bk-prop-book" data-avail href="/book/search?property='+ps+'">Book Now &nbsp;&rarr;</a>\n'
+        '        <a class="bk-btn slate" href="'+PROP_PAGE.get(ps,'/stay/sol-modern')+'">Property &nbsp;&rarr;</a>\n'
+        '      </div></div>\n'
+        '    </div>' for i,(ps,pn,meta,note,hood,line,am,low,promo_ok) in enumerate(props))
     body=(header('Sentral &mdash; Book a Stay',cname+'. <em>Choose your Sentral.</em>','ctContext')
       +'\n'+RIBBON+'''
 <div class="bk-wrap">
@@ -888,8 +898,12 @@ document.addEventListener('DOMContentLoaded',function(){
   // availability per community for q.in→q.out; promo pricing where eligible,
   // lowest-date rate as the fallback.
   if(nights){
-    [].forEach.call(document.querySelectorAll('.bk-pb-note'),function(el){
-      el.textContent='For your dates · before taxes'+(q.promo?' · promo-eligible':'');
+    [].forEach.call(document.querySelectorAll('.bk-prop'),function(card){
+      var note=card.querySelector('.bk-pb-note'), excl=card.querySelector('.bk-pb-excl');
+      if(!note) return;
+      var ok=card.getAttribute('data-promo-ok')!=='0';
+      note.textContent='For your dates · before taxes';
+      if(q.promo){ if(ok){ note.textContent+=' · promo-eligible'; } else if(excl){ excl.hidden=false; } }
     });
   }
   if(q.adults) document.getElementById('ctAd').value=q.adults;
