@@ -53,7 +53,7 @@ def page(title,body):
       '<title>'+title+'</title>\n'
       '<link rel="stylesheet" href="/booking-chrome.css?v=3">\n'
       '<link rel="stylesheet" href="/overrides.css?v=4dark31">\n'
-      '<link rel="stylesheet" href="/booking.css?v=11">\n'
+      '<link rel="stylesheet" href="/booking.css?v=12">\n'
       '<script src="/assets/booking-demo.js?v=7" defer></script>\n'
       '</head>\n<body>\n<a class="skip-to-content" href="#main">Skip to content</a>\n<header>\n'
       +NAV+'\n</header>\n<main id="main">\n'+body+'\n</main>\n\n'+FOOT+'\n'+HAM_JS+'\n</body>\n</html>\n')
@@ -610,16 +610,16 @@ for fname,(title,body) in PAGES.items():
 _AM=['Full kitchen','In-unit washer &amp; dryer','Fitness center','Keyless entry','Dedicated workspace','Pet friendly']
 _LINE='[FIELD] Studios to two bedrooms &middot; full kitchens &middot; in-unit laundry &middot; fitness center'
 CITY_DATA={
- 'charlotte':   ('Charlotte',   [('inkwell','Inkwell','Charlotte, NC','','NoDa',_LINE,_AM),
-                                 ('joinery-north','Joinery North','Charlotte, NC','','Optimist Park',_LINE,_AM),
-                                 ('joinery-west','Joinery West','Charlotte, NC','','Optimist Park',_LINE,_AM)]),
- 'austin':      ('Austin',      [('sentral-east-austin-1630','Sentral East Austin 1630','Austin, TX',' · 30+ nights','East Austin',_LINE,_AM),
-                                 ('sentral-east-austin-1614','Sentral East Austin 1614','Austin, TX','','East Austin',_LINE,_AM)]),
- 'los-angeles': ('Los Angeles', [('sentral-dtla-755','Sentral DTLA 755','Los Angeles, CA',' · 31+ nights','Downtown LA',_LINE,_AM),
-                                 ('sentral-dtla-732','Sentral DTLA 732','Los Angeles, CA',' · 31+ nights','Downtown LA',_LINE,_AM),
-                                 ('figueroa-eight','Figueroa Eight','Los Angeles, CA',' · 31+ nights','Downtown LA',_LINE,_AM)]),
- 'miami':       ('Miami',       [('alea','Alea','Miami, FL','','[FIELD] Neighborhood',_LINE,_AM),
-                                 ('sentral-wynwood','Sentral Wynwood','Miami, FL','','Wynwood',_LINE,_AM)]),
+ 'charlotte':   ('Charlotte',   [('inkwell','Inkwell','Charlotte, NC','','NoDa',_LINE,_AM,139),
+                                 ('joinery-north','Joinery North','Charlotte, NC','','Optimist Park',_LINE,_AM,129),
+                                 ('joinery-west','Joinery West','Charlotte, NC','','Optimist Park',_LINE,_AM,135)]),
+ 'austin':      ('Austin',      [('sentral-east-austin-1630','Sentral East Austin 1630','Austin, TX',' · 30+ nights','East Austin',_LINE,_AM,119),
+                                 ('sentral-east-austin-1614','Sentral East Austin 1614','Austin, TX','','East Austin',_LINE,_AM,149)]),
+ 'los-angeles': ('Los Angeles', [('sentral-dtla-755','Sentral DTLA 755','Los Angeles, CA',' · 31+ nights','Downtown LA',_LINE,_AM,159),
+                                 ('sentral-dtla-732','Sentral DTLA 732','Los Angeles, CA',' · 31+ nights','Downtown LA',_LINE,_AM,155),
+                                 ('figueroa-eight','Figueroa Eight','Los Angeles, CA',' · 31+ nights','Downtown LA',_LINE,_AM,169)]),
+ 'miami':       ('Miami',       [('alea','Alea','Miami, FL','','[FIELD] Neighborhood',_LINE,_AM,189),
+                                 ('sentral-wynwood','Sentral Wynwood','Miami, FL','','Wynwood',_LINE,_AM,179)]),
 }
 # Property pages: only the Sol Modern template is built so far, so every VIEW
 # PROPERTY lands on it for review. PRODUCTION: /stay/{property-slug}.
@@ -635,9 +635,11 @@ for cslug,(cname,props) in CITY_DATA.items():
         '      <div class="bk-prop-hood">'+PIN+'<span>'+hood+'</span></div>\n'
         '      <p class="bk-prop-line">'+line+'</p>\n'
         '      <details class="bk-prop-am"><summary>Amenities</summary><ul>'+''.join('<li>'+a+'</li>' for a in am)+'</ul></details>\n'
+        '      <!-- PRODUCTION: lowest available rate per community from StayNTouch via SentralOS; hide when no live rate. -->\n'
+        '      <div class="bk-prop-price"><b>From '+_money(low)+'</b> / night <small>Sample &middot; lowest rate across suites &middot; before taxes</small></div>\n'
         '      <div class="bk-prop-ctas"><a class="bk-btn bk-prop-book" data-avail href="/book/search?property='+ps+'">Check availability &nbsp;&rarr;</a>'
         '<a class="bk-prop-cta bk-prop-view" href="'+PROP_PAGE.get(ps,'/stay/sol-modern')+'">View property &nbsp;&rarr;</a></div></div>\n'
-        '    </div>' for i,(ps,pn,meta,note,hood,line,am) in enumerate(props))
+        '    </div>' for i,(ps,pn,meta,note,hood,line,am,low) in enumerate(props))
     body=(header('Sentral &mdash; Book a Stay',cname+'. <em>Choose your Sentral.</em>','ctContext')
       +'\n'+RIBBON+'''
 <div class="bk-wrap">
