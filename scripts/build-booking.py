@@ -650,7 +650,9 @@ for cslug,(cname,props) in CITY_DATA.items():
         '      <div class="bk-prop-foot">\n'
         '        <div class="bk-pb"><span class="bk-pb-amt">'+_money(low)+'</span> <span class="bk-pb-per">/ night</span><small class="bk-pb-note">Before taxes</small></div>\n'
         '        <a class="bk-btn bk-prop-book" data-avail href="/book/search?property='+ps+'">Book Now &nbsp;&rarr;</a>\n'
-        '      </div></div>\n'
+        '      </div>\n'
+        '      <details class="bk-prop-am"><summary>Amenities</summary><ul>'+''.join('<li>'+a+'</li>' for a in am)+'</ul></details>\n'
+        '      <a class="bk-prop-cta bk-prop-view" href="'+PROP_PAGE.get(ps,'/stay/sol-modern')+'">View Properties &nbsp;&rarr;</a></div>\n'
         '    </div>' for i,(ps,pn,meta,note,hood,line,am,low) in enumerate(props))
     body=(header('Sentral &mdash; Book a Stay',cname+'. <em>Choose your Sentral.</em>','ctContext')
       +'\n'+RIBBON+'''
