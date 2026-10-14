@@ -686,31 +686,31 @@ header('Sentral &mdash; Manage Reservation','Reservation <em>details.</em>','rdC
     <div class="rd-grid">
       <section aria-labelledby="rdH1">
         <h2 class="bk-rail-h" id="rdH1">Booking information</h2>
-        <h3 class="rd-prop" id="rdProp">Sol Modern</h3>
+        <div class="rd-body"><h3 class="rd-prop" id="rdProp">Sol Modern</h3>
         <div class="rd-addr" id="rdAddr">50 E. Fillmore Street, Phoenix, AZ 85004</div>
         <a class="rd-link" id="rdMap" href="#" target="_blank" rel="noopener">View on map</a>
         <dl class="bk-facts rd-facts">
           <div><dt>Offer code</dt><dd id="rdCode">&mdash;</dd></div>
-          <div><dt>Sentral confirmation number</dt><dd id="rdConf">SENT-SAMPLE</dd></div>
-        </dl>
-        <button type="button" class="bk-btn slate rd-btn" data-open="resent">Resend Confirmation</button>
+          <div><dt>Confirmation number</dt><dd id="rdConf">SENT-SAMPLE</dd></div>
+        </dl></div>
+        <div class="rd-act"><button type="button" class="bk-btn slate rd-btn" data-open="resent">Resend Confirmation</button></div>
         <p class="rd-stay"><span id="rdNights">2 nights</span><b id="rdDates">Sample dates</b></p>
       </section>
       <section aria-labelledby="rdH2">
         <h2 class="bk-rail-h" id="rdH2">Guest details</h2>
-        <dl class="bk-facts rd-facts">
+        <div class="rd-body"><dl class="bk-facts rd-facts">
           <div><dt>First name</dt><dd id="rdFirst">Sample</dd></div>
           <div><dt>Last name</dt><dd id="rdLast">Guest</dd></div>
           <div class="full"><dt>Email</dt><dd id="rdEmail">guest@example.com</dd></div>
           <div class="full"><dt>Phone</dt><dd id="rdPhone">+1 555 010 0142</dd></div>
-        </dl>
-        <button type="button" class="bk-btn slate rd-btn" data-open="edit">Edit Email/Phone</button>
+        </dl></div>
+        <div class="rd-act"><button type="button" class="bk-btn slate rd-btn" data-open="edit">Edit Email/Phone</button></div>
       </section>
       <section aria-labelledby="rdH3">
         <h2 class="bk-rail-h" id="rdH3">Arrival / check-in</h2>
-        <p class="rd-copy">Important step-by-step instructions on how to access the building, check in, get connected to WiFi, and more!</p>
+        <div class="rd-body"><p class="rd-copy">Important step-by-step instructions on how to access the building, check in, get connected to WiFi, and more!</p></div>
         <!-- [FIELD] per-property arrival guide URL -->
-        <a class="rd-link" href="#" id="rdArrival">View arrival information</a>
+        <div class="rd-act"><a class="rd-link" href="#" id="rdArrival">View arrival information</a></div>
       </section>
     </div>
     <div class="rd-actions" id="rdActions">

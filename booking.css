@@ -300,3 +300,12 @@ section.bkh.dark[class] h1 em,.bkh h1 em{font-style:italic;color:#F2E8D5 !import
 .rd-modbar{display:flex;flex-direction:column;gap:6px;background:#fff;border:1px solid rgba(45,74,92,.35);border-left:3px solid var(--bk-slate);padding:14px 18px;margin-bottom:22px;font-size:.875rem}
 .rd-modbar .rd-link{margin-top:0}
 @media(max-width:900px){.rd-grid{grid-template-columns:1fr;gap:26px}}
+/* details: the three columns share rows (heading / body / action / after) so
+   Resend Confirmation, Edit Email/Phone and View arrival information line up */
+@media(min-width:901px){
+  .rd-grid{grid-template-rows:auto 1fr auto auto;row-gap:0}
+  .rd-grid>section{display:grid;grid-template-rows:subgrid;grid-row:span 4}
+}
+.rd-act{display:flex;align-items:center;min-height:44px;margin-top:4px}
+.rd-act .rd-link{margin-top:0}
+.rd-body .rd-facts{margin-bottom:12px}
