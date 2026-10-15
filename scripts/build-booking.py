@@ -54,7 +54,7 @@ def page(title,body):
       '<link rel="stylesheet" href="/booking-chrome.css?v=3">\n'
       '<link rel="stylesheet" href="/overrides.css?v=4dark31">\n'
       '<link rel="stylesheet" href="/booking.css?v=19">\n'
-      '<script src="/assets/booking-demo.js?v=7" defer></script>\n'
+      '<script src="/assets/booking-demo.js?v=8" defer></script>\n'
       '</head>\n<body>\n<a class="skip-to-content" href="#main">Skip to content</a>\n<header>\n'
       +NAV+'\n</header>\n<main id="main">\n'+body+'\n</main>\n\n'+FOOT+'\n'+HAM_JS+'\n</body>\n</html>\n')
 
@@ -713,8 +713,8 @@ header('Sentral &mdash; Manage Reservation','Reservation <em>details.</em>','rdC
       <section aria-labelledby="rdH3">
         <h2 class="bk-rail-h" id="rdH3">Arrival / check-in</h2>
         <div class="rd-body"><p class="rd-copy">Important step-by-step instructions on how to access the building, check in, get connected to WiFi, and more!</p></div>
-        <!-- [FIELD] per-property arrival guide URL -->
-        <div class="rd-act"><a class="rd-link" href="#" id="rdArrival">View arrival information</a></div>
+        <!-- Property's TouchStay guide (Contentful-hosted), e.g. guide.sentraloldtown.com — BOOK property .guide [FIELD] -->
+        <div class="rd-act"><a class="rd-link" href="https://guide.sentraloldtown.com" id="rdArrival" target="_blank" rel="noopener">View arrival information</a></div>
       </section>
     </div>
     <div class="rd-actions" id="rdActions">
@@ -745,13 +745,14 @@ header('Sentral &mdash; Manage Reservation','Reservation <em>details.</em>','rdC
 document.addEventListener('DOMContentLoaded',function(){
   var q=BOOK.q();
   // Sample reservation when opened without a lookup (static review links)
-  var r={property:q.property||'sol-modern','in':q['in']||'2026-10-24',out:q.out||'2026-10-26',
+  var r={property:q.property||'sentral-old-town','in':q['in']||'2026-10-24',out:q.out||'2026-10-26',
     rooms:q.rooms||'one-bedroom:1:fall',adults:q.adults||'1',children:q.children||'0',promo:q.promo||''};
   var S=BOOK.summary(r), cur=S.cur, $=function(id){return document.getElementById(id)};
   var conf=(q.conf||'PHXA100000545').toUpperCase();
   $('rdContext').textContent=cur.name+', '+cur.city+' · Confirmation '+conf;
   $('rdProp').textContent=cur.name;
   $('rdAddr').textContent=cur.address||(cur.city+', '+cur.state);
+  if(cur.guide){ $('rdArrival').href=cur.guide; } else { $('rdArrival').removeAttribute('href'); $('rdArrival').setAttribute('aria-disabled','true'); $('rdArrival').title='Arrival guide link pending for this property'; }
   $('rdMap').href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent((cur.address||cur.name+' '+cur.city));
   $('rdCode').textContent=r.promo?r.promo.toUpperCase():'—';
   $('rdConf').textContent=conf;

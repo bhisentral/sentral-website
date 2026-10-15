@@ -28,11 +28,14 @@ window.BOOK = (function(){
     for(var k in (extra||{})) o[k]=extra[k];
     return o;
   }
-  /* Inventory mirrors the live stay-with-us picker (sq ft / beds are Sol Modern
+  /* guide = the property's TouchStay arrival guide (content hosted in
+     Contentful; Mirt 10-14) — "View arrival information" on Reservation
+     Details. [FIELD] per property; only Sentral Old Town confirmed so far.
+     Inventory mirrors the live stay-with-us picker (sq ft / beds are Sol Modern
      samples for every property until each property's real room set is loaded). */
   var PROPERTIES=[
     P('sol-modern','Sol Modern','Phoenix','AZ',{address:'50 E. Fillmore Street, Phoenix, AZ 85004',phone:'(833) 370-4161'}),
-    P('sentral-old-town','Sentral Old Town','Scottsdale','AZ'),
+    P('sentral-old-town','Sentral Old Town','Scottsdale','AZ',{address:'4735 North Scottsdale Road, Scottsdale, AZ 85251',guide:'https://guide.sentraloldtown.com'}),
     P('sentral-dtla-755','Sentral DTLA 755','Los Angeles','CA',{minStay:31}),
     P('sentral-dtla-732','Sentral DTLA 732','Los Angeles','CA',{minStay:31}),
     P('figueroa-eight','Figueroa Eight','Los Angeles','CA',{minStay:31}),
