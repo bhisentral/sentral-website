@@ -7,8 +7,10 @@
 <title>Reservation Details — Sentral</title>
 <link rel="stylesheet" href="/booking-chrome.css?v=3">
 <link rel="stylesheet" href="/overrides.css?v=4dark31">
-<link rel="stylesheet" href="/booking.css?v=19">
-<script src="/assets/booking-demo.js?v=8" defer></script>
+<link rel="stylesheet" href="/booking.css?v=20">
+<link rel="stylesheet" href="/assets/party-picker.css?v=2">
+<script src="/assets/party-picker.js?v=1" defer></script>
+<script src="/assets/booking-demo.js?v=9" defer></script>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -139,7 +141,7 @@ document.addEventListener('DOMContentLoaded',function(){
   $('rdLines').innerHTML=S.lines;
   $('rdTotal').textContent=$('rdTotal2').textContent=BOOK.cents(S.total);
   $('rdModify').href='/reservations/modify?'+BOOK.qs({modify:conf,property:r.property,'in':r['in'],out:r.out,
-    adults:r.adults,children:r.children,promo:r.promo||null,oin:r['in'],oout:r.out,orooms:r.rooms,rooms:null});
+    adults:r.adults,children:r.children,party:q.party||null,promo:r.promo||null,oin:r['in'],oout:r.out,orooms:r.rooms,rooms:null});
   $('rdBreakBtn').addEventListener('click',function(){
     var o=$('rdBreak').hidden; $('rdBreak').hidden=!o; this.setAttribute('aria-expanded',o);
     this.textContent=o?'Collapse breakdown':'View breakdown';

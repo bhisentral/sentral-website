@@ -562,6 +562,17 @@ section.combo-section.dark[class][class][class] .combo-right .combo-btn-g{color:
 section.combo-section.dark[class][class][class] .combo-right .combo-btn-g:hover{border-color:#8C6A2E !important;color:var(--black) !important}
 .combo-divider{background:rgba(0,0,0,.1) !important}
 </style>
+<link rel="stylesheet" href="/assets/party-picker.css?v=2">
+<script src="/assets/party-picker.js?v=1" defer></script>
+<style>
+/* Rooms & guests in the hero bar (Mirt 10-14): borderless field, panel drops below the bar */
+.bookbar#bbStay{overflow:visible;max-width:880px}
+.bb-field .pp-btn{height:auto;min-width:0;border:0;padding:0 20px 0 0;background-color:transparent !important;background-position:right 2px center;font-size:.875rem}
+.bb-field-party{flex:1.4 1 0}
+@media(min-width:561px){.bb-field .pp-panel{top:auto;bottom:calc(100% + 10px)}} /* hero clips below the bar → open upward */
+@media(max-width:560px){.bb-field .pp-panel{position:fixed;left:16px;right:16px;bottom:16px;top:auto;width:auto;max-height:80vh;overflow:auto;margin:0;box-shadow:0 10px 40px rgba(0,0,0,.4);z-index:300}} /* phone: bottom sheet (hero clips inline) */
+body:has(#bb-party .pp-panel:not([hidden])) .hero-motion-toggle{visibility:hidden} /* keep the video toggle off the open sheet */
+</style>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -770,10 +781,14 @@ section.combo-section.dark[class][class][class] .combo-right .combo-btn-g:hover{
         </select></div>
       <div class="bb-field"><label for="bb-in">Check-in</label><input id="bb-in" type="date"></div>
       <div class="bb-field"><label for="bb-out">Check-out</label><input id="bb-out" type="date"></div>
+      <div class="bb-field bb-field-party"><label id="bb-party-l">Rooms &amp; guests</label><div id="bb-party" class="pp--dark"></div></div>
       <a class="bb-btn" id="bbStayGo" href="/book/search">Check Rates &nbsp;&rarr;</a>
       <script>
-      /* Page 1 of the booking flow: the widget hands property/dates to
-         Search & Availability — no PMS call on this page. */
+      /* Page 1 of the booking flow: the widget hands property/dates/rooms &
+         guests to Search & Availability — no PMS call on this page. */
+      document.addEventListener('DOMContentLoaded',function(){
+        PartyPicker.mount(document.getElementById('bb-party'),{party:'2-0',labelledby:'bb-party-l'});
+      });
       document.getElementById('bbStayGo').addEventListener('click',function(e){
         var label=(document.getElementById('bb-city')||{}).value||'';
         var map={'Sol Modern':'sol-modern','Sentral Old Town':'sentral-old-town','DTLA 755':'sentral-dtla-755','DTLA 732':'sentral-dtla-732','Figueroa Eight':'figueroa-eight','Union Station':'sentral-union-station','Alea':'alea','Wynwood':'sentral-wynwood','Star Metals':'star-metals','Michigan Avenue':'sentral-michigan-avenue','Otonomus':'otonomus','Inkwell':'inkwell','Joinery North':'joinery-north','Joinery West':'joinery-west','Battery':'the-battery','SoBro':'sentral-sobro','East Austin 1630':'sentral-east-austin-1630','Forme':'forme','First Hill':'sentral-first-hill'};
@@ -782,6 +797,8 @@ section.combo-section.dark[class][class][class] .combo-right .combo-btn-g:hover{
         if(slug) q.push('property='+slug);
         var ci=(document.getElementById('bb-in')||{}).value, co=(document.getElementById('bb-out')||{}).value;
         if(ci) q.push('in='+ci); if(co) q.push('out='+co);
+        var bp=document.getElementById('bb-party');
+        if(bp&&bp.partyValue){ var pr=PartyPicker.params(bp.partyValue()); for(var k2 in pr) q.push(k2+'='+encodeURIComponent(pr[k2])); }
         this.href='/book/search'+(q.length?'?'+q.join('&'):'');
       });
       </script>

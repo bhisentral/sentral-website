@@ -95,3 +95,19 @@ cancel each trigger their own email + SMS). Every state has a static link for Hi
 | 7c | Verifying payment | https://sentral-website.vercel.app/reservations/modify?modify=PHXA100000545&property=sol-modern&in=2026-12-18&out=2026-12-20&adults=1&children=0&promo=SNTFAM&oin=2026-10-24&oout=2026-10-26&orooms=one-bedroom%3A1%3Afall&show=verifying |
 | 7c | Modified successfully | https://sentral-website.vercel.app/reservations/modify?modify=PHXA100000545&property=sol-modern&in=2026-12-18&out=2026-12-20&adults=1&children=0&promo=SNTFAM&oin=2026-10-24&oout=2026-10-26&orooms=one-bedroom%3A1%3Afall&show=modified |
 | — | Email Update | https://sentral-website.vercel.app/email-update?token=demo&name=Oscar |
+
+## Rooms & Guests picker — 2026-10-14 (Mirt: match the live engine)
+
+- One component (`assets/party-picker.js` + `.css`) on every booking widget: home hero bar,
+  Sol Modern hero card + booking band, city selectors, search edit bar.
+- Guests set **adults/children per room** (max 3 rooms; at 3 the picker points 4+ suite
+  parties to the group RFP, per Reservation Policies). URL: `party=2-0,3-1` (+ `adults`/`children`
+  totals for anything that only reads totals).
+- Search shows only suites that sleep the current room's party (`sleeps ≥ adults + children`)
+  and walks **Room 1 → Room N** ("Room 2 of 2 · 3 adults, 1 child — choose a suite"); picks
+  carry in `rooms=` in booking order (`studio:1:fall,two-bedroom:1:fall`). Nothing fits →
+  prompt to split rooms or request group rates. The per-card quantity stepper is gone.
+- Checkout / Confirmation / Reservation Details list "Room 1 · Studio — rate · 2 adults",
+  guests "5 adults, 1 child across 2 rooms". Checkout link = "Change rooms & guests".
+- Static review links: `/book/search?property=sol-modern&in=2026-11-12&out=2026-11-15&party=2-0,3-1`
+  (Room 1), add `&rooms=studio:1:fall` (Room 2); `&party=5-0` (nothing fits).

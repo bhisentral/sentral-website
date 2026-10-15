@@ -7,8 +7,10 @@
 <title>Checkout — Book a Stay — Sentral</title>
 <link rel="stylesheet" href="/booking-chrome.css?v=3">
 <link rel="stylesheet" href="/overrides.css?v=4dark31">
-<link rel="stylesheet" href="/booking.css?v=19">
-<script src="/assets/booking-demo.js?v=8" defer></script>
+<link rel="stylesheet" href="/booking.css?v=20">
+<link rel="stylesheet" href="/assets/party-picker.css?v=2">
+<script src="/assets/party-picker.js?v=1" defer></script>
+<script src="/assets/booking-demo.js?v=9" defer></script>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -95,7 +97,7 @@
       <h2 class="bk-rail-h">Booking details</h2>
       <h3 id="railProp">Sol Modern, Phoenix</h3>
       <div class="bk-rail-sub" id="railAddr">50 E. Fillmore Street, Phoenix, AZ 85004</div>
-      <div id="railRooms"><div class="bk-suite"><div><b>One Bedroom</b><small>Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%</small></div><a href="/book/search">Modify</a></div><a class="bk-addroom" href="/book/search">+ Add another suite</a></div>
+      <div id="railRooms"><div class="bk-suite"><div><b>One Bedroom</b><small>Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%</small></div><a href="/book/search">Modify</a></div><a class="bk-addroom" href="/book/search">Change rooms &amp; guests</a></div>
       <dl class="bk-facts" id="railFacts"><div><dt>Check-in</dt><dd>Sample date<small>4:00 PM</small></dd></div><div><dt>Check-out</dt><dd>Sample date<small>11:00 AM</small></dd></div><div><dt>Nights</dt><dd>3</dd></div><div><dt>Guests</dt><dd>2 adults, 0 children</dd></div></dl>
       <hr>
       <h2 class="bk-rail-h">Total price details</h2>
@@ -126,11 +128,11 @@ document.addEventListener('click',function(e){
 document.addEventListener('DOMContentLoaded',function(){
   var q=BOOK.q(), cur=BOOK.prop(q.property)||BOOK.PROPERTIES[0];
   document.getElementById('ckContext').textContent=cur.name+', '+cur.city+' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out);
-  var back='/book/search?'+BOOK.qs({}), S=BOOK.summary(q,{modify:back}), sub=S.sub;
+  var back='/book/search?'+BOOK.qs({rooms:null}), S=BOOK.summary(q,{modify:back}), sub=S.sub;
   document.getElementById('railProp').textContent=cur.name+', '+cur.city;
   document.getElementById('railAddr').textContent=cur.address||(cur.city+', '+cur.state);
   document.getElementById('railRooms').innerHTML=(S.count?S.rooms:'<div class="bk-line"><small>No suites selected — start from Suites &amp; Availability.</small></div>')+
-    '<a class="bk-addroom" href="'+back+'">+ Add another suite</a>';
+    '<a class="bk-addroom" href="'+back+'">Change rooms &amp; guests</a>';
   document.getElementById('railFacts').innerHTML=S.facts;
   document.getElementById('railLines').innerHTML=S.lines;
   document.getElementById('railTotal').textContent=sub?BOOK.cents(S.total):'—';

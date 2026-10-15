@@ -440,6 +440,9 @@ a.pt-suite-cta{text-decoration:none !important}
   ]
 }
 </script>
+<link rel="stylesheet" href="/assets/party-picker.css?v=2">
+<script src="/assets/party-picker.js?v=1" defer></script>
+<style>.pt-bf .pp-btn{height:44px;font-size:.875rem}.pt-bookcard,.pt-form{overflow:visible}</style>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -535,12 +538,8 @@ a.pt-suite-cta{text-decoration:none !important}
           <div class="pt-bf"><label for="hero-in">Check-in</label><input id="hero-in" type="date" required></div>
           <div class="pt-bf"><label for="hero-out">Check-out</label><input id="hero-out" type="date" required></div>
         </div>
-        <div class="pt-bf-row">
-          <div class="pt-bf"><label for="hero-guests">Guests</label>
-            <select id="hero-guests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6+</option></select>
-          </div>
-          <div class="pt-bf"><label for="hero-promo">Discount code</label><input id="hero-promo" type="text" placeholder="Enter code" autocomplete="off"></div>
-        </div>
+        <div class="pt-bf"><label id="hero-party-l">Rooms &amp; guests</label><div id="hero-party" class="pp--dark"></div></div>
+        <div class="pt-bf"><label for="hero-promo">Discount code</label><input id="hero-promo" type="text" placeholder="Enter code" autocomplete="off"></div>
         <!-- No suite picker (Laurie 10-13): search shows every suite type so
              guests see the upsell; never pre-filter on the front end. -->
         <button class="pt-book-btn" type="submit">Check Rates &nbsp;&rarr;</button>
@@ -841,14 +840,7 @@ a.pt-suite-cta{text-decoration:none !important}
           <div class="pt-bf"><label for="bk-in">Check-in</label><input id="bk-in" type="date" required></div>
           <div class="pt-bf"><label for="bk-out">Check-out</label><input id="bk-out" type="date" required></div>
         </div>
-        <div class="pt-bf-row">
-          <div class="pt-bf"><label for="bk-adults">Adults</label>
-            <select id="bk-adults"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select>
-          </div>
-          <div class="pt-bf"><label for="bk-kids">Children</label>
-            <select id="bk-kids"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
-          </div>
-        </div>
+        <div class="pt-bf"><label id="bk-party-l">Rooms &amp; guests</label><div id="bk-party" class="pp--dark"></div></div>
         <!-- No suite picker (Laurie 10-13) — search shows all suite types. -->
         <div class="pt-bf"><label for="bk-code">Promo or corporate code &mdash; optional</label><input id="bk-code" type="text" placeholder="Enter code"></div>
         <button class="pt-book-btn" type="submit">Check Rates &nbsp;&rarr;</button>
@@ -1318,13 +1310,19 @@ a.pt-suite-cta{text-decoration:none !important}
 // ── CHECK RATES ──
 // Hands the stay to the booking funnel (Search & Availability). At build the
 // funnel pulls live rates from StayNTouch via SentralOS.
+// Rooms & guests pickers (Mirt 10-14) — same component as every booking widget
+document.addEventListener('DOMContentLoaded',function(){
+  ['hero','bk'].forEach(function(p){ var el=document.getElementById(p+'-party'); if(el) PartyPicker.mount(el,{party:'2-0',labelledby:p+'-party-l'}); });
+});
 function ptCheckRates(e,source){
   e.preventDefault();
   var p=source==='hero'?['hero-in','hero-out']:['bk-in','bk-out'];
   var i=document.getElementById(p[0]).value,o=document.getElementById(p[1]).value;
   if(!i||!o){document.getElementById(p[0]).focus();return false;}
   var promo=((document.getElementById(source==='hero'?'hero-promo':'bk-code')||{}).value||'').trim();
-  window.location.href='/book/search?property=sol-modern&in='+i+'&out='+o+(promo?'&promo='+encodeURIComponent(promo):'');
+  var pe=document.getElementById(source==='hero'?'hero-party':'bk-party'), pq='';
+  if(pe&&pe.partyValue){ var pr=PartyPicker.params(pe.partyValue()); for(var k in pr) pq+='&'+k+'='+encodeURIComponent(pr[k]); }
+  window.location.href='/book/search?property=sol-modern&in='+i+'&out='+o+pq+(promo?'&promo='+encodeURIComponent(promo):'');
   return false;
 }
 </script>

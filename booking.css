@@ -320,3 +320,10 @@ section.bkh.dark[class] h1 em,.bkh h1 em{font-style:italic;color:#F2E8D5 !import
    (single grid column sized to the wider label) */
 .bk-prop-btns{display:grid;grid-template-columns:max-content;justify-content:start;gap:10px}
 .bk-prop-btns .bk-btn{width:100%;text-align:center}
+/* Rooms & guests picker in funnel bars (10-14) */
+.bk-flabel{font-size:.6563rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--bk-lt);white-space:nowrap}
+@media(min-width:561px){.bk-editbar .pp-btn{min-width:200px}}
+.bk-card[hidden]{display:none}
+.bk-step-now{font-weight:600}
+.bk-picked{list-style:none;margin:6px 0 0;padding:0;font-size:.8125rem;color:#4a4643}
+.bk-picked small{color:var(--bk-lt)}

@@ -7,8 +7,10 @@
 <title>Charlotte — Book a Stay — Sentral</title>
 <link rel="stylesheet" href="/booking-chrome.css?v=3">
 <link rel="stylesheet" href="/overrides.css?v=4dark31">
-<link rel="stylesheet" href="/booking.css?v=19">
-<script src="/assets/booking-demo.js?v=8" defer></script>
+<link rel="stylesheet" href="/booking.css?v=20">
+<link rel="stylesheet" href="/assets/party-picker.css?v=2">
+<script src="/assets/party-picker.js?v=1" defer></script>
+<script src="/assets/booking-demo.js?v=9" defer></script>
 </head>
 <body>
 <a class="skip-to-content" href="#main">Skip to content</a>
@@ -59,10 +61,7 @@
   <form class="bk-editbar" id="ctEdit">
     <div class="bk-f"><label for="ctIn">Check-in</label><input id="ctIn" type="date"></div>
     <div class="bk-f"><label for="ctOut">Check-out</label><input id="ctOut" type="date"></div>
-    <div class="bk-f"><label for="ctAd">Adults</label>
-      <select id="ctAd"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
-    <div class="bk-f"><label for="ctCh">Children</label>
-      <select id="ctCh"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+    <div class="bk-f"><span class="bk-flabel" id="ctPartyL">Rooms &amp; guests</span><div id="ctParty"></div></div>
     <div class="bk-f"><label for="ctPromo">Discount code</label><input id="ctPromo" type="text" placeholder="e.g. FALL20"></div>
     <button class="bk-btn" type="submit">Apply &nbsp;&rarr;</button>
   </form>
@@ -147,8 +146,7 @@ document.addEventListener('DOMContentLoaded',function(){
       if(q.promo){ if(ok){ note.textContent+=' · promo-eligible'; } else if(excl){ excl.hidden=false; } }
     });
   }
-  if(q.adults) document.getElementById('ctAd').value=q.adults;
-  if(q.children) document.getElementById('ctCh').value=q.children;
+  var pp=PartyPicker.mount(document.getElementById('ctParty'),{party:q.party,adults:q.adults,children:q.children,labelledby:'ctPartyL'});
   [].forEach.call(document.querySelectorAll('.bk-prop'),function(c){
     c.querySelector('[data-avail]').href='/book/search?'+BOOK.qs({property:c.getAttribute('data-prop'),city:null});
   });
@@ -156,7 +154,7 @@ document.addEventListener('DOMContentLoaded',function(){
     e.preventDefault();
     location.search='?'+BOOK.qs({
       'in':document.getElementById('ctIn').value, out:document.getElementById('ctOut').value,
-      adults:document.getElementById('ctAd').value, children:document.getElementById('ctCh').value,
+      party:PartyPicker.str(pp.partyValue()), adults:String(PartyPicker.totals(pp.partyValue()).a), children:String(PartyPicker.totals(pp.partyValue()).c),
       promo:document.getElementById('ctPromo').value.trim()||null});
   });
 });

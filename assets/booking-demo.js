@@ -110,6 +110,20 @@ window.BOOK = (function(){
     return Object.keys(sel).filter(function(k){return sel[k]&&sel[k].n>0})
       .map(function(k){return k+':'+sel[k].n+':'+(sel[k].plan||'fall')}).join(',');
   }
+  /* Rooms in booking order: "studio:1:fall,two-bedroom:1:campus" → list.
+     Room i is booked for party room i (Rooms & Guests picker). Old merged
+     "slug:qty:plan" URLs still read fine. */
+  function roomList(str){
+    var out=[]; (str||'').split(',').forEach(function(p){
+      var kv=p.split(':'); if(kv[0]&&+kv[1]>0) out.push({slug:kv[0],n:Math.min(9,+kv[1]),plan:kv[2]||'fall'});
+    }); return out;
+  }
+  function listParam(list){ return list.map(function(it){return it.slug+':'+(it.n||1)+':'+(it.plan||'fall')}).join(','); }
+  /* Party (adults/children per room) — ?party=2-0,1-1, else adults/children totals as one room */
+  function party(qq){
+    return window.PartyPicker ? window.PartyPicker.parse(qq.party,qq.adults,qq.children)
+      : [{a:+qq.adults||2,c:+qq.children||0}];
+  }
   function planPrice(r,pl){ return Math.round(r.from*pl.mult); }
   function fmtDate(d){
     if(!d) return '';
@@ -121,18 +135,20 @@ window.BOOK = (function(){
      (nightly total → included select fees → taxes on the full amount). */
   function summary(qq, opts){
     opts=opts||{};
-    var cur=prop(qq.property)||PROPERTIES[0], sel=parseRooms(qq.rooms), n=nights(qq['in'],qq.out)||1;
-    var ad=+qq.adults||2, ch=+qq.children||0, rooms='', sub=0, count=0;
-    cur.rooms.forEach(function(r){
-      var st=sel[r.slug]; if(!st||!st.n) return;
-      var pl=plan(st.plan), amt=planPrice(r,pl)*st.n*n; sub+=amt; count+=st.n;
-      rooms+='<div class="bk-suite"><div><b>'+(st.n>1?st.n+' × ':'')+r.name+'</b><small>'+pl.name+'</small></div>'+
+    var cur=prop(qq.property)||PROPERTIES[0], list=roomList(qq.rooms), n=nights(qq['in'],qq.out)||1;
+    var pty=party(qq), PP=window.PartyPicker, rooms='', sub=0, count=0;
+    var tot=pty.reduce(function(t,r){t.a+=r.a;t.c+=r.c;return t},{a:0,c:0}), ad=tot.a, ch=tot.c;
+    list.forEach(function(it,i){
+      var r=cur.rooms.filter(function(x){return x.slug===it.slug})[0]; if(!r) return;
+      var pl=plan(it.plan), amt=planPrice(r,pl)*it.n*n; sub+=amt; count+=it.n;
+      var g=(list.length>1||pty.length>1)&&pty[i]&&PP? ' · '+PP.guests(pty[i]) : '';
+      rooms+='<div class="bk-suite"><div><b>'+(list.length>1?'Room '+(i+1)+' · ':'')+(it.n>1?it.n+' × ':'')+r.name+'</b><small>'+pl.name+g+'</small></div>'+
         (opts.modify?'<a href="'+opts.modify+'">Modify</a>':'')+'</div>';
     });
     function fact(k,v){ return '<div><dt>'+k+'</dt><dd>'+v+'</dd></div>'; }
     var facts=fact('Check-in',fmtDate(qq['in'])+'<small>4:00 PM</small>')+
       fact('Check-out',fmtDate(qq.out)+'<small>11:00 AM</small>')+
-      fact('Nights',n)+fact('Guests',ad+(ad>1?' adults':' adult')+', '+ch+(ch===1?' child':' children'))+
+      fact('Nights',n)+fact('Guests',ad+(ad>1?' adults':' adult')+', '+ch+(ch===1?' child':' children')+(count>1?'<small>across '+count+' rooms</small>':''))+
       (count>1?fact('Rooms',count):'');
     var lines='', total=sub;
     if(sub){
@@ -150,7 +166,7 @@ window.BOOK = (function(){
     }
     return {cur:cur,nights:n,count:count,sub:sub,total:total,rooms:rooms,facts:facts,lines:lines};
   }
-  return {summary:summary,PROPERTIES:PROPERTIES,CITIES:CITIES,PLANS:PLANS,TAXES:TAXES,FEES:FEES,
+  return {summary:summary,roomList:roomList,listParam:listParam,party:party,PROPERTIES:PROPERTIES,CITIES:CITIES,PLANS:PLANS,TAXES:TAXES,FEES:FEES,
           q:q,qs:qs,prop:prop,plan:plan,nights:nights,money:money,cents:cents,planPrice:planPrice,
           parseRooms:parseRooms,roomsParam:roomsParam,fmtDate:fmtDate};
 })();

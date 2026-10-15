@@ -53,8 +53,10 @@ def page(title,body):
       '<title>'+title+'</title>\n'
       '<link rel="stylesheet" href="/booking-chrome.css?v=3">\n'
       '<link rel="stylesheet" href="/overrides.css?v=4dark31">\n'
-      '<link rel="stylesheet" href="/booking.css?v=19">\n'
-      '<script src="/assets/booking-demo.js?v=8" defer></script>\n'
+      '<link rel="stylesheet" href="/booking.css?v=20">\n'
+      '<link rel="stylesheet" href="/assets/party-picker.css?v=2">\n'
+      '<script src="/assets/party-picker.js?v=1" defer></script>\n'
+      '<script src="/assets/booking-demo.js?v=9" defer></script>\n'
       '</head>\n<body>\n<a class="skip-to-content" href="#main">Skip to content</a>\n<header>\n'
       +NAV+'\n</header>\n<main id="main">\n'+body+'\n</main>\n\n'+FOOT+'\n'+HAM_JS+'\n</body>\n</html>\n')
 
@@ -148,10 +150,6 @@ def _card(slug,name,spec,base,left):
       '<div class="bk-total-sm"><span data-tot><b>'+_money(first)+'</b> total &middot; 1 night</span>'
       '<small>Excludes taxes</small>'
       '<small>Includes <button type="button" class="bk-fees-link" data-fees>Select Fees</button></small></div>'
-      '<div class="bk-step-ctl"><span class="lbl">Rooms</span>'
-      '<button type="button" data-dec="'+slug+'" aria-label="One fewer '+name+'"><span aria-hidden="true">&minus;</span></button>'
-      '<span class="n" id="n-'+slug+'" aria-live="polite">1</span>'
-      '<button type="button" data-inc="'+slug+'" aria-label="One more '+name+'"><span aria-hidden="true">+</span></button></div>'
       '<a class="bk-btn bk-book-one" data-book="'+slug+'" href="/book/checkout?property=sol-modern&rooms='+slug+':1:'+SPLANS[0][0]+'">Book &nbsp;&rarr;</a>'
       '</div></div></div>')
 SEARCH_CARDS=''.join(_card(*r) for r in SROOMS)
@@ -179,18 +177,16 @@ PAGES['book-search.html']=('Search Availability — Book a Stay — Sentral',
 header('Sentral &mdash; Book a Stay','Choose your <em>suite.</em>','bkhContext',0)+'\n'+RIBBON+'''
 <div class="bk-wrap">
   <!-- PRODUCTION (P0): live availability + pricing from StayNTouch via
-       SentralOS (method TBC w/ Nathan). Multi-room: per-card qty stepper for
-       several of one suite; "Add another suite" from checkout returns here
-       with the stay carried in ?rooms= and the strip below. -->
+       SentralOS (method TBC w/ Nathan). Multi-room (Mirt 10-14): the Rooms &
+       Guests picker sets adults/children PER ROOM (?party=2-0,1-1); search
+       shows only suites that sleep that room's party and walks Room 1 → N,
+       carrying picks in ?rooms= (booking order) to checkout. -->
   <form class="bk-editbar" id="bkEdit">
     <div class="bk-f bk-f-grow"><label for="bkProp">Property</label>
       <select id="bkProp">'''+_SOPTS_HTML+'''</select></div>
     <div class="bk-f"><label for="bkIn">Check-in</label><input id="bkIn" type="date"></div>
     <div class="bk-f"><label for="bkOut">Check-out</label><input id="bkOut" type="date"></div>
-    <div class="bk-f"><label for="bkAd">Adults</label>
-      <select id="bkAd"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
-    <div class="bk-f"><label for="bkCh">Children</label>
-      <select id="bkCh"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+    <div class="bk-f"><span class="bk-flabel" id="bkPartyL">Rooms &amp; guests</span><div id="bkParty"></div></div>
     <div class="bk-f"><label for="bkPromo">Discount code</label><input id="bkPromo" type="text" placeholder="e.g. FALL20"></div>
     <button class="bk-btn slate" type="submit">Update Search &nbsp;&rarr;</button>
   </form>
@@ -282,7 +278,9 @@ header('Sentral &mdash; Book a Stay','Choose your <em>suite.</em>','bkhContext',
 </script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
-  var q=BOOK.q(), stay=BOOK.parseRooms(q.rooms);   // suites already in the stay (multi-room)
+  var q=BOOK.q(), party=BOOK.party(q), chosen=BOOK.roomList(q.rooms);  // party per room; suites picked so far
+  if(q.modify||chosen.length>=party.length) chosen=[];
+  var stepI=Math.min(chosen.length,party.length-1), need=party[stepI], fits=need.a+need.c;
   var props=BOOK.PROPERTIES, propSel=document.getElementById('bkProp'); // options baked static
   var cur=BOOK.prop(q.property)||null;
   var alertBox=document.getElementById('bkCityAlert');
@@ -299,17 +297,14 @@ document.addEventListener('DOMContentLoaded',function(){
   propSel.value=cur.slug;
   if(q['in']) document.getElementById('bkIn').value=q['in'];
   if(q.out) document.getElementById('bkOut').value=q.out;
-  if(q.adults) document.getElementById('bkAd').value=q.adults;
-  if(q.children) document.getElementById('bkCh').value=q.children;
   if(q.promo) document.getElementById('bkPromo').value=q.promo;
+  var pp=PartyPicker.mount(document.getElementById('bkParty'),{party:q.party,adults:q.adults,children:q.children,labelledby:'bkPartyL'});
   document.getElementById('bkEdit').addEventListener('submit',function(e){
     e.preventDefault();
     var p=propSel.value;
-    location.search='?'+BOOK.qs({property:p,city:null,
+    location.search='?'+BOOK.qs(Object.assign({property:p,city:null,
       'in':document.getElementById('bkIn').value,out:document.getElementById('bkOut').value,
-      adults:document.getElementById('bkAd').value,children:document.getElementById('bkCh').value,
-      promo:document.getElementById('bkPromo').value.trim()||null,
-      rooms:p===cur.slug?(BOOK.roomsParam(stay)||null):null});
+      promo:document.getElementById('bkPromo').value.trim()||null,rooms:null},PartyPicker.params(pp.partyValue())));
   });
   var nights=BOOK.nights(q['in'],q.out);
   var short=cur.minStay>1&&nights&&nights<cur.minStay;
@@ -321,7 +316,7 @@ document.addEventListener('DOMContentLoaded',function(){
   var res=document.getElementById('bkResults'), pick={};
   function room(slug){ return cur.rooms.filter(function(r){return r.slug===slug})[0]; }
   function state(slug){
-    if(!pick[slug]) pick[slug]={n:(stay[slug]&&stay[slug].n)||1, plan:(stay[slug]&&stay[slug].plan)||'fall'};
+    if(!pick[slug]) pick[slug]={n:1, plan:'fall'};
     return pick[slug];
   }
   function card(slug){ return res.querySelector('.bk-card[data-room="'+slug+'"]'); }
@@ -331,7 +326,6 @@ document.addEventListener('DOMContentLoaded',function(){
     var avg=BOOK.planPrice(r,pl), n=nights||1;
     c.querySelector('[data-avg]').textContent=BOOK.money(avg);
     c.querySelector('[data-tot]').innerHTML='<b>'+BOOK.money(avg*n*st.n)+'</b> total · '+n+(n>1?' nights':' night')+(st.n>1?' · '+st.n+' rooms':'');
-    c.querySelector('#n-'+slug).textContent=st.n;
     var bk=c.querySelector('.bk-book-one');
     bk.classList.toggle('off',!!short);
     if(short) bk.setAttribute('aria-disabled','true'); else bk.removeAttribute('aria-disabled');
@@ -342,6 +336,18 @@ document.addEventListener('DOMContentLoaded',function(){
     if(radio) radio.checked=true;
     paintCard(r.slug);
   });
+  // Only suites that sleep this room's party (adults + children)
+  var shown=0;
+  cur.rooms.forEach(function(r){ var c=card(r.slug); if(!c) return; var ok=r.sleeps>=fits; c.hidden=!ok; if(ok) shown++; });
+  var roomTag=party.length>1?' for Room '+(stepI+1)+' ('+PartyPicker.guests(need)+')':'';
+  document.getElementById('bkCount').textContent=shown?shown+(shown>1?' room types fit':' room type fits')+' your search'+roomTag
+    :'No single suite sleeps '+fits+' guests';
+  if(!shown){
+    var nf=document.createElement('div'); nf.className='bk-alert';
+    nf.innerHTML='Our largest suites sleep 4. Split your party across more rooms with <button type="button" class="bk-fees-link" id="bkSplit">Rooms &amp; guests</button>, or <a href="/group-travel.html#rfp-form">request group rates</a> for 4+ suites.';
+    res.parentNode.insertBefore(nf,res);
+    document.getElementById('bkSplit').addEventListener('click',function(e){ e.stopPropagation(); pp.partyOpen(); });
+  }
   res.addEventListener('change',function(e){
     if(e.target.type!=='radio') return;
     var slug=e.target.name.replace('pl-','');
@@ -364,21 +370,15 @@ document.addEventListener('DOMContentLoaded',function(){
       note.hidden=!open; more.setAttribute('aria-expanded',open);
       more.textContent=open?'Hide details':'Rate details'; return;
     }
-    var incB=t.closest('[data-inc]'), decB=t.closest('[data-dec]'),
-        inc=incB&&incB.getAttribute('data-inc'), dec=decB&&decB.getAttribute('data-dec'), k=inc||dec;
-    if(k){
-      var st=state(k); st.n=Math.max(1,Math.min(9,st.n+(inc?1:-1)));
-      paintCard(k); return;
-    }
     var bk=t.closest('.bk-book-one');
     if(bk){
       e.preventDefault();
       if(short) return;
       if(q.modify){ modReview(bk.getAttribute('data-book')); return; }
-      var slug=bk.getAttribute('data-book'), all={};
-      for(var s in stay) all[s]=stay[s];
-      all[slug]=state(slug);                          // add / replace this suite in the stay
-      location.href='/book/checkout?'+BOOK.qs({property:cur.slug,city:null,rooms:BOOK.roomsParam(all)});
+      var slug=bk.getAttribute('data-book');
+      var next=chosen.concat([{slug:slug,n:1,plan:state(slug).plan}]);   // this suite → Room stepI+1
+      var rp=BOOK.listParam(next);
+      location.href=(next.length<party.length?'/book/search?':'/book/checkout?')+BOOK.qs({property:cur.slug,city:null,rooms:rp});
     }
   });
   var sdlg=document.getElementById('bkSuite');
@@ -394,13 +394,13 @@ document.addEventListener('DOMContentLoaded',function(){
   function backHref(extra){ var o={}; for(var k in extra) o[k]=extra[k];
     o.conf=q.modify; o.modify=null; o.oin=null; o.oout=null; o.orooms=null; o.show=null; return '/reservations/details?'+BOOK.qs(o); }
   function modReview(slug){
-    var st=state(slug), r=room(slug), newRooms=slug+':'+st.n+':'+st.plan;
+    var st=state(slug), r=room(slug), newRooms=slug+':1:'+st.plan;
     var base={property:cur.slug,adults:q.adults,children:q.children,promo:q.promo};
     var oldS=BOOK.summary(Object.assign({},base,{'in':q.oin||q['in'],out:q.oout||q.out,rooms:q.orooms||newRooms}));
     var newS=BOOK.summary(Object.assign({},base,{'in':q['in'],out:q.out,rooms:newRooms}));
-    var diff=newS.total-oldS.total, ad=+q.adults||1, ch=+q.children||0;
+    var diff=newS.total-oldS.total, ad=party[0].a, ch=party[0].c;
     modBody.innerHTML='<h2 class="rd-dlg-h" id="bkModH">New booking</h2><p class="rd-copy">Please review the booking changes</p>'+
-      '<div class="rd-nb"><b>'+cur.name+'</b><span>'+(st.n>1?st.n+' × ':'')+r.name+' · '+BOOK.plan(st.plan).short+'</span>'+
+      '<div class="rd-nb"><b>'+cur.name+'</b><span>'+r.name+' · '+BOOK.plan(st.plan).short+'</span>'+
       '<small>'+ad+(ad>1?' adults':' adult')+(ch?', '+ch+(ch>1?' children':' child'):'')+'</small></div>'+
       '<dl class="bk-facts"><div><dt>Check-in</dt><dd>'+BOOK.fmtDate(q['in'])+'<small>4:00 PM</small></dd></div>'+
       '<div><dt>Check-out</dt><dd>'+BOOK.fmtDate(q.out)+'<small>11:00 AM</small></dd></div><div><dt>Nights</dt><dd>'+newS.nights+'</dd></div></dl>'+
@@ -438,14 +438,14 @@ document.addEventListener('DOMContentLoaded',function(){
     if(q.show==='verifying') modVerify(null);
     if(q.show==='modified') modDone(q.orooms);
   }
-  // Multi-room strip — only when returning from checkout via "Add another suite"
-  var names=[];
-  cur.rooms.forEach(function(r){ var s=stay[r.slug]; if(s&&s.n) names.push(s.n+' × '+r.name+' ('+(BOOK.plan(s.plan).short)+')'); });
-  if(names.length){
-    var strip=document.getElementById('bkStay');
+  // Room-by-room strip (multi-room parties): which room you're choosing + picks so far
+  if(party.length>1&&!q.modify){
+    var strip=document.getElementById('bkStay'), done='';
+    chosen.forEach(function(it,i){ var rr=room(it.slug); done+='<li>Room '+(i+1)+': <b>'+(rr?rr.name:it.slug)+'</b> · '+BOOK.plan(it.plan).short+' <small>('+PartyPicker.guests(party[i])+')</small></li>'; });
     strip.hidden=false;
-    strip.innerHTML='<span><b>In your stay:</b> '+names.join(', ')+'. Book another suite below to add it.</span>'+
-      '<a class="bk-btn slate" href="/book/checkout?'+BOOK.qs({property:cur.slug,city:null})+'">Back to Checkout &nbsp;&rarr;</a>';
+    strip.innerHTML='<div><span class="bk-step-now">Room '+(stepI+1)+' of '+party.length+' · '+PartyPicker.guests(need)+' — choose a suite</span>'+
+      (done?'<ul class="bk-picked">'+done+'</ul>':'')+'</div>'+
+      (chosen.length?'<a class="rd-link" href="/book/search?'+BOOK.qs({rooms:null})+'">Start over</a>':'');
   }
 });
 </script>''')
@@ -520,11 +520,11 @@ header('Sentral &mdash; Book a Stay','Almost <em>booked.</em>','ckContext',1)+''
 document.addEventListener('DOMContentLoaded',function(){
   var q=BOOK.q(), cur=BOOK.prop(q.property)||BOOK.PROPERTIES[0];
   document.getElementById('ckContext').textContent=cur.name+', '+cur.city+' · '+BOOK.fmtDate(q['in'])+' → '+BOOK.fmtDate(q.out);
-  var back='/book/search?'+BOOK.qs({}), S=BOOK.summary(q,{modify:back}), sub=S.sub;
+  var back='/book/search?'+BOOK.qs({rooms:null}), S=BOOK.summary(q,{modify:back}), sub=S.sub;
   document.getElementById('railProp').textContent=cur.name+', '+cur.city;
   document.getElementById('railAddr').textContent=cur.address||(cur.city+', '+cur.state);
   document.getElementById('railRooms').innerHTML=(S.count?S.rooms:'<div class="bk-line"><small>No suites selected — start from Suites &amp; Availability.</small></div>')+
-    '<a class="bk-addroom" href="'+back+'">+ Add another suite</a>';
+    '<a class="bk-addroom" href="'+back+'">Change rooms &amp; guests</a>';
   document.getElementById('railFacts').innerHTML=S.facts;
   document.getElementById('railLines').innerHTML=S.lines;
   document.getElementById('railTotal').textContent=sub?BOOK.cents(S.total):'—';
@@ -612,10 +612,7 @@ header('Sentral &mdash; Book a Stay','<span id="cityH">Choose your <em>Sentral.<
   <form class="bk-editbar" id="ctEdit">
     <div class="bk-f"><label for="ctIn">Check-in</label><input id="ctIn" type="date"></div>
     <div class="bk-f"><label for="ctOut">Check-out</label><input id="ctOut" type="date"></div>
-    <div class="bk-f"><label for="ctAd">Adults</label>
-      <select id="ctAd"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
-    <div class="bk-f"><label for="ctCh">Children</label>
-      <select id="ctCh"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+    <div class="bk-f"><span class="bk-flabel" id="ctPartyL">Rooms &amp; guests</span><div id="ctParty"></div></div>
     <div class="bk-f"><label for="ctPromo">Discount code <span style="text-transform:none;letter-spacing:.02em">&mdash; optional</span></label><input id="ctPromo" type="text" placeholder="e.g. FALL20" style="width:150px"></div>
     <button class="bk-btn" type="submit">Apply &nbsp;&rarr;</button>
   </form>
@@ -643,13 +640,12 @@ document.addEventListener('DOMContentLoaded',function(){
       if(q.promo){ if(ok){ note.textContent+=' · promo-eligible'; } else if(excl){ excl.hidden=false; } }
     });
   }
-  if(q.adults) document.getElementById('ctAd').value=q.adults;
-  if(q.children) document.getElementById('ctCh').value=q.children;
+  var pp=PartyPicker.mount(document.getElementById('ctParty'),{party:q.party,adults:q.adults,children:q.children,labelledby:'ctPartyL'});
   document.getElementById('ctEdit').addEventListener('submit',function(e){
     e.preventDefault();
     location.search='?'+BOOK.qs({city:q.city,
       'in':document.getElementById('ctIn').value, out:document.getElementById('ctOut').value,
-      adults:document.getElementById('ctAd').value, children:document.getElementById('ctCh').value,
+      party:PartyPicker.str(pp.partyValue()), adults:String(PartyPicker.totals(pp.partyValue()).a), children:String(PartyPicker.totals(pp.partyValue()).c),
       promo:document.getElementById('ctPromo').value.trim()||null});
   });
   document.getElementById('cityH').innerHTML=c.name+'. <em>Choose your Sentral.</em>';
@@ -765,7 +761,7 @@ document.addEventListener('DOMContentLoaded',function(){
   $('rdLines').innerHTML=S.lines;
   $('rdTotal').textContent=$('rdTotal2').textContent=BOOK.cents(S.total);
   $('rdModify').href='/reservations/modify?'+BOOK.qs({modify:conf,property:r.property,'in':r['in'],out:r.out,
-    adults:r.adults,children:r.children,promo:r.promo||null,oin:r['in'],oout:r.out,orooms:r.rooms,rooms:null});
+    adults:r.adults,children:r.children,party:q.party||null,promo:r.promo||null,oin:r['in'],oout:r.out,orooms:r.rooms,rooms:null});
   $('rdBreakBtn').addEventListener('click',function(){
     var o=$('rdBreak').hidden; $('rdBreak').hidden=!o; this.setAttribute('aria-expanded',o);
     this.textContent=o?'Collapse breakdown':'View breakdown';
@@ -875,10 +871,7 @@ for cslug,(cname,props) in CITY_DATA.items():
   <form class="bk-editbar" id="ctEdit">
     <div class="bk-f"><label for="ctIn">Check-in</label><input id="ctIn" type="date"></div>
     <div class="bk-f"><label for="ctOut">Check-out</label><input id="ctOut" type="date"></div>
-    <div class="bk-f"><label for="ctAd">Adults</label>
-      <select id="ctAd"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
-    <div class="bk-f"><label for="ctCh">Children</label>
-      <select id="ctCh"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+    <div class="bk-f"><span class="bk-flabel" id="ctPartyL">Rooms &amp; guests</span><div id="ctParty"></div></div>
     <div class="bk-f"><label for="ctPromo">Discount code</label><input id="ctPromo" type="text" placeholder="e.g. FALL20"></div>
     <button class="bk-btn" type="submit">Apply &nbsp;&rarr;</button>
   </form>
@@ -907,8 +900,7 @@ document.addEventListener('DOMContentLoaded',function(){
       if(q.promo){ if(ok){ note.textContent+=' · promo-eligible'; } else if(excl){ excl.hidden=false; } }
     });
   }
-  if(q.adults) document.getElementById('ctAd').value=q.adults;
-  if(q.children) document.getElementById('ctCh').value=q.children;
+  var pp=PartyPicker.mount(document.getElementById('ctParty'),{party:q.party,adults:q.adults,children:q.children,labelledby:'ctPartyL'});
   [].forEach.call(document.querySelectorAll('.bk-prop'),function(c){
     c.querySelector('[data-avail]').href='/book/search?'+BOOK.qs({property:c.getAttribute('data-prop'),city:null});
   });
@@ -916,7 +908,7 @@ document.addEventListener('DOMContentLoaded',function(){
     e.preventDefault();
     location.search='?'+BOOK.qs({
       'in':document.getElementById('ctIn').value, out:document.getElementById('ctOut').value,
-      adults:document.getElementById('ctAd').value, children:document.getElementById('ctCh').value,
+      party:PartyPicker.str(pp.partyValue()), adults:String(PartyPicker.totals(pp.partyValue()).a), children:String(PartyPicker.totals(pp.partyValue()).c),
       promo:document.getElementById('ctPromo').value.trim()||null});
   });
 });
@@ -965,7 +957,7 @@ lines=('<div class="bk-line"><span>Nightly total <small>3 nights</small></span><
 bake('book-checkout.html',[
  ('<h3 id="railProp"></h3>','<h3 id="railProp">Sol Modern, Phoenix</h3>'),
  ('<div class="bk-rail-sub" id="railAddr"></div>','<div class="bk-rail-sub" id="railAddr">50 E. Fillmore Street, Phoenix, AZ 85004</div>'),
- ('<div id="railRooms"></div>','<div id="railRooms"><div class="bk-suite"><div><b>One Bedroom</b><small>Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%</small></div><a href="/book/search">Modify</a></div><a class="bk-addroom" href="/book/search">+ Add another suite</a></div>'),
+ ('<div id="railRooms"></div>','<div id="railRooms"><div class="bk-suite"><div><b>One Bedroom</b><small>Limited Time Fall Sale | Stay 2+ Nights &amp; Save up to 20%</small></div><a href="/book/search">Modify</a></div><a class="bk-addroom" href="/book/search">Change rooms &amp; guests</a></div>'),
  ('<dl class="bk-facts" id="railFacts"></dl>','<dl class="bk-facts" id="railFacts"><div><dt>Check-in</dt><dd>Sample date<small>4:00 PM</small></dd></div><div><dt>Check-out</dt><dd>Sample date<small>11:00 AM</small></dd></div><div><dt>Nights</dt><dd>3</dd></div><div><dt>Guests</dt><dd>2 adults, 0 children</dd></div></dl>'),
  ('<div id="railLines"></div>','<div id="railLines">'+lines+'</div>'),
  ('<span id="railTotal">&mdash;</span>','<span id="railTotal">'+cents(sub+sum(a for _,a in tl))+'</span>'),

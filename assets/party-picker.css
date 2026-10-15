@@ -1,0 +1,35 @@
+/* Rooms & Guests picker — shared by every booking widget (see party-picker.js).
+   Light by default (funnel / city pages); .pp--dark for dark widget surfaces. */
+.pp{position:relative;min-width:0}
+.pp-btn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-width:210px;height:42px;padding:0 34px 0 12px;
+  border:1px solid rgba(40,40,40,.55);border-radius:2px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23282828' stroke-width='1.4'/%3E%3C/svg%3E") no-repeat right 12px center;
+  font:400 .875rem 'Aptos','Segoe UI',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;color:#282828;text-align:left;cursor:pointer;white-space:nowrap;text-transform:none !important;letter-spacing:normal !important}
+.pp-btn:focus-visible{outline:2px solid #2D4A5C;outline-offset:-1px}
+.pp-panel{position:absolute;z-index:60;top:calc(100% + 6px);left:0;width:300px;max-width:calc(100vw - 32px);background:#fff;color:#282828;
+  border:1px solid rgba(40,40,40,.18);border-radius:2px;box-shadow:0 10px 30px rgba(20,20,20,.16);padding:14px 16px 12px;text-align:left}
+.pp-panel[hidden]{display:none}
+.pp-room{padding:8px 0 10px;border-bottom:1px solid rgba(40,40,40,.1)}
+.pp-room-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.pp-room-h b{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:1rem}
+.pp-rm,.pp-add{background:none;border:0;padding:0;font:600 .6875rem 'Aptos','Segoe UI',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#2D4A5C;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.pp-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:.875rem}
+.pp-k small{color:#6B6560;font-size:.75rem;margin-left:4px}
+.pp-ctl{display:flex;align-items:center;gap:10px}
+.pp-ctl button{width:32px;height:32px;border:1px solid rgba(40,40,40,.55);border-radius:50%;background:#fff;color:#282828;font-size:1rem;line-height:1;cursor:pointer}
+.pp-ctl button:hover:not([disabled]){border-color:#2D4A5C;color:#2D4A5C}
+.pp-ctl button[disabled]{opacity:.3;cursor:default}
+.pp-n{min-width:18px;text-align:center;font-weight:600}
+.pp-foot{display:flex;justify-content:space-between;align-items:center;padding-top:12px}
+.pp-done{background:#2D4A5C;border:1px solid #2D4A5C;color:#fff;font:600 .75rem 'Aptos','Segoe UI',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:9px 18px;border-radius:2px;cursor:pointer}
+.pp-done:hover{background:#3D6478}
+.pp-group{font-size:.8125rem;color:#4a4643;margin:10px 0 0;line-height:1.5}
+.pp-group[hidden]{display:none}
+.pp-group a{color:#2D4A5C;font-weight:600}
+/* dark widget surfaces (home hero bar, property hero card) */
+.pp--dark .pp-btn{background-color:rgba(255,255,255,.07);border-color:rgba(255,255,255,.55);color:#fff;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23ffffff' stroke-width='1.4'/%3E%3C/svg%3E")}
+.pp--dark .pp-btn:focus-visible{outline-color:#8FB6C9}
+@media(max-width:560px){
+  .pp-btn{min-width:0}
+  .pp-panel{position:static;width:auto;max-width:none;margin-top:6px;box-shadow:none}
+}
