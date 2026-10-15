@@ -53,7 +53,7 @@ def page(title,body):
       '<title>'+title+'</title>\n'
       '<link rel="stylesheet" href="/booking-chrome.css?v=3">\n'
       '<link rel="stylesheet" href="/overrides.css?v=4dark31">\n'
-      '<link rel="stylesheet" href="/booking.css?v=18">\n'
+      '<link rel="stylesheet" href="/booking.css?v=19">\n'
       '<script src="/assets/booking-demo.js?v=7" defer></script>\n'
       '</head>\n<body>\n<a class="skip-to-content" href="#main">Skip to content</a>\n<header>\n'
       +NAV+'\n</header>\n<main id="main">\n'+body+'\n</main>\n\n'+FOOT+'\n'+HAM_JS+'\n</body>\n</html>\n')
@@ -865,7 +865,7 @@ for cslug,(cname,props) in CITY_DATA.items():
         '      <details class="bk-prop-am"><summary>Amenities</summary><ul>'+''.join('<li>'+a+'</li>' for a in am)+'</ul></details>\n'
         '      <div class="bk-prop-btns">\n'
         '        <a class="bk-btn bk-prop-book" data-avail href="/book/search?property='+ps+'">Book Now &nbsp;&rarr;</a>\n'
-        '        <a class="bk-btn slate" href="'+PROP_PAGE.get(ps,'/stay/sol-modern')+'">Property &nbsp;&rarr;</a>\n'
+        '        <a class="bk-btn slate" href="'+PROP_PAGE.get(ps,'/stay/sol-modern')+'">View Property &nbsp;&rarr;</a>\n'
         '      </div></div>\n'
         '    </div>' for i,(ps,pn,meta,note,hood,line,am,low,promo_ok) in enumerate(props))
     body=(header('Sentral &mdash; Book a Stay',cname+'. <em>Choose your Sentral.</em>','ctContext')

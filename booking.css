@@ -316,3 +316,7 @@ section.bkh.dark[class] h1 em,.bkh h1 em{font-style:italic;color:#F2E8D5 !import
 .rd-act{display:flex;align-items:center;min-height:44px;margin-top:4px}
 .rd-act .rd-link{margin-top:0}
 .rd-body .rd-facts{margin-bottom:12px}
+/* city cards (Laurie 10-14): stacked BOOK NOW / VIEW PROPERTY share one width
+   (single grid column sized to the wider label) */
+.bk-prop-btns{display:grid;grid-template-columns:max-content;justify-content:start;gap:10px}
+.bk-prop-btns .bk-btn{width:100%;text-align:center}
