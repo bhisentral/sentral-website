@@ -109,5 +109,10 @@ cancel each trigger their own email + SMS). Every state has a static link for Hi
   prompt to split rooms or request group rates. The per-card quantity stepper is gone.
 - Checkout / Confirmation / Reservation Details list "Room 1 · Studio — rate · 2 adults",
   guests "5 adults, 1 child across 2 rooms". Checkout link = "Change rooms & guests".
+- **Capacity source (Mirt, confirmed 10-14):** filter on `max_capacity` per room type from
+  SentralOS (or the StayNTouch API). Standard sizes are studio/1BR = 2, 2BR = 4, 3BR = 6,
+  but units with a den are exceptions — always use the DB value, never a hard-coded table.
+- **Children count toward capacity** like adults — confirmed in testing; Mirt is verifying
+  against StayNTouch documentation / QB.
 - Static review links: `/book/search?property=sol-modern&in=2026-11-12&out=2026-11-15&party=2-0,3-1`
   (Room 1), add `&rooms=studio:1:fall` (Room 2); `&party=5-0` (nothing fits).

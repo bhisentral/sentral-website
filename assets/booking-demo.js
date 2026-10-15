@@ -6,6 +6,11 @@
    ?property=&city=&in=&out=&adults=&children=&rooms=studio:1,one-bedroom:2&plan=
 ──────────────────────────────────────────────────────────────────────────── */
 window.BOOK = (function(){
+  /* sleeps = room capacity used to filter search per room (adults + children).
+     PRODUCTION (Mirt 10-14): read max_capacity per room type from SentralOS
+     (or the StayNTouch API) — never hard-code. Standard: studio/1BR = 2,
+     2BR = 4, 3BR = 6, but units with a den are exceptions, so DB data wins.
+     Children count toward capacity (confirmed in testing; SNT docs/QB check pending). */
   var ROOMS_STANDARD = [
     {slug:'studio',      name:'Studio',      sleeps:2, sqft:517,  beds:'1 Queen Bed',  baths:1, from:189, left:4, img:'/assets/bk-room-studio.jpg', thumbs:['/assets/bk-room-1br.jpg','/assets/bk-city-1.jpg','/assets/bk-city-2.jpg']},
     {slug:'one-bedroom', name:'One Bedroom', sleeps:2, sqft:673,  beds:'1 Queen Bed',  baths:1, from:229, left:7, img:'/assets/bk-room-1br.jpg', thumbs:['/assets/bk-room-studio.jpg','/assets/bk-city-2.jpg','/assets/bk-city-3.jpg']},
